@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WildForest.Application\WildForest.Application.csproj" />
+  </ItemGroup>
+
 </Project>

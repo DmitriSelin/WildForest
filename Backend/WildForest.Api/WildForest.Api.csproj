@@ -6,4 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WildForest.Application\WildForest.Application.csproj" />
+    <ProjectReference Include="..\WildForest.Contracts\WildForest.Contracts.csproj" />
+    <ProjectReference Include="..\WildForest.Infrastructure\WildForest.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
