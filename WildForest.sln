@@ -7,17 +7,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{B6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{F9A6D612-A0C5-4C25-B8C7-E7220920D26F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WildForest.UI", "Frontend\WildForest.UI\WildForest.UI.csproj", "{D7DD25FD-699C-45FA-8770-1B4200EFC27C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.UI", "Frontend\WildForest.UI\WildForest.UI.csproj", "{D7DD25FD-699C-45FA-8770-1B4200EFC27C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WildForest.Api", "Backend\WildForest.Api\WildForest.Api.csproj", "{CCAF4120-B9CF-4342-B94A-F6C05DE3486E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Api", "Backend\WildForest.Api\WildForest.Api.csproj", "{CCAF4120-B9CF-4342-B94A-F6C05DE3486E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WildForest.Application", "Backend\WildForest.Application\WildForest.Application.csproj", "{D55DB906-DA52-4B95-AE76-C92057ECC222}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Application", "Backend\WildForest.Application\WildForest.Application.csproj", "{D55DB906-DA52-4B95-AE76-C92057ECC222}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WildForest.Domain", "Backend\WildForest.Domain\WildForest.Domain.csproj", "{06302420-A71F-4D00-9004-A620807B19F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Domain", "Backend\WildForest.Domain\WildForest.Domain.csproj", "{06302420-A71F-4D00-9004-A620807B19F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WildForest.Infrastructure", "WildForest.Infrastructure\WildForest.Infrastructure.csproj", "{B7CD113F-62A9-4ACD-B66D-6B2E479EE837}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Contracts", "Backend\WildForest.Contracts\WildForest.Contracts.csproj", "{3672A4AA-4473-4CAD-9080-CAAA6DFDD875}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WildForest.Contracts", "Backend\WildForest.Contracts\WildForest.Contracts.csproj", "{3672A4AA-4473-4CAD-9080-CAAA6DFDD875}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WildForest.Infrastructure", "Backend\WildForest.Infrastructure\WildForest.Infrastructure.csproj", "{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,14 +43,14 @@ Global
 		{06302420-A71F-4D00-9004-A620807B19F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06302420-A71F-4D00-9004-A620807B19F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06302420-A71F-4D00-9004-A620807B19F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7CD113F-62A9-4ACD-B66D-6B2E479EE837}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7CD113F-62A9-4ACD-B66D-6B2E479EE837}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7CD113F-62A9-4ACD-B66D-6B2E479EE837}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7CD113F-62A9-4ACD-B66D-6B2E479EE837}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3672A4AA-4473-4CAD-9080-CAAA6DFDD875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3672A4AA-4473-4CAD-9080-CAAA6DFDD875}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3672A4AA-4473-4CAD-9080-CAAA6DFDD875}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3672A4AA-4473-4CAD-9080-CAAA6DFDD875}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,8 +60,8 @@ Global
 		{CCAF4120-B9CF-4342-B94A-F6C05DE3486E} = {F9A6D612-A0C5-4C25-B8C7-E7220920D26F}
 		{D55DB906-DA52-4B95-AE76-C92057ECC222} = {F9A6D612-A0C5-4C25-B8C7-E7220920D26F}
 		{06302420-A71F-4D00-9004-A620807B19F0} = {F9A6D612-A0C5-4C25-B8C7-E7220920D26F}
-		{B7CD113F-62A9-4ACD-B66D-6B2E479EE837} = {F9A6D612-A0C5-4C25-B8C7-E7220920D26F}
 		{3672A4AA-4473-4CAD-9080-CAAA6DFDD875} = {F9A6D612-A0C5-4C25-B8C7-E7220920D26F}
+		{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31} = {F9A6D612-A0C5-4C25-B8C7-E7220920D26F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {86AAB985-0438-49A5-AFA1-2D4A7F274723}
