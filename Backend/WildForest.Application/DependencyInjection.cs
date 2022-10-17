@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using WildForest.Application.Authentication.Commands.RegisterUser;
 
 namespace WildForest.Application
 {
@@ -6,6 +7,8 @@ namespace WildForest.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            services.AddScoped<IUserRegistrator, UserRegistrator>();
+            
             return services;
         }
     }

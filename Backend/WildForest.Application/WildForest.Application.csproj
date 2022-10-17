@@ -14,4 +14,10 @@
     <ProjectReference Include="..\WildForest.Domain\WildForest.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Authentication\Queries\" />
+    <Folder Include="Common\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
