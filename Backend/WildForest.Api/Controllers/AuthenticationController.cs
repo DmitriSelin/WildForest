@@ -19,11 +19,13 @@ namespace WildForest.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterRequest request)
         {
-            var authenticationResult = _userRegistrator.Register(
+            var command = new RegisterUserCommand(
                 request.FirstName,
                 request.LastName,
                 request.Email,
                 request.Password);
+
+            var authenticationResult = _userRegistrator.Register(command);
 
             var response = new AuthenticationResponse(
                 authenticationResult.User.Id,

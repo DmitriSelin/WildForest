@@ -4,10 +4,6 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
 {
     public interface IUserRegistrator
     {
-        public AuthenticationResult Register(
-            string firstName,
-            string lastName, 
-            string email,
-            string password);
+        public AuthenticationResult Register(RegisterUserCommand command);
     }
 }
