@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using WildForest.Application.Common.Interfaces.Persistence;
+using WildForest.Infrastructure.Persistence;
 
 namespace WildForest.Infrastructure
 {
@@ -7,7 +8,7 @@ namespace WildForest.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            services.AddScoped<IUserRepository, IUserRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }

@@ -5,7 +5,7 @@ using WildForest.Contracts.Authentication.Responses;
 
 namespace WildForest.Api.Controllers
 {
-    [Route("auth")]
+    [Route("api/auth")]
     [ApiController]
     public class AuthenticationController : ControllerBase
     {

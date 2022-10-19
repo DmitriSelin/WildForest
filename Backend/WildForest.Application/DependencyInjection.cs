@@ -11,5 +11,12 @@ namespace WildForest.Application
             
             return services;
         }
+
+        private static IServiceCollection AddAuthentication(this IServiceCollection services)
+        {
+            services.AddScoped<IUserRegistrator, UserRegistrator>();
+
+            return services;
+        }
     }
 }
