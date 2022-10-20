@@ -7,6 +7,11 @@ namespace WildForest.Infrastructure.Persistence
     {
         public static List<User> Users = new List<User>();
 
+        public async Task AddUserAsync(User user)
+        {
+            Users.Add(user);
+        }
+
         public async Task<User?> GetUserByEmailAsync(string email)
         {
             return Users.FirstOrDefault(x => x.Email == email);

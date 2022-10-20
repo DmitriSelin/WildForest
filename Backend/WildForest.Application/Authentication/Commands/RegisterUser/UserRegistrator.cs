@@ -16,17 +16,19 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
 
         public AuthenticationResult Register(RegisterUserCommand command)
         {
-            if (_userRepository.GetUserByEmailAsync(command.Email) != null)
+            User? user = _userRepository.GetUserByEmailAsync(command.Email).Result;
+
+            if (user != null)
             {
                 throw new Exception();
             }
 
-            var user = new User(Guid.NewGuid(), command.FirstName, command.LastName,
+            user = new User(Guid.NewGuid(), command.FirstName, command.LastName,
                 Role.User, command.Email, command.Password);
 
-            var authenticationResult = new AuthenticationResult(user, "token");
+            _userRepository.AddUserAsync(user);
 
-            return authenticationResult;
+            return new AuthenticationResult(user, "token");
         }
     }
 }

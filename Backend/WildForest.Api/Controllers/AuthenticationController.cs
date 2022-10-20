@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WildForest.Application.Authentication.Commands.RegisterUser;
+using WildForest.Application.Authentication.Queries.LoginUser;
 using WildForest.Contracts.Authentication.Requests;
 using WildForest.Contracts.Authentication.Responses;
 
@@ -10,10 +11,12 @@ namespace WildForest.Api.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IUserRegistrator _userRegistrator;
+        private readonly IUserLogger _userLogger;
 
-        public AuthenticationController(IUserRegistrator userRegistrator)
+        public AuthenticationController(IUserRegistrator userRegistrator, IUserLogger userLogger)
         {
             _userRegistrator = userRegistrator;
+            _userLogger = userLogger;
         }
 
         [HttpPost("register")]
@@ -41,7 +44,19 @@ namespace WildForest.Api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest request)
         {
-            return NotFound();
+            var query = new LoginUserQuery(request.Email, request.Password);
+
+            var authenticationResult = _userLogger.Login(query);
+
+            var response = new AuthenticationResponse(
+                authenticationResult.User.Id,
+                authenticationResult.User.FirstName,
+                authenticationResult.User.LastName,
+                authenticationResult.User.Email,
+                authenticationResult.User.Password,
+                authenticationResult.Token);
+
+            return Ok(response);
         }
     }
 }

@@ -8,9 +8,9 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
     {
         private readonly IUserRepository _userRepository;
 
-        public UserLogger(IUserRepository uesrRepository)
+        public UserLogger(IUserRepository userRepository)
         {
-            _userRepository = uesrRepository;
+            _userRepository = userRepository;
         }
 
         public AuthenticationResult Login(LoginUserQuery query)
