@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WildForest.Application\WildForest.Application.csproj" />
     <ProjectReference Include="..\WildForest.Contracts\WildForest.Contracts.csproj" />
     <ProjectReference Include="..\WildForest.Infrastructure\WildForest.Infrastructure.csproj" />
