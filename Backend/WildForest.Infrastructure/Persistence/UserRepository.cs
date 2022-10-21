@@ -5,7 +5,7 @@ namespace WildForest.Infrastructure.Persistence
 {
     public class UserRepository : IUserRepository
     {
-        public static List<User> Users = new List<User>();
+        public static List<User> Users = new();
 
         public async Task AddUserAsync(User user)
         {

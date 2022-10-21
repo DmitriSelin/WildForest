@@ -1,4 +1,5 @@
 ﻿using WildForest.Application.Authentication.Common;
+using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Entities;
@@ -7,10 +8,12 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
 {
     public class UserRegistrator : IUserRegistrator
     {
+        private readonly IJwtTokenGenerator _jwtTokenGenerator;
         private readonly IUserRepository _userRepository;
 
-        public UserRegistrator(IUserRepository userRepository)
+        public UserRegistrator(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
         {
+            _jwtTokenGenerator = jwtTokenGenerator;
             _userRepository = userRepository;
         }
 
@@ -28,7 +31,9 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
 
             _userRepository.AddUserAsync(user);
 
-            return new AuthenticationResult(user, "token");
+            var token = _jwtTokenGenerator.GenerateToken(user);
+
+            return new AuthenticationResult(user, token);
         }
     }
 }

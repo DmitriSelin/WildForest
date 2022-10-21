@@ -9,15 +9,8 @@ namespace WildForest.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddScoped<IUserRegistrator, UserRegistrator>();
-            
-            return services;
-        }
-
-        private static IServiceCollection AddAuthentication(this IServiceCollection services)
-        {
-            services.AddScoped<IUserRegistrator, UserRegistrator>();
             services.AddScoped<IUserLogger, UserLogger>();
-
+            
             return services;
         }
     }
