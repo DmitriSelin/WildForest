@@ -32,7 +32,7 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
 
             var token = _jwtTokenGenerator.GenerateToken(user);
 
-            return new AuthenticationResult(user, "token");
+            return new AuthenticationResult(user, token);
         }
     }
 }

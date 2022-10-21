@@ -12,7 +12,7 @@ namespace WildForest.Infrastructure.Authentication
         public string GenerateToken(User user)
         {
             var signingCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my-own-secret")),
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes("the-small-value1")),
                 SecurityAlgorithms.HmacSha256);
 
             var claims = new Claim[]
