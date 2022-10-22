@@ -1,18 +1,25 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Domain.Entities;
-
 namespace WildForest.Infrastructure.Authentication
 {
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
+        private readonly JwtSettings _jwtSettings;
+
+        public JwtTokenGenerator(IOptions<JwtSettings> jwtSettings)
+        {
+            _jwtSettings = jwtSettings.Value;
+        }
+
         public string GenerateToken(User user)
         {
             var signingCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes("the-small-value1")),
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
                 SecurityAlgorithms.HmacSha256);
 
             var claims = new Claim[]
@@ -24,9 +31,9 @@ namespace WildForest.Infrastructure.Authentication
             };
 
             var securityToken = new JwtSecurityToken(
-                issuer: "WildForest",
-                audience: "WildForest",
-                expires: DateTime.UtcNow.AddMinutes(5),
+                issuer: _jwtSettings.Issuer,
+                audience: _jwtSettings.Audience,
+                expires: DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryMinutes),
                 claims: claims,
                 signingCredentials: signingCredentials);
 
