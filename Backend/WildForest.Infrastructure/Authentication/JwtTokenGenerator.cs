@@ -4,16 +4,20 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using WildForest.Application.Common.Interfaces.Authentication;
+using WildForest.Application.Common.Interfaces.Services;
 using WildForest.Domain.Entities;
+
 namespace WildForest.Infrastructure.Authentication
 {
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
         private readonly JwtSettings _jwtSettings;
+        private readonly IDateTimeProvider _dateTimeProvider;
 
-        public JwtTokenGenerator(IOptions<JwtSettings> jwtSettings)
+        public JwtTokenGenerator(IOptions<JwtSettings> jwtSettings, IDateTimeProvider dateTimeProvider)
         {
             _jwtSettings = jwtSettings.Value;
+            _dateTimeProvider = dateTimeProvider;
         }
 
         public string GenerateToken(User user)
@@ -33,7 +37,7 @@ namespace WildForest.Infrastructure.Authentication
             var securityToken = new JwtSecurityToken(
                 issuer: _jwtSettings.Issuer,
                 audience: _jwtSettings.Audience,
-                expires: DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryMinutes),
+                expires: _dateTimeProvider.UtcNow.AddMinutes(_jwtSettings.ExpiryMinutes),
                 claims: claims,
                 signingCredentials: signingCredentials);
 
