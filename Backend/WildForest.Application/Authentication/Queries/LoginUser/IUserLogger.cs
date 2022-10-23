@@ -4,6 +4,6 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
 {
     public interface IUserLogger
     {
-        public AuthenticationResult Login(LoginUserQuery query);
+        public Task<AuthenticationResult> LoginAsync(LoginUserQuery query);
     }
 }

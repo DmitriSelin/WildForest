@@ -28,7 +28,7 @@ namespace WildForest.Api.Controllers
                 request.Email,
                 request.Password);
 
-            var authenticationResult = _userRegistrator.Register(command);
+            var authenticationResult = await _userRegistrator.RegisterAsync(command);
 
             var response = new AuthenticationResponse(
                 authenticationResult.User.Id,
@@ -46,7 +46,7 @@ namespace WildForest.Api.Controllers
         {
             var query = new LoginUserQuery(request.Email, request.Password);
 
-            var authenticationResult = _userLogger.Login(query);
+            var authenticationResult = await _userLogger.LoginAsync(query);
 
             var response = new AuthenticationResponse(
                 authenticationResult.User.Id,

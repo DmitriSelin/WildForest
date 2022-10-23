@@ -16,9 +16,9 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
             _userRepository = userRepository;
         }
 
-        public AuthenticationResult Login(LoginUserQuery query)
+        public async Task<AuthenticationResult> LoginAsync(LoginUserQuery query)
         {
-            User? user = _userRepository.GetUserByEmailAsync(query.Email).Result;
+            User? user = await _userRepository.GetUserByEmailAsync(query.Email);
 
             if (user == null)
             {

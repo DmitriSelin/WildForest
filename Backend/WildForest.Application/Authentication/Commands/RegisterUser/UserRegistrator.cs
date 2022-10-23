@@ -17,9 +17,9 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
             _userRepository = userRepository;
         }
 
-        public AuthenticationResult Register(RegisterUserCommand command)
+        public async Task<AuthenticationResult> RegisterAsync(RegisterUserCommand command)
         {
-            User? user = _userRepository.GetUserByEmailAsync(command.Email).Result;
+            User? user = await _userRepository.GetUserByEmailAsync(command.Email);
 
             if (user != null)
             {
@@ -29,7 +29,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
             user = new User(Guid.NewGuid(), command.FirstName, command.LastName,
                 Role.User, command.Email, command.Password);
 
-            _userRepository.AddUserAsync(user);
+            await _userRepository.AddUserAsync(user);
 
             var token = _jwtTokenGenerator.GenerateToken(user);
 
