@@ -1,4 +1,6 @@
-﻿using WildForest.Application.Authentication.Common;
+﻿using System.Net;
+using WildForest.Application.Authentication.Common;
+using WildForest.Application.Common.Exceptions;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Domain.Common.Enums;
@@ -23,7 +25,8 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
 
             if (user != null)
             {
-                throw new Exception();
+                throw new UserException("User with this email already exists",
+                    "User with this email already registered", (int)HttpStatusCode.Conflict);
             }
 
             user = new User(Guid.NewGuid(), command.FirstName, command.LastName,

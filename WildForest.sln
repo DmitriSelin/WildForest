@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Domain", "Backen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Contracts", "Backend\WildForest.Contracts\WildForest.Contracts.csproj", "{3672A4AA-4473-4CAD-9080-CAAA6DFDD875}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WildForest.Infrastructure", "Backend\WildForest.Infrastructure\WildForest.Infrastructure.csproj", "{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Infrastructure", "Backend\WildForest.Infrastructure\WildForest.Infrastructure.csproj", "{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

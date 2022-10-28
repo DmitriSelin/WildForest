@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using WildForest.Application.Common.Exceptions;
 
 namespace WildForest.Api.Controllers
 {
@@ -8,7 +11,15 @@ namespace WildForest.Api.Controllers
         [Route("error")]
         public IActionResult Error()
         {
-            return Problem();
+            Exception? exception = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
+
+            switch (exception)
+            {
+                case UserException userException:
+                    return Problem(title: userException.MessageForUser, statusCode: userException.StatusCode);
+                default:
+                    return Problem(title: exception?.Message, statusCode: (int)HttpStatusCode.InternalServerError);
+            }
         }
     }
 }

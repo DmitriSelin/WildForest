@@ -5,16 +5,26 @@ namespace WildForest.Infrastructure.Persistence
 {
     public class UserRepository : IUserRepository
     {
-        public static List<User> Users = new();
+        private static List<User> Users = new();
 
-        public async Task AddUserAsync(User user)
+        private void AddUser(User user)
         {
             Users.Add(user);
         }
 
-        public async Task<User?> GetUserByEmailAsync(string email)
+        public async Task AddUserAsync(User user)
+        {
+            await Task.Run(() => AddUser(user));
+        }
+
+        private User? GetUserByEmail(string email)
         {
             return Users.FirstOrDefault(x => x.Email == email);
+        }
+
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            return await Task.Run(() => GetUserByEmail(email));
         }
     }
 }

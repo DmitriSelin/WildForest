@@ -1,4 +1,6 @@
-﻿using WildForest.Application.Authentication.Common;
+﻿using System.Net;
+using WildForest.Application.Authentication.Common;
+using WildForest.Application.Common.Exceptions;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Domain.Entities;
@@ -22,12 +24,14 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
 
             if (user == null)
             {
-                throw new Exception();
+                throw new UserException("User with this email does not exists",
+                    "Invalid email", (int)HttpStatusCode.Unauthorized);
             }
 
             if (query.Password != user.Password)
             {
-                throw new Exception();
+                throw new UserException("Not correct password",
+                    "Invalid password", (int)HttpStatusCode.Unauthorized);
             }
 
             var token = _jwtTokenGenerator.GenerateToken(user);
