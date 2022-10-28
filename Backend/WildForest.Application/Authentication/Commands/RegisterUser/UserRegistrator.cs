@@ -26,7 +26,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
             if (user != null)
             {
                 throw new UserException("User with this email already exists",
-                    "User with this email already registered", (int)HttpStatusCode.Conflict);
+                    "User with this email already exists", (int)HttpStatusCode.Conflict);
             }
 
             user = new User(Guid.NewGuid(), command.FirstName, command.LastName,
