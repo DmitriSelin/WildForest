@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WildForest.Application.Common.Interfaces.Authentication;
@@ -20,8 +21,6 @@ namespace WildForest.Infrastructure
         {
             services.AddAuth(configuration);
 
-            services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
-
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
             services.AddScoped<IUserRepository, UserRepository>();
@@ -36,6 +35,8 @@ namespace WildForest.Infrastructure
             var jwtSettings = new JwtSettings();
 
             configuration.Bind(JwtSettings.SectionName, jwtSettings);
+
+            services.AddSingleton(Options.Create(jwtSettings));
 
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
