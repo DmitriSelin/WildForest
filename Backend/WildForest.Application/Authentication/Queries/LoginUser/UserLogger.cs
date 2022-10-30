@@ -22,7 +22,7 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
         {
             User? user = await _userRepository.GetUserByEmailAsync(query.Email);
 
-            if (user == null)
+            if (user is null)
             {
                 throw new UserException("User with this email does not exists",
                     "Invalid email", (int)HttpStatusCode.Unauthorized);
