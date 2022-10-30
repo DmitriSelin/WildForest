@@ -23,7 +23,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
         {
             User? user = await _userRepository.GetUserByEmailAsync(command.Email);
 
-            if (user != null)
+            if (user is not null)
             {
                 throw new UserException("User with this email already exists",
                     "User with this email already exists", (int)HttpStatusCode.Conflict);
