@@ -5,7 +5,7 @@ namespace WildForest.Domain.Models
     public abstract class Entity<TId> : IEquatable<TId>
         where TId : notnull
     {
-        public TId Id { get; set; } 
+        public TId Id { get; protected set; }
 
         protected Entity(TId id)
         {
