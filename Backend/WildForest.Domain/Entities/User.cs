@@ -1,5 +1,5 @@
 ﻿using WildForest.Domain.Common.Enums;
-using WildForest.Domain.Models;
+using WildForest.Domain.Common.Models;
 
 namespace WildForest.Domain.Entities
 {

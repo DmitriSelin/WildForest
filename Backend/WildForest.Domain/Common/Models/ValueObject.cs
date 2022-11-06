@@ -1,4 +1,4 @@
-﻿namespace WildForest.Domain.Models
+﻿namespace WildForest.Domain.Common.Models
 {
     public abstract class ValueObject : IEquatable<ValueObject>
     {

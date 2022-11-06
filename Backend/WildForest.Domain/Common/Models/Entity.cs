@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 
-namespace WildForest.Domain.Models
+namespace WildForest.Domain.Common.Models
 {
     public abstract class Entity<TId> : IEquatable<TId>
         where TId : notnull
