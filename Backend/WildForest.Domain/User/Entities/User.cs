@@ -1,7 +1,7 @@
 ﻿using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.Entities
+namespace WildForest.Domain.User.Entities
 {
     public class User : Entity<Guid>
     {

@@ -1,4 +1,4 @@
-﻿using WildForest.Domain.Entities;
+﻿using WildForest.Domain.User.Entities;
 
 namespace WildForest.Application.Common.Interfaces.Persistence
 {

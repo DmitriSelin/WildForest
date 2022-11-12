@@ -4,7 +4,7 @@ using WildForest.Application.Common.Exceptions;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Domain.Common.Enums;
-using WildForest.Domain.Entities;
+using WildForest.Domain.User.Entities;
 
 namespace WildForest.Application.Authentication.Commands.RegisterUser
 {

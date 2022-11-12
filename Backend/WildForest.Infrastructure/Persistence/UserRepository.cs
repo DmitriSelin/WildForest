@@ -1,5 +1,5 @@
 ﻿using WildForest.Application.Common.Interfaces.Persistence;
-using WildForest.Domain.Entities;
+using WildForest.Domain.User.Entities;
 
 namespace WildForest.Infrastructure.Persistence
 {
