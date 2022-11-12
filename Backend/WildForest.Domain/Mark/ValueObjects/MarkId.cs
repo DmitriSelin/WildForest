@@ -1,17 +1,17 @@
 ﻿using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.City.ValueObjects
+namespace WildForest.Domain.Mark.ValueObjects
 {
-    public class CityId : ValueObject
+    public class MarkId : ValueObject
     {
         public Guid Value { get; }
 
-        private CityId(Guid value)
+        private MarkId(Guid value)
         {
             Value = value;
         }
 
-        public static CityId CreateCityId()
+        public static MarkId CreateMarkId()
         {
             return new(Guid.NewGuid());
         }

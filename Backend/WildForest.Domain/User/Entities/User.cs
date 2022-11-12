@@ -16,6 +16,8 @@ namespace WildForest.Domain.User.Entities
 
         public string Password { get; set; }
 
+        public ICollection<Mark.Entities.Mark> Marks { get; set; } = null!;
+
         public User(
             UserId id,
             string firstName,
