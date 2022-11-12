@@ -1,9 +1,10 @@
 ﻿using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Common.Models;
+using WildForest.Domain.User.ValueObjects;
 
 namespace WildForest.Domain.User.Entities
 {
-    public class User : Entity<Guid>
+    public class User : Entity<UserId>
     {
         public string FirstName { get; set; }
 
@@ -16,7 +17,7 @@ namespace WildForest.Domain.User.Entities
         public string Password { get; set; }
 
         public User(
-            Guid id,
+            UserId id,
             string firstName,
             string lastName,
             Role role,
