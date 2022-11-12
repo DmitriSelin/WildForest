@@ -1,4 +1,5 @@
-﻿using WildForest.Domain.Common.Enums;
+﻿using WildForest.Domain.City.ValueObjects;
+using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Common.Models;
 using WildForest.Domain.User.ValueObjects;
 
@@ -17,6 +18,10 @@ namespace WildForest.Domain.User.Entities
         public string Password { get; set; }
 
         public ICollection<Mark.Entities.Mark> Marks { get; set; } = null!;
+
+        public CityId CityId { get; } = null!;
+
+        public virtual City.Entities.City City { get; } = null!;
 
         public User(
             UserId id,
