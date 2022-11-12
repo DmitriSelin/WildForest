@@ -5,6 +5,7 @@ using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Domain.Common.Enums;
 using WildForest.Domain.User.Entities;
+using WildForest.Domain.User.ValueObjects;
 
 namespace WildForest.Application.Authentication.Commands.RegisterUser
 {
@@ -29,7 +30,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
                     "User with this email already exists", (int)HttpStatusCode.Conflict);
             }
 
-            user = new User(Guid.NewGuid(), command.FirstName, command.LastName,
+            user = new User(UserId.CreateUserId(), command.FirstName, command.LastName,
                 Role.User, command.Email, command.Password);
 
             await _userRepository.AddUserAsync(user);
