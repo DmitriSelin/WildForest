@@ -12,8 +12,10 @@ namespace WildForest.Domain.Weather.Entities
 
         public WeatherDetails WeatherDetails { get; }
 
-        public DayWeather(WeatherId id, WeatherDetails weatherDetails) : base(id)
+        public DayWeather(WeatherId id, DateOnly date, DaySpan daySpan, WeatherDetails weatherDetails) : base(id)
         {
+            Date = date;
+            DaySpan = daySpan;
             WeatherDetails = weatherDetails;
         }
     }
