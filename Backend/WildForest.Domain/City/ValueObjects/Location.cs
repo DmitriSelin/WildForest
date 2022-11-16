@@ -2,7 +2,7 @@
 
 namespace WildForest.Domain.City.ValueObjects
 {
-    public class Location : ValueObject
+    public sealed class Location : ValueObject
     {
         public string Country { get; }
 

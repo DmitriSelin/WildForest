@@ -4,7 +4,7 @@ using WildForest.Domain.Weather.ValueObjects;
 
 namespace WildForest.Domain.Weather.Entities
 {
-    public class DayWeather : Entity<WeatherId>
+    public sealed class DayWeather : Entity<WeatherId>
     {
         public DateOnly Date { get; }
 

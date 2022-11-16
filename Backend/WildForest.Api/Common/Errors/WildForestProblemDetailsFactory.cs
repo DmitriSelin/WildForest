@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace WildForest.Api.Common.Errors
 {
-    public class WildForestProblemDetailsFactory : ProblemDetailsFactory
+    public sealed class WildForestProblemDetailsFactory : ProblemDetailsFactory
     {
         private readonly ApiBehaviorOptions _options;
 

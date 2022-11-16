@@ -2,7 +2,7 @@
 
 namespace WildForest.Domain.City.ValueObjects
 {
-    public class CityId : ValueObject
+    public sealed class CityId : ValueObject
     {
         public Guid Value { get; }
 

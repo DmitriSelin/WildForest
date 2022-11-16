@@ -2,7 +2,7 @@
 
 namespace WildForest.Domain.User.ValueObjects
 {
-    public class UserId : ValueObject
+    public sealed class UserId : ValueObject
     {
         public Guid Value { get; }
 

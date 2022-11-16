@@ -3,7 +3,7 @@ using WildForest.Domain.User.Entities;
 
 namespace WildForest.Infrastructure.Persistence
 {
-    public class UserRepository : IUserRepository
+    public sealed class UserRepository : IUserRepository
     {
         private static List<User> Users = new();
 

@@ -8,7 +8,7 @@ namespace WildForest.Api.Controllers
 {
     [Route("api/auth")]
     [ApiController]
-    public class AuthenticationController : ControllerBase
+    public sealed class AuthenticationController : ControllerBase
     {
         private readonly IUserRegistrator _userRegistrator;
         private readonly IUserLogger _userLogger;

@@ -9,7 +9,7 @@ using WildForest.Domain.User.ValueObjects;
 
 namespace WildForest.Application.Authentication.Commands.RegisterUser
 {
-    public class UserRegistrator : IUserRegistrator
+    public sealed class UserRegistrator : IUserRegistrator
     {
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
         private readonly IUserRepository _userRepository;

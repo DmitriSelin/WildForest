@@ -5,7 +5,7 @@ using System.Net;
 namespace WildForest.Api.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class ExceptionsController : ControllerBase
+    public sealed class ExceptionsController : ControllerBase
     {
         [Route("error")]
         public IActionResult Error()

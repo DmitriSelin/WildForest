@@ -8,7 +8,7 @@ using WildForest.Domain.User.Entities;
 
 namespace WildForest.Application.Authentication.Queries.LoginUser
 {
-    public class UserLogger : IUserLogger
+    public sealed class UserLogger : IUserLogger
     {
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
         private readonly IUserRepository _userRepository;

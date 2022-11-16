@@ -2,7 +2,7 @@
 
 namespace WildForest.Domain.Mark.ValueObjects
 {
-    public class MarkId : ValueObject
+    public sealed class MarkId : ValueObject
     {
         public Guid Value { get; }
 

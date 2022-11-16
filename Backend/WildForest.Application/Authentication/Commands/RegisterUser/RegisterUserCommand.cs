@@ -1,6 +1,6 @@
 ﻿namespace WildForest.Application.Authentication.Commands.RegisterUser
 {
-    public record RegisterUserCommand(
+    public sealed record RegisterUserCommand(
         string FirstName,
         string LastName,
         string Email,

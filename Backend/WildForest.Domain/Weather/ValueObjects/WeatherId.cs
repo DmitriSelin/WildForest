@@ -2,7 +2,7 @@
 
 namespace WildForest.Domain.Weather.ValueObjects
 {
-    public class WeatherId : ValueObject
+    public sealed class WeatherId : ValueObject
     {
         public Guid Value { get; }
 

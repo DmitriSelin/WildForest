@@ -3,7 +3,7 @@ using WildForest.Domain.Common.Models;
 
 namespace WildForest.Domain.City.Entities
 {
-    public class City : Entity<CityId>
+    public sealed class City : Entity<CityId>
     {
         public string Name { get; }
 

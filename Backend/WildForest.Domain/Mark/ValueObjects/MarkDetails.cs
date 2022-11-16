@@ -2,7 +2,7 @@
 
 namespace WildForest.Domain.Mark.ValueObjects
 {
-    public class MarkDetails : ValueObject
+    public sealed class MarkDetails : ValueObject
     {
         public byte Value { get; }
 
