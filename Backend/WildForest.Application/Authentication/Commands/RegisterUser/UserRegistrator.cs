@@ -1,9 +1,9 @@
-﻿using System.Net;
+﻿using ErrorOr;
 using WildForest.Application.Authentication.Common;
-using WildForest.Application.Common.Exceptions;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Domain.Common.Enums;
+using WildForest.Domain.Common.Exceptions;
 using WildForest.Domain.User.Entities;
 using WildForest.Domain.User.ValueObjects;
 
@@ -20,14 +20,13 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
             _userRepository = userRepository;
         }
 
-        public async Task<AuthenticationResult> RegisterAsync(RegisterUserCommand command)
+        public async ErrorOr<Task<AuthenticationResult>> RegisterAsync(RegisterUserCommand command)
         {
             User? user = await _userRepository.GetUserByEmailAsync(command.Email);
 
             if (user is not null)
             {
-                throw new UserException("User with this email already exists",
-                    "User with this email already exists", (int)HttpStatusCode.Conflict);
+                return Errors.User.DupplicateEmail;
             }
 
             user = new User(UserId.CreateUserId(), command.FirstName, command.LastName,

@@ -14,8 +14,4 @@
     <ProjectReference Include="..\WildForest.Domain\WildForest.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

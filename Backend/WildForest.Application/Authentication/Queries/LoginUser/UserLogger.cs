@@ -1,8 +1,9 @@
-﻿using System.Net;
+﻿using ErrorOr;
+using System.Net;
 using WildForest.Application.Authentication.Common;
-using WildForest.Application.Common.Exceptions;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Persistence;
+using WildForest.Domain.Common.Exceptions;
 using WildForest.Domain.User.Entities;
 
 namespace WildForest.Application.Authentication.Queries.LoginUser
@@ -18,20 +19,18 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
             _userRepository = userRepository;
         }
 
-        public async Task<AuthenticationResult> LoginAsync(LoginUserQuery query)
+        public async ErrorOr<Task<AuthenticationResult>> LoginAsync(LoginUserQuery query)
         {
             User? user = await _userRepository.GetUserByEmailAsync(query.Email);
 
             if (user is null)
             {
-                throw new UserException("User with this email does not exists",
-                    "Invalid email", (int)HttpStatusCode.Unauthorized);
+                return Errors.Authentication.InvalidEmail;
             }
 
             if (query.Password != user.Password)
             {
-                throw new UserException("Not correct password",
-                    "Invalid password", (int)HttpStatusCode.Unauthorized);
+                return Errors.Authentication.InvalidPassword;
             }
 
             var token = _jwtTokenGenerator.GenerateToken(user);

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using WildForest.Application.Common.Exceptions;
 
 namespace WildForest.Api.Controllers
 {
