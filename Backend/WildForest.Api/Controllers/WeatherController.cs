@@ -5,8 +5,7 @@ namespace WildForest.Api.Controllers
 {
     [Route("api/weather/forecast")]
     [Authorize]
-    [ApiController]
-    public sealed class WeatherForecastController : ControllerBase
+    public sealed class WeatherForecastController : ApiController
     {
         [HttpGet("{cityId}")]
         public async Task<IActionResult> GetTodayWeather([FromQuery] Guid cityId)

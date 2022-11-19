@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ErrorOr;
+using Microsoft.AspNetCore.Mvc;
 using WildForest.Application.Authentication.Commands.RegisterUser;
+using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Queries.LoginUser;
 using WildForest.Contracts.Authentication.Requests;
 using WildForest.Contracts.Authentication.Responses;
+using WildForest.Domain.Common.Exceptions;
 
 namespace WildForest.Api.Controllers
 {
     [Route("api/auth")]
-    [ApiController]
-    public sealed class AuthenticationController : ControllerBase
+    public sealed class AuthenticationController : ApiController
     {
         private readonly IUserRegistrator _userRegistrator;
         private readonly IUserLogger _userLogger;
@@ -28,17 +30,11 @@ namespace WildForest.Api.Controllers
                 request.Email,
                 request.Password);
 
-            var authenticationResult = await _userRegistrator.RegisterAsync(command);
+            ErrorOr<AuthenticationResult> authenticationResult = await _userRegistrator.RegisterAsync(command);
 
-            var response = new AuthenticationResponse(
-                authenticationResult.User.Id.Value,
-                authenticationResult.User.FirstName,
-                authenticationResult.User.LastName,
-                authenticationResult.User.Email,
-                authenticationResult.User.Password,
-                authenticationResult.Token);
-
-            return Ok(response);
+            return authenticationResult.Match(
+                authenticationResult => Ok(MapAuthenticationResult(authenticationResult)),
+                errors => Problem(errors));
         }
 
         [HttpPost("login")]
@@ -48,15 +44,28 @@ namespace WildForest.Api.Controllers
 
             var authenticationResult = await _userLogger.LoginAsync(query);
 
-            var response = new AuthenticationResponse(
-                authenticationResult.User.Id.Value,
-                authenticationResult.User.FirstName,
-                authenticationResult.User.LastName,
-                authenticationResult.User.Email,
-                authenticationResult.User.Password,
-                authenticationResult.Token);
+            if (authenticationResult.IsError && 
+                (authenticationResult.FirstError == Errors.Authentication.InvalidEmail || authenticationResult.FirstError == Errors.Authentication.InvalidPassword))
+            {
+                return Problem(
+                    statusCode: StatusCodes.Status401Unauthorized,
+                    title: authenticationResult.FirstError.Description);
+            }
 
-            return Ok(response);
+            return authenticationResult.Match(
+                authenticationResult => Ok(MapAuthenticationResult(authenticationResult)),
+                errors => Problem(errors));
+        }
+
+        private static AuthenticationResponse MapAuthenticationResult(AuthenticationResult result)
+        {
+            return new AuthenticationResponse(
+                result.User.Id.Value,
+                result.User.FirstName,
+                result.User.LastName,
+                result.User.Email,
+                result.User.Password,
+                result.Token);
         }
     }
 }

@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ErrorOr;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
+using WildForest.Api.Common.Http;
 
 namespace WildForest.Api.Common.Errors
 {
@@ -90,6 +92,13 @@ namespace WildForest.Api.Common.Errors
             if (traceId != null)
             {
                 problemDetails.Extensions["traceId"] = traceId;
+            }
+
+            var errors = httpContext?.Items[HttpContextItemKeys.Errors] as List<Error>;
+
+            if (errors is not null)
+            {
+                problemDetails.Extensions.Add("errorCodes", errors.Select(c => c.Code)); ;
             }
         }
     }
