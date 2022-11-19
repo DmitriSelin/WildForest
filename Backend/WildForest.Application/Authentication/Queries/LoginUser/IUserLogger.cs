@@ -5,6 +5,6 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
 {
     public interface IUserLogger
     {
-        public ErrorOr<Task<AuthenticationResult>> LoginAsync(LoginUserQuery query);
+        public Task<ErrorOr<AuthenticationResult>> LoginAsync(LoginUserQuery query);
     }
 }

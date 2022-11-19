@@ -20,7 +20,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
             _userRepository = userRepository;
         }
 
-        public async ErrorOr<Task<AuthenticationResult>> RegisterAsync(RegisterUserCommand command)
+        public async Task<ErrorOr<AuthenticationResult>> RegisterAsync(RegisterUserCommand command)
         {
             User? user = await _userRepository.GetUserByEmailAsync(command.Email);
 

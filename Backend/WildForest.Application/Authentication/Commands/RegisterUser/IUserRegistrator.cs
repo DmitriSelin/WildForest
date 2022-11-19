@@ -5,6 +5,6 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
 {
     public interface IUserRegistrator
     {
-        public ErrorOr<Task<AuthenticationResult>> RegisterAsync(RegisterUserCommand command);
+        public Task<ErrorOr<AuthenticationResult>> RegisterAsync(RegisterUserCommand command);
     }
 }

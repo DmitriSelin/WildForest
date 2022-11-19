@@ -19,7 +19,7 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
             _userRepository = userRepository;
         }
 
-        public async ErrorOr<Task<AuthenticationResult>> LoginAsync(LoginUserQuery query)
+        public async Task<ErrorOr<AuthenticationResult>> LoginAsync(LoginUserQuery query)
         {
             User? user = await _userRepository.GetUserByEmailAsync(query.Email);
 

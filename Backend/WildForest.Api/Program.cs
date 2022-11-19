@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
+    //builder.Services.AddSingleton<ProblemDetailsFactory, WildForestProblemDetailsFactory>();
+
     builder.Services
         .AddApplication()
         .AddInfrastructure(builder.Configuration);
