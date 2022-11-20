@@ -3,13 +3,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Application.Common.Interfaces.Services;
 using WildForest.Infrastructure.Authentication;
 using WildForest.Infrastructure.Persistence;
 using WildForest.Infrastructure.Services;
+using System.Text;
 
 namespace WildForest.Infrastructure
 {
@@ -22,6 +22,7 @@ namespace WildForest.Infrastructure
             services.AddAuth(configuration);
 
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+            services.AddSingleton<IJwtTokenDecoder, JwtTokenDecoder>();
 
             services.AddScoped<IUserRepository, UserRepository>();
 
