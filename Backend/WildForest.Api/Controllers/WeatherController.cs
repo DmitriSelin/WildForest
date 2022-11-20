@@ -10,6 +10,7 @@ namespace WildForest.Api.Controllers
         [HttpGet("{cityId}")]
         public async Task<IActionResult> GetTodayWeather([FromQuery] Guid cityId)
         {
+            var query = new DayWeatherQuery();
             // Find city in db
 
             // Get weather:

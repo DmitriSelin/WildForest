@@ -1,4 +1,5 @@
 ﻿using ErrorOr;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WildForest.Application.Authentication.Commands.RegisterUser;
 using WildForest.Application.Authentication.Common;
@@ -9,6 +10,7 @@ using WildForest.Domain.Common.Exceptions;
 
 namespace WildForest.Api.Controllers
 {
+    [AllowAnonymous]
     [Route("api/auth")]
     public sealed class AuthenticationController : ApiController
     {
