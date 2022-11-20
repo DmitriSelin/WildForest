@@ -1,23 +1,31 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using WildForest.Application.Common.Interfaces.Authentication;
+using WildForest.Application.Weather.Queries.DayWeather;
+using WildForest.Domain.City.ValueObjects;
+using WildForest.Domain.User.ValueObjects;
 
 namespace WildForest.Api.Controllers
 {
     [Route("api/weather/forecast")]
-    [Authorize]
     public sealed class WeatherForecastController : ApiController
     {
+        private readonly IJwtTokenDecoder _jwtTokenDecoder;
+
+        public WeatherForecastController(IJwtTokenDecoder jwtTokenDecoder)
+        {
+            _jwtTokenDecoder = jwtTokenDecoder;
+        }
+
         [HttpGet("{cityId}")]
         public async Task<IActionResult> GetTodayWeather([FromQuery] Guid cityId)
         {
-            var query = new DayWeatherQuery();
-            // Find city in db
+            var userId = _jwtTokenDecoder.GetUserIdFromToken(HttpContext.Request);
 
-            // Get weather:
-            // Temperature, description,
-            // humidity, pressure,
-            // wind, type of weather,
-            // cloudness, storm
+            var query = new DayWeatherQuery(
+                UserId.CreateUserId(userId),
+                CityId.CreateCityId(cityId));
+
+            
 
             return Ok();
         }
