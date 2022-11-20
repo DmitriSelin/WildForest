@@ -22,8 +22,7 @@ namespace WildForest.Infrastructure
             services.AddAuth(configuration);
 
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-            services.AddSingleton<IJwtTokenDecoder, JwtTokenDecoder>();
-
+            
             services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
@@ -40,6 +39,7 @@ namespace WildForest.Infrastructure
             services.AddSingleton(Options.Create(jwtSettings));
 
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IJwtTokenDecoder, JwtTokenDecoder>();
 
             services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
