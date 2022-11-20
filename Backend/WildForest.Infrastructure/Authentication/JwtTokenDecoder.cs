@@ -27,6 +27,11 @@ namespace WildForest.Infrastructure.Authentication
                 }
             }
 
+            if (userId == Guid.Empty)
+            {
+                throw new Exception("Not correct Authorization Header");
+            }
+
             return userId;
         }
     }
