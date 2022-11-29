@@ -98,7 +98,7 @@ namespace WildForest.Api.Common.Errors
 
             if (errors is not null)
             {
-                problemDetails.Extensions.Add("errorCodes", errors.Select(c => c.Code)); ;
+                problemDetails.Extensions.Add("errorCodes", errors.Select(c => c.Code));
             }
         }
     }
