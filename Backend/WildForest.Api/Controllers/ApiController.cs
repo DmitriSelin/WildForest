@@ -13,7 +13,7 @@ namespace WildForest.Api.Controllers
         {
             HttpContext.Items[HttpContextItemKeys.Errors] = errors;
 
-            var firstError = errors[0];
+            Error firstError = errors[0];
 
             var statusCode = firstError.Type switch
             {
