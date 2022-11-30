@@ -1,9 +1,11 @@
-﻿using WildForest.Domain.City.ValueObjects;
+﻿using WildForest.Domain.Cities.Entities;
+using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Common.Models;
-using WildForest.Domain.User.ValueObjects;
+using WildForest.Domain.Marks.Entities;
+using WildForest.Domain.Users.ValueObjects;
 
-namespace WildForest.Domain.User.Entities
+namespace WildForest.Domain.Users.Entities
 {
     public class User : Entity<UserId>
     {
@@ -17,11 +19,11 @@ namespace WildForest.Domain.User.Entities
 
         public string Password { get; set; }
 
-        public ICollection<Mark.Entities.Mark> Marks { get; set; } = null!;
+        public ICollection<Mark> Marks { get; set; } = null!;
 
         public CityId CityId { get; } = null!;
 
-        public virtual City.Entities.City City { get; } = null!;
+        public virtual City City { get; } = null!;
 
         public User(
             UserId id,

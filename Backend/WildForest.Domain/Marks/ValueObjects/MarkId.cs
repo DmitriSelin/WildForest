@@ -1,24 +1,19 @@
 ﻿using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.City.ValueObjects
+namespace WildForest.Domain.Marks.ValueObjects
 {
-    public sealed class CityId : ValueObject
+    public sealed class MarkId : ValueObject
     {
         public Guid Value { get; }
 
-        private CityId(Guid value)
+        private MarkId(Guid value)
         {
             Value = value;
         }
 
-        public static CityId CreateCityId()
+        public static MarkId CreateMarkId()
         {
             return new(Guid.NewGuid());
-        }
-
-        public static CityId CreateCityId(Guid value)
-        {
-            return new(value);
         }
 
         public override IEnumerable<object> GetEqualityComponents()

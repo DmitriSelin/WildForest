@@ -1,4 +1,5 @@
-﻿using WildForest.Domain.City.ValueObjects;
+﻿using WildForest.Domain.Cities.Entities;
+using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Common.Models;
 
 namespace WildForest.Domain.Weather.ValueObjects
@@ -23,7 +24,7 @@ namespace WildForest.Domain.Weather.ValueObjects
 
         public CityId CityId { get; } = null!;
 
-        public virtual City.Entities.City City { get; } = null!;
+        public virtual City City { get; } = null!;
 
         public WeatherDetails(
             string temperature, 
@@ -35,7 +36,7 @@ namespace WildForest.Domain.Weather.ValueObjects
             string storm,
             double mark,
             CityId cityId,
-            City.Entities.City city)
+            City city)
         {
             Temperature = temperature;
             Description = description;

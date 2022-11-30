@@ -1,19 +1,24 @@
 ﻿using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.Mark.ValueObjects
+namespace WildForest.Domain.Users.ValueObjects
 {
-    public sealed class MarkId : ValueObject
+    public sealed class UserId : ValueObject
     {
         public Guid Value { get; }
 
-        private MarkId(Guid value)
+        private UserId(Guid value)
         {
             Value = value;
         }
 
-        public static MarkId CreateMarkId()
+        public static UserId CreateUserId()
         {
             return new(Guid.NewGuid());
+        }
+
+        public static UserId CreateUserId(Guid value)
+        {
+            return new(value);
         }
 
         public override IEnumerable<object> GetEqualityComponents()

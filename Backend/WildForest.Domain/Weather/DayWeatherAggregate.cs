@@ -1,4 +1,6 @@
-﻿using WildForest.Domain.Common.Models;
+﻿using WildForest.Domain.Cities.Entities;
+using WildForest.Domain.Common.Models;
+using WildForest.Domain.Marks.Entities;
 using WildForest.Domain.Weather.Entities;
 using WildForest.Domain.Weather.ValueObjects;
 
@@ -8,15 +10,15 @@ namespace WildForest.Domain.Weather
     {
         public DayWeather DayWeather { get; }
 
-        public Mark.Entities.Mark Mark { get; }
+        public Mark Mark { get; }
 
-        public City.Entities.City City { get; }
+        public City City { get; }
 
         private DayWeatherAggregate(
             WeatherId id,
             DayWeather dayWeather,
-            Mark.Entities.Mark mark,
-            City.Entities.City city) : base(id) 
+            Mark mark,
+            City city) : base(id) 
         {
             DayWeather = dayWeather;
             Mark = mark;
@@ -25,8 +27,8 @@ namespace WildForest.Domain.Weather
 
         public static DayWeatherAggregate CreateDayWeatherAggregate(
             DayWeather dayWeather, 
-            Mark.Entities.Mark mark,
-            City.Entities.City city)
+            Mark mark,
+            City city)
         {
             return new(
                 WeatherId.CreateWeatherId(),

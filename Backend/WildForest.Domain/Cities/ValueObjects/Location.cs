@@ -1,6 +1,6 @@
 ﻿using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.City.ValueObjects
+namespace WildForest.Domain.Cities.ValueObjects
 {
     public sealed class Location : ValueObject
     {

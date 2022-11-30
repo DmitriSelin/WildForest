@@ -1,8 +1,8 @@
 ﻿using WildForest.Domain.Common.Models;
-using WildForest.Domain.Mark.ValueObjects;
+using WildForest.Domain.Marks.ValueObjects;
 using WildForest.Domain.User.ValueObjects;
 
-namespace WildForest.Domain.Mark.Entities
+namespace WildForest.Domain.Marks.Entities
 {
     public class Mark : Entity<MarkId>
     {

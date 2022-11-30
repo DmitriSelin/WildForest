@@ -1,6 +1,6 @@
 ﻿using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.Mark.ValueObjects
+namespace WildForest.Domain.Marks.ValueObjects
 {
     public sealed class MarkDetails : ValueObject
     {

@@ -1,7 +1,7 @@
-﻿using WildForest.Domain.City.ValueObjects;
+﻿using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.City.Entities
+namespace WildForest.Domain.Cities.Entities
 {
     public sealed class City : Entity<CityId>
     {

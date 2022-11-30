@@ -1,22 +1,22 @@
 ﻿using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.User.ValueObjects
+namespace WildForest.Domain.Cities.ValueObjects
 {
-    public sealed class UserId : ValueObject
+    public sealed class CityId : ValueObject
     {
         public Guid Value { get; }
 
-        private UserId(Guid value)
+        private CityId(Guid value)
         {
             Value = value;
         }
 
-        public static UserId CreateUserId()
+        public static CityId CreateCityId()
         {
             return new(Guid.NewGuid());
         }
 
-        public static UserId CreateUserId(Guid value)
+        public static CityId CreateCityId(Guid value)
         {
             return new(value);
         }
