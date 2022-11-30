@@ -1,5 +1,5 @@
-﻿using WildForest.Domain.City.ValueObjects;
-using WildForest.Domain.User.ValueObjects;
+﻿using WildForest.Domain.Cities.ValueObjects;
+using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Application.Weather.Queries.DayWeather
 {

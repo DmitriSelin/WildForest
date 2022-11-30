@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Services;
-using WildForest.Domain.User.Entities;
+using WildForest.Domain.Users.Entities;
 
 namespace WildForest.Infrastructure.Authentication
 {

@@ -1,4 +1,4 @@
-﻿using WildForest.Domain.User.Entities;
+﻿using WildForest.Domain.Users.Entities;
 
 namespace WildForest.Application.Authentication.Common
 {
