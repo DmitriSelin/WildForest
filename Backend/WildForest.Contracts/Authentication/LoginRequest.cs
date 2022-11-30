@@ -1,4 +1,4 @@
-﻿namespace WildForest.Contracts.Authentication.Requests
+﻿namespace WildForest.Contracts.Authentication
 {
     public sealed record LoginRequest(
         string Email,

@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using WildForest.Application.Authentication.Commands.RegisterUser;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Queries.LoginUser;
-using WildForest.Contracts.Authentication.Requests;
-using WildForest.Contracts.Authentication.Responses;
+using WildForest.Contracts.Authentication;
 using WildForest.Domain.Common.Exceptions;
 
 namespace WildForest.Api.Controllers

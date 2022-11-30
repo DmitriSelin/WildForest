@@ -1,4 +1,4 @@
-﻿namespace WildForest.Contracts.Authentication.Responses
+﻿namespace WildForest.Contracts.Authentication
 {
     public sealed record AuthenticationResponse(
         Guid Id, 

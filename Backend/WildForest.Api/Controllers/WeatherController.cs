@@ -16,8 +16,7 @@ namespace WildForest.Api.Controllers
             _jwtTokenDecoder = jwtTokenDecoder;
         }
 
-        [HttpGet("{cityId}")]
-        public async Task<IActionResult> GetTodayWeather([FromQuery] Guid cityId)
+        public async Task<IActionResult> GetTodayWeather(Guid cityId)
         {
             var userId = _jwtTokenDecoder.GetUserIdFromToken(HttpContext.Request);
 
