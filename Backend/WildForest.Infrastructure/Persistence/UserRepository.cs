@@ -1,5 +1,6 @@
 ﻿using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Domain.Users.Entities;
+using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Infrastructure.Persistence
 {
@@ -25,6 +26,16 @@ namespace WildForest.Infrastructure.Persistence
         public async Task<User?> GetUserByEmailAsync(string email)
         {
             return await Task.Run(() => GetUserByEmail(email));
+        }
+
+        private User? GetUserById(UserId userId)
+        {
+            return Users.FirstOrDefault(x => x.Id == userId);
+        }
+
+        public async Task<User?> GetUserByIdAsync(UserId userId)
+        {
+            return await Task.Run(() => GetUserById(userId));
         }
     }
 }

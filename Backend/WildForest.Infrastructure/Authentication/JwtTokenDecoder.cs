@@ -2,12 +2,13 @@
 using Microsoft.Extensions.Primitives;
 using System.IdentityModel.Tokens.Jwt;
 using WildForest.Application.Common.Interfaces.Authentication;
+using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Infrastructure.Authentication
 {
     public class JwtTokenDecoder : IJwtTokenDecoder
     {
-        public Guid GetUserIdFromToken(HttpRequest? request)
+        public UserId GetUserIdFromToken(HttpRequest? request)
         {
             var userId = Guid.Empty;
 
@@ -32,7 +33,7 @@ namespace WildForest.Infrastructure.Authentication
                 throw new Exception("Not correct Authorization Header");
             }
 
-            return userId;
+            return UserId.CreateUserId(userId);
         }
     }
 }

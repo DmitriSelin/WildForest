@@ -25,6 +25,8 @@ namespace WildForest.Infrastructure
             
             services.AddScoped<IUserRepository, UserRepository>();
 
+            services.AddScoped<ICityService, CityService>();
+
             return services;
         }
 
