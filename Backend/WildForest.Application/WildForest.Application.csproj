@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Weather\Commands\" />
+    <Folder Include="Weather\Services\" />
   </ItemGroup>
 
 </Project>

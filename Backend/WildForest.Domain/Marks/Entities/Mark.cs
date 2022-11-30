@@ -1,6 +1,7 @@
 ﻿using WildForest.Domain.Common.Models;
 using WildForest.Domain.Marks.ValueObjects;
-using WildForest.Domain.User.ValueObjects;
+using WildForest.Domain.Users.Entities;
+using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Domain.Marks.Entities
 {
@@ -10,7 +11,7 @@ namespace WildForest.Domain.Marks.Entities
 
         public UserId UserId { get; } = null!;
 
-        public virtual User.Entities.User User { get; set; } = null!;
+        public virtual User User { get; set; } = null!;
 
         public Mark(MarkId id, MarkDetails markDetails) : base(id)
         {
