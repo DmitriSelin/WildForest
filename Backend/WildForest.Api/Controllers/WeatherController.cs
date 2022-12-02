@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ErrorOr;
+using Microsoft.AspNetCore.Mvc;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Services;
 using WildForest.Application.Weather.Queries.GetTodayForecast;
+using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Api.Controllers
@@ -27,9 +29,15 @@ namespace WildForest.Api.Controllers
         public async Task<IActionResult> GetTodayWeather()
         {
             UserId userId = _jwtTokenDecoder.GetUserIdFromToken(HttpContext.Request);
-            var cityId = await _cityService.GetCityIdAsync(userId);
 
-            var query = new TodayForecastQuery(userId, cityId);
+            ErrorOr<CityId> cityId = await _cityService.GetCityIdAsync(userId);
+            
+            if (cityId.IsError)
+            {
+                return Problem(cityId.Errors);
+            }
+
+            var query = new TodayForecastQuery(userId, cityId.Value);
 
             var weatherForecast = _weatherForecastDetector.GetTodayWeatherForecast(query);
 
