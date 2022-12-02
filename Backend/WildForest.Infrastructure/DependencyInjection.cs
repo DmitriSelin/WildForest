@@ -10,6 +10,8 @@ using WildForest.Infrastructure.Authentication;
 using WildForest.Infrastructure.Persistence;
 using WildForest.Infrastructure.Services;
 using System.Text;
+using WildForest.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace WildForest.Infrastructure
 {
@@ -24,8 +26,14 @@ namespace WildForest.Infrastructure
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
 
             services.AddScoped<ICityService, CityService>();
+
+            services.AddDbContext<WildForestDbContext>(options =>
+            {
+                options.UseNpgsql(configuration.GetConnectionString("PostgreSQL"));
+            });
 
             return services;
         }
