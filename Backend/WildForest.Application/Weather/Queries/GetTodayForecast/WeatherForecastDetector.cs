@@ -6,7 +6,9 @@ namespace WildForest.Application.Weather.Queries.GetTodayForecast
     {
         public async Task<WeatherForecust> GetTodayWeatherForecast(TodayForecastQuery query)
         {
-            
+            //find weather with cityId
+
+            //get today weather
         }
     }
 }
