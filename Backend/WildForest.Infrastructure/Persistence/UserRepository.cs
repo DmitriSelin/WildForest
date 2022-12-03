@@ -1,41 +1,34 @@
-﻿using WildForest.Application.Common.Interfaces.Persistence;
+﻿using Microsoft.EntityFrameworkCore;
+using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
+using WildForest.Infrastructure.Context;
 
 namespace WildForest.Infrastructure.Persistence
 {
     public sealed class UserRepository : IUserRepository
     {
-        private static List<User> Users = new();
+        private readonly WildForestDbContext _context;
 
-        private void AddUser(User user)
+        public UserRepository(WildForestDbContext context)
         {
-            Users.Add(user);
+            _context = context;
         }
 
         public async Task AddUserAsync(User user)
         {
-            await Task.Run(() => AddUser(user));
-        }
-
-        private User? GetUserByEmail(string email)
-        {
-            return Users.FirstOrDefault(x => x.Email == email);
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<User?> GetUserByEmailAsync(string email)
         {
-            return await Task.Run(() => GetUserByEmail(email));
-        }
-
-        private User? GetUserById(UserId userId)
-        {
-            return Users.FirstOrDefault(x => x.Id == userId);
+            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
         }
 
         public async Task<User?> GetUserByIdAsync(UserId userId)
         {
-            return await Task.Run(() => GetUserById(userId));
+            return await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
         }
     }
 }

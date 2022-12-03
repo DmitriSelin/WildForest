@@ -27,8 +27,7 @@ namespace WildForest.Infrastructure
             
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
-
-            services.AddScoped<ICityService, CityService>();
+            services.AddScoped<IDayWeatherRepository, DayWeatherRepository>();
 
             services.AddDbContext<WildForestDbContext>(options =>
             {
