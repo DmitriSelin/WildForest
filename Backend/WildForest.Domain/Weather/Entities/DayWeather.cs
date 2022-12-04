@@ -8,7 +8,7 @@ namespace WildForest.Domain.Weather.Entities
 {
     public class DayWeather : Entity<WeatherId>
     {
-        public DateOnly Date { get; }
+        public DateTime Date { get; }
 
         public DaySpan DaySpan { get; }
 
@@ -20,7 +20,7 @@ namespace WildForest.Domain.Weather.Entities
 
         public DayWeather(
             WeatherId id,
-            DateOnly date,
+            DateTime date,
             DaySpan daySpan,
             CityId cityId,
             WeatherDetails weatherDetails) : base(id)

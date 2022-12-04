@@ -1,19 +1,13 @@
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using WildForest.Api.Common.Errors;
+using WildForest.Api;
 using WildForest.Application;
 using WildForest.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    builder.Services.AddControllers();
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
-
     builder.Services
+        .AddPresentation()
         .AddApplication()
         .AddInfrastructure(builder.Configuration);
-
-    builder.Services.AddSingleton<ProblemDetailsFactory, WildForestProblemDetailsFactory>();
 }
 
 var app = builder.Build();

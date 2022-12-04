@@ -1,4 +1,5 @@
 ﻿using ErrorOr;
+using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WildForest.Application.Authentication.Commands.RegisterUser;
@@ -15,33 +16,34 @@ namespace WildForest.Api.Controllers
     {
         private readonly IUserRegistrator _userRegistrator;
         private readonly IUserLogger _userLogger;
+        private readonly IMapper _mapper;
 
-        public AuthenticationController(IUserRegistrator userRegistrator, IUserLogger userLogger)
+        public AuthenticationController(
+            IUserRegistrator userRegistrator,
+            IUserLogger userLogger,
+            IMapper mapper)
         {
             _userRegistrator = userRegistrator;
             _userLogger = userLogger;
+            _mapper = mapper;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterRequest request)
         {
-            var command = new RegisterUserCommand(
-                request.FirstName,
-                request.LastName,
-                request.Email,
-                request.Password);
+            var command = _mapper.Map<RegisterUserCommand>(request);
 
             ErrorOr<AuthenticationResult> authenticationResult = await _userRegistrator.RegisterAsync(command);
 
             return authenticationResult.Match(
-                authenticationResult => Ok(MapAuthenticationResult(authenticationResult)),
+                authenticationResult => Ok(_mapper.Map<AuthenticationResult>(authenticationResult)),
                 errors => Problem(errors));
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest request)
         {
-            var query = new LoginUserQuery(request.Email, request.Password);
+            var query = _mapper.Map<LoginUserQuery>(request);
 
             var authenticationResult = await _userLogger.LoginAsync(query);
 
@@ -55,19 +57,8 @@ namespace WildForest.Api.Controllers
             }
 
             return authenticationResult.Match(
-                authenticationResult => Ok(MapAuthenticationResult(authenticationResult)),
+                authenticationResult => Ok(_mapper.Map<AuthenticationResult>(authenticationResult)),
                 errors => Problem(errors));
-        }
-
-        private static AuthenticationResponse MapAuthenticationResult(AuthenticationResult result)
-        {
-            return new AuthenticationResponse(
-                result.User.Id.Value,
-                result.User.FirstName,
-                result.User.LastName,
-                result.User.Email,
-                result.User.Password,
-                result.Token);
         }
     }
 }

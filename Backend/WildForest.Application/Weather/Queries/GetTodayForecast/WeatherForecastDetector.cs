@@ -2,6 +2,7 @@
 using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Application.Weather.Common;
 using WildForest.Domain.Common.Exceptions;
+using WildForest.Domain.Weather.Entities;
 
 namespace WildForest.Application.Weather.Queries.GetTodayForecast
 {
@@ -21,7 +22,7 @@ namespace WildForest.Application.Weather.Queries.GetTodayForecast
             _dayWeatherRepository = dayWeatherRepository;
         }
 
-        public async Task<ErrorOr<WeatherForecust>> GetTodayWeatherForecast(TodayForecastQuery query)
+        public async Task<ErrorOr<List<WeatherForecust>>> GetTodayWeatherForecast(TodayForecastQuery query)
         {
             var user = await _userRepository.GetUserByIdAsync(query.UserId);
 
@@ -37,7 +38,14 @@ namespace WildForest.Application.Weather.Queries.GetTodayForecast
                 return Errors.City.NotFoundById;
             }
 
-            return new ErrorOr<WeatherForecust>();
+            List<DayWeather>? todayWeather = await _dayWeatherRepository.GetWeatherAsync(city.Id, DateTime.Now.Date);
+
+            if (todayWeather is null)
+            {
+                return Errors.Weather.NotFound;
+            }
+
+            return new List<WeatherForecust>();
         }
     }
 }

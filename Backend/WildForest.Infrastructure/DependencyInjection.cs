@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using WildForest.Application.Common.Interfaces.Authentication;
-using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Application.Common.Interfaces.Services;
 using WildForest.Infrastructure.Authentication;
 using WildForest.Infrastructure.Persistence;
@@ -24,10 +23,8 @@ namespace WildForest.Infrastructure
             services.AddAuth(configuration);
 
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-            
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ICityRepository, CityRepository>();
-            services.AddScoped<IDayWeatherRepository, DayWeatherRepository>();
+
+            services.AddRepositories();
 
             services.AddDbContext<WildForestDbContext>(options =>
             {
