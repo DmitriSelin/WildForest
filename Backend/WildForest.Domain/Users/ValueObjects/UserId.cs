@@ -21,9 +21,19 @@ namespace WildForest.Domain.Users.ValueObjects
             return new(value);
         }
 
+        public static UserId Parse(string userId)
+        {
+            return CreateUserId(Guid.Parse(userId));
+        }
+
         public override IEnumerable<object> GetEqualityComponents()
         {
             yield return Value;
+        }
+
+        public override string ToString()
+        {
+            return Value.ToString();
         }
     }
 }

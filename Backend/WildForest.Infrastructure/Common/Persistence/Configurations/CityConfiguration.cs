@@ -12,14 +12,12 @@ namespace WildForest.Infrastructure.Common.Persistence.Configurations
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
-                .HasConversion(
-                id => id.ToString(), 
-                value => CityId.Parse(value));
+                .HasConversion(id => id.ToString(), 
+                                value => CityId.Parse(value));
 
             builder.Property(x => x.Name)
                 .HasColumnName("CityName")
-                .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(ConfigurationSettings.MaxStringLength);
 
             builder.OwnsOne(
                 x => x.Location, 
@@ -27,7 +25,7 @@ namespace WildForest.Infrastructure.Common.Persistence.Configurations
                 {
                     property.Property(p => p.Country)
                     .HasColumnName("CountryName")
-                    .HasMaxLength(50);
+                    .HasMaxLength(ConfigurationSettings.MaxStringLength);
 
                     property.Property(p => p.Latitude).HasColumnName("Latitude");
                     property.Property(p => p.Longitude).HasColumnName("Longitude");

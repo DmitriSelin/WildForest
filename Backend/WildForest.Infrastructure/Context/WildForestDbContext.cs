@@ -2,6 +2,7 @@
 using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Weather.Entities;
+using WildForest.Infrastructure.Common.Persistence.Configurations;
 
 namespace WildForest.Infrastructure.Context
 {
@@ -20,7 +21,8 @@ namespace WildForest.Infrastructure.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.ApplyConfiguration(new CityConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
     }
 }

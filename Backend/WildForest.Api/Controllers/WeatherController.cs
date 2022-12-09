@@ -29,7 +29,7 @@ namespace WildForest.Api.Controllers
 
             var query = new TodayForecastQuery(userId, CityId.CreateCityId(cityId));
 
-            ErrorOr<WeatherForecust> forecust = await _weatherForecastDetector.GetTodayWeatherForecast(query);
+            ErrorOr<List<WeatherForecust>> forecust = await _weatherForecastDetector.GetTodayWeatherForecast(query);
 
             return Ok(forecust);
         }
