@@ -21,6 +21,11 @@ namespace WildForest.Domain.Cities.ValueObjects
             return new(value);
         }
 
+        public static CityId Parse(string cityId)
+        {
+            return CreateCityId(Guid.Parse(cityId));
+        }
+
         public override IEnumerable<object> GetEqualityComponents()
         {
             yield return Value;

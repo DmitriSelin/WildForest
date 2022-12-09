@@ -5,7 +5,7 @@ using WildForest.Domain.Weather.Entities;
 
 namespace WildForest.Infrastructure.Context
 {
-    public class WildForestDbContext : DbContext
+    public sealed class WildForestDbContext : DbContext
     {
         public DbSet<User> Users => Set<User>();
 
@@ -16,6 +16,11 @@ namespace WildForest.Infrastructure.Context
         public WildForestDbContext(DbContextOptions<WildForestDbContext> options) : base(options)
         {
             Database.EnsureCreated();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
         }
     }
 }

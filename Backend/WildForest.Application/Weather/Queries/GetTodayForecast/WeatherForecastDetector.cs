@@ -6,7 +6,7 @@ using WildForest.Domain.Weather.Entities;
 
 namespace WildForest.Application.Weather.Queries.GetTodayForecast
 {
-    public class WeatherForecastDetector : IWeatherForecastDetector
+    public sealed class WeatherForecastDetector : IWeatherForecastDetector
     {
         private readonly IUserRepository _userRepository;
         private readonly ICityRepository _cityRepository;

@@ -4,7 +4,7 @@ using WildForest.Contracts.Authentication;
 
 namespace WildForest.Api.Common.Mapping
 {
-    public class AuthenticationMappingConfig : IRegister
+    public sealed class AuthenticationMappingConfig : IRegister
     {
         public void Register(TypeAdapterConfig config)
         {
