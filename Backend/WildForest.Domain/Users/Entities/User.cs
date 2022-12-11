@@ -2,24 +2,21 @@
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Common.Models;
-using WildForest.Domain.Marks.Entities;
 using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Domain.Users.Entities
 {
     public class User : Entity<UserId>
     {
-        public string FirstName { get; set; }
+        public string FirstName { get; }
 
-        public string LastName { get; set; }
+        public string LastName { get; }
 
-        public Role Role { get; set; }
+        public Role Role { get; }
 
-        public string Email { get; set; }
+        public string Email { get; }
 
-        public string Password { get; set; }
-
-        public ICollection<Mark> Marks { get; set; } = null!;
+        public string Password { get; }
 
         public CityId CityId { get; } = null!;
 
