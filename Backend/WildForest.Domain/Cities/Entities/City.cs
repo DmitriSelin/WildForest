@@ -17,7 +17,5 @@ namespace WildForest.Domain.Cities.Entities
             Name = name;
             Location = location;
         }
-
-        public City(CityId cityId) : base(cityId) { }
     }
 }

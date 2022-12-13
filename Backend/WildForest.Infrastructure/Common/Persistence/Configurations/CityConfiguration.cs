@@ -21,14 +21,14 @@ namespace WildForest.Infrastructure.Common.Persistence.Configurations
 
             builder.OwnsOne(
                 x => x.Location,
-                property =>
+                sa =>
                 {
-                    property.Property(p => p.Country)
+                    sa.Property(p => p.Country)
                     .HasColumnName("CountryName")
                     .HasMaxLength(ConfigurationSettings.MaxStringLength);
 
-                    property.Property(p => p.Latitude).HasColumnName("Latitude");
-                    property.Property(p => p.Longitude).HasColumnName("Longitude");
+                    sa.Property(p => p.Latitude).HasColumnName("Latitude");
+                    sa.Property(p => p.Longitude).HasColumnName("Longitude");
                 });
         }
     }
