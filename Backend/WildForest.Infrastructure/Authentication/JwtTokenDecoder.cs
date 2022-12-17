@@ -18,7 +18,7 @@ namespace WildForest.Infrastructure.Authentication
 
                 if (bearer.Any())
                 {
-                    string token = bearer[0].Split(" ")[1];
+                    string? token = bearer[0]?.Split(" ")[1];
 
                     var tokenHandler = new JwtSecurityTokenHandler();
 
