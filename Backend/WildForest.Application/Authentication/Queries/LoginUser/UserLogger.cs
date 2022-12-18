@@ -1,5 +1,4 @@
 ﻿using ErrorOr;
-using System.Net;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Persistence;
@@ -23,14 +22,9 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
         {
             User? user = await _userRepository.GetUserByEmailAsync(query.Email);
 
-            if (user is null)
+            if (user is null || query.Password != user.Password)
             {
-                return Errors.Authentication.InvalidEmail;
-            }
-
-            if (query.Password != user.Password)
-            {
-                return Errors.Authentication.InvalidPassword;
+                return Errors.Authentication.InvalidCredentials;
             }
 
             var token = _jwtTokenGenerator.GenerateToken(user);

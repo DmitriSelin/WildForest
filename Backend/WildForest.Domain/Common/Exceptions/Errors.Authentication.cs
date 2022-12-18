@@ -6,13 +6,9 @@ namespace WildForest.Domain.Common.Exceptions
     {
         public static class Authentication
         {
-            public static Error InvalidEmail => Error.Validation(
-                code: "Authentication.InvalidEmail",
-                description: "User with this email does not exists");
-
-            public static Error InvalidPassword => Error.Validation(
-                code: "Authentication.InvalidPassword",
-                description: "Invalid Password");
+            public static Error InvalidCredentials => Error.Validation(
+                code: "Authentication.InvalidCredentials",
+                description: "User with such an email or password does not exist");
         }
     }
 }

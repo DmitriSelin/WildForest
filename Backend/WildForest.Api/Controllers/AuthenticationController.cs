@@ -47,9 +47,7 @@ namespace WildForest.Api.Controllers
 
             var authenticationResult = await _userLogger.LoginAsync(query);
 
-            if (authenticationResult.IsError && 
-                (authenticationResult.FirstError == Errors.Authentication.InvalidEmail || 
-                authenticationResult.FirstError == Errors.Authentication.InvalidPassword))
+            if (authenticationResult.IsError && authenticationResult.FirstError == Errors.Authentication.InvalidCredentials)
             {
                 return Problem(
                     statusCode: StatusCodes.Status401Unauthorized,
