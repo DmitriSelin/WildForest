@@ -1,6 +1,4 @@
-﻿using WildForest.Domain.Cities.Entities;
-using WildForest.Domain.Cities.ValueObjects;
-using WildForest.Domain.Common.Models;
+﻿using WildForest.Domain.Common.Models;
 
 namespace WildForest.Domain.Weather.ValueObjects
 {
@@ -20,23 +18,14 @@ namespace WildForest.Domain.Weather.ValueObjects
 
         public string Storm { get; }
 
-        public double Mark { get; }
-
-        public CityId CityId { get; } = null!;
-
-        public virtual City City { get; } = null!;
-
         public WeatherDetails(
-            string temperature, 
-            string description, 
+            string temperature,
+            string description,
             string humidity,
-            string pressure, 
-            string wind, 
+            string pressure,
+            string wind,
             string cloudness,
-            string storm,
-            double mark,
-            CityId cityId,
-            City city)
+            string storm)
         {
             Temperature = temperature;
             Description = description;
@@ -45,9 +34,6 @@ namespace WildForest.Domain.Weather.ValueObjects
             Wind = wind;
             Cloudness = cloudness;
             Storm = storm;
-            Mark = mark;
-            CityId = cityId;
-            City = city;
         }
 
         public override IEnumerable<object> GetEqualityComponents()
