@@ -19,11 +19,11 @@ namespace WildForest.Domain.Weather.Entities
         public virtual City City { get; set; } = null!;
 
         public DayWeather(
-            WeatherId weatherId,
+            WeatherId id,
             DateTime date,
             DaySpan daySpan,
             WeatherDetails weatherDetails,
-            CityId cityId) : base(weatherId)
+            CityId cityId) : base(id)
         {
             Date = date;
             DaySpan = daySpan;
@@ -31,6 +31,6 @@ namespace WildForest.Domain.Weather.Entities
             CityId = cityId;
         }
 
-        //public DayWeather(WeatherId weatherId) : base(weatherId) { }
+        public DayWeather(WeatherId id) : base(id) { }
     }
 }
