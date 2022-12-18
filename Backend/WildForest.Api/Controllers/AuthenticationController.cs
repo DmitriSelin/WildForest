@@ -36,7 +36,7 @@ namespace WildForest.Api.Controllers
             ErrorOr<AuthenticationResult> authenticationResult = await _userRegistrator.RegisterAsync(command);
 
             return authenticationResult.Match(
-                authenticationResult => Ok(_mapper.Map<AuthenticationResult>(authenticationResult)),
+                authenticationResult => Ok(_mapper.Map<AuthenticationResponse>(authenticationResult)),
                 errors => Problem(errors));
         }
 
@@ -57,7 +57,7 @@ namespace WildForest.Api.Controllers
             }
 
             return authenticationResult.Match(
-                authenticationResult => Ok(_mapper.Map<AuthenticationResult>(authenticationResult)),
+                authenticationResult => Ok(_mapper.Map<AuthenticationResponse>(authenticationResult)),
                 errors => Problem(errors));
         }
     }
