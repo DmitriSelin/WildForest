@@ -45,7 +45,7 @@ namespace WildForest.Application.Weather.Queries.GetTodayForecast
                 return Errors.Weather.NotFound;
             }
 
-            return new List<WeatherForecust>();
+            return new();
         }
     }
 }

@@ -31,7 +31,7 @@ namespace WildForest.Api.Controllers
 
             ErrorOr<List<WeatherForecust>> forecust = await _weatherForecastDetector.GetTodayWeatherForecast(query);
 
-            return Ok(forecust);
+            return Ok(forecust.Value);
         }
     }
 }
