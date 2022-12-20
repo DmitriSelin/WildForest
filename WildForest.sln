@@ -19,10 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Contracts", "Bac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Infrastructure", "Backend\WildForest.Infrastructure\WildForest.Infrastructure.csproj", "{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{58842542-63E1-4E71-9EF1-26B7226F8656}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WildForest.Console", "WildForest.Console\WildForest.Console.csproj", "{CDD80185-2A78-4036-BF51-9355BE94E411}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,10 +51,6 @@ Global
 		{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CDD80185-2A78-4036-BF51-9355BE94E411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CDD80185-2A78-4036-BF51-9355BE94E411}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CDD80185-2A78-4036-BF51-9355BE94E411}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CDD80185-2A78-4036-BF51-9355BE94E411}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,7 +62,6 @@ Global
 		{06302420-A71F-4D00-9004-A620807B19F0} = {F9A6D612-A0C5-4C25-B8C7-E7220920D26F}
 		{3672A4AA-4473-4CAD-9080-CAAA6DFDD875} = {F9A6D612-A0C5-4C25-B8C7-E7220920D26F}
 		{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31} = {F9A6D612-A0C5-4C25-B8C7-E7220920D26F}
-		{CDD80185-2A78-4036-BF51-9355BE94E411} = {58842542-63E1-4E71-9EF1-26B7226F8656}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {86AAB985-0438-49A5-AFA1-2D4A7F274723}
