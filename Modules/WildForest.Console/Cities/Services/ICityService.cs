@@ -2,7 +2,7 @@
 
 namespace WildForest.Console.Cities.Services
 {
-    internal interface ICityService
+    public interface ICityService
     {
         Task AddCitiesAsync(List<City> cities);
 
