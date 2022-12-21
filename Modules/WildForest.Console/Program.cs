@@ -1,13 +1,32 @@
-﻿StartDialog();
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using WildForest.Console.Cities.Services;
+using WildForest.Console.Services.ConsoleServices;
 
-static void StartDialog()
+internal class Program
 {
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine("\n Welcome to WildForest console application!");
-    Console.WriteLine("\n Please, enter file's name of someName.json \n");
+    public static void Main(string[] args)
+    {
+        var builder = new ConfigurationBuilder();
 
-    Console.ForegroundColor = ConsoleColor.Blue;
-    Console.Write(" ");
-    string fileName = Console.Read().ToString();
-    Console.ForegroundColor = ConsoleColor.Green; 
+        BuildConfig(builder);
+
+        var host = Host.CreateDefaultBuilder()
+            .ConfigureServices((context, services) =>
+            {
+                services.AddTransient<ICityService, CityService>();
+                services.AddTransient<IGreatingService, GreatingService>();
+            })
+            .Build();
+
+        var service = ActivatorUtilities.CreateInstance<GreatingService>(host.Services);
+        service.StartDialog();
+    }
+
+    private static void BuildConfig(IConfigurationBuilder builder)
+    {
+        builder.SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+    }
 }
