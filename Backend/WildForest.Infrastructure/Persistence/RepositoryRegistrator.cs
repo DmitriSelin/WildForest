@@ -10,6 +10,7 @@ namespace WildForest.Infrastructure.Persistence
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IDayWeatherRepository, DayWeatherRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
 
             return services;
         }

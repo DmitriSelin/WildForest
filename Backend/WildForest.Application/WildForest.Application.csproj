@@ -16,8 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Maps\Common\" />
-    <Folder Include="Maps\Queries\" />
     <Folder Include="Weather\Commands\" />
   </ItemGroup>
 

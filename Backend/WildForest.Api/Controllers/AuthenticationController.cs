@@ -28,14 +28,6 @@ namespace WildForest.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("countries")]
-        public async Task<IActionResult> GetCountries()
-        {
-            await Task.CompletedTask;
-
-            return Ok();
-        }
-
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterRequest request)
         {
@@ -65,6 +57,14 @@ namespace WildForest.Api.Controllers
             return authenticationResult.Match(
                 authenticationResult => Ok(_mapper.Map<AuthenticationResponse>(authenticationResult)),
                 errors => Problem(errors));
+        }
+
+        [HttpGet("countries")]
+        public async Task<IActionResult> GetCountries()
+        {
+            await Task.CompletedTask;
+
+            return Ok();
         }
     }
 }
