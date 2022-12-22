@@ -23,13 +23,13 @@ namespace WildForest.Infrastructure.Common.Persistence.Configurations
                 x => x.Location,
                 sa =>
                 {
-                    sa.Property(p => p.Country)
-                    .HasColumnName("CountryName")
-                    .HasMaxLength(ConfigurationSettings.MaxStringLength);
-
                     sa.Property(p => p.Latitude).HasColumnName("Latitude");
                     sa.Property(p => p.Longitude).HasColumnName("Longitude");
                 });
+
+            builder.Property(x => x.CountryId)
+                .IsRequired()
+                .HasColumnName("CountryId");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Infrastructure.Context;
 
@@ -8,14 +9,16 @@ namespace WildForest.Console.Cities.Services
     {
         public async Task AddCitiesAsync(List<City> cities)
         {
-            await Task.CompletedTask;
+            var optionsBuilder = new DbContextOptionsBuilder<WildForestDbContext>();
+
+            var options = optionsBuilder.UseNpgsql("").Options;
         }
 
         public async Task<List<City>> GetCitiesFromJsonFileAsync(string fileName)
         {
             List<City>? cities;
 
-            using (var fs = new FileStream($"{fileName}.json", FileMode.Open))
+            using (var fs = new FileStream($"Modules/WildForest.Console/Data/{fileName}.json", FileMode.Open))
             {
                 cities = await JsonSerializer.DeserializeAsync(fs, typeof(List<City>)) as List<City>;
             }

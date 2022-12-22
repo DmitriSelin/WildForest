@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WildForest.Domain.Cities.Entities;
+using WildForest.Domain.Countries.Entities;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Weather.Entities;
 using WildForest.Infrastructure.Common.Persistence.Configurations;
@@ -12,6 +13,8 @@ namespace WildForest.Infrastructure.Context
 
         public DbSet<City> Cities => Set<City>();
 
+        public DbSet<Country> Countries => Set<Country>();  
+
         public DbSet<DayWeather> DayWeather => Set<DayWeather>();
 
         public WildForestDbContext(DbContextOptions<WildForestDbContext> options) : base(options)
@@ -23,6 +26,7 @@ namespace WildForest.Infrastructure.Context
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new CityConfiguration());
+            modelBuilder.ApplyConfiguration(new CountryConfiguration());
             modelBuilder.ApplyConfiguration(new DayWeatherConfiguration());
         }
     }

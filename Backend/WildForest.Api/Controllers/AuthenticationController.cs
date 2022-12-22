@@ -28,6 +28,14 @@ namespace WildForest.Api.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("countries")]
+        public async Task<IActionResult> GetCountries()
+        {
+            await Task.CompletedTask;
+
+            return Ok();
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterRequest request)
         {

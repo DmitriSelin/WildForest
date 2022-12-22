@@ -19,7 +19,8 @@ namespace WildForest.Infrastructure.Common.Persistence.Configurations
                 .HasColumnName("ForecastDate")
                 .HasColumnType("date");
 
-            builder.Property(x => x.DaySpan).HasColumnName("DaySpan");
+            builder.Property(x => x.DaySpan)
+                .HasColumnName("DaySpan");
 
             builder.OwnsOne(
                 x => x.WeatherDetails,
@@ -54,7 +55,9 @@ namespace WildForest.Infrastructure.Common.Persistence.Configurations
                     .HasColumnName("Storm");
                 });
 
-            builder.Property(x => x.CityId).IsRequired(false).HasColumnName("CityId");
+            builder.Property(x => x.CityId)
+                .IsRequired()
+                .HasColumnName("CityId");
         }
     }
 }

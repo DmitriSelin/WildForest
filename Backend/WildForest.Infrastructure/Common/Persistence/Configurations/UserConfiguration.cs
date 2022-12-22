@@ -21,7 +21,9 @@ namespace WildForest.Infrastructure.Common.Persistence.Configurations
             builder.Property(x => x.LastName)
                 .HasMaxLength(ConfigurationSettings.MaxStringLength);
 
-            builder.Property(x => x.Role).IsRequired();
+            builder.Property(x => x.Role)
+                .IsRequired()
+                .HasColumnName("UserRole");
 
             builder.Property(x => x.Email)
                 .HasMaxLength(ConfigurationSettings.MaxStringLength);
@@ -29,7 +31,9 @@ namespace WildForest.Infrastructure.Common.Persistence.Configurations
             builder.Property(x => x.Password)
                 .HasMaxLength(ConfigurationSettings.MaxStringLength);
 
-            builder.Property(x => x.CityId).IsRequired(false).HasColumnName("CityId");
+            builder.Property(x => x.CityId)
+                .IsRequired()
+                .HasColumnName("CityId");
         }
     }
 }
