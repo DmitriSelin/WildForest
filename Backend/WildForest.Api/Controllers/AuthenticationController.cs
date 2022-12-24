@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using WildForest.Application.Authentication.Commands.RegisterUser;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Queries.LoginUser;
+using WildForest.Application.Maps.Queries.GetCountriesList;
 using WildForest.Contracts.Authentication;
+using WildForest.Contracts.Maps;
 using WildForest.Domain.Common.Exceptions;
 
 namespace WildForest.Api.Controllers
@@ -17,15 +19,18 @@ namespace WildForest.Api.Controllers
         private readonly IUserRegistrator _userRegistrator;
         private readonly IUserLogger _userLogger;
         private readonly IMapper _mapper;
+        private readonly ICountriesListQueryHandler _countriesListQueryHandler;
 
         public AuthenticationController(
             IUserRegistrator userRegistrator,
             IUserLogger userLogger,
-            IMapper mapper)
+            IMapper mapper,
+            ICountriesListQueryHandler countriesListQueryHandler)
         {
             _userRegistrator = userRegistrator;
             _userLogger = userLogger;
             _mapper = mapper;
+            _countriesListQueryHandler = countriesListQueryHandler;
         }
 
         [HttpPost("register")]
@@ -62,9 +67,11 @@ namespace WildForest.Api.Controllers
         [HttpGet("countries")]
         public async Task<IActionResult> GetCountries()
         {
-            await Task.CompletedTask;
+            var countries = await _countriesListQueryHandler.GetCountriesAsync();
 
-            return Ok();
+            var countriesResponse = _mapper.Map<List<CountriesResponse>>(countries);
+
+            return Ok(countriesResponse);
         }
     }
 }

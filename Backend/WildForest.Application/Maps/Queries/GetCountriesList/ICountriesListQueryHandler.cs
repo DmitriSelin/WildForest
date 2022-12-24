@@ -1,9 +1,9 @@
-﻿using WildForest.Domain.Countries.Entities;
+﻿using WildForest.Application.Maps.Common;
 
 namespace WildForest.Application.Maps.Queries.GetCountriesList
 {
     public interface ICountriesListQueryHandler
     {
-        Task<List<Country>> GetCountriesAsync();
+        Task<List<CountryViewModel>> GetCountriesAsync();
     }
 }

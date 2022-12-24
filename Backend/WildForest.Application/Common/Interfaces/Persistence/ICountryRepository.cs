@@ -4,6 +4,6 @@ namespace WildForest.Application.Common.Interfaces.Persistence
 {
     public interface ICountryRepository
     {
-        Task<IQueryable<Country>> GetAllCountriesAsync();
+        Task<IEnumerable<Country>> GetAllCountriesAsync();
     }
 }

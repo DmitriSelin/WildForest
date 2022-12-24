@@ -1,5 +1,7 @@
 ﻿using Mapster;
+using WildForest.Application.Authentication.Commands.RegisterUser;
 using WildForest.Application.Authentication.Common;
+using WildForest.Application.Authentication.Queries.LoginUser;
 using WildForest.Contracts.Authentication;
 
 namespace WildForest.Api.Common.Mapping
@@ -8,6 +10,9 @@ namespace WildForest.Api.Common.Mapping
     {
         public void Register(TypeAdapterConfig config)
         {
+            config.NewConfig<LoginRequest, LoginUserQuery>();
+            config.NewConfig<RegisterRequest, RegisterUserCommand>();
+
             config.NewConfig<AuthenticationResult, AuthenticationResponse>()
                 .Map(dest => dest.Token, src => src.Token)
                 .Map(dest => dest.Id, src => src.User.Id.Value)

@@ -6,9 +6,9 @@ namespace WildForest.Domain.Countries.Entities
 {
     public class Country : Entity<CountryId>
     {
-        public string Name { get; } = null!;
+        public string Name { get; }
 
-        public virtual ICollection<City> Cities { get; set; } = null!;
+        public virtual ICollection<City> Cities { get; } = null!;
 
         public Country(CountryId id, string name) : base(id)
         {

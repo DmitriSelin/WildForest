@@ -2,5 +2,5 @@
 
 namespace WildForest.Application.Maps.Common
 {
-    public record CountryViewModel(Country Country);
+    public record CountryViewModel(Guid CountryId, string CountryName);
 }
