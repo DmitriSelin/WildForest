@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using WildForest.Application.Authentication.Commands.RegisterUser;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Queries.LoginUser;
+using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
 using WildForest.Contracts.Authentication;
 using WildForest.Contracts.Maps;
@@ -20,17 +21,20 @@ namespace WildForest.Api.Controllers
         private readonly IUserLogger _userLogger;
         private readonly IMapper _mapper;
         private readonly ICountriesListQueryHandler _countriesListQueryHandler;
+        private readonly ICitiesListQueryHandler _citiesListQueryHandler;
 
         public AuthenticationController(
             IUserRegistrator userRegistrator,
             IUserLogger userLogger,
             IMapper mapper,
-            ICountriesListQueryHandler countriesListQueryHandler)
+            ICountriesListQueryHandler countriesListQueryHandler,
+            ICitiesListQueryHandler citiesListQueryHandler)
         {
             _userRegistrator = userRegistrator;
             _userLogger = userLogger;
             _mapper = mapper;
             _countriesListQueryHandler = countriesListQueryHandler;
+            _citiesListQueryHandler = citiesListQueryHandler;
         }
 
         [HttpPost("register")]
@@ -67,17 +71,21 @@ namespace WildForest.Api.Controllers
         [HttpGet("countries")]
         public async Task<IActionResult> GetCountries()
         {
-            var countries = await _countriesListQueryHandler.GetCountriesAsync();
+            List<CountryQuery> countries = await _countriesListQueryHandler.GetCountriesAsync();
 
-            var countriesResponse = _mapper.Map<List<CountriesResponse>>(countries);
+            var countriesResponse = _mapper.Map<List<CountryResponse>>(countries);
 
             return Ok(countriesResponse);
         }
 
         [HttpGet("cities/{countryId}")]
-        public async Task<IActionResult> GetCitiesByCountry(Guid countryId)
+        public async Task<IActionResult> GetCitiesByCountryId(Guid countryId)
         {
-            return Ok();
+            var cities = await _citiesListQueryHandler.GetCitiesByCountryIdAsync(countryId);
+
+            return cities.Match(
+                cities => Ok(_mapper.Map<List<CityResponse>>(cities)),
+                errors => Problem(errors));
         }
     }
 }
