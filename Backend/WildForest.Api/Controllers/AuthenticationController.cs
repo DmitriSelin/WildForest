@@ -73,5 +73,11 @@ namespace WildForest.Api.Controllers
 
             return Ok(countriesResponse);
         }
+
+        [HttpGet("cities/{countryId}")]
+        public async Task<IActionResult> GetCitiesByCountry(Guid countryId)
+        {
+            return Ok();
+        }
     }
 }

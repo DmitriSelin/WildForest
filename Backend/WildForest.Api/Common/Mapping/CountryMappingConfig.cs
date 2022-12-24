@@ -1,5 +1,5 @@
 ﻿using Mapster;
-using WildForest.Application.Maps.Common;
+using WildForest.Application.Maps.Queries.GetCountriesList;
 using WildForest.Contracts.Maps;
 
 namespace WildForest.Api.Common.Mapping
@@ -8,7 +8,7 @@ namespace WildForest.Api.Common.Mapping
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<CountryViewModel, CountriesResponse>();
+            config.NewConfig<CountryQuery, CountriesResponse>();
         }
     }
 }

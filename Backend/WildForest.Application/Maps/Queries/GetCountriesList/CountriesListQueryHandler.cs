@@ -1,6 +1,5 @@
 ﻿using MapsterMapper;
 using WildForest.Application.Common.Interfaces.Persistence;
-using WildForest.Application.Maps.Common;
 using WildForest.Domain.Countries.Entities;
 
 namespace WildForest.Application.Maps.Queries.GetCountriesList
@@ -16,11 +15,11 @@ namespace WildForest.Application.Maps.Queries.GetCountriesList
             _mapper = mapper;
         }
 
-        public async Task<List<CountryViewModel>> GetCountriesAsync()
+        public async Task<List<CountryQuery>> GetCountriesAsync()
         {
             var countries = (List<Country>) await _countryRepository.GetAllCountriesAsync();
 
-            return _mapper.Map<List<CountryViewModel>>(countries);
+            return _mapper.Map<List<CountryQuery>>(countries);
         }
     }
 }
