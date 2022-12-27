@@ -56,14 +56,17 @@
             Console.WriteLine("\n If you want to add country, enter 1;\n\n" +
                 " For downloading cities from file, enter 2\n");
 
+            int condition1 = 1;
+            int condition2 = 2;
+
             int input;
 
             do
             {
                 Console.WriteLine(" Enter 1 or 2\n");
-                Int32.TryParse(Input(), out input);
+                int.TryParse(Input(), out input);
 
-                if (input == 1 || input == 2)
+                if (input == condition1 || input == condition2)
                 {
                     break;
                 }

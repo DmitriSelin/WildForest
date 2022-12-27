@@ -16,7 +16,9 @@ namespace WildForest.Domain.Cities.Entities
 
         public virtual Country Country { get; } = null!;
 
-        public virtual ICollection<User> Users { get; set; } = null!;
+        private readonly List<User> _users = new();
+
+        public IReadOnlyList<User> Users => _users.AsReadOnly();
 
         public City(CityId id, string name, Location location) : base(id)
         {

@@ -16,7 +16,7 @@ namespace WildForest.Domain.Weather.Entities
 
         public CityId CityId { get; } = null!;
 
-        public virtual City City { get; set; } = null!;
+        public virtual City City { get; } = null!;
 
         public DayWeather(
             WeatherId id,

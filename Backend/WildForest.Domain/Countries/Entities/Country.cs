@@ -8,7 +8,9 @@ namespace WildForest.Domain.Countries.Entities
     {
         public string Name { get; }
 
-        public virtual ICollection<City> Cities { get; } = null!;
+        private readonly List<City> _cities = new();
+
+        public IReadOnlyList<City> Cities => _cities.AsReadOnly(); 
 
         public Country(CountryId id, string name) : base(id)
         {
