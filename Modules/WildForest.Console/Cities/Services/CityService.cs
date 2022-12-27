@@ -12,6 +12,11 @@ namespace WildForest.Console.Cities.Services
             var optionsBuilder = new DbContextOptionsBuilder<WildForestDbContext>();
 
             var options = optionsBuilder.UseNpgsql("").Options;
+
+            var context = new WildForestDbContext(options);
+
+            await context.AddRangeAsync(cities);
+            await context.SaveChangesAsync();
         }
 
         public async Task<List<City>> GetCitiesFromJsonFileAsync(string fileName)
