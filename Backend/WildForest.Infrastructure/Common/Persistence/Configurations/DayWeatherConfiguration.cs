@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Weather.Entities;
 using WildForest.Domain.Weather.ValueObjects;
 
@@ -58,6 +59,10 @@ namespace WildForest.Infrastructure.Common.Persistence.Configurations
             builder.Property(x => x.CityId)
                 .IsRequired()
                 .HasColumnName("CityId");
+
+            builder.Property(x => x.CityId)
+                .HasConversion(id => id.ToString(),
+                                value => CityId.Parse(value));
         }
     }
 }

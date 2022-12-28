@@ -3,6 +3,7 @@ using WildForest.Domain.Common.Models;
 using WildForest.Domain.Countries.Entities;
 using WildForest.Domain.Countries.ValueObjects;
 using WildForest.Domain.Users.Entities;
+using WildForest.Domain.Weather.Entities;
 
 namespace WildForest.Domain.Cities.Entities
 {
@@ -19,6 +20,10 @@ namespace WildForest.Domain.Cities.Entities
         private readonly List<User> _users = new();
 
         public IReadOnlyList<User> Users => _users.AsReadOnly();
+
+        private readonly List<DayWeather> _dayWeather = new();
+
+        public IReadOnlyList<DayWeather> DayWeather => _dayWeather.AsReadOnly();
 
         public City(CityId id, string name, Location location) : base(id)
         {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Infrastructure.Context;
@@ -7,11 +8,18 @@ namespace WildForest.Console.Cities.Services
 {
     public class CityService : ICityService
     {
+        private readonly IConfiguration _configuration;
+
+        public CityService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public async Task AddCitiesAsync(List<City> cities)
         {
             var optionsBuilder = new DbContextOptionsBuilder<WildForestDbContext>();
 
-            var options = optionsBuilder.UseNpgsql("").Options;
+            var options = optionsBuilder.UseNpgsql(_configuration.GetConnectionString("PostgreSQL")).Options;
 
             var context = new WildForestDbContext(options);
 
@@ -23,7 +31,9 @@ namespace WildForest.Console.Cities.Services
         {
             List<City>? cities;
 
-            using (var fs = new FileStream($"Modules/WildForest.Console/Data/{fileName}.json", FileMode.Open))
+            string? path = _configuration["Paths:JsonFilePath"];
+
+            using (var fs = new FileStream($"{path}/{fileName}.json", FileMode.Open))
             {
                 cities = await JsonSerializer.DeserializeAsync(fs, typeof(List<City>)) as List<City>;
             }

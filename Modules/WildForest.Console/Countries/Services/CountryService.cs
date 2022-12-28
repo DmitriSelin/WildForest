@@ -1,16 +1,30 @@
-﻿using WildForest.Domain.Countries.Entities;
-
-namespace WildForest.Console.Countries.Services
-{
-}
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using WildForest.Domain.Countries.Entities;
+using WildForest.Domain.Countries.ValueObjects;
+using WildForest.Infrastructure.Context;
 
 namespace WildForest.Console.Countries.Services
 {
     public class CountryService : ICountryService
     {
-        public Task AddCountryAsync(Country country)
+        private readonly IConfiguration _configuration;
+
+        public CountryService(IConfiguration configuration)
         {
-            throw new NotImplementedException();
+            _configuration = configuration;
+        }
+
+        public async Task AddCountryAsync(string countryName)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<WildForestDbContext>();
+            var options = optionsBuilder.UseNpgsql(_configuration.GetConnectionString("PostgreSQL")).Options;
+            var context = new WildForestDbContext(options);
+
+            var country = new Country(CountryId.CreateCountryId(), countryName);
+
+            await context.Countries.AddAsync(country);
+            await context.SaveChangesAsync();
         }
     }
 }

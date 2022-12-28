@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Cities.ValueObjects;
+using WildForest.Domain.Countries.ValueObjects;
 
 namespace WildForest.Infrastructure.Common.Persistence.Configurations
 {
@@ -30,6 +31,10 @@ namespace WildForest.Infrastructure.Common.Persistence.Configurations
             builder.Property(x => x.CountryId)
                 .IsRequired()
                 .HasColumnName("CountryId");
+
+            builder.Property(x => x.CountryId)
+                .HasConversion(id => id.ToString(),
+                                value => CountryId.Parse(value));
         }
     }
 }

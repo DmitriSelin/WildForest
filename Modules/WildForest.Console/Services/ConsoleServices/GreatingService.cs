@@ -1,7 +1,6 @@
 ﻿namespace WildForest.Console.Services.ConsoleServices
 {
     using System;
-    using System.Reflection.Metadata.Ecma335;
     using WildForest.Console.Cities.Services;
     using WildForest.Console.Countries.Services;
     using WildForest.Domain.Cities.Entities;
@@ -22,7 +21,7 @@
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\n Welcome to WildForest console application!");
 
-            while(true)
+            while (true)
             {
                 int choice = SelectAction();
 
@@ -31,30 +30,11 @@
 
                     if (choice == 1)
                     {
-                        Console.WriteLine("\n Please, enter country's name\n");
-
-                        string? countryName = Console.ReadLine();
-
-                        if (countryName == null)
-                        {
-                            throw new ArgumentNullException(nameof(countryName));
-                        }
-
-                        await _countryService.AddCountryAsync(countryName);
+                        AddCountry();
                     }
                     else if (choice == 2)
                     {
-                        Console.WriteLine("\n Please, enter file's name of someName.json \n");
-
-                        string? fileName = Input();
-
-                        if (fileName is null)
-                        {
-                            throw new ArgumentNullException(nameof(fileName));
-                        }
-
-                        List<City> cities = await _cityService.GetCitiesFromJsonFileAsync(fileName);
-                        await _cityService.AddCitiesAsync(cities);
+                        AddCities();
                     }
                 }
                 catch (ArgumentNullException)
@@ -62,10 +42,10 @@
                     Console.WriteLine("\n Not correct name\n");
                     continue;
                 }
-            }            
+            }
         }
 
-        private string? Input()
+        private static string? Input()
         {
             Console.ForegroundColor = ConsoleColor.Blue;            
             Console.Write(" ");
@@ -76,7 +56,36 @@
             return input;
         }
 
-        private int SelectAction()
+        private void AddCountry()
+        {
+            Console.WriteLine("\n Please, enter country's name\n");
+
+            string? countryName = Input();
+
+            if (countryName == null || countryName == string.Empty)
+            {
+                throw new ArgumentNullException(nameof(countryName));
+            }
+
+            _countryService.AddCountryAsync(countryName);
+        }
+
+        private void AddCities()
+        {
+            Console.WriteLine("\n Please, enter file's name of someName.json \n");
+
+            string? fileName = Input();
+
+            if (fileName is null)
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+
+            List<City> cities = _cityService.GetCitiesFromJsonFileAsync(fileName).Result;
+            _cityService.AddCitiesAsync(cities);
+        }
+
+        private static int SelectAction()
         {
             Console.WriteLine("\n If you want to add country, enter 1;\n\n" +
                 " For downloading cities from file, enter 2\n");
