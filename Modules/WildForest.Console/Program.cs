@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WildForest.Console.Cities.Services;
+using WildForest.Console.Countries.Services;
 using WildForest.Console.Services.ConsoleServices;
 
 internal class Program
@@ -17,6 +18,7 @@ internal class Program
             {
                 services.AddTransient<ICityService, CityService>();
                 services.AddTransient<IGreatingService, GreatingService>();
+                services.AddTransient<ICountryService, CountryService>();
             })
             .Build();
 

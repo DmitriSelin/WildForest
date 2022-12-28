@@ -1,43 +1,68 @@
 ﻿namespace WildForest.Console.Services.ConsoleServices
 {
     using System;
+    using System.Reflection.Metadata.Ecma335;
     using WildForest.Console.Cities.Services;
+    using WildForest.Console.Countries.Services;
     using WildForest.Domain.Cities.Entities;
 
     public class GreatingService : IGreatingService
     {
         private readonly ICityService _cityService;
+        private readonly ICountryService _countryService;
 
-        public GreatingService(ICityService cityService)
+        public GreatingService(ICityService cityService, ICountryService countryService)
         {
             _cityService = cityService;
+            _countryService = countryService;
         }
 
-        public void StartDialog()
+        public async void StartDialog()
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\n Welcome to WildForest console application!");
 
-            int choice = SelectAction();
-
-            if (choice == 1)
+            while(true)
             {
+                int choice = SelectAction();
 
-            }
-            else if (choice == 2)
-            {
-                Console.WriteLine("\n Please, enter file's name of someName.json \n");
-
-                string? fileName = Input();
-
-                if (fileName is null)
+                try
                 {
-                    throw new ArgumentNullException(nameof(fileName));
-                }
 
-                List<City> cities = _cityService.GetCitiesFromJsonFileAsync(fileName).Result;
-                _cityService.AddCitiesAsync(cities);
-            }
+                    if (choice == 1)
+                    {
+                        Console.WriteLine("\n Please, enter country's name\n");
+
+                        string? countryName = Console.ReadLine();
+
+                        if (countryName == null)
+                        {
+                            throw new ArgumentNullException(nameof(countryName));
+                        }
+
+                        await _countryService.AddCountryAsync(countryName);
+                    }
+                    else if (choice == 2)
+                    {
+                        Console.WriteLine("\n Please, enter file's name of someName.json \n");
+
+                        string? fileName = Input();
+
+                        if (fileName is null)
+                        {
+                            throw new ArgumentNullException(nameof(fileName));
+                        }
+
+                        List<City> cities = await _cityService.GetCitiesFromJsonFileAsync(fileName);
+                        await _cityService.AddCitiesAsync(cities);
+                    }
+                }
+                catch (ArgumentNullException)
+                {
+                    Console.WriteLine("\n Not correct name\n");
+                    continue;
+                }
+            }            
         }
 
         private string? Input()
