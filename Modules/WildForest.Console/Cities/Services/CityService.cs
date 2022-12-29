@@ -31,6 +31,12 @@ namespace WildForest.Console.Cities.Services
         {
             List<City>? cities;
 
+            var options = new JsonSerializerOptions()
+            {
+                IgnoreReadOnlyFields = true,
+                IgnoreReadOnlyProperties = true
+            };
+
             string? path = _configuration["Paths:JsonFilePath"];
 
             using (var fs = new FileStream($"{path}/{fileName}.json", FileMode.Open))
