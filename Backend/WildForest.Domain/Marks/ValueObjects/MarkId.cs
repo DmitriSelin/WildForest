@@ -16,9 +16,24 @@ namespace WildForest.Domain.Marks.ValueObjects
             return new(Guid.NewGuid());
         }
 
+        public static MarkId CreateMarkId(Guid value)
+        {
+            return new(value);
+        }
+
         public override IEnumerable<object> GetEqualityComponents()
         {
             yield return Value;
+        }
+
+        public static MarkId Parse(string markId)
+        {
+            return CreateMarkId(Guid.Parse(markId));
+        }
+
+        public override string ToString()
+        {
+            return Value.ToString();
         }
     }
 }

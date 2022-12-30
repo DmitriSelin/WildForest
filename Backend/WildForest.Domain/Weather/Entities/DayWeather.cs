@@ -18,7 +18,7 @@ namespace WildForest.Domain.Weather.Entities
 
         public virtual City City { get; } = null!;
 
-        public DayWeather(
+        private DayWeather(
             WeatherId id,
             DateTime date,
             DaySpan daySpan,
@@ -31,6 +31,23 @@ namespace WildForest.Domain.Weather.Entities
             CityId = cityId;
         }
 
-        public DayWeather(WeatherId id) : base(id) { }
+        private DayWeather(WeatherId id) : base(id) { }
+
+        public static DayWeather CreateDayWeather(
+            DateTime date,
+            DaySpan daySpan,
+            WeatherDetails weatherDetails,
+            CityId cityId)
+        {
+            return new(
+                WeatherId.CreateWeatherId(),
+                date,
+                daySpan,
+                weatherDetails,
+                cityId);
+        }
+
+        public static DayWeather CreateDayWeather() 
+            => new(WeatherId.CreateWeatherId());
     }
 }

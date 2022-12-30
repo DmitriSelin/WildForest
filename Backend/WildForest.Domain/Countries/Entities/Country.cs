@@ -12,9 +12,14 @@ namespace WildForest.Domain.Countries.Entities
 
         public IReadOnlyList<City> Cities => _cities.AsReadOnly(); 
 
-        public Country(CountryId id, string name) : base(id)
+        private Country(CountryId id, string name) : base(id)
         {
             Name = name;
+        }
+
+        public static Country CreateCountry(string name)
+        {
+            return new(CountryId.CreateCountryId(), name);
         }
     }
 }

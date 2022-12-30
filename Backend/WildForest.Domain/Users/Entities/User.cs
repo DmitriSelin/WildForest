@@ -22,7 +22,7 @@ namespace WildForest.Domain.Users.Entities
 
         public virtual City City { get; } = null!;
 
-        public User(
+        private User(
             UserId id,
             string firstName,
             string lastName,
@@ -35,6 +35,22 @@ namespace WildForest.Domain.Users.Entities
             Role = role;
             Email = email;
             Password = password;
+        }
+
+        public static User CreateUser(
+            string firstName, 
+            string lastName, 
+            Role role, 
+            string email, 
+            string password)
+        {
+            return new(
+                UserId.CreateUserId(), 
+                firstName,
+                lastName, 
+                role,
+                email, 
+                password);
         }
     }
 }

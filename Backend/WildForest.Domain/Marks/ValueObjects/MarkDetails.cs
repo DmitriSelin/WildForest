@@ -8,10 +8,15 @@ namespace WildForest.Domain.Marks.ValueObjects
 
         public string Comment { get; }
 
-        public MarkDetails(byte value, string comment)
+        private MarkDetails(byte value, string comment)
         {
             Value = value;
             Comment = comment;
+        }
+
+        public static MarkDetails CreateMarkDetails(byte value, string comment)
+        {
+            return new(value, comment);
         }
 
         public override IEnumerable<object> GetEqualityComponents()

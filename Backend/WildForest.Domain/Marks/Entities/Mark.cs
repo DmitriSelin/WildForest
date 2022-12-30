@@ -13,9 +13,14 @@ namespace WildForest.Domain.Marks.Entities
 
         public virtual User User { get; } = null!;
 
-        public Mark(MarkId id, MarkDetails markDetails) : base(id)
+        private Mark(MarkId id, MarkDetails markDetails) : base(id)
         {
             MarkDetails = markDetails;
+        }
+
+        public static Mark CreateMark(MarkDetails markDetails)
+        {
+            return new(MarkId.CreateMarkId(), markDetails);
         }
     }
 }

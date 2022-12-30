@@ -8,10 +8,15 @@ namespace WildForest.Domain.Cities.ValueObjects
 
         public double Longitude { get; }
 
-        public Location(double latitude, double longitude)
+        private Location(double latitude, double longitude)
         {
             Latitude = latitude;
             Longitude = longitude;
+        }
+
+        public static Location CreateLocation(double latitude, double longitude)
+        {
+            return new(latitude, longitude);
         }
 
         public override IEnumerable<object> GetEqualityComponents()
