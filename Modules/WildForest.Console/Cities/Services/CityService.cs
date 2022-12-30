@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
+using WildForest.Console.Common.JsonSettings;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Infrastructure.Context;
 
@@ -31,17 +32,14 @@ namespace WildForest.Console.Cities.Services
         {
             List<City>? cities;
 
-            var options = new JsonSerializerOptions()
-            {
-                IgnoreReadOnlyFields = true,
-                IgnoreReadOnlyProperties = true
-            };
+            var jsonOptions = new JsonSerializerOptions();
+            jsonOptions.Converters.Add(new CityConverter());
 
             string? path = _configuration["Paths:JsonFilePath"];
 
             using (var fs = new FileStream($"{path}/{fileName}.json", FileMode.Open))
             {
-                cities = await JsonSerializer.DeserializeAsync(fs, typeof(List<City>)) as List<City>;
+                cities = await JsonSerializer.DeserializeAsync(fs, typeof(List<City>), jsonOptions) as List<City>;
             }
 
             if (cities is null)
