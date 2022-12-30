@@ -29,7 +29,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
                 return Errors.User.DupplicateEmail;
             }
 
-            user = new User(UserId.CreateUserId(), command.FirstName, command.LastName,
+            user = User.CreateUser(command.FirstName, command.LastName,
                 Role.User, command.Email, command.Password);
 
             await _userRepository.AddUserAsync(user);
