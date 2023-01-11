@@ -24,7 +24,7 @@ namespace WildForest.Console.Cities.Services
 
             var context = new WildForestDbContext(options);
 
-            await context.AddRangeAsync(cities);
+            await context.Cities.AddRangeAsync(cities);
             await context.SaveChangesAsync();
         }
 
