@@ -25,20 +25,26 @@ namespace WildForest.Domain.Cities.Entities
 
         public IReadOnlyList<DayWeather> DayWeather => _dayWeather.AsReadOnly();
 
-        private City(CityId id, string name, Location location) : base(id)
+        private City(
+            CityId id,
+            string name,
+            Location location,
+            CountryId countryId) : base(id)
         {
             Name = name;
             Location = location;
+            CountryId = countryId;
         }
 
         private City(CityId id) : base(id) { }
 
-        public static City CreateCity(string name, Location location)
+        public static City CreateCity(string name, Location location, CountryId countryId)
         {
             return new(
                 CityId.CreateCityId(),
                 name,
-                location);
+                location,
+                countryId);
         }
 
         public static City CreateCity() => new(CityId.CreateCityId());

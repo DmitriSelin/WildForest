@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 using WildForest.Console.Common.JsonSettings;
 using WildForest.Domain.Cities.Entities;
+using WildForest.Domain.Countries.ValueObjects;
 using WildForest.Infrastructure.Context;
 
 namespace WildForest.Console.Cities.Services
