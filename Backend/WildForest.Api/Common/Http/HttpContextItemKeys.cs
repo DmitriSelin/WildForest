@@ -1,6 +1,6 @@
 ﻿namespace WildForest.Api.Common.Http
 {
-    internal class HttpContextItemKeys
+    internal sealed class HttpContextItemKeys
     {
         internal const string Errors = "errors";
     }

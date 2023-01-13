@@ -7,7 +7,7 @@ using WildForest.Domain.Countries.ValueObjects;
 
 namespace WildForest.Application.Maps.Queries.GetCitiesList
 {
-    public class CitiesListQueryHandler : ICitiesListQueryHandler
+    public sealed class CitiesListQueryHandler : ICitiesListQueryHandler
     {
         private readonly ICityRepository _cityRepository;
         private readonly IMapper _mapper;

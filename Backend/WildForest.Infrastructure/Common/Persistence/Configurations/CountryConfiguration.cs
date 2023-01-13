@@ -5,7 +5,7 @@ using WildForest.Domain.Countries.ValueObjects;
 
 namespace WildForest.Infrastructure.Common.Persistence.Configurations
 {
-    public class CountryConfiguration : IEntityTypeConfiguration<Country>
+    public sealed class CountryConfiguration : IEntityTypeConfiguration<Country>
     {
         public void Configure(EntityTypeBuilder<Country> builder)
         {

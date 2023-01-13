@@ -7,7 +7,7 @@ using WildForest.Infrastructure.Context;
 
 namespace WildForest.Infrastructure.Persistence
 {
-    public class CityRepository : ICityRepository
+    public sealed class CityRepository : ICityRepository
     {
         private readonly WildForestDbContext _context;
 

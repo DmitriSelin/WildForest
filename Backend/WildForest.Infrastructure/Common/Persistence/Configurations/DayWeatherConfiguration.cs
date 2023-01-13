@@ -6,7 +6,7 @@ using WildForest.Domain.Weather.ValueObjects;
 
 namespace WildForest.Infrastructure.Common.Persistence.Configurations
 {
-    public class DayWeatherConfiguration : IEntityTypeConfiguration<DayWeather>
+    public sealed class DayWeatherConfiguration : IEntityTypeConfiguration<DayWeather>
     {
         public void Configure(EntityTypeBuilder<DayWeather> builder)
         {

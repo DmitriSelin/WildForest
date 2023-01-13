@@ -6,7 +6,7 @@ using WildForest.Infrastructure.Context;
 
 namespace WildForest.Infrastructure.Persistence
 {
-    public class DayWeatherRepository : IDayWeatherRepository
+    public sealed class DayWeatherRepository : IDayWeatherRepository
     {
         private readonly WildForestDbContext _context;
 

@@ -1,4 +1,4 @@
 ﻿namespace WildForest.Application.Maps.Queries.GetCitiesList
 {
-    public record CityQuery(Guid CityId, string CityName);
+    public sealed record CityQuery(Guid CityId, string CityName);
 }

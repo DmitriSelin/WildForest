@@ -1,4 +1,4 @@
 ﻿namespace WildForest.Application.Maps.Queries.GetCountriesList
 {
-    public record CountryQuery(Guid CountryId, string CountryName);
+    public sealed record CountryQuery(Guid CountryId, string CountryName);
 }

@@ -1,4 +1,4 @@
 ﻿namespace WildForest.Contracts.Maps
 {
-    public record CityResponse(Guid CityId, string CityName);
+    public sealed record CityResponse(Guid CityId, string CityName);
 }

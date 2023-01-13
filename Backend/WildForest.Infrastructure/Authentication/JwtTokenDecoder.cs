@@ -6,7 +6,7 @@ using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Infrastructure.Authentication
 {
-    public class JwtTokenDecoder : IJwtTokenDecoder
+    public sealed class JwtTokenDecoder : IJwtTokenDecoder
     {
         public UserId GetUserIdFromToken(HttpRequest? request)
         {

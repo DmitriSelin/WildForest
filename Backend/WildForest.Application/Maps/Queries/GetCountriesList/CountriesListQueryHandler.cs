@@ -4,7 +4,7 @@ using WildForest.Domain.Countries.Entities;
 
 namespace WildForest.Application.Maps.Queries.GetCountriesList
 {
-    public class CountriesListQueryHandler : ICountriesListQueryHandler
+    public sealed class CountriesListQueryHandler : ICountriesListQueryHandler
     {
         private readonly ICountryRepository _countryRepository;
         private readonly IMapper _mapper;

@@ -5,7 +5,7 @@ using WildForest.Contracts.Maps;
 
 namespace WildForest.Api.Common.Mapping
 {
-    public class MapsMappingConfig : IRegister
+    public sealed class MapsMappingConfig : IRegister
     {
         public void Register(TypeAdapterConfig config)
         {

@@ -5,7 +5,7 @@ using WildForest.Infrastructure.Context;
 
 namespace WildForest.Infrastructure.Persistence
 {
-    public class CountryRepository : ICountryRepository
+    public sealed class CountryRepository : ICountryRepository
     {
         private readonly WildForestDbContext _context;
 
