@@ -19,7 +19,8 @@ namespace WildForest.Api.Common.Mapping
                 .Map(dest => dest.FirstName, src => src.User.FirstName)
                 .Map(dest => dest.LastName, src => src.User.LastName)
                 .Map(dest => dest.Email, src => src.User.Email)
-                .Map(dest => dest.Password, src => src.User.Password);
+                .Map(dest => dest.Password, src => src.User.Password)
+                .Map(dest => dest.CityId, src => src.User.CityId.Value);
         }
     }
 }

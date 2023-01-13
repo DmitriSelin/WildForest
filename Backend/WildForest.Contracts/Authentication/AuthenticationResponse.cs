@@ -6,5 +6,6 @@
         string LastName, 
         string Email,
         string Password,
+        Guid CityId,
         string Token);
 }
