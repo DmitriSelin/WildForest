@@ -8,6 +8,13 @@ namespace WildForest.Console.Common.JsonSettings
 {
     public class CityConverter : JsonConverter<List<City>>
     {
+        private readonly CountryId _countryId;
+
+        public CityConverter(CountryId countryId)
+        {
+            _countryId = countryId;
+        }
+
         public override List<City>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             string cityName = string.Empty;
@@ -52,7 +59,7 @@ namespace WildForest.Console.Common.JsonSettings
                     if (count % 3 == 0)
                     {
                         var location = Location.CreateLocation(latitude, longitude);
-                        var city = City.CreateCity(cityName, location, CountryId.CreateCountryId());
+                        var city = City.CreateCity(cityName, location, _countryId);
 
                         cities.Add(city);
                     }

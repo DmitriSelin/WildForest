@@ -5,6 +5,7 @@ using WildForest.Console.Common.JsonSettings;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Countries.ValueObjects;
 using WildForest.Infrastructure.Context;
+using WildForest.Console.Common.Exceptions;
 
 namespace WildForest.Console.Cities.Services
 {
@@ -20,21 +21,21 @@ namespace WildForest.Console.Cities.Services
         public async Task AddCitiesAsync(List<City> cities)
         {
             var optionsBuilder = new DbContextOptionsBuilder<WildForestDbContext>();
-
             var options = optionsBuilder.UseNpgsql(_configuration.GetConnectionString("PostgreSQL")).Options;
-
             var context = new WildForestDbContext(options);
 
             await context.Cities.AddRangeAsync(cities);
             await context.SaveChangesAsync();
         }
 
-        public async Task<List<City>> GetCitiesFromJsonFileAsync(string fileName)
+        public async Task<List<City>> GetCitiesFromJsonFileAsync(string fileName, string countryName)
         {
             List<City>? cities;
 
+            var countryId = GetCountryIdByName(countryName);
+
             var jsonOptions = new JsonSerializerOptions();
-            jsonOptions.Converters.Add(new CityConverter());
+            jsonOptions.Converters.Add(new CityConverter(countryId));
 
             string? path = _configuration["Paths:JsonFilePath"];
 
@@ -51,6 +52,22 @@ namespace WildForest.Console.Cities.Services
             {
                 return cities;
             }
+        }
+
+        private CountryId GetCountryIdByName(string countryName)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<WildForestDbContext>();
+            var options = optionsBuilder.UseNpgsql(_configuration.GetConnectionString("PostgreSQL")).Options;
+            var context = new WildForestDbContext(options);
+
+            var country = context.Countries.FirstOrDefault(x => x.Name == countryName);
+
+            if (country is null)
+            {
+                throw new CountryException("There is not a single country with this name");
+            }
+
+            return country.Id;
         }
     }
 }

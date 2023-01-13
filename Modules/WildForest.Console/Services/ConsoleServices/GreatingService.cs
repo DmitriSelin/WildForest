@@ -81,7 +81,16 @@
                 throw new ArgumentNullException(nameof(fileName));
             }
 
-            List<City> cities = _cityService.GetCitiesFromJsonFileAsync(fileName).Result;
+            Console.WriteLine("\n Please, enter existing country's name");
+
+            string? countryName = Input();
+
+            if (countryName is null)
+            {
+                throw new ArgumentNullException(nameof(countryName));
+            }
+
+            List<City> cities = _cityService.GetCitiesFromJsonFileAsync(fileName, countryName).Result;
             _cityService.AddCitiesAsync(cities);
         }
 

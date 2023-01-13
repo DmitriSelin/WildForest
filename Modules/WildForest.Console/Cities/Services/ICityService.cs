@@ -6,6 +6,6 @@ namespace WildForest.Console.Cities.Services
     {
         Task AddCitiesAsync(List<City> cities);
 
-        Task<List<City>> GetCitiesFromJsonFileAsync(string fileName);
+        Task<List<City>> GetCitiesFromJsonFileAsync(string fileName, string countryName);
     }
 }
