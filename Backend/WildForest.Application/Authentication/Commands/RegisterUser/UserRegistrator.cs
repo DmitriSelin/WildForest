@@ -5,7 +5,7 @@ using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Common.Exceptions;
 using WildForest.Domain.Users.Entities;
-using WildForest.Domain.Users.ValueObjects;
+using WildForest.Domain.Cities.ValueObjects;
 
 namespace WildForest.Application.Authentication.Commands.RegisterUser
 {
@@ -30,7 +30,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
             }
 
             user = User.CreateUser(command.FirstName, command.LastName,
-                Role.User, command.Email, command.Password);
+                Role.User, command.Email, command.Password, CityId.CreateCityId(command.CityId));
 
             await _userRepository.AddUserAsync(user);
 
