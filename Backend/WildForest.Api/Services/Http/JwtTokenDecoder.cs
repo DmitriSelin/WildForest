@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ErrorOr;
+using WildForest.Domain.Common.Exceptions;
 using Microsoft.Extensions.Primitives;
 using System.IdentityModel.Tokens.Jwt;
-using WildForest.Application.Common.Interfaces.Authentication;
-using WildForest.Domain.Users.ValueObjects;
 
-namespace WildForest.Infrastructure.Authentication
+namespace WildForest.Api.Services.Http
 {
     public sealed class JwtTokenDecoder : IJwtTokenDecoder
     {
-        public UserId GetUserIdFromToken(HttpRequest? request)
+        public ErrorOr<Guid> GetUserIdFromToken(HttpRequest? request)
         {
             var userId = Guid.Empty;
 
@@ -30,10 +29,10 @@ namespace WildForest.Infrastructure.Authentication
 
             if (userId == Guid.Empty)
             {
-                throw new Exception("Not correct Authorization Header");
+                return Errors.Authentication.InvalidAuthorizationHeader;
             }
 
-            return UserId.CreateUserId(userId);
+            return userId;
         }
     }
 }

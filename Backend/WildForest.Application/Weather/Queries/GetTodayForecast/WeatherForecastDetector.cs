@@ -22,7 +22,7 @@ namespace WildForest.Application.Weather.Queries.GetTodayForecast
             _dayWeatherRepository = dayWeatherRepository;
         }
 
-        public async Task<ErrorOr<List<WeatherForecust>>> GetTodayWeatherForecast(TodayForecastQuery query)
+        public async Task<ErrorOr<List<WeatherForecust>>> GetTodayWeatherForecast(ForecastQuery query)
         {
             var user = await _userRepository.GetUserByIdAsync(query.UserId);
 

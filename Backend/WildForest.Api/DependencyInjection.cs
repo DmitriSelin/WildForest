@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
 using WildForest.Api.Common.Errors;
 using WildForest.Api.Common.Mapping;
+using WildForest.Api.Services.Http;
 
 namespace WildForest.Api
 {
@@ -14,6 +15,7 @@ namespace WildForest.Api
 
             services.AddSingleton<ProblemDetailsFactory, WildForestProblemDetailsFactory>();
             services.AddMappings();
+            services.AddTransient<IJwtTokenDecoder, JwtTokenDecoder>();
 
             return services;
         }
