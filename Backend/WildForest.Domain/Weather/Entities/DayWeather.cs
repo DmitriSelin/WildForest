@@ -46,8 +46,5 @@ namespace WildForest.Domain.Weather.Entities
                 weatherDetails,
                 cityId);
         }
-
-        public static DayWeather CreateDayWeather() 
-            => new(WeatherId.CreateWeatherId());
     }
 }

@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WildForest.Api.Services.Http;
 using WildForest.Application.Weather.Common;
-using WildForest.Application.Weather.Queries.GetTodayForecast;
-using WildForest.Domain.Cities.ValueObjects;
+using WildForest.Application.Weather.Queries.GetWeatherForecast;
 
 namespace WildForest.Api.Controllers
 {
@@ -21,8 +20,8 @@ namespace WildForest.Api.Controllers
             _weatherForecastDetector = weatherForecastDetector;
         }
 
-        [HttpGet("{cityId}")]
-        public async Task<IActionResult> GetTodayWeather(Guid cityId)
+        [HttpGet("{cityId}/{weatherDate}")]
+        public async Task<IActionResult> GetWeather(Guid cityId, DateTime weatherDate)
         {
             ErrorOr<Guid> id = _jwtTokenDecoder.GetUserIdFromToken(HttpContext.Request);
 
@@ -33,9 +32,9 @@ namespace WildForest.Api.Controllers
 
             Guid userId = id.Value;
 
-            var query = new ForecastQuery(userId, cityId);
+            var query = new ForecastQuery(userId, cityId, weatherDate);
 
-            ErrorOr<List<WeatherForecust>> forecust = await _weatherForecastDetector.GetTodayWeatherForecast(query);
+            ErrorOr<List<WeatherForecust>> forecust = await _weatherForecastDetector.GetWeatherForecast(query);
 
             return Ok(forecust.Value);
         }

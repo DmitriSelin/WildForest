@@ -4,7 +4,7 @@ using WildForest.Application.Authentication.Queries.LoginUser;
 using WildForest.Application.Common.Mapping;
 using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
-using WildForest.Application.Weather.Queries.GetTodayForecast;
+using WildForest.Application.Weather.Queries.GetWeatherForecast;
 
 namespace WildForest.Application
 {

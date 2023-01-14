@@ -45,7 +45,6 @@ namespace WildForest.Infrastructure
             services.AddSingleton(Options.Create(jwtSettings));
 
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-            services.AddScoped<IJwtTokenDecoder, JwtTokenDecoder>();
 
             services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
