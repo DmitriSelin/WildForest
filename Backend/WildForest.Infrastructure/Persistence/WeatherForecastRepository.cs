@@ -6,18 +6,18 @@ using WildForest.Infrastructure.Context;
 
 namespace WildForest.Infrastructure.Persistence
 {
-    public sealed class DayWeatherRepository : IDayWeatherRepository
+    public sealed class WeatherForecastRepository : IWeatherForecastRepository
     {
         private readonly WildForestDbContext _context;
 
-        public DayWeatherRepository(WildForestDbContext context)
+        public WeatherForecastRepository(WildForestDbContext context)
         {
             _context = context;
         }
 
-        public async Task<List<DayWeather>> GetWeatherAsync(CityId cityId, DateTime date)
+        public async Task<List<WeatherForecast>> GetWeatherForecastAsync(CityId cityId, DateTime date)
         {
-            return await _context.DayWeather
+            return await _context.WeatherForecasts
                 .Where(x => x.CityId == cityId && x.Date == date)
                 .ToListAsync();
         }

@@ -9,7 +9,7 @@ namespace WildForest.Infrastructure.Persistence
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
-            services.AddScoped<IDayWeatherRepository, DayWeatherRepository>();
+            services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
 
             return services;

@@ -1,32 +1,32 @@
 ﻿using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Common.Models;
 using WildForest.Domain.Marks.Entities;
-using WildForest.Domain.Weather.Entities;
 using WildForest.Domain.Weather.ValueObjects;
+using WildForest.Domain.Weather.Entities;
 
 namespace WildForest.Domain.Weather
 {
-    public class DayWeatherAggregate : AggregateRoot<WeatherId>
+    public class WeatherAggregate : AggregateRoot<WeatherId>
     {
-        public DayWeather DayWeather { get; }
+        public WeatherForecast WeatherForecast { get; }
 
         public Mark Mark { get; }
 
         public City City { get; }
 
-        private DayWeatherAggregate(
+        private WeatherAggregate(
             WeatherId id,
-            DayWeather dayWeather,
+            WeatherForecast weatherForecast,
             Mark mark,
             City city) : base(id) 
         {
-            DayWeather = dayWeather;
+            WeatherForecast = weatherForecast;
             Mark = mark;
             City = city;
         }
 
-        public static DayWeatherAggregate CreateDayWeatherAggregate(
-            DayWeather dayWeather, 
+        public static WeatherAggregate CreateWeatherAggregate(
+            WeatherForecast dayWeather, 
             Mark mark,
             City city)
         {

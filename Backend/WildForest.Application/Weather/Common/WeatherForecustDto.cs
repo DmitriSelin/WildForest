@@ -1,6 +1,6 @@
 ﻿namespace WildForest.Application.Weather.Common
 {
-    public sealed record WeatherForecust(
+    public sealed record WeatherForecustDto(
         Guid WeatherId,
         string DaySpan,
         string Temperature,

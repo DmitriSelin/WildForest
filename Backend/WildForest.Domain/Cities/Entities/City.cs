@@ -21,9 +21,9 @@ namespace WildForest.Domain.Cities.Entities
 
         public IReadOnlyList<User> Users => _users.AsReadOnly();
 
-        private readonly List<DayWeather> _dayWeather = new();
+        private readonly List<WeatherForecast> _weatherForecasts = new();
 
-        public IReadOnlyList<DayWeather> DayWeather => _dayWeather.AsReadOnly();
+        public IReadOnlyList<WeatherForecast> WeatherForecasts => _weatherForecasts.AsReadOnly();
 
         private City(
             CityId id,
@@ -46,7 +46,5 @@ namespace WildForest.Domain.Cities.Entities
                 location,
                 countryId);
         }
-
-        public static City CreateCity() => new(CityId.CreateCityId());
     }
 }

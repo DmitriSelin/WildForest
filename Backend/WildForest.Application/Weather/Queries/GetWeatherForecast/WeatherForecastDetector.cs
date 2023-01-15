@@ -12,19 +12,19 @@ namespace WildForest.Application.Weather.Queries.GetWeatherForecast
     {
         private readonly IUserRepository _userRepository;
         private readonly ICityRepository _cityRepository;
-        private readonly IDayWeatherRepository _dayWeatherRepository;
+        private readonly IWeatherForecastRepository _dayWeatherRepository;
 
         public WeatherForecastDetector(
             IUserRepository userRepository,
             ICityRepository cityRepository,
-            IDayWeatherRepository dayWeatherRepository)
+            IWeatherForecastRepository dayWeatherRepository)
         {
             _userRepository = userRepository;
             _cityRepository = cityRepository;
             _dayWeatherRepository = dayWeatherRepository;
         }
 
-        public async Task<ErrorOr<List<WeatherForecust>>> GetWeatherForecast(ForecastQuery query)
+        public async Task<ErrorOr<List<WeatherForecustDto>>> GetWeatherForecast(ForecastQuery query)
         {
             var userId = UserId.CreateUserId(query.UserId);
             var cityId = CityId.CreateCityId(query.CityId);
@@ -43,7 +43,7 @@ namespace WildForest.Application.Weather.Queries.GetWeatherForecast
                 return Errors.City.NotFoundById;
             }
 
-            List<DayWeather>? weather = await _dayWeatherRepository.GetWeatherAsync(city.Id, query.WeatherDate);
+            List<WeatherForecast>? weather = await _dayWeatherRepository.GetWeatherForecastAsync(city.Id, query.WeatherDate);
 
             if (weather is null)
             {

@@ -6,7 +6,7 @@ using WildForest.Domain.Weather.ValueObjects;
 
 namespace WildForest.Domain.Weather.Entities
 {
-    public class DayWeather : Entity<WeatherId>
+    public class WeatherForecast : Entity<WeatherId>
     {
         public DateTime Date { get; }
 
@@ -18,7 +18,7 @@ namespace WildForest.Domain.Weather.Entities
 
         public virtual City City { get; } = null!;
 
-        private DayWeather(
+        private WeatherForecast(
             WeatherId id,
             DateTime date,
             DaySpan daySpan,
@@ -31,9 +31,9 @@ namespace WildForest.Domain.Weather.Entities
             CityId = cityId;
         }
 
-        private DayWeather(WeatherId id) : base(id) { }
+        private WeatherForecast(WeatherId id) : base(id) { }
 
-        public static DayWeather CreateDayWeather(
+        public static WeatherForecast CreateWeather(
             DateTime date,
             DaySpan daySpan,
             WeatherDetails weatherDetails,

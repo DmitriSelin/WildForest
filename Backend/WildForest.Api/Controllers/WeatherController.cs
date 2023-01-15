@@ -34,7 +34,7 @@ namespace WildForest.Api.Controllers
 
             var query = new ForecastQuery(userId, cityId, weatherDate);
 
-            ErrorOr<List<WeatherForecust>> forecust = await _weatherForecastDetector.GetWeatherForecast(query);
+            ErrorOr<List<WeatherForecustDto>> forecust = await _weatherForecastDetector.GetWeatherForecast(query);
 
             return Ok(forecust.Value);
         }
