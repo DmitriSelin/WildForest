@@ -49,7 +49,7 @@ namespace WildForest.Api.Services.Http.Weather
 
             string weatherResponse = await _httpClient.GetStringAsync(url);
 
-            List<WeatherForecastDto> weather = JsonSerializer.DeserializeAsync<List<WeatherForecastDto>>(weatherResponse);
+            return new();
         }
     }
 }
