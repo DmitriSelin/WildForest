@@ -1,6 +1,6 @@
 ﻿using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
-using WildForest.Api.Services.Http;
+using WildForest.Api.Services.Http.Jwt;
 using WildForest.Application.Weather.Common;
 using WildForest.Application.Weather.Queries.GetWeatherForecast;
 

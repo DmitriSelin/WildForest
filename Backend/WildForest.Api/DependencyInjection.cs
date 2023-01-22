@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
 using WildForest.Api.Common.Errors;
 using WildForest.Api.Common.Mapping;
-using WildForest.Api.Services.Http;
+using WildForest.Api.Services.Http.Jwt;
 
 namespace WildForest.Api
 {

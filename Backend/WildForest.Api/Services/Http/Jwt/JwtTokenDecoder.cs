@@ -3,7 +3,7 @@ using WildForest.Domain.Common.Exceptions;
 using Microsoft.Extensions.Primitives;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace WildForest.Api.Services.Http
+namespace WildForest.Api.Services.Http.Jwt
 {
     public sealed class JwtTokenDecoder : IJwtTokenDecoder
     {

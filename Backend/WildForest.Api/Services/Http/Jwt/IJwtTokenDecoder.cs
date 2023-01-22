@@ -1,6 +1,6 @@
 ﻿using ErrorOr;
 
-namespace WildForest.Api.Services.Http
+namespace WildForest.Api.Services.Http.Jwt
 {
     public interface IJwtTokenDecoder
     {
