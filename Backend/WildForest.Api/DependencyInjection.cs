@@ -2,6 +2,7 @@
 using WildForest.Api.Common.Errors;
 using WildForest.Api.Common.Mapping;
 using WildForest.Api.Services.Http.Jwt;
+using WildForest.Api.Services.Http.Weather;
 
 namespace WildForest.Api
 {
@@ -16,6 +17,7 @@ namespace WildForest.Api
             services.AddSingleton<ProblemDetailsFactory, WildForestProblemDetailsFactory>();
             services.AddMappings();
             services.AddTransient<IJwtTokenDecoder, JwtTokenDecoder>();
+            services.AddHttpClient<IWeatherForecastHttpClient, WeatherForecastHttpClient>();
 
             return services;
         }
