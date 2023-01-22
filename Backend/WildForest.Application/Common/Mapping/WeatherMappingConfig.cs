@@ -8,7 +8,7 @@ namespace WildForest.Application.Common.Mapping
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<WeatherForecast, WeatherForecustDto>();
+            config.NewConfig<WeatherForecast, WeatherForecastDto>();
         }
     }
 }

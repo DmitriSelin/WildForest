@@ -5,6 +5,6 @@ namespace WildForest.Application.Weather.Queries.GetWeatherForecast
 {
     public interface IWeatherForecastDetector
     {
-        Task<ErrorOr<List<WeatherForecustDto>>> GetWeatherForecast(ForecastQuery query);
+        Task<ErrorOr<List<WeatherForecastDto>>> GetWeatherForecast(ForecastQuery query);
     }
 }

@@ -24,7 +24,7 @@ namespace WildForest.Application.Weather.Queries.GetWeatherForecast
             _dayWeatherRepository = dayWeatherRepository;
         }
 
-        public async Task<ErrorOr<List<WeatherForecustDto>>> GetWeatherForecast(ForecastQuery query)
+        public async Task<ErrorOr<List<WeatherForecastDto>>> GetWeatherForecast(ForecastQuery query)
         {
             var userId = UserId.CreateUserId(query.UserId);
             var cityId = CityId.CreateCityId(query.CityId);
