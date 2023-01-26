@@ -13,11 +13,16 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
     {
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
         private readonly IUserRepository _userRepository;
+        private readonly ICityRepository _cityRepository;
 
-        public UserRegistrator(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
+        public UserRegistrator(
+            IJwtTokenGenerator jwtTokenGenerator,
+            IUserRepository userRepository, 
+            ICityRepository cityRepository)
         {
             _jwtTokenGenerator = jwtTokenGenerator;
             _userRepository = userRepository;
+            _cityRepository = cityRepository;
         }
 
         public async Task<ErrorOr<AuthenticationResult>> RegisterAsync(RegisterUserCommand command)
@@ -27,6 +32,15 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
             if (user is not null)
             {
                 return Errors.User.DupplicateEmail;
+            }
+
+            var cityId = CityId.CreateCityId(command.CityId);
+
+            var city = await _cityRepository.GetCityByIdAsync(cityId);
+
+            if (city is null)
+            {
+                return Errors.City.NotFoundById;
             }
 
             user = User.CreateUser(command.FirstName, command.LastName,
