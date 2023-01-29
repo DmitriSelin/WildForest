@@ -1,8 +1,6 @@
 ﻿using WildForest.Application.Common.Interfaces.Persistence;
-using WildForest.Domain.Cities.Entities;
 using WildForest.Application.Weather.Common;
 using WildForest.Domain.Cities.ValueObjects;
-using System.Text.Json;
 
 namespace WildForest.Api.Services.Http.Weather
 {
@@ -42,12 +40,12 @@ namespace WildForest.Api.Services.Http.Weather
 
             double lat = city.Location.Latitude;
             double lon = city.Location.Longitude;
-            var exclude = "daily";   //Part of the day
+            string exclude = "daily";   //Part of the day
             string? appid = _configuration["WeatherForecast:ApiKey"];
 
             var url = $"?lat={lat}&lon={lon}&exclude={exclude}&appid={appid}";
 
-            string weatherResponse = await _httpClient.GetStringAsync(url);
+            string response = await _httpClient.GetStringAsync(url);
 
             return new();
         }
