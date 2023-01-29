@@ -29,7 +29,7 @@ namespace WildForest.Api.Services.Http.Weather
             _httpClient.BaseAddress = new Uri(baseUrl);
         }
 
-        public async Task<List<WeatherForecastDto>> GetWeatherForecastAsync(Guid cityId, DateTime date)
+        public async Task<List<WeatherForecastDto>> GetWeatherForecastAsync(Guid cityId)
         {
             var city = await _cityRepository.GetCityByIdAsync(CityId.CreateCityId(cityId));
 
