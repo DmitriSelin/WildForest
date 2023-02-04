@@ -1,6 +1,7 @@
-﻿using WildForest.Application.Common.Interfaces.Persistence;
-using WildForest.Application.Weather.Common;
+﻿using System.Text.Json;
+using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Domain.Cities.ValueObjects;
+using WildForest.Domain.Weather.Entities;
 using WildForest.Infrastructure.Common.Extensions;
 
 namespace WildForest.Api.Services.Http.Weather
@@ -13,7 +14,7 @@ namespace WildForest.Api.Services.Http.Weather
 
         public WeatherForecastHttpClient(
             HttpClient httpClient,
-            IConfiguration configuration, 
+            IConfiguration configuration,
             ICityRepository cityRepository)
         {
             _httpClient = httpClient;
@@ -30,7 +31,7 @@ namespace WildForest.Api.Services.Http.Weather
             _httpClient.BaseAddress = new Uri(baseUrl);
         }
 
-        public async Task<List<WeatherForecastDto>> GetWeatherForecastAsync(Guid cityId)
+        public async Task<List<WeatherForecast>?> GetWeatherForecastAsync(Guid cityId)
         {
             var city = await _cityRepository.GetCityByIdAsync(CityId.CreateCityId(cityId));
 
@@ -47,7 +48,9 @@ namespace WildForest.Api.Services.Http.Weather
 
             string response = await _httpClient.GetStringAsync(url);
 
-            return new();
+            var weatherForecast = await JsonSerializer.DeserializeAsync<List<WeatherForecast>>(response);
+
+            return weatherForecast;
         }
     }
 }

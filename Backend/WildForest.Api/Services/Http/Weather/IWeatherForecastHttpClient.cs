@@ -1,9 +1,9 @@
-﻿using WildForest.Application.Weather.Common;
+﻿using WildForest.Domain.Weather.Entities;
 
 namespace WildForest.Api.Services.Http.Weather
 {
     public interface IWeatherForecastHttpClient
     {
-        Task<List<WeatherForecastDto>> GetWeatherForecastAsync(Guid cityId);
+        Task<List<WeatherForecast>> GetWeatherForecastAsync(Guid cityId);
     }
 }
