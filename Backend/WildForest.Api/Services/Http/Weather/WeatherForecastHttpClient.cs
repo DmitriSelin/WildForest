@@ -1,6 +1,7 @@
 ﻿using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Application.Weather.Common;
 using WildForest.Domain.Cities.ValueObjects;
+using WildForest.Infrastructure.Common.Extensions;
 
 namespace WildForest.Api.Services.Http.Weather
 {
@@ -38,12 +39,11 @@ namespace WildForest.Api.Services.Http.Weather
                 throw new ArgumentNullException(nameof(city));
             }
 
-            string lat = city.Location.Latitude.ToString();
-            string lon = city.Location.Longitude.ToString();
-            string units = "metric";
+            string lat = city.Location.Latitude.RemoveCommaByPeriodToString();
+            string lon = city.Location.Longitude.RemoveCommaByPeriodToString();
             string? appid = _configuration["WeatherForecast:ApiKey"];
 
-            var url = $"?lat={lat}&lon={lon}&units={units}&appid={appid}";
+            var url = $"?lat={lat}&lon={lon}&units=metric&appid={appid}";
 
             string response = await _httpClient.GetStringAsync(url);
 
