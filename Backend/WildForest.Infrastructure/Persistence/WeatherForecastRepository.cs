@@ -15,7 +15,7 @@ namespace WildForest.Infrastructure.Persistence
             _context = context;
         }
 
-        public async Task<List<WeatherForecast>> GetWeatherForecastAsync(CityId cityId, DateTime date)
+        public async Task<List<WeatherForecast>> GetWeatherForecastAsync(CityId cityId, DateOnly date)
         {
             return await _context.WeatherForecasts
                 .Where(x => x.CityId == cityId && x.Date == date)

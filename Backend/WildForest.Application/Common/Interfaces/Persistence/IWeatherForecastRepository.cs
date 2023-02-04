@@ -5,6 +5,6 @@ namespace WildForest.Application.Common.Interfaces.Persistence
 {
     public interface IWeatherForecastRepository
     {
-        Task<List<WeatherForecast>> GetWeatherForecastAsync(CityId cityId, DateTime date);
+        Task<List<WeatherForecast>> GetWeatherForecastAsync(CityId cityId, DateOnly date);
     }
 }

@@ -20,15 +20,14 @@ namespace WildForest.Infrastructure.Common.Persistence.Configurations
                 .HasColumnName("ForecastDate")
                 .HasColumnType("date");
 
-            builder.Property(x => x.DaySpan)
-                .HasColumnName("DaySpan");
+            builder.Property(x => x.Time)
+                .HasColumnName("DayTime");
 
             builder.OwnsOne(
-                x => x.WeatherDetails,
+                x => x.Temperature,
                 sa =>
                 {
-                    sa.Property(p => p.Temperature)
-                    .HasMaxLength(ConfigurationSettings.MaxStringLength)
+                    sa.Property(p => p.Value)
                     .HasColumnName("Temperature");
 
                     sa.Property(p => p.Description)

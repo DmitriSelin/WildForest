@@ -1,6 +1,5 @@
 ﻿using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Cities.ValueObjects;
-using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Common.Models;
 using WildForest.Domain.Weather.ValueObjects;
 
@@ -8,11 +7,27 @@ namespace WildForest.Domain.Weather.Entities
 {
     public class WeatherForecast : Entity<WeatherId>
     {
-        public DateTime Date { get; }
+        public DateOnly Date { get; }
 
-        public DaySpan DaySpan { get; }
+        public TimeOnly Time { get; }
 
-        public WeatherDetails WeatherDetails { get; } = null!;
+        public Temperature Temperature { get; }
+
+        public Pressure Pressure { get; }
+
+        public Humidity Humidity { get; }
+
+        public WeatherDescription WeatherDescription { get; }
+
+        public Cloudiness Cloudiness { get; }
+
+        public Wind Wind { get; }
+
+        public Visibility Visibility { get; }
+
+        public PrecipitationProbability PrecipitationProbability { get; }
+
+        public PrecipitationVolume? PrecipitationVolume { get; }
 
         public CityId CityId { get; } = null!;
 
@@ -20,30 +35,54 @@ namespace WildForest.Domain.Weather.Entities
 
         private WeatherForecast(
             WeatherId id,
-            DateTime date,
-            DaySpan daySpan,
-            WeatherDetails weatherDetails,
+            Temperature temperature,
+            Pressure pressure,
+            Humidity humidity, 
+            WeatherDescription weatherDescription,
+            Cloudiness cloudiness,
+            Wind wind,
+            Visibility visibility,
+            PrecipitationProbability precipitationProbability,
+            PrecipitationVolume? precipitationVolume,
             CityId cityId) : base(id)
         {
-            Date = date;
-            DaySpan = daySpan;
-            WeatherDetails = weatherDetails;
+            Temperature = temperature;
+            Pressure = pressure;
+            Humidity = humidity;
+            WeatherDescription = weatherDescription;
+            Cloudiness = cloudiness;
+            Wind = wind;
+            Visibility = visibility;
+            PrecipitationProbability = precipitationProbability;
+            PrecipitationVolume = precipitationVolume;
             CityId = cityId;
         }
 
         private WeatherForecast(WeatherId id) : base(id) { }
 
-        public static WeatherForecast CreateWeather(
-            DateTime date,
-            DaySpan daySpan,
-            WeatherDetails weatherDetails,
+        public static WeatherForecast CreateWeatherForecast(
+            Temperature temperature,
+            Pressure pressure,
+            Humidity humidity,
+            WeatherDescription weatherDescription,
+            Cloudiness cloudiness,
+            Wind wind,
+            Visibility visibility,
+            PrecipitationProbability precipitationProbability,
+            PrecipitationVolume? precipitationVolume,
             CityId cityId)
         {
             return new(
                 WeatherId.CreateWeatherId(),
-                date,
-                daySpan,
-                weatherDetails,
+                temperature,
+                pressure,
+                humidity,
+                weatherDescription,
+                cloudiness,
+                wind,
+                visibility,
+                precipitationProbability,
+                precipitationVolume,
                 cityId);
         }
     }

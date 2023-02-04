@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 using WildForest.Domain.Weather.Entities;
 
-namespace WildForest.Application.Common.Converters
+namespace WildForest.Api.Common.Converters
 {
     public class WeatherForecastConverter : JsonConverter<List<WeatherForecast>>
     {
