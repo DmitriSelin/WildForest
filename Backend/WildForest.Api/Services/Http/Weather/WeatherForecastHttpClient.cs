@@ -38,12 +38,12 @@ namespace WildForest.Api.Services.Http.Weather
                 throw new ArgumentNullException(nameof(city));
             }
 
-            double lat = city.Location.Latitude;
-            double lon = city.Location.Longitude;
-            string exclude = "daily";   //Part of the day
+            string lat = city.Location.Latitude.ToString();
+            string lon = city.Location.Longitude.ToString();
+            string units = "metric";
             string? appid = _configuration["WeatherForecast:ApiKey"];
 
-            var url = $"?lat={lat}&lon={lon}&exclude={exclude}&appid={appid}";
+            var url = $"?lat={lat}&lon={lon}&units={units}&appid={appid}";
 
             string response = await _httpClient.GetStringAsync(url);
 
