@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using WildForest.Application.Common.Converters;
 using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Weather.Entities;
@@ -31,7 +32,7 @@ namespace WildForest.Api.Services.Http.Weather
             _httpClient.BaseAddress = new Uri(baseUrl);
         }
 
-        public async Task<List<WeatherForecast>?> GetWeatherForecastAsync(Guid cityId)
+        public async Task<List<WeatherForecast>> GetWeatherForecastAsync(Guid cityId)
         {
             var city = await _cityRepository.GetCityByIdAsync(CityId.CreateCityId(cityId));
 
@@ -46,9 +47,10 @@ namespace WildForest.Api.Services.Http.Weather
 
             var url = $"?lat={lat}&lon={lon}&units=metric&appid={appid}";
 
-            string response = await _httpClient.GetStringAsync(url);
+            var jsonOptions = new JsonSerializerOptions();
+            jsonOptions.Converters.Add(new WeatherForecastConverter());
 
-            var weatherForecast = await JsonSerializer.DeserializeAsync<List<WeatherForecast>>(response);
+            var weatherForecast = await _httpClient.GetFromJsonAsync<List<WeatherForecast>>(url, jsonOptions);
 
             return weatherForecast;
         }
