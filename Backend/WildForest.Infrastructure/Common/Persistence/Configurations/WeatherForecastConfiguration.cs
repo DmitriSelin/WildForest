@@ -30,29 +30,33 @@ namespace WildForest.Infrastructure.Common.Persistence.Configurations
                     sa.Property(p => p.Value)
                     .HasColumnName("Temperature");
 
-                    sa.Property(p => p.Description)
-                    .HasMaxLength(ConfigurationSettings.MaxStringLength)
-                    .HasColumnName("Description");
+                    sa.Property(p => p.ValueFeelsLike)
+                    .HasColumnName("TemperatureFeelsLike");
+                });
 
-                    sa.Property(p => p.Humidity)
-                    .HasMaxLength(ConfigurationSettings.MaxStringLength)
-                    .HasColumnName("Humidity");
-
-                    sa.Property(p => p.Pressure)
-                    .HasMaxLength(ConfigurationSettings.MaxStringLength)
+            builder.OwnsOne(
+                x => x.Pressure,
+                sa =>
+                {
+                    sa.Property(p => p.Value)
                     .HasColumnName("Pressure");
+                });
 
-                    sa.Property(p => p.Wind)
-                    .HasMaxLength(ConfigurationSettings.MaxStringLength)
-                    .HasColumnName("Wind");
+            builder.OwnsOne(
+                x => x.Humidity,
+                sa =>
+                {
+                    sa.Property(p => p.Value)
+                    .HasColumnName("Humidity");
+                });
 
-                    sa.Property(p => p.Cloudness)
+            builder.OwnsOne(
+                x => x.WeatherDescription,
+                sa =>
+                {
+                    sa.Property(p => p.Name)
                     .HasMaxLength(ConfigurationSettings.MaxStringLength)
-                    .HasColumnName("Cloudness");
-
-                    sa.Property(p => p.Storm)
-                    .HasMaxLength(ConfigurationSettings.MaxStringLength)
-                    .HasColumnName("Storm");
+                    .HasColumnName("WeatherName");
                 });
 
             builder.Property(x => x.CityId)
