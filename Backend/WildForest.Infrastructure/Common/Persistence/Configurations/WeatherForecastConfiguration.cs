@@ -21,7 +21,7 @@ namespace WildForest.Infrastructure.Common.Persistence.Configurations
                 .HasColumnType("date");
 
             builder.Property(x => x.Time)
-                .HasColumnName("DayTime");
+                .HasColumnName("ForecastTime");
 
             builder.OwnsOne(
                 x => x.Temperature,
@@ -57,7 +57,59 @@ namespace WildForest.Infrastructure.Common.Persistence.Configurations
                     sa.Property(p => p.Name)
                     .HasMaxLength(ConfigurationSettings.MaxStringLength)
                     .HasColumnName("WeatherName");
+
+                    sa.Property(p => p.Description)
+                    .HasMaxLength(ConfigurationSettings.MaxStringLength)
+                    .HasColumnName("WeatherDescription");
                 });
+
+            builder.OwnsOne(
+                x => x.Cloudiness,
+                sa =>
+                {
+                    sa.Property(p => p.Value)
+                    .HasColumnName("Cloudiness");
+                });
+
+            builder.OwnsOne(
+                x => x.Wind,
+                sa =>
+                {
+                    sa.Property(p => p.Speed)
+                    .HasColumnName("WindSpeed");
+
+                    sa.Property(p => p.Direction)
+                    .HasColumnName("WindDirection");
+
+                    sa.Property(p => p.Gust)
+                    .HasColumnName("WindGust");
+                });
+
+            builder.OwnsOne(
+                x => x.Visibility,
+                sa =>
+                {
+                    sa.Property(p => p.Value)
+                    .HasColumnName("Visibility");
+                });
+
+            builder.OwnsOne(
+                x => x.PrecipitationProbability,
+                sa =>
+                {
+                    sa.Property(p => p.Value)
+                    .HasColumnName("PrecipitationProbability");
+                });
+
+            builder.OwnsOne(
+                x => x.PrecipitationVolume,
+                sa =>
+                {
+                    sa.Property(p => p.Value)
+                    .IsRequired(false)
+                    .HasColumnName("PrecipitationVolume");
+                });
+
 
             builder.Property(x => x.CityId)
                 .IsRequired()
