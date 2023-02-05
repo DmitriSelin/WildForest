@@ -1,5 +1,5 @@
 ﻿using ErrorOr;
-using WildForest.Domain.Common.Exceptions;
+using WildForest.Domain.Common.Errors;
 using Microsoft.Extensions.Primitives;
 using System.IdentityModel.Tokens.Jwt;
 

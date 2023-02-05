@@ -1,6 +1,6 @@
 ﻿using ErrorOr;
 using MapsterMapper;
-using WildForest.Domain.Common.Exceptions;
+using WildForest.Domain.Common.Errors;
 using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Countries.ValueObjects;

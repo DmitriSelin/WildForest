@@ -1,6 +1,6 @@
 ﻿using ErrorOr;
 
-namespace WildForest.Domain.Common.Exceptions
+namespace WildForest.Domain.Common.Errors
 {
     public static partial class Errors
     {

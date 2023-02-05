@@ -2,7 +2,7 @@
 using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Application.Weather.Common;
 using WildForest.Domain.Cities.ValueObjects;
-using WildForest.Domain.Common.Exceptions;
+using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Domain.Weather.Entities;
 

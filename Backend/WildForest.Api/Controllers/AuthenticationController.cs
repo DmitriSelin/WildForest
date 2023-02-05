@@ -9,7 +9,7 @@ using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
 using WildForest.Contracts.Authentication;
 using WildForest.Contracts.Maps;
-using WildForest.Domain.Common.Exceptions;
+using WildForest.Domain.Common.Errors;
 
 namespace WildForest.Api.Controllers
 {
