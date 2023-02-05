@@ -4,7 +4,7 @@ using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Infrastructure.Context;
 
-namespace WildForest.Infrastructure.Persistence
+namespace WildForest.Infrastructure.Persistence.Repositories
 {
     public sealed class UserRepository : IUserRepository
     {

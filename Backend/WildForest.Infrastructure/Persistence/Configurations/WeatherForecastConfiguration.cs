@@ -4,7 +4,7 @@ using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Weather.Entities;
 using WildForest.Domain.Weather.ValueObjects;
 
-namespace WildForest.Infrastructure.Common.Persistence.Configurations
+namespace WildForest.Infrastructure.Persistence.Configurations
 {
     public sealed class WeatherForecastConfiguration : IEntityTypeConfiguration<WeatherForecast>
     {

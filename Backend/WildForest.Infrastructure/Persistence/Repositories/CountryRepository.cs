@@ -3,7 +3,7 @@ using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Domain.Countries.Entities;
 using WildForest.Infrastructure.Context;
 
-namespace WildForest.Infrastructure.Persistence
+namespace WildForest.Infrastructure.Persistence.Repositories
 {
     public sealed class CountryRepository : ICountryRepository
     {

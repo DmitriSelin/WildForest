@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WildForest.Domain.Countries.Entities;
 using WildForest.Domain.Countries.ValueObjects;
 
-namespace WildForest.Infrastructure.Common.Persistence.Configurations
+namespace WildForest.Infrastructure.Persistence.Configurations
 {
     public sealed class CountryConfiguration : IEntityTypeConfiguration<Country>
     {

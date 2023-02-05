@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
 
-namespace WildForest.Infrastructure.Common.Persistence.Configurations
+namespace WildForest.Infrastructure.Persistence.Configurations
 {
     public sealed class UserConfiguration : IEntityTypeConfiguration<User>
     {

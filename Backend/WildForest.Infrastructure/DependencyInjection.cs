@@ -6,11 +6,11 @@ using Microsoft.IdentityModel.Tokens;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Services;
 using WildForest.Infrastructure.Authentication;
-using WildForest.Infrastructure.Persistence;
 using WildForest.Infrastructure.Services;
 using System.Text;
 using WildForest.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using WildForest.Infrastructure.Persistence.Repositories;
 
 namespace WildForest.Infrastructure
 {

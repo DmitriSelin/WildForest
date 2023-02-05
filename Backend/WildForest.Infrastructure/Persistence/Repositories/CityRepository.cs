@@ -5,7 +5,7 @@ using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Countries.ValueObjects;
 using WildForest.Infrastructure.Context;
 
-namespace WildForest.Infrastructure.Persistence
+namespace WildForest.Infrastructure.Persistence.Repositories
 {
     public sealed class CityRepository : ICityRepository
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using WildForest.Application.Common.Interfaces.Persistence;
 
-namespace WildForest.Infrastructure.Persistence
+namespace WildForest.Infrastructure.Persistence.Repositories
 {
     public static class RepositoryRegistrator
     {

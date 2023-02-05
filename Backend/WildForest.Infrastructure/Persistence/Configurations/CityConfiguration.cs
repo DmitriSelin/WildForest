@@ -4,7 +4,7 @@ using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Countries.ValueObjects;
 
-namespace WildForest.Infrastructure.Common.Persistence.Configurations
+namespace WildForest.Infrastructure.Persistence.Configurations
 {
     public sealed class CityConfiguration : IEntityTypeConfiguration<City>
     {
