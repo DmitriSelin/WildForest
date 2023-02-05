@@ -43,7 +43,7 @@ namespace WildForest.Application.Weather.Queries.GetWeatherForecast
                 return Errors.City.NotFoundById;
             }
 
-            List<WeatherForecast>? weather = await _dayWeatherRepository.GetWeatherForecastAsync(city.Id, query.WeatherDate);
+            List<WeatherForecast>? weather = await _dayWeatherRepository.GetWeatherForecastAsync(city.Id, query.ForecastDate);
 
             if (weather is null)
             {

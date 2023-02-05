@@ -11,23 +11,23 @@ namespace WildForest.Domain.Weather.Entities
 
         public TimeOnly Time { get; }
 
-        public Temperature Temperature { get; }
+        public Temperature Temperature { get; } = null!;
 
-        public Pressure Pressure { get; }
+        public Pressure Pressure { get; } = null!;
 
-        public Humidity Humidity { get; }
+        public Humidity Humidity { get; } = null!;
 
-        public WeatherDescription WeatherDescription { get; }
+        public WeatherDescription WeatherDescription { get; } = null!;
 
-        public Cloudiness Cloudiness { get; }
+        public Cloudiness Cloudiness { get; } = null!;
 
-        public Wind Wind { get; }
+        public Wind Wind { get; } = null!;
 
-        public Visibility Visibility { get; }
+        public Visibility Visibility { get; } = null!;
 
-        public PrecipitationProbability PrecipitationProbability { get; }
+        public PrecipitationProbability PrecipitationProbability { get; } = null!;
 
-        public PrecipitationVolume? PrecipitationVolume { get; }
+        public PrecipitationVolume? PrecipitationVolume { get; } = null!;
 
         public CityId CityId { get; } = null!;
 

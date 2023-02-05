@@ -62,7 +62,7 @@
 
             string? countryName = Input();
 
-            if (countryName == null || countryName == string.Empty)
+            if (string.IsNullOrWhiteSpace(countryName))
             {
                 throw new ArgumentNullException(nameof(countryName));
             }

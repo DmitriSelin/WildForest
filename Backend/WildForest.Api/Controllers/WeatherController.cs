@@ -21,18 +21,16 @@ namespace WildForest.Api.Controllers
         }
 
         [HttpGet("{cityId}/{weatherDate}")]
-        public async Task<IActionResult> GetWeather(Guid cityId, DateTime weatherDate)
+        public async Task<IActionResult> GetWeather(Guid cityId, DateOnly forecastDate)
         {
-            ErrorOr<Guid> id = _jwtTokenDecoder.GetUserIdFromToken(HttpContext.Request);
+            ErrorOr<Guid> userId = _jwtTokenDecoder.GetUserIdFromToken(HttpContext.Request);
 
-            if (id.IsError)
+            if (userId.IsError)
             {
-                return Problem(id.Errors);
+                return Problem(userId.Errors);
             }
 
-            Guid userId = id.Value;
-
-            var query = new ForecastQuery(userId, cityId, weatherDate);
+            var query = new ForecastQuery(userId.Value, cityId, forecastDate);
 
             ErrorOr<List<WeatherForecastDto>> forecust = await _weatherForecastDetector.GetWeatherForecast(query);
 
