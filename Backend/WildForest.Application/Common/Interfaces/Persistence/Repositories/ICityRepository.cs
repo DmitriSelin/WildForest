@@ -2,7 +2,7 @@
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Countries.ValueObjects;
 
-namespace WildForest.Application.Common.Interfaces.Persistence
+namespace WildForest.Application.Common.Interfaces.Persistence.Repositories
 {
     public interface ICityRepository
     {

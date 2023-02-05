@@ -1,5 +1,5 @@
 ﻿using MapsterMapper;
-using WildForest.Application.Common.Interfaces.Persistence;
+using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Countries.Entities;
 
 namespace WildForest.Application.Maps.Queries.GetCountriesList

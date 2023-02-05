@@ -1,5 +1,5 @@
 ﻿using ErrorOr;
-using WildForest.Application.Common.Interfaces.Persistence;
+using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Application.Weather.Common;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Common.Errors;

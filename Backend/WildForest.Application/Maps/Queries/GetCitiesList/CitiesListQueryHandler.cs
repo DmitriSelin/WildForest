@@ -1,9 +1,9 @@
 ﻿using ErrorOr;
 using MapsterMapper;
 using WildForest.Domain.Common.Errors;
-using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Countries.ValueObjects;
+using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 
 namespace WildForest.Application.Maps.Queries.GetCitiesList
 {

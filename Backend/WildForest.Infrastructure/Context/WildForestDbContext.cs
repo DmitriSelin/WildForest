@@ -3,7 +3,7 @@ using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Countries.Entities;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Weather.Entities;
-using WildForest.Infrastructure.Common.Persistence.Configurations;
+using WildForest.Infrastructure.Persistence.Configurations;
 
 namespace WildForest.Infrastructure.Context
 {

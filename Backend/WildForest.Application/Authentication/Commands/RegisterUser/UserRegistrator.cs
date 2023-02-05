@@ -1,11 +1,11 @@
 ﻿using ErrorOr;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Common.Interfaces.Authentication;
-using WildForest.Application.Common.Interfaces.Persistence;
 using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Cities.ValueObjects;
+using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 
 namespace WildForest.Application.Authentication.Commands.RegisterUser
 {

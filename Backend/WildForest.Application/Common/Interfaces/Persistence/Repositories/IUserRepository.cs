@@ -1,7 +1,7 @@
 ﻿using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
 
-namespace WildForest.Application.Common.Interfaces.Persistence
+namespace WildForest.Application.Common.Interfaces.Persistence.Repositories
 {
     public interface IUserRepository
     {

@@ -1,7 +1,7 @@
 ﻿using ErrorOr;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Common.Interfaces.Authentication;
-using WildForest.Application.Common.Interfaces.Persistence;
+using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Users.Entities;
 
