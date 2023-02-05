@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WildForest.Application.Common.Interfaces.Persistence;
+using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Countries.Entities;
 using WildForest.Infrastructure.Context;
 

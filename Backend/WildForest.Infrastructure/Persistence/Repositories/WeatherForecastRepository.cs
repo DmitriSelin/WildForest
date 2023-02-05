@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WildForest.Application.Common.Interfaces.Persistence;
+using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Weather.Entities;
+using WildForest.Domain.Weather.ValueObjects;
 using WildForest.Infrastructure.Context;
 
 namespace WildForest.Infrastructure.Persistence.Repositories
@@ -15,10 +16,10 @@ namespace WildForest.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<List<WeatherForecast>> GetWeatherForecastAsync(CityId cityId, DateOnly date)
+        public async Task<List<WeatherForecast>> GetWeatherForecastAsync(CityId cityId, ForecastDate forecastDate)
         {
             return await _context.WeatherForecasts
-                .Where(x => x.CityId == cityId && x.Date == date)
+                .Where(x => x.CityId == cityId && x.ForecastDate == forecastDate)
                 .ToListAsync();
         }
     }

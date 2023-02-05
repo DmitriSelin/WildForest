@@ -17,13 +17,18 @@ namespace WildForest.Infrastructure.Persistence.Configurations
                                 value => WeatherId.Parse(value));
 
             builder.OwnsOne(
-                x => x.ForecastDateTime,
+                x => x.ForecastDate,
                 sa =>
                 {
-                    sa.Property(p => p.Date)
+                    sa.Property(p => p.Value)
                     .HasColumnName("ForecastDate");
+                });
 
-                    sa.Property(p => p.Time)
+            builder.OwnsOne(
+                x => x.ForecastTime,
+                sa =>
+                {
+                    sa.Property(p => p.Value)
                     .HasColumnName("ForecastTime");
                 });
 

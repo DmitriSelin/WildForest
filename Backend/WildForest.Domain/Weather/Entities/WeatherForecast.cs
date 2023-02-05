@@ -7,7 +7,9 @@ namespace WildForest.Domain.Weather.Entities
 {
     public class WeatherForecast : Entity<WeatherId>
     {
-        public ForecastDateTime ForecastDateTime { get; } = null!;
+        public ForecastDate ForecastDate { get; } = null!;
+
+        public ForecastTime ForecastTime { get; } = null!;
 
         public Temperature Temperature { get; } = null!;
 
@@ -33,7 +35,8 @@ namespace WildForest.Domain.Weather.Entities
 
         private WeatherForecast(
             WeatherId id,
-            ForecastDateTime forecastDateTime,
+            ForecastDate forecastDate,
+            ForecastTime forecastTime,
             Temperature temperature,
             Pressure pressure,
             Humidity humidity, 
@@ -45,7 +48,8 @@ namespace WildForest.Domain.Weather.Entities
             PrecipitationVolume? precipitationVolume,
             CityId cityId) : base(id)
         {
-            ForecastDateTime = forecastDateTime;
+            ForecastDate = forecastDate;
+            ForecastTime = forecastTime;
             Temperature = temperature;
             Pressure = pressure;
             Humidity = humidity;
@@ -61,7 +65,8 @@ namespace WildForest.Domain.Weather.Entities
         private WeatherForecast(WeatherId id) : base(id) { }
 
         public static WeatherForecast CreateWeatherForecast(
-            ForecastDateTime forecastDateTime,
+            ForecastDate forecastDate,
+            ForecastTime forecastTime,
             Temperature temperature,
             Pressure pressure,
             Humidity humidity,
@@ -75,7 +80,8 @@ namespace WildForest.Domain.Weather.Entities
         {
             return new(
                 WeatherId.CreateWeatherId(),
-                forecastDateTime,
+                forecastDate,
+                forecastTime,
                 temperature,
                 pressure,
                 humidity,

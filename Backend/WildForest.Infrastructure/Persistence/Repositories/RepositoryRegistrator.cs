@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using WildForest.Application.Common.Interfaces.Persistence;
+using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 
 namespace WildForest.Infrastructure.Persistence.Repositories
 {

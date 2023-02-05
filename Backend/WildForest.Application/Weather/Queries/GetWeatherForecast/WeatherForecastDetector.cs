@@ -5,6 +5,7 @@ using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Domain.Weather.Entities;
+using WildForest.Domain.Weather.ValueObjects;
 
 namespace WildForest.Application.Weather.Queries.GetWeatherForecast
 {
@@ -43,7 +44,9 @@ namespace WildForest.Application.Weather.Queries.GetWeatherForecast
                 return Errors.City.NotFoundById;
             }
 
-            List<WeatherForecast>? weather = await _dayWeatherRepository.GetWeatherForecastAsync(city.Id, query.ForecastDate);
+            var forecastDate = ForecastDate.CreateForecastDate(query.ForecastDate);
+
+            List<WeatherForecast>? weather = await _dayWeatherRepository.GetWeatherForecastAsync(city.Id, forecastDate);
 
             if (weather is null)
             {

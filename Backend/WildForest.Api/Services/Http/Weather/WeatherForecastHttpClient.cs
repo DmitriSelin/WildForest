@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 using WildForest.Api.Common.Converters;
-using WildForest.Application.Common.Interfaces.Persistence;
+using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Weather.Entities;
 using WildForest.Infrastructure.Common.Extensions;
