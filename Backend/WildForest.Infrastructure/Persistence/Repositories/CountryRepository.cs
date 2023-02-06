@@ -16,7 +16,7 @@ namespace WildForest.Infrastructure.Persistence.Repositories
 
         public async Task<IEnumerable<Country>> GetAllCountriesAsync()
         {
-            return await _context.Countries.OrderBy(x => x.Name).ToListAsync();
+            return await _context.Countries.OrderBy(x => x.CountryName).ToListAsync();
         }
     }
 }

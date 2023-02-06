@@ -25,7 +25,7 @@ namespace WildForest.Infrastructure.Persistence.Repositories
         {
             return await _context.Cities
                 .Where(x => x.CountryId == countryId)
-                .OrderBy(x => x.Name)
+                .OrderBy(x => x.CityName)
                 .ToListAsync();
         }
     }

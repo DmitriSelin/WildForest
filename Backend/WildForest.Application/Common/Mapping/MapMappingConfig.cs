@@ -12,11 +12,11 @@ namespace WildForest.Application.Common.Mapping
         {
             config.NewConfig<Country, CountryQuery>()
                 .Map(dest => dest.CountryId, src => src.Id.Value)
-                .Map(dest => dest.CountryName, src => src.Name);
+                .Map(dest => dest.CountryName, src => src.CountryName.Value);
 
             config.NewConfig<City, CityQuery>()
                 .Map(dest => dest.CityId, src => src.Id.Value)
-                .Map(dest => dest.CityName, src => src.Name);
+                .Map(dest => dest.CityName, src => src.CityName.Value);
         }
     }
 }
