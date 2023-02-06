@@ -15,9 +15,13 @@ namespace WildForest.Infrastructure.Persistence.Configurations
                 .HasConversion(id => id.ToString(),
                                 value => CountryId.Parse(value));
 
-            builder.Property(x => x.Name)
-                .HasColumnName("CountryName")
-                .HasMaxLength(ConfigurationSettings.MaxStringLength);
+            builder.OwnsOne(
+                x => x.CountryName,
+                sa =>
+                {
+                    sa.Property(p => p.Value)
+                    .HasColumnName("CountryName");
+                });
         }
     }
 }
