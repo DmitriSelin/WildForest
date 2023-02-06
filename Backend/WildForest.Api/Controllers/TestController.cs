@@ -17,7 +17,7 @@ namespace WildForest.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> TestGetWeather()
         {
-            Guid cityId = Guid.Parse("c964e75d-d3d7-4da8-bc77-2faa55e3e512");
+            Guid cityId = Guid.Parse("a0b3096c-f43f-40bc-9c26-186c9462a42b");
 
             await _httpClient.GetWeatherForecastAsync(cityId);
 

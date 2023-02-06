@@ -8,17 +8,17 @@ namespace WildForest.Domain.Users.Entities
 {
     public class User : Entity<UserId>
     {
-        public FirstName FirstName { get; }
+        public FirstName FirstName { get; } = null!;
 
-        public LastName LastName { get; }
+        public LastName LastName { get; } = null!;
 
         public Role Role { get; }
 
-        public Email Email { get; }
+        public Email Email { get; } = null!;
 
-        public Password Password { get; }
+        public Password Password { get; } = null!;
 
-        public CityId CityId { get; }
+        public CityId CityId { get; } = null!;
 
         public virtual City City { get; } = null!;
 
@@ -37,6 +37,8 @@ namespace WildForest.Domain.Users.Entities
             Password = password;
             CityId = cityId;
         }
+
+        private User(UserId id) : base(id) { }
 
         public static User CreateUser(
             FirstName firstName,
