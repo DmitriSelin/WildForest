@@ -16,16 +16,23 @@ namespace WildForest.Infrastructure.Persistence.Configurations
                 .HasConversion(id => id.ToString(),
                                 value => CityId.Parse(value));
 
-            builder.Property(x => x.Name)
-                .HasColumnName("CityName")
-                .HasMaxLength(ConfigurationSettings.MaxStringLength);
+            builder.OwnsOne(
+                x => x.CityName,
+                sa =>
+                {
+                    sa.Property(p => p.Value)
+                    .HasColumnName("CityName");
+                });
 
             builder.OwnsOne(
                 x => x.Location,
                 sa =>
                 {
-                    sa.Property(p => p.Latitude).HasColumnName("Latitude");
-                    sa.Property(p => p.Longitude).HasColumnName("Longitude");
+                    sa.Property(p => p.Latitude)
+                    .HasColumnName("Latitude");
+
+                    sa.Property(p => p.Longitude)
+                    .HasColumnName("Longitude");
                 });
 
             builder.Property(x => x.CountryId)
