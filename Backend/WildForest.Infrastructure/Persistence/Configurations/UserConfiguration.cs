@@ -15,21 +15,44 @@ namespace WildForest.Infrastructure.Persistence.Configurations
                 .HasConversion(id => id.ToString(),
                                 value => UserId.Parse(value));
 
-            builder.Property(x => x.FirstName)
-                .HasMaxLength(ConfigurationSettings.MaxStringLength);
+            builder.OwnsOne(
+                x => x.FirstName,
+                sa =>
+                {
+                    sa.Property(p => p.Value)
+                    .HasMaxLength(ConfigurationSettings.MaxStringLength)
+                    .HasColumnName("FirstName");
+                });
 
-            builder.Property(x => x.LastName)
-                .HasMaxLength(ConfigurationSettings.MaxStringLength);
+            builder.OwnsOne(
+                x => x.LastName,
+                sa =>
+                {
+                    sa.Property(p => p.Value)
+                    .HasMaxLength(ConfigurationSettings.MaxStringLength)
+                    .HasColumnName("LastName");
+                });
 
             builder.Property(x => x.Role)
-                .IsRequired()
-                .HasColumnName("UserRole");
+                .HasColumnName("Role");
 
-            builder.Property(x => x.Email)
-                .HasMaxLength(ConfigurationSettings.MaxStringLength);
+            builder.OwnsOne(
+                x => x.Email,
+                sa =>
+                {
+                    sa.Property(p => p.Value)
+                    .HasMaxLength(ConfigurationSettings.MaxStringLength)
+                    .HasColumnName("Email");
+                });
 
-            builder.Property(x => x.Password)
-                .HasMaxLength(ConfigurationSettings.MaxStringLength);
+            builder.OwnsOne(
+                x => x.Password, 
+                sa => 
+                { 
+                    sa.Property(p => p.Value)
+                    .HasMaxLength(ConfigurationSettings.MaxStringLength)
+                    .HasColumnName("Password");
+                });
 
             builder.Property(x => x.CityId)
                 .IsRequired()

@@ -16,10 +16,10 @@ namespace WildForest.Api.Common.Mapping
             config.NewConfig<AuthenticationResult, AuthenticationResponse>()
                 .Map(dest => dest.Token, src => src.Token)
                 .Map(dest => dest.Id, src => src.User.Id.Value)
-                .Map(dest => dest.FirstName, src => src.User.FirstName)
-                .Map(dest => dest.LastName, src => src.User.LastName)
-                .Map(dest => dest.Email, src => src.User.Email)
-                .Map(dest => dest.Password, src => src.User.Password)
+                .Map(dest => dest.FirstName, src => src.User.FirstName.ToString())
+                .Map(dest => dest.LastName, src => src.User.LastName.ToString())
+                .Map(dest => dest.Email, src => src.User.Email.ToString())
+                .Map(dest => dest.Password, src => src.User.Password.ToString())
                 .Map(dest => dest.CityId, src => src.User.CityId.Value);
         }
     }

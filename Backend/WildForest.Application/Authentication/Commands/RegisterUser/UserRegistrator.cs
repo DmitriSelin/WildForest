@@ -1,11 +1,11 @@
 ﻿using ErrorOr;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Common.Interfaces.Authentication;
-using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
+using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Application.Authentication.Commands.RegisterUser
 {
@@ -27,7 +27,9 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
 
         public async Task<ErrorOr<AuthenticationResult>> RegisterAsync(RegisterUserCommand command)
         {
-            User? user = await _userRepository.GetUserByEmailAsync(command.Email);
+            var email = Email.CreateEmail(command.Email);
+
+            User? user = await _userRepository.GetUserByEmailAsync(email);
 
             if (user is not null)
             {
@@ -43,8 +45,16 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
                 return Errors.City.NotFoundById;
             }
 
-            user = User.CreateUser(command.FirstName, command.LastName,
-                Role.User, command.Email, command.Password, CityId.CreateCityId(command.CityId));
+            var firstName = FirstName.CreateFirstName(command.FirstName);
+            var lastName = LastName.CreateLastName(command.LastName);
+            var password = Password.CreatePassword(command.Password);
+
+            user = User.CreateUser(
+                firstName,
+                lastName,
+                email, 
+                password,
+                CityId.CreateCityId(command.CityId));
 
             await _userRepository.AddUserAsync(user);
 

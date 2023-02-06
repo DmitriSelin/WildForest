@@ -29,8 +29,8 @@ namespace WildForest.Infrastructure.Authentication
             var claims = new Claim[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.Value.ToString()),
-                new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
-                new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
+                new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName.ToString()),
+                new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

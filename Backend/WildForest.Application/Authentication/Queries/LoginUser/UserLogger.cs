@@ -4,6 +4,7 @@ using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Users.Entities;
+using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Application.Authentication.Queries.LoginUser
 {
@@ -20,9 +21,12 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
 
         public async Task<ErrorOr<AuthenticationResult>> LoginAsync(LoginUserQuery query)
         {
-            User? user = await _userRepository.GetUserByEmailAsync(query.Email);
+            var email = Email.CreateEmail(query.Email);
+            var password = Password.CreatePassword(query.Password);
 
-            if (user is null || query.Password != user.Password)
+            User? user = await _userRepository.GetUserByEmailAsync(email);
+
+            if (user is null || password != user.Password)
             {
                 return Errors.Authentication.InvalidCredentials;
             }
