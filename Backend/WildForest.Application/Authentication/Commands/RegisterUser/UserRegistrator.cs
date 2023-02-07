@@ -27,7 +27,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
 
         public async Task<ErrorOr<AuthenticationResult>> RegisterAsync(RegisterUserCommand command)
         {
-            var email = Email.CreateEmail(command.Email);
+            var email = Email.Create(command.Email);
 
             User? user = await _userRepository.GetUserByEmailAsync(email);
 
@@ -36,7 +36,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
                 return Errors.User.DupplicateEmail;
             }
 
-            var cityId = CityId.CreateCityId(command.CityId);
+            var cityId = CityId.Create(command.CityId);
 
             var city = await _cityRepository.GetCityByIdAsync(cityId);
 
@@ -45,16 +45,16 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
                 return Errors.City.NotFoundById;
             }
 
-            var firstName = FirstName.CreateFirstName(command.FirstName);
-            var lastName = LastName.CreateLastName(command.LastName);
-            var password = Password.CreatePassword(command.Password);
+            var firstName = FirstName.Create(command.FirstName);
+            var lastName = LastName.Create(command.LastName);
+            var password = Password.Create(command.Password);
 
-            user = User.CreateUser(
+            user = User.Create(
                 firstName,
                 lastName,
                 email, 
                 password,
-                CityId.CreateCityId(command.CityId));
+                CityId.Create(command.CityId));
 
             await _userRepository.AddUserAsync(user);
 

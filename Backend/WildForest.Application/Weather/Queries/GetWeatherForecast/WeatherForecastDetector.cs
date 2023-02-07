@@ -27,8 +27,8 @@ namespace WildForest.Application.Weather.Queries.GetWeatherForecast
 
         public async Task<ErrorOr<List<WeatherForecastDto>>> GetWeatherForecast(ForecastQuery query)
         {
-            var userId = UserId.CreateUserId(query.UserId);
-            var cityId = CityId.CreateCityId(query.CityId);
+            var userId = UserId.Create(query.UserId);
+            var cityId = CityId.Create(query.CityId);
 
             var user = await _userRepository.GetUserByIdAsync(userId);
 
@@ -44,7 +44,7 @@ namespace WildForest.Application.Weather.Queries.GetWeatherForecast
                 return Errors.City.NotFoundById;
             }
 
-            var forecastDate = ForecastDate.CreateForecastDate(query.ForecastDate);
+            var forecastDate = ForecastDate.Create(query.ForecastDate);
 
             List<WeatherForecast>? weather = await _dayWeatherRepository.GetWeatherForecastAsync(city.Id, forecastDate);
 

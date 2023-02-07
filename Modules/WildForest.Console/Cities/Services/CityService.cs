@@ -60,7 +60,9 @@ namespace WildForest.Console.Cities.Services
             var options = optionsBuilder.UseNpgsql(_configuration.GetConnectionString("PostgreSQL")).Options;
             var context = new WildForestDbContext(options);
 
-            var country = context.Countries.FirstOrDefault(x => x.Name == countryName);
+            var name = CountryName.Create(countryName);
+
+            var country = context.Countries.FirstOrDefault(x => x.CountryName == name);
 
             if (country is null)
             {

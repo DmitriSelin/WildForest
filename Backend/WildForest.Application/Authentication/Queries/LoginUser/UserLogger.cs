@@ -21,8 +21,8 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
 
         public async Task<ErrorOr<AuthenticationResult>> LoginAsync(LoginUserQuery query)
         {
-            var email = Email.CreateEmail(query.Email);
-            var password = Password.CreatePassword(query.Password);
+            var email = Email.Create(query.Email);
+            var password = Password.Create(query.Password);
 
             User? user = await _userRepository.GetUserByEmailAsync(email);
 

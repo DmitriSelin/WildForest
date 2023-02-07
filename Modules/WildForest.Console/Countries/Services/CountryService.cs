@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using WildForest.Domain.Countries.Entities;
+using WildForest.Domain.Countries.ValueObjects;
 using WildForest.Infrastructure.Context;
 
 namespace WildForest.Console.Countries.Services
@@ -20,7 +21,7 @@ namespace WildForest.Console.Countries.Services
             var options = optionsBuilder.UseNpgsql(_configuration.GetConnectionString("PostgreSQL")).Options;
             var context = new WildForestDbContext(options);
 
-            var country = Country.CreateCountry(countryName);
+            var country = Country.Create(CountryName.Create(countryName));
 
             await context.Countries.AddAsync(country);
             await context.SaveChangesAsync();

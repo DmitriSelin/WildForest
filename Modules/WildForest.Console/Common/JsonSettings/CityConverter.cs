@@ -58,8 +58,9 @@ namespace WildForest.Console.Common.JsonSettings
 
                     if (count % 3 == 0)
                     {
-                        var location = Location.CreateLocation(latitude, longitude);
-                        var city = City.CreateCity(cityName, location, _countryId);
+                        var name = CityName.Create(cityName);
+                        var location = Location.Create(latitude, longitude);
+                        var city = City.Create(name, location, _countryId);
 
                         cities.Add(city);
                     }

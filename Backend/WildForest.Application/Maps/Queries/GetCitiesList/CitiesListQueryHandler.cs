@@ -20,7 +20,7 @@ namespace WildForest.Application.Maps.Queries.GetCitiesList
 
         public async Task<ErrorOr<List<CityQuery>>> GetCitiesByCountryIdAsync(Guid countryId)
         {
-            var id = CountryId.CreateCountryId(countryId);
+            var id = CountryId.Create(countryId);
 
             var cities = (List<City>?) await _cityRepository.GetCitiesByCountryIdAsync(id);
 

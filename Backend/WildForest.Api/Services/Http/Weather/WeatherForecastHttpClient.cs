@@ -34,7 +34,7 @@ namespace WildForest.Api.Services.Http.Weather
 
         public async Task<List<WeatherForecast>> GetWeatherForecastAsync(Guid cityId)
         {
-            var city = await _cityRepository.GetCityByIdAsync(CityId.CreateCityId(cityId));
+            var city = await _cityRepository.GetCityByIdAsync(CityId.Create(cityId));
 
             if (city is null)
             {
