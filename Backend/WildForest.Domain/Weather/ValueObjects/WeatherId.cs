@@ -11,19 +11,19 @@ namespace WildForest.Domain.Weather.ValueObjects
             Value = value;
         }
 
-        public static WeatherId CreateWeatherId()
+        public static WeatherId Create()
         {
             return new(Guid.NewGuid());
         }
 
-        public static WeatherId CreateWeatherId(Guid value)
+        public static WeatherId Create(Guid value)
         {
             return new(value);
         }
 
         public static WeatherId Parse(string weatherId)
         {
-            return CreateWeatherId(Guid.Parse(weatherId));
+            return Create(Guid.Parse(weatherId));
         }
 
         public override IEnumerable<object> GetEqualityComponents()

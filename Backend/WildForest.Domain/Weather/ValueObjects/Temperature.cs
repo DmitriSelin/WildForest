@@ -14,7 +14,7 @@ namespace WildForest.Domain.Weather.ValueObjects
             ValueFeelsLike = valueFeelsLike;
         }
 
-        public static Temperature CreateTemperature(double value, double valueFeelsLike)
+        public static Temperature Create(double value, double valueFeelsLike)
         {
             return new(value, valueFeelsLike);
         }

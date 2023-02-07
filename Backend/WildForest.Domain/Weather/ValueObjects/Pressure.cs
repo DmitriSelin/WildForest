@@ -9,7 +9,7 @@ namespace WildForest.Domain.Weather.ValueObjects
         private Pressure(double value)
             => Value = value;
 
-        public static Pressure CreatePressure(double value)
+        public static Pressure Create(double value)
         {
             return new(value);
         }

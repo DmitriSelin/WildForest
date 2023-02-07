@@ -14,7 +14,7 @@ namespace WildForest.Domain.Weather.ValueObjects
             Description = description;
         }
 
-        public static WeatherDescription CreateWeatherDescription(string name, string description)
+        public static WeatherDescription Create(string name, string description)
         {
             return new(name, description);
         }

@@ -17,7 +17,7 @@ namespace WildForest.Domain.Weather.ValueObjects
             Gust = gust;
         }
 
-        public static Wind CreateWind(double speed, int direction, double gust)
+        public static Wind Create(double speed, int direction, double gust)
         {
             return new(speed, direction, gust);
         }

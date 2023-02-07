@@ -9,7 +9,7 @@ namespace WildForest.Domain.Weather.ValueObjects
         private PrecipitationVolume(double? value)
             => Value = value;
 
-        public static PrecipitationVolume CreatePrecipitationVolume(double? value)
+        public static PrecipitationVolume Create(double? value)
         {
             return new(value);
         }

@@ -9,7 +9,7 @@ namespace WildForest.Domain.Weather.ValueObjects
         private Humidity(byte value) 
             => Value = value;
 
-        public static Humidity CreateHumidity(byte value)
+        public static Humidity Create(byte value)
         {
             return new(value);
         }

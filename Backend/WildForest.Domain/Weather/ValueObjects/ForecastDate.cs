@@ -9,7 +9,7 @@ namespace WildForest.Domain.Weather.ValueObjects
         private ForecastDate(DateOnly value)
             => Value= value;
 
-        public static ForecastDate CreateForecastDate(DateOnly value)
+        public static ForecastDate Create(DateOnly value)
         {
             return new(value);
         }

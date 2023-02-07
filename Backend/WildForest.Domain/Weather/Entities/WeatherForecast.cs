@@ -79,7 +79,7 @@ namespace WildForest.Domain.Weather.Entities
             CityId cityId)
         {
             return new(
-                WeatherId.CreateWeatherId(),
+                WeatherId.Create(),
                 forecastDate,
                 forecastTime,
                 temperature,

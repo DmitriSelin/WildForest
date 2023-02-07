@@ -9,7 +9,7 @@ namespace WildForest.Domain.Weather.ValueObjects
         private PrecipitationProbability(byte value)
             => Value = value;
 
-        public static PrecipitationProbability CreatePrecipitationProbability(byte value)
+        public static PrecipitationProbability Create(byte value)
         {
             return new(value);
         }

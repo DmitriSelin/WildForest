@@ -11,7 +11,7 @@ namespace WildForest.Domain.Weather.ValueObjects
             Value = value;
         }
 
-        public static Visibility CreateVisibility(double value)
+        public static Visibility Create(double value)
         {
             return new(value);
         }
