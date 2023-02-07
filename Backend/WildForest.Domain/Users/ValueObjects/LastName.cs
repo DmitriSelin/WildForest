@@ -10,7 +10,7 @@ namespace WildForest.Domain.Users.ValueObjects
         private LastName(string value)
             => Value = value;
 
-        public static LastName CreateLastName(string value)
+        public static LastName Create(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentNullException(nameof(value));

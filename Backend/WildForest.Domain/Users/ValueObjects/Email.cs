@@ -12,7 +12,7 @@ namespace WildForest.Domain.Users.ValueObjects
         private Email(string value)
             => Value = value;
 
-        public static Email CreateEmail(string value)
+        public static Email Create(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentNullException(nameof(value));

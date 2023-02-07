@@ -11,19 +11,19 @@ namespace WildForest.Domain.Countries.ValueObjects
             Value = value;
         }
 
-        public static CountryId CreateCountryId()
+        public static CountryId Create()
         {
             return new(Guid.NewGuid());
         }
 
-        public static CountryId CreateCountryId(Guid value)
+        public static CountryId Create(Guid value)
         {
             return new(value);
         }
 
         public static CountryId Parse(string countryId)
         {
-            return CreateCountryId(Guid.Parse(countryId));
+            return Create(Guid.Parse(countryId));
         }
 
         public override IEnumerable<object> GetEqualityComponents()

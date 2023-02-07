@@ -10,7 +10,7 @@ namespace WildForest.Domain.Users.ValueObjects
         private Password(string value)
             => Value = value;
 
-        public static Password CreatePassword(string value)
+        public static Password Create(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentNullException(nameof(value));

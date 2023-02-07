@@ -10,7 +10,7 @@ namespace WildForest.Domain.Cities.ValueObjects
         private CityName(string value)
             => Value = value;
 
-        public static CityName CreateCityName(string value)
+        public static CityName Create(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentNullException(nameof(value));

@@ -18,9 +18,9 @@ namespace WildForest.Domain.Marks.Entities
             MarkDetails = markDetails;
         }
 
-        public static Mark CreateMark(MarkDetails markDetails)
+        public static Mark Create(MarkDetails markDetails)
         {
-            return new(MarkId.CreateMarkId(), markDetails);
+            return new(MarkId.Create(), markDetails);
         }
     }
 }

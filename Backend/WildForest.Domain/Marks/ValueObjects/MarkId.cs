@@ -11,12 +11,12 @@ namespace WildForest.Domain.Marks.ValueObjects
             Value = value;
         }
 
-        public static MarkId CreateMarkId()
+        public static MarkId Create()
         {
             return new(Guid.NewGuid());
         }
 
-        public static MarkId CreateMarkId(Guid value)
+        public static MarkId Create(Guid value)
         {
             return new(value);
         }
@@ -28,7 +28,7 @@ namespace WildForest.Domain.Marks.ValueObjects
 
         public static MarkId Parse(string markId)
         {
-            return CreateMarkId(Guid.Parse(markId));
+            return Create(Guid.Parse(markId));
         }
 
         public override string ToString()

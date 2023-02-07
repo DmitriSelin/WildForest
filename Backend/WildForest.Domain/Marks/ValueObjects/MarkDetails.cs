@@ -14,7 +14,7 @@ namespace WildForest.Domain.Marks.ValueObjects
             Comment = comment;
         }
 
-        public static MarkDetails CreateMarkDetails(byte value, string comment)
+        public static MarkDetails Create(byte value, string comment)
         {
             return new(value, comment);
         }

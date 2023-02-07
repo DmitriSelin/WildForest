@@ -25,13 +25,13 @@ namespace WildForest.Domain.Weather
             City = city;
         }
 
-        public static WeatherAggregate CreateWeatherAggregate(
+        public static WeatherAggregate Create(
             WeatherForecast dayWeather, 
             Mark mark,
             City city)
         {
             return new(
-                WeatherId.CreateWeatherId(),
+                WeatherId.Create(),
                 dayWeather, mark, city);
         }
     }

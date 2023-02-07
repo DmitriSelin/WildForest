@@ -11,19 +11,19 @@ namespace WildForest.Domain.Users.ValueObjects
             Value = value;
         }
 
-        public static UserId CreateUserId()
+        public static UserId Create()
         {
             return new(Guid.NewGuid());
         }
 
-        public static UserId CreateUserId(Guid value)
+        public static UserId Create(Guid value)
         {
             return new(value);
         }
 
         public static UserId Parse(string userId)
         {
-            return CreateUserId(Guid.Parse(userId));
+            return Create(Guid.Parse(userId));
         }
 
         public override IEnumerable<object> GetEqualityComponents()

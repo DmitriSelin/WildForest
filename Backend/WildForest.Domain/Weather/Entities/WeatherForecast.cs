@@ -64,7 +64,7 @@ namespace WildForest.Domain.Weather.Entities
 
         private WeatherForecast(WeatherId id) : base(id) { }
 
-        public static WeatherForecast CreateWeatherForecast(
+        public static WeatherForecast Create(
             ForecastDate forecastDate,
             ForecastTime forecastTime,
             Temperature temperature,

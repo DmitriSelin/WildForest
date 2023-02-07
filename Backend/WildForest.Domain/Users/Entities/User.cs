@@ -40,7 +40,7 @@ namespace WildForest.Domain.Users.Entities
 
         private User(UserId id) : base(id) { }
 
-        public static User CreateUser(
+        public static User Create(
             FirstName firstName,
             LastName lastName, 
             Email email, 
@@ -48,7 +48,7 @@ namespace WildForest.Domain.Users.Entities
             CityId cityId)
         {
             return new(
-                UserId.CreateUserId(), 
+                UserId.Create(), 
                 firstName,
                 lastName, 
                 email, 

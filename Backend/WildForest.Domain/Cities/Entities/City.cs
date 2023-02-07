@@ -38,10 +38,10 @@ namespace WildForest.Domain.Cities.Entities
 
         private City(CityId id) : base(id) { }
 
-        public static City CreateCity(CityName cityName, Location location, CountryId countryId)
+        public static City Create(CityName cityName, Location location, CountryId countryId)
         {
             return new(
-                CityId.CreateCityId(),
+                CityId.Create(),
                 cityName,
                 location,
                 countryId);

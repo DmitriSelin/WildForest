@@ -19,9 +19,9 @@ namespace WildForest.Domain.Countries.Entities
 
         private Country(CountryId id) : base(id) { }
 
-        public static Country CreateCountry(CountryName countryName)
+        public static Country Create(CountryName countryName)
         {
-            return new(CountryId.CreateCountryId(), countryName);
+            return new(CountryId.Create(), countryName);
         }
     }
 }

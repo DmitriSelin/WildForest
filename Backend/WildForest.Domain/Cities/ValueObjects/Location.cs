@@ -14,7 +14,7 @@ namespace WildForest.Domain.Cities.ValueObjects
             Longitude = longitude;
         }
 
-        public static Location CreateLocation(double latitude, double longitude)
+        public static Location Create(double latitude, double longitude)
         {
             return new(latitude, longitude);
         }

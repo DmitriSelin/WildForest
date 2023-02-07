@@ -11,19 +11,19 @@ namespace WildForest.Domain.Cities.ValueObjects
             Value = value;
         }
 
-        public static CityId CreateCityId()
+        public static CityId Create()
         {
             return new(Guid.NewGuid());
         }
 
-        public static CityId CreateCityId(Guid value)
+        public static CityId Create(Guid value)
         {
             return new(value);
         }
 
         public static CityId Parse(string cityId)
         {
-            return CreateCityId(Guid.Parse(cityId));
+            return Create(Guid.Parse(cityId));
         }
 
         public override IEnumerable<object> GetEqualityComponents()
