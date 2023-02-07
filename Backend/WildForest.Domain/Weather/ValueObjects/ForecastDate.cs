@@ -2,12 +2,15 @@
 
 namespace WildForest.Domain.Weather.ValueObjects
 {
+    /// <summary>
+    /// Value in UTC
+    /// </summary>
     public sealed class ForecastDate : ValueObject
     {
         public DateOnly Value { get; }
 
         private ForecastDate(DateOnly value)
-            => Value= value;
+            => Value = value;
 
         public static ForecastDate Create(DateOnly value)
         {

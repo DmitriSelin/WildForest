@@ -16,6 +16,12 @@ namespace WildForest.Domain.Weather.ValueObjects
 
         public static Temperature Create(double value, double valueFeelsLike)
         {
+            if (value < -92 || value > 57)
+                throw new ArgumentOutOfRangeException("Invalid temperature");
+
+            if (valueFeelsLike < -100 || valueFeelsLike > 60)
+                throw new ArgumentOutOfRangeException("Invalid temperature feels like");
+
             return new(value, valueFeelsLike);
         }
 

@@ -2,6 +2,9 @@
 
 namespace WildForest.Domain.Weather.ValueObjects
 {
+    /// <summary>
+    /// Value in percentages
+    /// </summary>
     public sealed class Cloudiness : ValueObject
     {
         public byte Value { get; }
@@ -11,6 +14,9 @@ namespace WildForest.Domain.Weather.ValueObjects
 
         public static Cloudiness Create(byte value)
         {
+            if (value > 100)
+                throw new ArgumentOutOfRangeException("Invalid cloudiness");
+
             return new(value);
         }
 

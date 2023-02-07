@@ -16,6 +16,12 @@ namespace WildForest.Domain.Weather.ValueObjects
 
         public static WeatherDescription Create(string name, string description)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentNullException(nameof(name));
+
+            if (string.IsNullOrWhiteSpace(description))
+                throw new ArgumentNullException(nameof(description));
+
             return new(name, description);
         }
 
