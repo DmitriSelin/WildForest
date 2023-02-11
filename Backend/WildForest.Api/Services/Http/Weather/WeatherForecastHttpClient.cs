@@ -41,8 +41,14 @@ namespace WildForest.Api.Services.Http.Weather
                 throw new ArgumentNullException(nameof(city));
             }
 
-            string lat = city.Location.Latitude.RemoveCommaByPeriodToString();
-            string lon = city.Location.Longitude.RemoveCommaByPeriodToString();
+            string lat = city.Location.Latitude
+                .ToString()
+                .ReplaceCommaByPeriod();
+
+            string lon = city.Location.Longitude
+                .ToString()
+                .ReplaceCommaByPeriod();
+
             string? appid = _configuration["WeatherForecast:ApiKey"];
 
             var url = $"?lat={lat}&lon={lon}&units=metric&appid={appid}";
