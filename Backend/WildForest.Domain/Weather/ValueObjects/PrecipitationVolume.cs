@@ -16,7 +16,7 @@ namespace WildForest.Domain.Weather.ValueObjects
         {
             if (value is not null)
             {
-                if (value < 0 || value > 1)
+                if (value < 0)
                     throw new ArgumentOutOfRangeException("Invalid precipitation probability");
             }
 

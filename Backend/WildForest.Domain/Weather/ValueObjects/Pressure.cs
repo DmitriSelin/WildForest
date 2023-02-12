@@ -7,12 +7,12 @@ namespace WildForest.Domain.Weather.ValueObjects
     /// </summary>
     public sealed class Pressure : ValueObject
     {
-        public double Value { get; }
+        public int Value { get; }
 
-        private Pressure(double value)
+        private Pressure(int value)
             => Value = value;
 
-        public static Pressure Create(double value)
+        public static Pressure Create(int value)
         {
             if (value < 580 || value > 812)     //min and max values of pressure
                 throw new ArgumentOutOfRangeException("Invalid pressure");

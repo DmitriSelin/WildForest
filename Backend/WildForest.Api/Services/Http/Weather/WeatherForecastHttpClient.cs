@@ -54,9 +54,14 @@ namespace WildForest.Api.Services.Http.Weather
             var url = $"?lat={lat}&lon={lon}&units=metric&appid={appid}";
 
             var jsonOptions = new JsonSerializerOptions();
-            jsonOptions.Converters.Add(new WeatherForecastConverter());
+            jsonOptions.Converters.Add(new WeatherForecastConverter(city.Id));
 
             var weatherForecast = await _httpClient.GetFromJsonAsync<List<WeatherForecast>>(url, jsonOptions);
+
+            if (weatherForecast is null)
+            {
+                throw new ArgumentNullException(nameof(weatherForecast));
+            }
 
             return weatherForecast;
         }
