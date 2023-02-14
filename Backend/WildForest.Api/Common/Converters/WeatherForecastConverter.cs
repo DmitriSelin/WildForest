@@ -143,26 +143,10 @@ namespace WildForest.Api.Common.Converters
 
         private static byte GetPrecipitationProbability(double value)
         {
-            if (value == 0)
-                return 0;
-
             value *= 100;
 
-            char[] figures = value.ToString().ToCharArray();
-            var stringResult = string.Empty;
-
-            if (figures.Length == 1)
-                stringResult = $"{figures[0]}";
-            else
-                stringResult = $"{figures[0]}{figures[1]}";
-
-
-            if (byte.TryParse(stringResult, out byte result))
-            {
-                return result;
-            }
-
-            throw new ArgumentException(nameof(value));
+            byte result = Convert.ToByte(value);
+            return result;
         }
 
         private static (DateOnly, TimeOnly) GetDateAndTime(string? value)
