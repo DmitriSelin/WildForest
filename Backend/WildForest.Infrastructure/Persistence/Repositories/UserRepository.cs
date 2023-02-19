@@ -30,7 +30,7 @@ namespace WildForest.Infrastructure.Persistence.Repositories
         public async Task<User?> GetUserByIdAsync(UserId userId)
         {
             return await _context.Users
-                .FirstOrDefaultAsync(x => x.Id.Value == userId.Value);
+                .FirstOrDefaultAsync(x => x.Id == userId);
         }
     }
 }

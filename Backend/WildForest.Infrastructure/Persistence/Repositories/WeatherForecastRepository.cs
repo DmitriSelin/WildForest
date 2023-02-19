@@ -19,7 +19,7 @@ namespace WildForest.Infrastructure.Persistence.Repositories
         public async Task<List<WeatherForecast>> GetWeatherForecastAsync(CityId cityId, ForecastDate forecastDate)
         {
             return await _context.WeatherForecasts
-                .Where(x => x.CityId.Value == cityId.Value && x.ForecastDate.Value == forecastDate.Value)
+                .Where(x => x.CityId == cityId && x.ForecastDate.Value == forecastDate.Value)
                 .ToListAsync();
         }
     }

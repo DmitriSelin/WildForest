@@ -9,7 +9,5 @@ namespace WildForest.Application.Common.Interfaces.Persistence.Repositories
         Task<City?> GetCityByIdAsync(CityId cityId);
 
         Task<IEnumerable<City>?> GetCitiesByCountryIdAsync(CountryId countryId);
-
-        Task<IEnumerable<City>> GetCitiesByUsersAsync();
     }
 }

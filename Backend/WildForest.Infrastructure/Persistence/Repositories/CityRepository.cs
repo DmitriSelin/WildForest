@@ -19,21 +19,14 @@ namespace WildForest.Infrastructure.Persistence.Repositories
         public async Task<City?> GetCityByIdAsync(CityId cityId)
         {
             return await _context.Cities
-                .FirstOrDefaultAsync(x => x.Id.Value == cityId.Value);
+                .FirstOrDefaultAsync(x => x.Id == cityId);
         }
 
         public async Task<IEnumerable<City>?> GetCitiesByCountryIdAsync(CountryId countryId)
         {
             return await _context.Cities
-                .Where(x => x.CountryId.Value == countryId.Value)
+                .Where(x => x.CountryId == countryId)
                 .OrderBy(x => x.CityName.Value)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<City>> GetCitiesByUsersAsync()
-        {
-            return await _context.Cities
-                .Include(x => x.Users)
                 .ToListAsync();
         }
     }
