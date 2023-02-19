@@ -3,7 +3,7 @@ using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Countries.ValueObjects;
-using WildForest.Infrastructure.Context;
+using WildForest.Infrastructure.Persistence.Context;
 
 namespace WildForest.Infrastructure.Persistence.Repositories
 {
@@ -18,14 +18,15 @@ namespace WildForest.Infrastructure.Persistence.Repositories
 
         public async Task<City?> GetCityByIdAsync(CityId cityId)
         {
-            return await _context.Cities.FirstOrDefaultAsync(x => x.Id == cityId);
+            return await _context.Cities
+                .FirstOrDefaultAsync(x => x.Id.Value == cityId.Value);
         }
 
         public async Task<IEnumerable<City>?> GetCitiesByCountryIdAsync(CountryId countryId)
         {
             return await _context.Cities
-                .Where(x => x.CountryId == countryId)
-                .OrderBy(x => x.CityName)
+                .Where(x => x.CountryId.Value == countryId.Value)
+                .OrderBy(x => x.CityName.Value)
                 .ToListAsync();
         }
 

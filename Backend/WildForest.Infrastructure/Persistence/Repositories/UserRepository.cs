@@ -2,7 +2,7 @@
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
-using WildForest.Infrastructure.Context;
+using WildForest.Infrastructure.Persistence.Context;
 
 namespace WildForest.Infrastructure.Persistence.Repositories
 {
@@ -23,12 +23,14 @@ namespace WildForest.Infrastructure.Persistence.Repositories
 
         public async Task<User?> GetUserByEmailAsync(Email email)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            return await _context.Users
+                .FirstOrDefaultAsync(x => x.Email.Value == email.Value);
         }
 
         public async Task<User?> GetUserByIdAsync(UserId userId)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+            return await _context.Users
+                .FirstOrDefaultAsync(x => x.Id.Value == userId.Value);
         }
     }
 }

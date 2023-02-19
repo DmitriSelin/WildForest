@@ -5,7 +5,7 @@ using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Weather.Entities;
 using WildForest.Infrastructure.Persistence.Configurations;
 
-namespace WildForest.Infrastructure.Context
+namespace WildForest.Infrastructure.Persistence.Context
 {
     public sealed class WildForestDbContext : DbContext
     {
@@ -13,7 +13,7 @@ namespace WildForest.Infrastructure.Context
 
         public DbSet<City> Cities => Set<City>();
 
-        public DbSet<Country> Countries => Set<Country>();  
+        public DbSet<Country> Countries => Set<Country>();
 
         public DbSet<WeatherForecast> WeatherForecasts => Set<WeatherForecast>();
 

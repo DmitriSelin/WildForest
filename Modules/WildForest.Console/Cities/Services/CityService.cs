@@ -4,8 +4,8 @@ using System.Text.Json;
 using WildForest.Console.Common.JsonSettings;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Countries.ValueObjects;
-using WildForest.Infrastructure.Context;
 using WildForest.Console.Common.Exceptions;
+using WildForest.Infrastructure.Persistence.Context;
 
 namespace WildForest.Console.Cities.Services
 {

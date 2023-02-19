@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WildForest.Api.Services.Http.Weather;
 using WildForest.Domain.Cities.ValueObjects;
-using WildForest.Infrastructure.Context;
+using WildForest.Infrastructure.Persistence.Context;
 
 namespace WildForest.Api.Controllers
 {

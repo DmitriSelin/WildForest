@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using WildForest.Domain.Countries.Entities;
 using WildForest.Domain.Countries.ValueObjects;
-using WildForest.Infrastructure.Context;
+using WildForest.Infrastructure.Persistence.Context;
 
 namespace WildForest.Console.Countries.Services
 {
