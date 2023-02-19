@@ -7,7 +7,7 @@ using WildForest.Infrastructure.Common.Extensions;
 
 namespace WildForest.Api.Services.Http.Weather
 {
-    public class WeatherForecastHttpClient : IWeatherForecastHttpClient
+    public sealed class WeatherForecastHttpClient : IWeatherForecastHttpClient
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
@@ -32,9 +32,9 @@ namespace WildForest.Api.Services.Http.Weather
             _httpClient.BaseAddress = new Uri(baseUrl);
         }
 
-        public async Task<List<WeatherForecast>> GetWeatherForecastAsync(Guid cityId)
+        public async Task<List<WeatherForecast>> GetWeatherForecastAsync(CityId cityId)
         {
-            var city = await _cityRepository.GetCityByIdAsync(CityId.Create(cityId));
+            var city = await _cityRepository.GetCityByIdAsync(cityId);
 
             if (city is null)
             {

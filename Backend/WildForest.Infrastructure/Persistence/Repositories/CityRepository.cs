@@ -28,5 +28,12 @@ namespace WildForest.Infrastructure.Persistence.Repositories
                 .OrderBy(x => x.CityName)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<City>> GetCitiesByUsersAsync()
+        {
+            return await _context.Cities
+                .Include(x => x.Users)
+                .ToListAsync();
+        }
     }
 }

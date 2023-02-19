@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
+using WildForest.Api.BackgroundServices;
 using WildForest.Api.Common.Errors;
 using WildForest.Api.Common.Mapping;
 using WildForest.Api.Services.Http.Jwt;
@@ -18,6 +19,7 @@ namespace WildForest.Api
             services.AddMappings();
             services.AddTransient<IJwtTokenDecoder, JwtTokenDecoder>();
             services.AddHttpClient<IWeatherForecastHttpClient, WeatherForecastHttpClient>();
+            //services.AddHostedService<WeatherForecastBackgroundService>();
 
             return services;
         }

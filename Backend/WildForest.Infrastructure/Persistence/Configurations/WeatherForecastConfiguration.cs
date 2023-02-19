@@ -119,10 +119,9 @@ namespace WildForest.Infrastructure.Persistence.Configurations
                     .HasColumnName("PrecipitationVolume");
                 });
 
-
-            builder.Property(x => x.CityId)
-                .IsRequired()
-                .HasColumnName("CityId");
+            builder.HasOne(p => p.City)
+                .WithMany(x => x.WeatherForecasts)
+                .HasForeignKey(p => p.CityId);
 
             builder.Property(x => x.CityId)
                 .HasConversion(id => id.ToString(),

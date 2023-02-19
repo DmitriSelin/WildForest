@@ -6,7 +6,7 @@ using WildForest.Domain.Weather.ValueObjects;
 
 namespace WildForest.Api.Common.Converters
 {
-    public class WeatherForecastConverter : JsonConverter<List<WeatherForecast>>
+    public sealed class WeatherForecastConverter : JsonConverter<List<WeatherForecast>>
     {
         private readonly CityId _cityId;
 

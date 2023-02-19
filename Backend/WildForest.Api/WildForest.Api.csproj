@@ -19,4 +19,8 @@
     <ProjectReference Include="..\WildForest.Infrastructure\WildForest.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BackgroundServices\" />
+  </ItemGroup>
+
 </Project>

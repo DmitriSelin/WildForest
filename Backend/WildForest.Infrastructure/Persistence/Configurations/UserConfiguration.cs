@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
 
@@ -54,9 +55,13 @@ namespace WildForest.Infrastructure.Persistence.Configurations
                     .HasColumnName("Password");
                 });
 
-            builder.Property(x => x.CityId)
-                .IsRequired()
-                .HasColumnName("CityId");
+            builder.HasOne(p => p.City)
+                .WithMany(x => x.Users)
+                .HasForeignKey(p => p.CityId);
+
+            builder.Property(p => p.CityId)
+                .HasConversion(id => id.ToString(),
+                                value => CityId.Parse(value));
         }
     }
 }

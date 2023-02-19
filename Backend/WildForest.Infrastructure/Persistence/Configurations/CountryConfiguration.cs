@@ -20,8 +20,12 @@ namespace WildForest.Infrastructure.Persistence.Configurations
                 sa =>
                 {
                     sa.Property(p => p.Value)
+                    .HasMaxLength(ConfigurationSettings.MaxStringLength)
                     .HasColumnName("CountryName");
                 });
+
+            builder.Metadata.FindNavigation(nameof(Country.Cities))!
+                .SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }
