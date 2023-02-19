@@ -4,7 +4,7 @@ using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Weather.Entities;
 using WildForest.Domain.Weather.ValueObjects;
 
-namespace WildForest.Api.Common.Converters
+namespace WildForest.Api.Common.JsonConverters
 {
     public sealed class WeatherForecastConverter : JsonConverter<List<WeatherForecast>>
     {
