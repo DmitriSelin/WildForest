@@ -15,7 +15,7 @@ namespace WildForest.Domain.Cities.Entities
 
         public CountryId CountryId { get; } = null!;
 
-        public virtual Country Country { get; } = null!;
+        public Country Country { get; } = null!;
 
         private readonly List<User> _users = new();
 
