@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{B6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{F9A6D612-A0C5-4C25-B8C7-E7220920D26F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.UI", "Frontend\WildForest.UI\WildForest.UI.csproj", "{D7DD25FD-699C-45FA-8770-1B4200EFC27C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Api", "Backend\WildForest.Api\WildForest.Api.csproj", "{CCAF4120-B9CF-4342-B94A-F6C05DE3486E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Application", "Backend\WildForest.Application\WildForest.Application.csproj", "{D55DB906-DA52-4B95-AE76-C92057ECC222}"
@@ -33,12 +31,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D7DD25FD-699C-45FA-8770-1B4200EFC27C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D7DD25FD-699C-45FA-8770-1B4200EFC27C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D7DD25FD-699C-45FA-8770-1B4200EFC27C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{D7DD25FD-699C-45FA-8770-1B4200EFC27C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D7DD25FD-699C-45FA-8770-1B4200EFC27C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D7DD25FD-699C-45FA-8770-1B4200EFC27C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{CCAF4120-B9CF-4342-B94A-F6C05DE3486E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CCAF4120-B9CF-4342-B94A-F6C05DE3486E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCAF4120-B9CF-4342-B94A-F6C05DE3486E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -72,7 +64,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{D7DD25FD-699C-45FA-8770-1B4200EFC27C} = {B66F3F0E-21F4-4194-8777-657F62727863}
 		{CCAF4120-B9CF-4342-B94A-F6C05DE3486E} = {F9A6D612-A0C5-4C25-B8C7-E7220920D26F}
 		{D55DB906-DA52-4B95-AE76-C92057ECC222} = {F9A6D612-A0C5-4C25-B8C7-E7220920D26F}
 		{06302420-A71F-4D00-9004-A620807B19F0} = {F9A6D612-A0C5-4C25-B8C7-E7220920D26F}
