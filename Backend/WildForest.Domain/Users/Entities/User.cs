@@ -20,7 +20,7 @@ namespace WildForest.Domain.Users.Entities
 
         public CityId CityId { get; } = null!;
 
-        public City City { get; } = null!;
+        public City City { get; }
 
         private User(
             UserId id,

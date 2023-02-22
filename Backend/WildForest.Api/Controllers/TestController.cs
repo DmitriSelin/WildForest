@@ -18,12 +18,20 @@ namespace WildForest.Api.Controllers
         [HttpGet("ef")]
         public async Task<IActionResult> Get()
         {
-            var cities = await _context.Cities
-                .Include(x => x.Users)
-                .Where(x => x.CityName.Value == "Krasnodar")
+            var cities = await _context.Users
+                .Include(p => p.City)
                 .ToListAsync();
 
-            return Ok(cities);
+            string[] array = new string[2];
+            int count = 0;
+
+            foreach(var item in cities)
+            {
+                array[count] = item.City.CityName.Value;
+                count++;
+            }
+
+            return Ok(array);
         }
     }
 }
