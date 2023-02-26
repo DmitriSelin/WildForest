@@ -22,5 +22,11 @@ namespace WildForest.Infrastructure.Persistence.Repositories
                 .Where(x => x.CityId == cityId && x.ForecastDate.Value == forecastDate.Value)
                 .ToListAsync();
         }
+
+        public async Task AddWeatherForecastsAsync(IEnumerable<WeatherForecast> forecasts)
+        {
+            await _context.WeatherForecasts.AddRangeAsync(forecasts);
+            await _context.SaveChangesAsync();
+        }
     }
 }

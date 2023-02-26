@@ -32,5 +32,13 @@ namespace WildForest.Infrastructure.Persistence.Repositories
             return await _context.Users
                 .FirstOrDefaultAsync(x => x.Id == userId);
         }
+
+        public async Task<IEnumerable<User>> GetAllUsersWithDistinctCities()
+        {
+            return await _context.Users
+                .Include(p => p.City)
+                .DistinctBy(x => x.City.CityName.Value)
+                .ToListAsync();
+        }
     }
 }
