@@ -1,31 +1,32 @@
 using WildForest.Api.Services.Http.Weather;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
+using WildForest.Domain.Cities.Entities;
 
 namespace WildForest.Api.Services.Weather;
 
 public class WeatherForecastService : IWeatherForecastService
 {
     private readonly IWeatherForecastHttpClient _httpClient;
-    private readonly IUserRepository _userRepository;
+    private readonly ICityRepository _cityRepository;
     private readonly IWeatherForecastRepository _weatherForecastRepository;
 
     public WeatherForecastService(
-        IWeatherForecastHttpClient httpClient, 
-        IUserRepository userRepository,
+        IWeatherForecastHttpClient httpClient,
+        ICityRepository cityRepository,
         IWeatherForecastRepository weatherForecastRepository)
     {
         _httpClient = httpClient;
-        _userRepository = userRepository;
         _weatherForecastRepository = weatherForecastRepository;
+        _cityRepository = cityRepository;
     }
 
     public async Task AddWeatherForecastsToDb()
     {
-        var users = await _userRepository.GetAllUsersWithDistinctCities();
+        var cities = (List<City>) await _cityRepository.GetDistinctCitiesFromUsersAsync();
 
-        foreach (var user in users)
+        foreach (var city in cities)
         {
-            var forecasts = await _httpClient.GetWeatherForecastAsync(user.City.Id);
+            var forecasts = await _httpClient.GetWeatherForecastAsync(city.Id);
             await _weatherForecastRepository.AddWeatherForecastsAsync(forecasts);
         }
     }

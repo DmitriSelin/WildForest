@@ -10,7 +10,5 @@ namespace WildForest.Application.Common.Interfaces.Persistence.Repositories
         Task AddUserAsync(User user);
 
         Task<User?> GetUserByIdAsync(UserId userId);
-
-        Task<IEnumerable<User>> GetAllUsersWithDistinctCities();
     }
 }

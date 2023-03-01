@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WildForest.Infrastructure.Persistence.Context;
 
 namespace WildForest.Api.Controllers
@@ -18,20 +17,7 @@ namespace WildForest.Api.Controllers
         [HttpGet("ef")]
         public async Task<IActionResult> Get()
         {
-            var cities = await _context.Users
-                .Include(p => p.City)
-                .ToListAsync();
-
-            string[] array = new string[2];
-            int count = 0;
-
-            foreach(var item in cities)
-            {
-                array[count] = item.City.CityName.Value;
-                count++;
-            }
-
-            return Ok(array);
+            return Ok();
         }
     }
 }

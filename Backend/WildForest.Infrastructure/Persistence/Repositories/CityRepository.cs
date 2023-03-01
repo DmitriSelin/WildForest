@@ -29,5 +29,15 @@ namespace WildForest.Infrastructure.Persistence.Repositories
                 .OrderBy(x => x.CityName.Value)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<City>> GetDistinctCitiesFromUsersAsync()
+        {
+            return await _context.Cities.FromSqlRaw("""
+                SELECT DISTINCT c."Id", c."CityName", c."Latitude",
+                c."Longitude", c."CountryId" FROM public."Cities" c
+                INNER JOIN public."Users" u
+                ON c."Id" = u."CityId"
+            """).ToListAsync();
+        }
     }
 }

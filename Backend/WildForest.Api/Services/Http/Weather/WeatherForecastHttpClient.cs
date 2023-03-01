@@ -4,6 +4,7 @@ using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Weather.Entities;
 using WildForest.Infrastructure.Common.Extensions;
+// ReSharper disable All
 
 namespace WildForest.Api.Services.Http.Weather
 {
@@ -22,7 +23,7 @@ namespace WildForest.Api.Services.Http.Weather
             _configuration = configuration;
             _cityRepository = cityRepository;
 
-            string? baseUrl = _configuration["WeatherForecast:BaseWeatherForecastUrl"];
+            var baseUrl = _configuration["WeatherForecast:BaseWeatherForecastUrl"];
 
             if (baseUrl is null)
             {
@@ -49,7 +50,7 @@ namespace WildForest.Api.Services.Http.Weather
                 .ToString()
                 .ReplaceCommaByPeriod();
 
-            string? appid = _configuration["WeatherForecast:ApiKey"];
+            var appid = _configuration["WeatherForecast:ApiKey"];
 
             var url = $"?lat={lat}&lon={lon}&units=metric&appid={appid}";
 
