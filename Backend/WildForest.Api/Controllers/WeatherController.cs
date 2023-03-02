@@ -20,7 +20,7 @@ namespace WildForest.Api.Controllers
         }
 
         [HttpGet("homeCity/{forecastDate}")]
-        public async Task<IActionResult> GetWeather([FromQuery] DateOnly forecastDate)
+        public async Task<IActionResult> GetWeather([FromRoute] DateOnly forecastDate)
         {
             ErrorOr<Guid> userId = _jwtTokenDecoder.GetUserIdFromToken(HttpContext.Request);
 
