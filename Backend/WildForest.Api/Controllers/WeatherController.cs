@@ -1,8 +1,7 @@
 ﻿using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using WildForest.Api.Services.Http.Jwt;
-using WildForest.Application.Weather.Common;
-using WildForest.Application.Weather.Queries.GetWeatherForecast;
+using WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
 namespace WildForest.Api.Controllers
 {
@@ -10,18 +9,18 @@ namespace WildForest.Api.Controllers
     public sealed class WeatherForecastController : ApiController
     {
         private readonly IJwtTokenDecoder _jwtTokenDecoder;
-        private readonly IWeatherForecastDetector _weatherForecastDetector;
+        private readonly IHomeWeatherForecastHandler _homeWeatherForecastHandler;  
 
         public WeatherForecastController(
             IJwtTokenDecoder jwtTokenDecoder,
-            IWeatherForecastDetector weatherForecastDetector)
+            IHomeWeatherForecastHandler homeWeatherForecastHandler)
         {
             _jwtTokenDecoder = jwtTokenDecoder;
-            _weatherForecastDetector = weatherForecastDetector;
+            _homeWeatherForecastHandler = homeWeatherForecastHandler;
         }
 
-        [HttpGet("{cityId}/{weatherDate}")]
-        public async Task<IActionResult> GetWeather(Guid cityId, DateOnly forecastDate)
+        [HttpGet("homeCity/{forecastDate}")]
+        public async Task<IActionResult> GetWeather([FromQuery] DateOnly forecastDate)
         {
             ErrorOr<Guid> userId = _jwtTokenDecoder.GetUserIdFromToken(HttpContext.Request);
 
@@ -29,12 +28,12 @@ namespace WildForest.Api.Controllers
             {
                 return Problem(userId.Errors);
             }
-
-            var query = new ForecastQuery(userId.Value, cityId, forecastDate);
-
-            ErrorOr<List<WeatherForecastDto>> forecust = await _weatherForecastDetector.GetWeatherForecast(query);
-
-            return Ok(forecust.Value);
+            
+            var query = new HomeWeatherForecastQuery(userId.Value, forecastDate);
+            
+            var forecasts = await _homeWeatherForecastHandler.GetWeatherForecastAsync(query);
+            
+            return Ok(forecasts);
         }
     }
 }

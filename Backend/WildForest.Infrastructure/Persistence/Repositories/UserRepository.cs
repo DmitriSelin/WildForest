@@ -32,5 +32,12 @@ namespace WildForest.Infrastructure.Persistence.Repositories
             return await _context.Users
                 .FirstOrDefaultAsync(x => x.Id == userId);
         }
+
+        public async Task<User?> GetUserWithCityByIdAsync(UserId userId)
+        {
+            return await _context.Users
+                .Include(p => p.City)
+                .FirstOrDefaultAsync(p => p.Id == userId);
+        }
     }
 }

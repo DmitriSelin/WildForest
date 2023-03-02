@@ -4,7 +4,7 @@ using WildForest.Application.Authentication.Queries.LoginUser;
 using WildForest.Application.Common.Mapping;
 using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
-using WildForest.Application.Weather.Queries.GetWeatherForecast;
+using WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
 namespace WildForest.Application
 {
@@ -17,7 +17,7 @@ namespace WildForest.Application
 
             services.AddScoped<ICountriesListQueryHandler, CountriesListQueryHandler>();
             services.AddScoped<ICitiesListQueryHandler, CitiesListQueryHandler>();
-            services.AddScoped<IWeatherForecastDetector, WeatherForecastDetector>();
+            services.AddScoped<IHomeWeatherForecastHandler, HomeWeatherForecastHandler>();
 
             services.AddMappings();
             

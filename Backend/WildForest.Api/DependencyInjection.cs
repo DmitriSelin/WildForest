@@ -20,6 +20,7 @@ namespace WildForest.Api
             services.AddMappings();
             services.AddTransient<IJwtTokenDecoder, JwtTokenDecoder>();
             services.AddHttpClient<IWeatherForecastHttpClient, WeatherForecastHttpClient>();
+            services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 
             return services;
         }

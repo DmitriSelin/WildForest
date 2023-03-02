@@ -4,11 +4,11 @@ namespace WildForest.Domain.Common.Errors
 {
     public static partial class Errors
     {
-        public static class Weather 
+        public static class WeatherForecast
         {
             public static Error NotFound => Error.NotFound(
-                code: "WeatherForecust.NotFound",
-                description: "Not found weather forecust for these city and date");
+                code: "WeatherForecast.NotFound",
+                description: "Not found weather forecast for these city and date");
         }
     }
 }

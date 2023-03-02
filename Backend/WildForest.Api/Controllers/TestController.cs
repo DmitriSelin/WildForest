@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WildForest.Infrastructure.Persistence.Context;
+using WildForest.Api.Services.Weather;
 
 namespace WildForest.Api.Controllers
 {
@@ -7,16 +7,17 @@ namespace WildForest.Api.Controllers
     [Route("test")]
     public class TestController : ControllerBase
     {
-        private readonly WildForestDbContext _context;
-
-        public TestController(WildForestDbContext context)
+        private readonly IWeatherForecastService _service;
+        public TestController(IWeatherForecastService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        [HttpGet("ef")]
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
+            await _service.AddWeatherForecastsToDb();
+            
             return Ok();
         }
     }
