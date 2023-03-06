@@ -16,6 +16,8 @@ namespace WildForest.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
+            var user = HttpContext.User;
+
             await _service.AddWeatherForecastsToDb();
             
             return Ok();

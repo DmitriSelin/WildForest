@@ -54,6 +54,9 @@ namespace WildForest.Infrastructure.Persistence.Configurations
                     .HasMaxLength(ConfigurationSettings.MaxStringLength)
                     .HasColumnName("Password");
                 });
+            
+            builder.Metadata.FindNavigation(nameof(User.RefreshTokens))!
+                .SetPropertyAccessMode(PropertyAccessMode.Field);
 
             builder.HasOne(p => p.City)
                 .WithMany(x => x.Users)

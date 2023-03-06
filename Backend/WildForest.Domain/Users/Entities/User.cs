@@ -2,6 +2,7 @@
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Common.Models;
+using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Domain.Users.Entities
@@ -20,7 +21,11 @@ namespace WildForest.Domain.Users.Entities
 
         public CityId CityId { get; } = null!;
 
-        public City City { get; }
+        public City City { get; } = null!;
+
+        private readonly List<RefreshToken> _refreshTokens = new();
+
+        public IReadOnlyList<RefreshToken> RefreshTokens => _refreshTokens.AsReadOnly();
 
         private User(
             UserId id,
@@ -48,10 +53,10 @@ namespace WildForest.Domain.Users.Entities
             CityId cityId)
         {
             return new(
-                UserId.Create(), 
+                UserId.Create(),
                 firstName,
-                lastName, 
-                email, 
+                lastName,
+                email,
                 password,
                 cityId);
         }
