@@ -5,5 +5,6 @@
         string LastName,
         string Email,
         string Password,
+        string IpAddress,
         Guid CityId);
 }

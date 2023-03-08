@@ -19,17 +19,17 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
 
     public User User { get; } = null!;
     
-    public Revoked? Revoked { get; }
+    public Revoked Revoked { get; }
     
-    public RevokedByIp? RevokedByIp { get; }
+    public RevokedByIp RevokedByIp { get; }
     
-    public ReplacedByToken? ReplacedByToken { get; }
+    public ReplacedByToken ReplacedByToken { get; }
     
-    public ReasonRevoked? ReasonRevoked { get; }
+    public ReasonRevoked ReasonRevoked { get; }
 
     public bool IsExpired => DateTime.UtcNow >= Expiration.Value;
 
-    public bool IsRevoked => Revoked is not null;
+    public bool IsRevoked => Revoked.Value is not null;
 
     public bool IsActive => !IsRevoked && !IsExpired;
     
@@ -68,10 +68,10 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
             CreationDate.Create(DateTime.UtcNow),
             createdByIp,
             userId,
-            null!,
-            null!,
-            null!,
-            null!);
+            Revoked.Create(null),
+            RevokedByIp.Create(null),
+            ReplacedByToken.Create(null),
+            ReasonRevoked.Create(null));
     }
     
     private RefreshToken(RefreshTokenId id) : base(id) { }

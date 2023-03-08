@@ -22,23 +22,4 @@ public sealed class TokenController : ApiController
         
         return Ok();
     }
-
-    private void SetTokenCookie(string refreshToken)
-    {
-        var cookieOptions = new CookieOptions
-        {
-            HttpOnly = true,
-            Expires = _dateTimeProvider.UtcNow.AddDays(7)
-        };
-        
-        Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
-    }
-
-    private string GetIPAddress()
-    {
-        if (Request.Headers.ContainsKey("X-Forwarded-For"))
-            return Request.Headers["X-Forwarded-For"]!;
-        else
-            return HttpContext.Connection.RemoteIpAddress!.MapToIPv4().ToString();
-    }
 }

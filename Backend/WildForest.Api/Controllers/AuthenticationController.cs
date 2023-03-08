@@ -2,6 +2,7 @@
 using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WildForest.Api.Common.Extensions;
 using WildForest.Application.Authentication.Commands.RegisterUser;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Queries.LoginUser;
@@ -40,19 +41,27 @@ namespace WildForest.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterRequest request)
         {
-            var command = _mapper.Map<RegisterUserCommand>(request);
+            string iPAddress = HttpContext.GetIpAddress();
+            var command = _mapper.Map<RegisterUserCommand>((request, iPAddress));
 
             ErrorOr<AuthenticationResult> authenticationResult = await _userRegistrator.RegisterAsync(command);
-
-            return authenticationResult.Match(
-                authenticationResult => Ok(_mapper.Map<AuthenticationResponse>(authenticationResult)),
-                errors => Problem(errors));
+            
+            if (authenticationResult.IsError)
+            {
+                return Problem(authenticationResult.Errors);
+            }
+            
+            HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
+            
+            var response = _mapper.Map<AuthenticationResponse>(authenticationResult);
+            return Ok(response);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest request)
         {
-            var query = _mapper.Map<LoginUserQuery>(request);
+            string iPAddress = HttpContext.GetIpAddress();
+            var query = _mapper.Map<LoginUserQuery>((request, iPAddress));
 
             var authenticationResult = await _userLogger.LoginAsync(query);
 
@@ -63,9 +72,15 @@ namespace WildForest.Api.Controllers
                     title: authenticationResult.FirstError.Description);
             }
 
-            return authenticationResult.Match(
-                authenticationResult => Ok(_mapper.Map<AuthenticationResponse>(authenticationResult)),
-                errors => Problem(errors));
+            if (authenticationResult.IsError)
+            {
+                return Problem(authenticationResult.Errors);
+            }
+            
+            HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
+
+            var response = _mapper.Map<AuthenticationResponse>(authenticationResult);
+            return Ok(response);
         }
 
         [HttpGet("countries")]
@@ -84,7 +99,7 @@ namespace WildForest.Api.Controllers
             var cities = await _citiesListQueryHandler.GetCitiesByCountryIdAsync(countryId);
 
             return cities.Match(
-                cities => Ok(_mapper.Map<List<CityResponse>>(cities)),
+                citiesResponse => Ok(_mapper.Map<List<CityResponse>>(citiesResponse)),
                 errors => Problem(errors));
         }
     }

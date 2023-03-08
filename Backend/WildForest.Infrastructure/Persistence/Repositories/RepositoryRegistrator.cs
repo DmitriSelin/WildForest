@@ -8,6 +8,7 @@ namespace WildForest.Infrastructure.Persistence.Repositories
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();

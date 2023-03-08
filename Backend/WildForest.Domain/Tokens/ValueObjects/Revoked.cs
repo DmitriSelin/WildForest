@@ -4,7 +4,7 @@ namespace WildForest.Domain.Tokens.ValueObjects;
 
 public sealed class Revoked : ValueObject
 {
-    public DateTime? Value { get; }
+    public DateTime? Value { get; private set; }
 
     private Revoked(DateTime? value)
         => Value = value;
@@ -13,6 +13,9 @@ public sealed class Revoked : ValueObject
     {
         return new(value);
     }
+
+    public void Update(DateTime value)
+        => Value = value;
 
     public override IEnumerable<object> GetEqualityComponents()
     {

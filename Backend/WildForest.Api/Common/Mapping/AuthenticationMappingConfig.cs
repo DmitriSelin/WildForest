@@ -10,8 +10,18 @@ namespace WildForest.Api.Common.Mapping
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<LoginRequest, LoginUserQuery>();
-            config.NewConfig<RegisterRequest, RegisterUserCommand>();
+            config.NewConfig<(LoginRequest, string IpAddress), LoginUserQuery>()
+                .Map(dest => dest.Email, source => source.Item1.Email)
+                .Map(dest => dest.Password, source => source.Item1.Password)
+                .Map(dest => dest.IpAddress, source => source.IpAddress);
+            
+            config.NewConfig<(RegisterRequest, string iPAddress), RegisterUserCommand>()
+                .Map(dest => dest.FirstName, source => source.Item1.FirstName)
+                .Map(dest => dest.LastName, source => source.Item1.LastName)
+                .Map(dest => dest.Email, source => source.Item1.Email)
+                .Map(dest => dest.Password, source => source.Item1.Password)
+                .Map(dest => dest.IpAddress, source => source.iPAddress)
+                .Map(dest => dest.CityId, source => source.Item1.CityId);
 
             config.NewConfig<AuthenticationResult, AuthenticationResponse>()
                 .Map(dest => dest.Token, src => src.Token)
