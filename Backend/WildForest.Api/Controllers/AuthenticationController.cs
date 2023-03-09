@@ -53,7 +53,7 @@ namespace WildForest.Api.Controllers
             
             HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
             
-            var response = _mapper.Map<AuthenticationResponse>(authenticationResult);
+            var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
             return Ok(response);
         }
 
@@ -79,7 +79,7 @@ namespace WildForest.Api.Controllers
             
             HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
 
-            var response = _mapper.Map<AuthenticationResponse>(authenticationResult);
+            var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
             return Ok(response);
         }
 
