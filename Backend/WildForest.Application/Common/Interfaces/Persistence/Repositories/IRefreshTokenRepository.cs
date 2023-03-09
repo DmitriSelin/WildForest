@@ -16,5 +16,5 @@ public interface IRefreshTokenRepository
 
     Task<RefreshToken?> GetRefreshTokenByReplacedTokenAndUserIdAsync(ReplacedByToken replacedByToken, UserId userId);
 
-    Task SaveChangesAsync();
+    Task UpdateRefreshTokenAsync(RefreshToken refreshToken);
 }

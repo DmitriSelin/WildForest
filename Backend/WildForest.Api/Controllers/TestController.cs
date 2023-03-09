@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WildForest.Api.Services.Weather;
 using WildForest.Infrastructure.Persistence.Context;
 
 namespace WildForest.Api.Controllers

@@ -59,8 +59,10 @@ public sealed class RefreshTokenRepository : IRefreshTokenRepository
             .SingleOrDefaultAsync(x => x.Token.Value == replacedByToken.Value && x.UserId == userId);
     }
 
-    public async Task SaveChangesAsync()
+    public async Task UpdateRefreshTokenAsync(RefreshToken refreshToken)
     {
+        _context.RefreshTokens.Update(refreshToken);
+
         await _context.SaveChangesAsync();
     }
 }

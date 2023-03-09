@@ -1,5 +1,6 @@
 using ErrorOr;
 using WildForest.Application.Authentication.Common;
+using WildForest.Application.Authentication.Common.Extensions;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Common.Errors;
@@ -40,7 +41,7 @@ public sealed class RefreshTokenCommandHandler : IRefreshTokenCommandHandler
         {
             await RevokeDescendantRefreshTokens(refreshToken, refreshToken.User, iPAddress, 
                 $"Attempted reuse of revoked ancestor token: {token.Value}");
-            await _refreshTokenRepository.SaveChangesAsync();
+            await _refreshTokenRepository.UpdateRefreshTokenAsync(refreshToken);
         }
 
         if (!refreshToken.IsActive)
@@ -59,7 +60,7 @@ public sealed class RefreshTokenCommandHandler : IRefreshTokenCommandHandler
     private async Task<RefreshToken> ReplaceRefreshTokenAsync(UserId userId, RefreshToken token, CreatedByIp createdByIp)
     {
         var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(userId, createdByIp);
-        RevokeRefreshToken(token, createdByIp, "Replaced by new token", refreshToken.Token.Value);
+        token.RevokeRefreshToken(createdByIp, "Replaced by new token", refreshToken.Token.Value);
 
         return refreshToken;
     }
@@ -77,26 +78,12 @@ public sealed class RefreshTokenCommandHandler : IRefreshTokenCommandHandler
 
             if (childToken!.IsActive)
             {
-                RevokeRefreshToken(childToken, createdByIp, reason);
+                childToken.RevokeRefreshToken(createdByIp, reason);
             }
             else
             {
                 await RevokeDescendantRefreshTokens(childToken, user, createdByIp, reason);
             }
         }
-    }
-
-    private void RevokeRefreshToken(
-        RefreshToken token,
-        CreatedByIp createdByIp,
-        string reasonRevoked,
-        string? replacedByToken = null)
-    {
-        token.Revoked.Update(DateTime.UtcNow);
-        token.RevokedByIp.Update(createdByIp.Value);
-        token.ReasonRevoked.Update(reasonRevoked);
-        
-        if (replacedByToken is not null)
-            token.ReplacedByToken.Update(replacedByToken);
     }
 }

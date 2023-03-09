@@ -1,22 +1,29 @@
+using ErrorOr;
 using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WildForest.Api.Common.Extensions;
 using WildForest.Application.Authentication.Commands.RefreshTokens;
+using WildForest.Application.Authentication.Commands.RevokeTokens;
 using WildForest.Contracts.Authentication;
 
 namespace WildForest.Api.Controllers;
 
 [AllowAnonymous]
-[Microsoft.AspNetCore.Components.Route("token")]
+[Route("token")]
 public sealed class TokenController : ApiController
 {
     private readonly IRefreshTokenCommandHandler _refreshTokenCommandHandler;
+    private readonly IRevokeTokenCommandHandler _revokeTokenCommandHandler;
     private readonly IMapper _mapper;
     
-    public TokenController(IRefreshTokenCommandHandler refreshTokenCommandHandler, IMapper mapper)
+    public TokenController(
+        IRefreshTokenCommandHandler refreshTokenCommandHandler,
+        IRevokeTokenCommandHandler revokeTokenCommandHandler,
+        IMapper mapper)
     {
         _refreshTokenCommandHandler = refreshTokenCommandHandler;
+        _revokeTokenCommandHandler = revokeTokenCommandHandler;
         _mapper = mapper;
     }
 
@@ -39,5 +46,31 @@ public sealed class TokenController : ApiController
 
         var authenticationResponse = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
         return Ok(authenticationResponse);
+    }
+
+    [Authorize]
+    [HttpPost("revokeToken")]
+    public async Task<IActionResult> RevokeToken(RevokeTokenRequest? request)
+    {
+        var token = request?.Token ?? Request.Cookies["refreshToken"];
+        var iPAddress = HttpContext.GetIpAddress();
+
+        if (string.IsNullOrEmpty(token))
+        {
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                title: "Token is required");
+        }
+
+        var command = new RevokeTokenCommand(token, iPAddress);
+        
+        ErrorOr<string> result = await _revokeTokenCommandHandler.RevokeRefreshTokenAsync(command);
+
+        if (result.IsError)
+        {
+            return Problem(result.Errors);
+        }
+
+        return Ok(result.Value);
     }
 }
