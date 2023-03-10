@@ -1,10 +1,12 @@
 ﻿using ErrorOr;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WildForest.Api.Services.Http.Jwt;
 using WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
 namespace WildForest.Api.Controllers
 {
+    [Authorize(Roles = "User")]
     [Route("api/weather/forecast")]
     public sealed class WeatherForecastController : ApiController
     {
