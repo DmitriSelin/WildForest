@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 using WildForest.Api.Common.Errors;
 using WildForest.Api.Common.Mapping;
 using WildForest.Api.Services.Http.Jwt;
@@ -13,7 +15,7 @@ namespace WildForest.Api
         {
             services.AddControllers();
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.AddSwagger();
 
             services.AddSingleton<ProblemDetailsFactory, WildForestProblemDetailsFactory>();
             services.AddTransient<IWeatherForecastService, WeatherForecastService>();
@@ -22,6 +24,24 @@ namespace WildForest.Api
             services.AddHttpClient<IWeatherForecastHttpClient, WeatherForecastHttpClient>();
             services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 
+            return services;
+        }
+        
+        private static IServiceCollection AddSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("Bearer scheme", new OpenApiSecurityScheme
+                {
+                    Description = "Standard Authorization header using the Bearer authorization scheme",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                
+                options.OperationFilter<SecurityRequirementsOperationFilter>();
+            });
+            
             return services;
         }
     }
