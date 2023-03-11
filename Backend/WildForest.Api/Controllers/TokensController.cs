@@ -10,7 +10,7 @@ using WildForest.Contracts.Authentication;
 namespace WildForest.Api.Controllers;
 
 [AllowAnonymous]
-[Route("token")]
+[Route("api/tokens")]
 public sealed class TokenController : ApiController
 {
     private readonly IRefreshTokenCommandHandler _refreshTokenCommandHandler;
