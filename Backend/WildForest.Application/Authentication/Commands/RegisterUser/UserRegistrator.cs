@@ -37,7 +37,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
 
             if (user is not null)
             {
-                return Errors.User.DupplicateEmail;
+                return Errors.User.DuplicateEmail;
             }
 
             var cityId = CityId.Create(command.CityId);

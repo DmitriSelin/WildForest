@@ -6,7 +6,7 @@ namespace WildForest.Domain.Common.Errors
     {
         public static class User
         {
-            public static Error DupplicateEmail => Error.Conflict(
+            public static Error DuplicateEmail => Error.Conflict(
                 code: "User.DuplicateEmail",
                 description: "User with this email is already exists");
 
