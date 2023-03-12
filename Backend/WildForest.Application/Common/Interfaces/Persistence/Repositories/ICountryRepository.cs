@@ -10,5 +10,7 @@ namespace WildForest.Application.Common.Interfaces.Persistence.Repositories
         Task AddCountryAsync(Country country);
 
         Task<Country?> GetCountryByNameAsync(CountryName countryName);
+
+        Task<Country?> GetCountryByIdAsync(CountryId countryId);
     }
 }

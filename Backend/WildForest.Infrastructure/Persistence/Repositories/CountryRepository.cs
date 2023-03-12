@@ -33,5 +33,11 @@ namespace WildForest.Infrastructure.Persistence.Repositories
             return await _context.Countries
                 .FirstOrDefaultAsync(x => x.CountryName.Value == countryName.Value);
         }
+
+        public async Task<Country?> GetCountryByIdAsync(CountryId countryId)
+        {
+            return await _context.Countries
+                .FirstOrDefaultAsync(x => x.Id == countryId);
+        }
     }
 }

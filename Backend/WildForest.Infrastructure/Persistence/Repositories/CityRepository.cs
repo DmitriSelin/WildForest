@@ -39,5 +39,11 @@ namespace WildForest.Infrastructure.Persistence.Repositories
                 ON c."Id" = u."CityId"
             """).ToListAsync();
         }
+
+        public async Task AddCitiesAsync(List<City> cities)
+        {
+            await _context.Cities.AddRangeAsync(cities);
+            await _context.SaveChangesAsync();
+        }
     }
 }

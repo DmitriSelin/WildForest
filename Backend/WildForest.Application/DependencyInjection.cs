@@ -4,6 +4,7 @@ using WildForest.Application.Authentication.Commands.RegisterUser;
 using WildForest.Application.Authentication.Commands.RevokeTokens;
 using WildForest.Application.Authentication.Queries.LoginUser;
 using WildForest.Application.Common.Mapping;
+using WildForest.Application.Maps.Commands.AddCities;
 using WildForest.Application.Maps.Commands.AddCountry;
 using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
@@ -23,6 +24,7 @@ namespace WildForest.Application
             services.AddScoped<ICitiesListQueryHandler, CitiesListQueryHandler>();
             services.AddScoped<IHomeWeatherForecastHandler, HomeWeatherForecastHandler>();
             services.AddScoped<ICountryCommandHandler, CountryCommandHandler>();
+            services.AddScoped<ICityCommandHandler, CityCommandHandler>();
 
             services.AddMappings();
             
