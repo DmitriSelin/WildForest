@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WildForest.Api.Services.Http.Weather;
+using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Infrastructure.Persistence.Context;
 
 namespace WildForest.Api.Controllers
@@ -8,9 +10,9 @@ namespace WildForest.Api.Controllers
     [Route("test")]
     public class TestController : ControllerBase
     {
-        private readonly WildForestDbContext _context;
-        
-        public TestController(WildForestDbContext context)
+        private readonly WeatherForecastHttpClient _context;
+
+        public TestController(WeatherForecastHttpClient context)
         {
             _context = context;
         }
@@ -18,13 +20,11 @@ namespace WildForest.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var user = await _context.RefreshTokens.Include(x => x.User)
-                .SingleOrDefaultAsync(j => j.Token.Value == "");
-            
-            if (user != null)
-                return Ok(user);
+            var cityId = CityId.Create();
 
-            return Ok("User is null");
+            _context.GetWeatherForecastAsync(cityId);
+
+            return Ok();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.OpenApi.Models;
+using Quartz;
 using Swashbuckle.AspNetCore.Filters;
+using WildForest.Api.BackgroundServices;
 using WildForest.Api.Common.Errors;
 using WildForest.Api.Common.Mapping;
 using WildForest.Api.Services.Http.Jwt;
@@ -16,6 +18,7 @@ namespace WildForest.Api
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwagger();
+            services.AddQuartzToDI();
 
             services.AddSingleton<ProblemDetailsFactory, WildForestProblemDetailsFactory>();
             services.AddTransient<IWeatherForecastService, WeatherForecastService>();
@@ -41,6 +44,26 @@ namespace WildForest.Api
                 
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
             });
+            
+            return services;
+        }
+
+        private static IServiceCollection AddQuartzToDI(this IServiceCollection services)
+        {
+            services.AddQuartz(q =>
+            {
+                q.UseMicrosoftDependencyInjectionJobFactory();
+
+                var jobKey = new JobKey("WeatherDetectorJob");
+                q.AddJob<WeatherDetectorJob>(options => options.WithIdentity(jobKey));
+
+                q.AddTrigger(options => options
+                    .ForJob(jobKey)
+                    .WithIdentity("WeatherDetectorJob-trigger")
+                    .WithCronSchedule("10 0 0 */5 * ?"));
+            });
+
+            services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
             
             return services;
         }
