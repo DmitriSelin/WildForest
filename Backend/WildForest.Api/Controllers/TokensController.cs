@@ -31,9 +31,17 @@ public sealed class TokenController : ApiController
     public async Task<IActionResult> RefreshToken()
     {
         var refreshToken = Request.Cookies["refreshToken"];
+
+        if (refreshToken is null)
+        {
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                title: "Token is required");
+        }
+        
         var iPAddress = HttpContext.GetIpAddress();
 
-        var command = new RefreshTokenCommand(refreshToken!, iPAddress);
+        var command = new RefreshTokenCommand(refreshToken, iPAddress);
         
         var authenticationResult = await _refreshTokenCommandHandler.RefreshTokenAsync(command);
 
