@@ -102,5 +102,26 @@ namespace WildForest.Api.Controllers
                 citiesResponse => Ok(_mapper.Map<List<CityResponse>>(citiesResponse)),
                 errors => Problem(errors));
         }
+
+        [HttpPost("admins/register")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RegisterAdmin(RegisterRequest request)
+        {
+            string iPAddress = HttpContext.GetIpAddress();
+            var command = _mapper.Map<RegisterUserCommand>((request, iPAddress));
+
+            ErrorOr<AuthenticationResult> authenticationResult =
+                await _userRegistrator.RegisterAsync(command, false);
+            
+            if (authenticationResult.IsError)
+            {
+                return Problem(authenticationResult.Errors);
+            }
+            
+            HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
+            
+            var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
+            return Ok(response);
+        }
     }
 }

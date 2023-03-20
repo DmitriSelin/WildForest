@@ -31,13 +31,14 @@ namespace WildForest.Domain.Users.Entities
             UserId id,
             FirstName firstName,
             LastName lastName,
+            Role role,
             Email email,
             Password password,
             CityId cityId) : base(id)
         {
             FirstName = firstName;
             LastName = lastName;
-            Role = Role.User;
+            Role = role;
             Email = email;
             Password = password;
             CityId = cityId;
@@ -56,6 +57,24 @@ namespace WildForest.Domain.Users.Entities
                 UserId.Create(),
                 firstName,
                 lastName,
+                Role.User,
+                email,
+                password,
+                cityId);
+        }
+
+        public static User CreateAdmin(
+            FirstName firstName,
+            LastName lastName,
+            Email email,
+            Password password,
+            CityId cityId)
+        {
+            return new(
+                UserId.Create(),
+                firstName,
+                lastName,
+                Role.Admin,
                 email,
                 password,
                 cityId);

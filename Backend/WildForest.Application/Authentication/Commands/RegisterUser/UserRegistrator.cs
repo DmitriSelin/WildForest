@@ -29,7 +29,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
             _cityRepository = cityRepository;
         }
 
-        public async Task<ErrorOr<AuthenticationResult>> RegisterAsync(RegisterUserCommand command)
+        public async Task<ErrorOr<AuthenticationResult>> RegisterAsync(RegisterUserCommand command, bool isUserRole = true)
         {
             var email = Email.Create(command.Email);
 
@@ -53,12 +53,24 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
             var lastName = LastName.Create(command.LastName);
             var password = Password.Create(command.Password);
 
-            user = User.Create(
-                firstName,
-                lastName,
-                email, 
-                password,
-                CityId.Create(command.CityId));
+            if (isUserRole)
+            {
+                user = User.Create(
+                    firstName,
+                    lastName,
+                    email,
+                    password,
+                    city.Id);
+            }
+            else
+            {
+                user = User.CreateAdmin(
+                    firstName,
+                    lastName,
+                    email,
+                    password,
+                    city.Id);
+            }
 
             await _userRepository.AddUserAsync(user);
 
