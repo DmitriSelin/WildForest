@@ -7,29 +7,29 @@ namespace WildForest.Domain.Tokens.Entities;
 
 public sealed class RefreshToken : Entity<RefreshTokenId>
 {
-    public Token Token { get; }
-    
-    public Expiration Expiration { get; }
-    
-    public CreationDate CreationDate { get; }
-    
-    public CreatedByIp CreatedByIp { get; }
-    
-    public UserId UserId { get; }
+    public Token Token { get; } = null!;
+
+    public Expiration Expiration { get; } = null!;
+
+    public CreationDate CreationDate { get; } = null!;
+
+    public CreatedByIp CreatedByIp { get; } = null!;
+
+    public UserId UserId { get; } = null!;
 
     public User User { get; } = null!;
+
+    public Revoked? Revoked { get; private set; }
+
+    public RevokedByIp? RevokedByIp { get; private set; }
     
-    public Revoked Revoked { get; }
+    public ReplacedByToken? ReplacedByToken { get; private set; }
     
-    public RevokedByIp RevokedByIp { get; }
-    
-    public ReplacedByToken ReplacedByToken { get; }
-    
-    public ReasonRevoked ReasonRevoked { get; }
+    public ReasonRevoked? ReasonRevoked { get; private set; }
 
     public bool IsExpired => DateTime.UtcNow >= Expiration.Value;
 
-    public bool IsRevoked => Revoked.Value is not null;
+    public bool IsRevoked => Revoked is not null;
 
     public bool IsActive => !IsRevoked && !IsExpired;
     
@@ -40,10 +40,10 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
         CreationDate creationDate,
         CreatedByIp createdByIp,
         UserId userId,
-        Revoked revoked,
-        RevokedByIp revokedByIp,
-        ReplacedByToken replacedByToken,
-        ReasonRevoked reasonRevoked) : base(id)
+        Revoked? revoked,
+        RevokedByIp? revokedByIp,
+        ReplacedByToken? replacedByToken,
+        ReasonRevoked? reasonRevoked) : base(id)
     {
         Token = token;
         Expiration = expiration;
@@ -68,10 +68,23 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
             CreationDate.Create(DateTime.UtcNow),
             createdByIp,
             userId,
-            Revoked.Create(null),
-            RevokedByIp.Create(null),
-            ReplacedByToken.Create(null),
-            ReasonRevoked.Create(null));
+            null,
+            null,
+            null,
+            null);
+    }
+
+    public void Update(string revokedByIp, string reasonRevoked)
+    {
+        Revoked = Revoked.Create(DateTime.UtcNow);
+        RevokedByIp = RevokedByIp.Create(revokedByIp);
+        ReasonRevoked = ReasonRevoked.Create(reasonRevoked);
+    }
+    
+    public void Update(string revokedByIp, string reasonRevoked, string replacedByToken)
+    {
+        Update(revokedByIp, reasonRevoked);
+        ReplacedByToken = ReplacedByToken.Create(replacedByToken);
     }
     
     private RefreshToken(RefreshTokenId id) : base(id) { }

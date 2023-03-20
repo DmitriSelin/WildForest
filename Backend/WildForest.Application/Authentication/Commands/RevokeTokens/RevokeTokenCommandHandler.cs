@@ -32,7 +32,7 @@ public sealed class RevokeTokenCommandHandler : IRevokeTokenCommandHandler
 
         var createdByIp = CreatedByIp.Create(command.IpAddress);
         
-        refreshToken.RevokeRefreshToken(createdByIp, "Revoke without replacement");
+        refreshToken.RevokeRefreshToken(createdByIp.Value, "Revoke without replacement");
         await _refreshTokenRepository.UpdateRefreshTokenAsync(refreshToken);
 
         var result = "Token revoked";

@@ -60,7 +60,7 @@ public sealed class RefreshTokenCommandHandler : IRefreshTokenCommandHandler
     private async Task<RefreshToken> ReplaceRefreshTokenAsync(UserId userId, RefreshToken token, CreatedByIp createdByIp)
     {
         var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(userId, createdByIp);
-        token.RevokeRefreshToken(createdByIp, "Replaced by new token", refreshToken.Token.Value);
+        token.Update(createdByIp.Value, "Replaced by new token", refreshToken.Token.Value);
 
         return refreshToken;
     }
@@ -71,14 +71,14 @@ public sealed class RefreshTokenCommandHandler : IRefreshTokenCommandHandler
         CreatedByIp createdByIp,
         string reason)
     {
-        if (!string.IsNullOrEmpty(refreshToken.ReplacedByToken.Value))
+        if (!string.IsNullOrEmpty(refreshToken.ReplacedByToken?.Value))
         {
             var childToken = await _refreshTokenRepository.GetRefreshTokenByReplacedTokenAndUserIdAsync(
                 refreshToken.ReplacedByToken, user.Id);
 
             if (childToken!.IsActive)
             {
-                childToken.RevokeRefreshToken(createdByIp, reason);
+                childToken.RevokeRefreshToken(createdByIp.Value, reason);
             }
             else
             {

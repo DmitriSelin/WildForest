@@ -4,21 +4,18 @@ namespace WildForest.Domain.Tokens.ValueObjects;
 
 public sealed class ReplacedByToken : ValueObject
 {
-    public string? Value { get; private set; }
+    public string Value { get; }
 
-    private ReplacedByToken(string? value)
+    private ReplacedByToken(string value)
         => Value = value;
 
-    public static ReplacedByToken Create(string? value)
+    public static ReplacedByToken Create(string value)
     {
         return new(value);
     }
 
-    public void Update(string value)
-        => Value = value;
-    
     public override IEnumerable<object> GetEqualityComponents()
     {
-        yield return Value!;
+        yield return Value;
     }
 }

@@ -4,21 +4,18 @@ namespace WildForest.Domain.Tokens.ValueObjects;
 
 public sealed class ReasonRevoked : ValueObject
 {
-    public string? Value { get; private set; }
+    public string Value { get; }
 
-    private ReasonRevoked(string? value)
+    private ReasonRevoked(string value)
         => Value = value;
 
-    public static ReasonRevoked Create(string? value)
+    public static ReasonRevoked Create(string value)
     {
         return new(value);
     }
 
-    public void Update(string value)
-        => Value = value;
-    
     public override IEnumerable<object> GetEqualityComponents()
     {
-        yield return Value!;
+        yield return Value;
     }
 }
