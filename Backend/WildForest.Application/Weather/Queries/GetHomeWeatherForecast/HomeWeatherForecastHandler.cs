@@ -1,7 +1,7 @@
 using ErrorOr;
 using MapsterMapper;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
-using WildForest.Application.Weather.Common.Models;
+using WildForest.Application.Weather.Common;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Domain.Weather.Entities;
@@ -17,7 +17,7 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
 
     public HomeWeatherForecastHandler(
         IUserRepository userRepository,
-        IWeatherForecastRepository weatherForecastRepository, 
+        IWeatherForecastRepository weatherForecastRepository,
         IMapper mapper)
     {
         _userRepository = userRepository;
@@ -36,8 +36,9 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
         }
         
         var forecastDate = ForecastDate.Create(query.ForecastDate);
-        var forecasts = (List<WeatherForecast>?) 
-            (await _weatherForecastRepository.GetWeatherForecastsByDateAsync(user.CityId, forecastDate));
+        
+        var forecasts = (List<WeatherForecast>?)
+            await _weatherForecastRepository.GetWeatherForecastsByDateAsync(user.CityId, forecastDate);
 
         if (forecasts is null)
         {

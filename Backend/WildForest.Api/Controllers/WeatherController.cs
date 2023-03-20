@@ -6,7 +6,7 @@ using WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
 namespace WildForest.Api.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "User, Admin")]
     [Route("api/weather/forecast")]
     public sealed class WeatherForecastController : ApiController
     {
@@ -34,8 +34,13 @@ namespace WildForest.Api.Controllers
             var query = new HomeWeatherForecastQuery(userId.Value, forecastDate);
             
             var forecasts = await _homeWeatherForecastHandler.GetWeatherForecastAsync(query);
-            
-            return Ok(forecasts);
+
+            if (forecasts.IsError)
+            {
+                return Problem(forecasts.Errors);
+            }
+
+            return Ok(forecasts.Value);
         }
     }
 }

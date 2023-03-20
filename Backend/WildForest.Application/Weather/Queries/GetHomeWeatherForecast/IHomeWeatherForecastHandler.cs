@@ -1,5 +1,5 @@
 using ErrorOr;
-using WildForest.Application.Weather.Common.Models;
+using WildForest.Application.Weather.Common;
 
 namespace WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 

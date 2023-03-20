@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using WildForest.Application.Weather.Common;
 using WildForest.Application.Weather.Common.Models;
 using WildForest.Domain.Weather.Entities;
 

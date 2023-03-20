@@ -1,4 +1,6 @@
-﻿namespace WildForest.Application.Weather.Common.Models
+﻿using WildForest.Application.Weather.Common.Models;
+
+namespace WildForest.Application.Weather.Common
 {
     public sealed record WeatherForecastDto(
         Guid WeatherId,
