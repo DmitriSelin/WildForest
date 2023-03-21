@@ -56,7 +56,6 @@ public sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<Refresh
             x => x.Revoked, sa =>
             {
                 sa.Property(p => p.Value)
-                    .IsRequired(false)
                     .HasColumnName("Revoked");
             });
         
@@ -64,7 +63,6 @@ public sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<Refresh
             x => x.RevokedByIp, sa =>
             {
                 sa.Property(p => p.Value)
-                    .IsRequired(false)
                     .HasColumnName("RevokedByIp");
             });
         
@@ -72,7 +70,6 @@ public sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<Refresh
             x => x.ReplacedByToken, sa =>
             {
                 sa.Property(p => p.Value)
-                    .IsRequired(false)
                     .HasColumnName("ReplacedByToken");
             });
         
@@ -80,7 +77,6 @@ public sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<Refresh
             x => x.ReasonRevoked, sa =>
             {
                 sa.Property(p => p.Value)
-                    .IsRequired(false)
                     .HasMaxLength(ConfigurationSettings.MaxStringLength)
                     .HasColumnName("ReasonRevoked");
             });
