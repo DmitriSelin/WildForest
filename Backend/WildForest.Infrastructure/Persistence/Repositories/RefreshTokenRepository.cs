@@ -27,7 +27,7 @@ public sealed class RefreshTokenRepository : IRefreshTokenRepository
     {
         await Task.CompletedTask;
 
-        return _context.RefreshTokens
+        return !_context.RefreshTokens
             .Any(x => x.Token.Value == token.Value);
     }
 
