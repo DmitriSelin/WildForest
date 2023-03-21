@@ -69,5 +69,46 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
 
             return new AuthenticationResult(user, token, refreshToken.Token.Value);
         }
+
+        public async Task<ErrorOr<AuthenticationResult>> RegisterAdminAsync(RegisterUserCommand command)
+        {
+            var email = Email.Create(command.Email);
+
+            User? user = await _userRepository.GetUserByEmailAsync(email);
+
+            if (user is not null)
+            {
+                return Errors.User.DuplicateEmail;
+            }
+
+            var cityId = CityId.Create(command.CityId);
+
+            var city = await _cityRepository.GetCityByIdAsync(cityId);
+
+            if (city is null)
+            {
+                return Errors.City.NotFoundById;
+            }
+
+            var firstName = FirstName.Create(command.FirstName);
+            var lastName = LastName.Create(command.LastName);
+            var password = Password.Create(command.Password);
+
+            user = User.CreateAdmin(
+                firstName,
+                lastName,
+                email,
+                password,
+                city.Id);
+
+            await _userRepository.AddUserAsync(user);
+
+            var createdByIp = CreatedByIp.Create(command.IpAddress);
+            var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, createdByIp);
+
+            var token = _jwtTokenGenerator.GenerateToken(user);
+
+            return new AuthenticationResult(user, token, refreshToken.Token.Value);
+        }
     }
 }
