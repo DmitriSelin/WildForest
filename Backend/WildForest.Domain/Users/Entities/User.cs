@@ -44,8 +44,6 @@ namespace WildForest.Domain.Users.Entities
             CityId = cityId;
         }
 
-        private User(UserId id) : base(id) { }
-
         public static User Create(
             FirstName firstName,
             LastName lastName, 
@@ -62,22 +60,7 @@ namespace WildForest.Domain.Users.Entities
                 password,
                 cityId);
         }
-
-        public static User CreateAdmin(
-            FirstName firstName,
-            LastName lastName,
-            Email email,
-            Password password,
-            CityId cityId)
-        {
-            return new(
-                UserId.Create(),
-                firstName,
-                lastName,
-                Role.Admin,
-                email,
-                password,
-                cityId);
-        }
+        
+        private User(UserId id) : base(id) { }
     }
 }
