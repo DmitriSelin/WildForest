@@ -37,7 +37,7 @@ namespace WildForest.Infrastructure.Persistence.Repositories
                 c."Longitude", c."CountryId" FROM public."Cities" c
                 INNER JOIN public."Users" u
                 ON c."Id" = u."CityId"
-            """).ToListAsync();
+                """).ToListAsync();
         }
 
         public async Task AddCitiesAsync(List<City> cities)
