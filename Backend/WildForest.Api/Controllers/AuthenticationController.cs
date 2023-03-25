@@ -14,7 +14,7 @@ using WildForest.Domain.Common.Errors;
 
 namespace WildForest.Api.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin")]
     [Route("api/auth")]
     public sealed class AuthenticationController : ApiController
     {
@@ -38,6 +38,7 @@ namespace WildForest.Api.Controllers
             _citiesListQueryHandler = citiesListQueryHandler;
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterRequest request)
         {
@@ -57,6 +58,7 @@ namespace WildForest.Api.Controllers
             return Ok(response);
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest request)
         {
@@ -83,6 +85,7 @@ namespace WildForest.Api.Controllers
             return Ok(response);
         }
 
+        [AllowAnonymous]
         [HttpGet("countries")]
         public async Task<IActionResult> GetCountries()
         {
@@ -93,6 +96,7 @@ namespace WildForest.Api.Controllers
             return Ok(countriesResponse);
         }
 
+        [AllowAnonymous]
         [HttpGet("cities/{countryId}")]
         public async Task<IActionResult> GetCitiesByCountryId(Guid countryId)
         {
@@ -104,7 +108,6 @@ namespace WildForest.Api.Controllers
         }
 
         [HttpPost("admins/register")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RegisterAdmin(RegisterRequest request)
         {
             string iPAddress = HttpContext.GetIpAddress();

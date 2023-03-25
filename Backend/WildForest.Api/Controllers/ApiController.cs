@@ -1,12 +1,10 @@
 ﻿using ErrorOr;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WildForest.Api.Common.Http;
 
 namespace WildForest.Api.Controllers
 {
     [ApiController]
-    [Authorize]
     public class ApiController : ControllerBase
     {
         protected IActionResult Problem(List<Error> errors)
