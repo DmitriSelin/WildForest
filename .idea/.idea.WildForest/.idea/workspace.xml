@@ -5,8 +5,7 @@
     <projectFile profileName="WildForest.Api">Backend/WildForest.Api/WildForest.Api.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="edeb84f6-e037-472b-ba29-1fa4602451d7" name="Changes" comment="Add logic for adding and removing refreshTokens from Db">
-      <change afterPath="$PROJECT_DIR$/Backend/WildForest.Infrastructure/Persistence/Context/WildForestDbContextFactory.cs" afterDir="false" />
+    <list default="true" id="edeb84f6-e037-472b-ba29-1fa4602451d7" name="Changes" comment="Create 1st migration">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WildForest/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WildForest/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/WildForest.Infrastructure/Persistence/Repositories/RefreshTokenRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/WildForest.Infrastructure/Persistence/Repositories/RefreshTokenRepository.cs" afterDir="false" />
     </list>
@@ -36,6 +35,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cf91eb35ab781c324ad4fa382dce85631ec37cf3813529f7c92208d866c851/TaskContinuation.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e74356f198b598e97eaeea83e8b7b1f2bfe27c0a39fedf86bb7dc44827fbda/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/Projects/WildForest/Backend/WildForest.Application/Authentication/Queries/LoginUser/UserLogger.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Projects/WildForest/Backend/WildForest.Infrastructure/Persistence/Repositories/RefreshTokenRepository.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -110,7 +110,7 @@
       <option name="presentableId" value="Default" />
       <updated>1679760798624</updated>
       <workItem from="1679760802893" duration="5682000" />
-      <workItem from="1679824895287" duration="12472000" />
+      <workItem from="1679824895287" duration="16722000" />
     </task>
     <task id="LOCAL-00001" summary="Delete old files">
       <created>1679760998489</created>
@@ -133,7 +133,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679828438882</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Create 1st migration">
+      <created>1679850838280</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1679850838280</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,7 +164,8 @@
     <MESSAGE value="Delete old files" />
     <MESSAGE value="Redone auth logic in controller" />
     <MESSAGE value="Add logic for adding and removing refreshTokens from Db" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add logic for adding and removing refreshTokens from Db" />
+    <MESSAGE value="Create 1st migration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create 1st migration" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
