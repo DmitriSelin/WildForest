@@ -5,10 +5,10 @@
     <projectFile profileName="WildForest.Api">Backend/WildForest.Api/WildForest.Api.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="edeb84f6-e037-472b-ba29-1fa4602451d7" name="Changes" comment="">
+    <list default="true" id="edeb84f6-e037-472b-ba29-1fa4602451d7" name="Changes" comment="Add logic for adding and removing refreshTokens from Db">
+      <change afterPath="$PROJECT_DIR$/Backend/WildForest.Infrastructure/Persistence/Context/WildForestDbContextFactory.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WildForest/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WildForest/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/WildForest.Application/Authentication/Commands/RegisterUser/UserRegistrator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/WildForest.Application/Authentication/Commands/RegisterUser/UserRegistrator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/WildForest.Application/Authentication/Queries/LoginUser/UserLogger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/WildForest.Application/Authentication/Queries/LoginUser/UserLogger.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/WildForest.Infrastructure/Persistence/Repositories/RefreshTokenRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/WildForest.Infrastructure/Persistence/Repositories/RefreshTokenRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,11 +29,13 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6cb0f14130f660df53c38097f146d7d3396a44bf2125df6fed4add1dda92dba/NpgsqlDbContextOptionsBuilderExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/794bcfedceb3c6d957fbddf0e1c9a04afca77f9b5470c6859466cfba35e1ddb1/Task.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/816dbaba8a29ece3dd3dc326642858d27d2d19142f9a2109bb04617985ec9/ExecutionContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8aeca8dfcec95a81b42a28e5c138e1c321e89def3fed605511172a8beaec/AsyncTaskMethodBuilderT.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cf91eb35ab781c324ad4fa382dce85631ec37cf3813529f7c92208d866c851/TaskContinuation.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e74356f198b598e97eaeea83e8b7b1f2bfe27c0a39fedf86bb7dc44827fbda/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Projects/WildForest/Backend/WildForest.Application/Authentication/Queries/LoginUser/UserLogger.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -43,26 +45,30 @@
     <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2NVstPjGknnmo5Fzy1uJbbTeGrM" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\user\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\user\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.WildForest.Api">
     <configuration name="WildForest.Api" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/Backend/WildForest.Api/WildForest.Api.csproj" />
@@ -104,7 +110,7 @@
       <option name="presentableId" value="Default" />
       <updated>1679760798624</updated>
       <workItem from="1679760802893" duration="5682000" />
-      <workItem from="1679824895287" duration="2049000" />
+      <workItem from="1679824895287" duration="12472000" />
     </task>
     <task id="LOCAL-00001" summary="Delete old files">
       <created>1679760998489</created>
@@ -120,7 +126,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679766134586</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add logic for adding and removing refreshTokens from Db">
+      <created>1679828438882</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1679828438882</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,7 +156,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Delete old files" />
     <MESSAGE value="Redone auth logic in controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="Redone auth logic in controller" />
+    <MESSAGE value="Add logic for adding and removing refreshTokens from Db" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add logic for adding and removing refreshTokens from Db" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -159,7 +173,7 @@
               <option value="2517" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="5" />
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

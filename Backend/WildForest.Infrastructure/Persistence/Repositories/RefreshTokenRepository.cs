@@ -42,7 +42,7 @@ public sealed class RefreshTokenRepository : IRefreshTokenRepository
     public async Task RemoveOldRefreshTokensByUserIdAsync(UserId userId, bool autoSaveChanges = true)
     {
         var oldRefreshTokens = _context.RefreshTokens
-            .Where(x => !x.IsActive && x.UserId == userId &&
+            .Where(x => !(x.IsActive) && x.UserId == userId &&
                         x.CreationDate.Value.AddDays(2) <= DateTime.UtcNow);
 
         _context.RefreshTokens.RemoveRange(oldRefreshTokens);
