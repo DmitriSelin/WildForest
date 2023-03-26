@@ -14,15 +14,18 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
         private readonly IRefreshTokenGenerator _refreshTokenGenerator;
         private readonly IUserRepository _userRepository;
+        private readonly IRefreshTokenRepository _refreshTokenRepository;
 
         public UserLogger(
             IJwtTokenGenerator jwtTokenGenerator, 
             IRefreshTokenGenerator refreshTokenGenerator,
-            IUserRepository userRepository) 
+            IUserRepository userRepository,
+            IRefreshTokenRepository refreshTokenRepository) 
         {
             _jwtTokenGenerator = jwtTokenGenerator;
             _refreshTokenGenerator = refreshTokenGenerator;
             _userRepository = userRepository;
+            _refreshTokenRepository = refreshTokenRepository;
         }
 
         public async Task<ErrorOr<AuthenticationResult>> LoginAsync(LoginUserQuery query)
@@ -39,6 +42,9 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
 
             var createdByIp = CreatedByIp.Create(query.IpAddress);
             var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, createdByIp);
+            await _refreshTokenRepository.AddTokenAsync(refreshToken, false);
+            
+            await _refreshTokenRepository.RemoveOldRefreshTokensByUserIdAsync(user.Id);
             
             var token = _jwtTokenGenerator.GenerateToken(user);
 

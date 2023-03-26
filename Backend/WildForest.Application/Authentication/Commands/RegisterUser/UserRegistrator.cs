@@ -16,17 +16,20 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
         private readonly IRefreshTokenGenerator _refreshTokenGenerator;
         private readonly IUserRepository _userRepository;
         private readonly ICityRepository _cityRepository;
+        private readonly IRefreshTokenRepository _refreshTokenRepository;
 
         public UserRegistrator(
             IJwtTokenGenerator jwtTokenGenerator,
             IRefreshTokenGenerator refreshTokenGenerator,
             IUserRepository userRepository, 
-            ICityRepository cityRepository) 
+            ICityRepository cityRepository,
+            IRefreshTokenRepository refreshTokenRepository) 
         {
             _jwtTokenGenerator = jwtTokenGenerator;
             _refreshTokenGenerator = refreshTokenGenerator;
             _userRepository = userRepository;
             _cityRepository = cityRepository;
+            _refreshTokenRepository = refreshTokenRepository;
         }
 
         public async Task<ErrorOr<AuthenticationResult>> RegisterAsync(RegisterUserCommand command)
@@ -64,6 +67,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
 
             var createdByIp = CreatedByIp.Create(command.IpAddress);
             var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, createdByIp);
+            await _refreshTokenRepository.AddTokenAsync(refreshToken);
 
             var token = _jwtTokenGenerator.GenerateToken(user);
 
@@ -105,6 +109,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
 
             var createdByIp = CreatedByIp.Create(command.IpAddress);
             var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, createdByIp);
+            await _refreshTokenRepository.AddTokenAsync(refreshToken);
 
             var token = _jwtTokenGenerator.GenerateToken(user);
 
