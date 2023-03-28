@@ -2,6 +2,7 @@
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Common.Models;
+using WildForest.Domain.Marks.Entities;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.ValueObjects;
 
@@ -26,6 +27,10 @@ namespace WildForest.Domain.Users.Entities
         private readonly List<RefreshToken> _refreshTokens = new();
 
         public IReadOnlyList<RefreshToken> RefreshTokens => _refreshTokens.AsReadOnly();
+
+        private readonly List<Mark> _marks = new();
+
+        public IReadOnlyList<Mark> Marks => _marks.AsReadOnly();
 
         private User(
             UserId id,

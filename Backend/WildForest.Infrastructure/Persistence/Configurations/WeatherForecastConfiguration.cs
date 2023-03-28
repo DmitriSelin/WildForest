@@ -126,6 +126,9 @@ namespace WildForest.Infrastructure.Persistence.Configurations
             builder.Property(x => x.CityId)
                 .HasConversion(id => id.ToString(),
                                 value => CityId.Parse(value));
+            
+            builder.Metadata.FindNavigation(nameof(WeatherForecast.Marks))!
+                .SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }

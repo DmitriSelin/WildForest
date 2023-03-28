@@ -6,7 +6,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="edeb84f6-e037-472b-ba29-1fa4602451d7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Backend/WildForest.Domain/Marks/ValueObjects/Comment.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/WildForest.Domain/Marks/ValueObjects/Rating.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/WildForest.Infrastructure/Persistence/Configurations/MarkConfiguration.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WildForest/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WildForest/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/WildForest.Domain/Marks/Entities/Mark.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/WildForest.Domain/Marks/Entities/Mark.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/WildForest.Domain/Marks/ValueObjects/MarkDetails.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/WildForest.Domain/Users/Entities/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/WildForest.Domain/Users/Entities/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/WildForest.Domain/Weather/Entities/WeatherForecast.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/WildForest.Domain/Weather/Entities/WeatherForecast.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/WildForest.Infrastructure/Migrations/WildForestDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/WildForest.Infrastructure/Migrations/WildForestDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/WildForest.Infrastructure/Persistence/Configurations/UserConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/WildForest.Infrastructure/Persistence/Configurations/UserConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/WildForest.Infrastructure/Persistence/Configurations/WeatherForecastConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/WildForest.Infrastructure/Persistence/Configurations/WeatherForecastConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/WildForest.Infrastructure/Persistence/Context/WildForestDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/WildForest.Infrastructure/Persistence/Context/WildForestDbContext.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,6 +120,9 @@
       <workItem from="1679760802893" duration="5682000" />
       <workItem from="1679824895287" duration="17331000" />
       <workItem from="1679855997861" duration="39000" />
+      <workItem from="1679921123841" duration="4862000" />
+      <workItem from="1680018244200" duration="38000" />
+      <workItem from="1680018294830" duration="63000" />
     </task>
     <task id="LOCAL-00001" summary="Delete old files">
       <created>1679760998489</created>

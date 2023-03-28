@@ -12,8 +12,8 @@ using WildForest.Infrastructure.Persistence.Context;
 namespace WildForest.Infrastructure.Migrations
 {
     [DbContext(typeof(WildForestDbContext))]
-    [Migration("20230326170347_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230328212831_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,28 @@ namespace WildForest.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("WildForest.Domain.Marks.Entities.Mark", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("WeatherId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("WeatherId");
+
+                    b.ToTable("Marks");
                 });
 
             modelBuilder.Entity("WildForest.Domain.Tokens.Entities.RefreshToken", b =>
@@ -182,6 +204,66 @@ namespace WildForest.Infrastructure.Migrations
 
                     b.Navigation("CountryName")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WildForest.Domain.Marks.Entities.Mark", b =>
+                {
+                    b.HasOne("WildForest.Domain.Users.Entities.User", "User")
+                        .WithMany("Marks")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WildForest.Domain.Weather.Entities.WeatherForecast", "WeatherForecast")
+                        .WithMany("Marks")
+                        .HasForeignKey("WeatherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("WildForest.Domain.Marks.ValueObjects.Comment", "Comment", b1 =>
+                        {
+                            b1.Property<string>("MarkId")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasMaxLength(200)
+                                .HasColumnType("character varying(200)")
+                                .HasColumnName("Comment");
+
+                            b1.HasKey("MarkId");
+
+                            b1.ToTable("Marks");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MarkId");
+                        });
+
+                    b.OwnsOne("WildForest.Domain.Marks.ValueObjects.Rating", "Rating", b1 =>
+                        {
+                            b1.Property<string>("MarkId")
+                                .HasColumnType("text");
+
+                            b1.Property<byte>("Value")
+                                .HasColumnType("smallint")
+                                .HasColumnName("Rating");
+
+                            b1.HasKey("MarkId");
+
+                            b1.ToTable("Marks");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MarkId");
+                        });
+
+                    b.Navigation("Comment");
+
+                    b.Navigation("Rating")
+                        .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("WeatherForecast");
                 });
 
             modelBuilder.Entity("WildForest.Domain.Tokens.Entities.RefreshToken", b =>
@@ -720,7 +802,14 @@ namespace WildForest.Infrastructure.Migrations
 
             modelBuilder.Entity("WildForest.Domain.Users.Entities.User", b =>
                 {
+                    b.Navigation("Marks");
+
                     b.Navigation("RefreshTokens");
+                });
+
+            modelBuilder.Entity("WildForest.Domain.Weather.Entities.WeatherForecast", b =>
+                {
+                    b.Navigation("Marks");
                 });
 #pragma warning restore 612, 618
         }

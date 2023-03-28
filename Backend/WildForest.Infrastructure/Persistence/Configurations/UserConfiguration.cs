@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WildForest.Domain.Cities.ValueObjects;
+using WildForest.Domain.Marks.Entities;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
 
@@ -65,6 +66,9 @@ namespace WildForest.Infrastructure.Persistence.Configurations
             builder.Property(p => p.CityId)
                 .HasConversion(id => id.ToString(),
                                 value => CityId.Parse(value));
+            
+            builder.Metadata.FindNavigation(nameof(User.Marks))!
+                .SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }

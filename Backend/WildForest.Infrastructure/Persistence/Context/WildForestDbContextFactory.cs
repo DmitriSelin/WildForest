@@ -14,13 +14,4 @@ public class WildForestDbContextFactory : IDesignTimeDbContextFactory<WildForest
         
         return new WildForestDbContext(optionsBuilder.Options);
     }
-    
-    /* Commands for migrations:
-     * 
-     * dotnet ef migrations add InitialCreate --project Backend\WildForest.Infrastructure --
-     * "Server=localhost;Database=WildForestDb;Port=5432;User Id=postgres;Password=7409amId"
-     *
-     * dotnet ef database update --project Backend\WildForest.Infrastructure --
-     * "Server=localhost;Database=WildForestDb;Port=5432;User Id=postgres;Password=7409amId"
-     */
 }
