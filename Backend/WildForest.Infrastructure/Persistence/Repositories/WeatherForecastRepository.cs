@@ -28,5 +28,11 @@ namespace WildForest.Infrastructure.Persistence.Repositories
             await _context.WeatherForecasts.AddRangeAsync(forecasts);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<WeatherForecast?> GetWeatherForecastByIdAsync(WeatherId weatherId)
+        {
+            return await _context.WeatherForecasts
+                .FirstOrDefaultAsync(x => x.Id == weatherId);
+        }
     }
 }

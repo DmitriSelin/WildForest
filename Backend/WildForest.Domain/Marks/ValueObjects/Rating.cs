@@ -16,7 +16,7 @@ public sealed class Rating : ValueObject
 
         return new(value);
     }
-    
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;

@@ -9,5 +9,7 @@ namespace WildForest.Application.Common.Interfaces.Persistence.Repositories
         Task<IEnumerable<WeatherForecast>?> GetWeatherForecastsByDateAsync(CityId cityId, ForecastDate forecastDate);
 
         Task AddWeatherForecastsAsync(IEnumerable<WeatherForecast> forecasts);
+
+        Task<WeatherForecast?> GetWeatherForecastByIdAsync(WeatherId weatherId);
     }
 }

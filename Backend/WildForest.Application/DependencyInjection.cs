@@ -8,6 +8,7 @@ using WildForest.Application.Maps.Commands.AddCities;
 using WildForest.Application.Maps.Commands.AddCountry;
 using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
+using WildForest.Application.Marks.Commands.LeaveComment;
 using WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
 namespace WildForest.Application
@@ -25,6 +26,7 @@ namespace WildForest.Application
             services.AddScoped<IHomeWeatherForecastHandler, HomeWeatherForecastHandler>();
             services.AddScoped<ICountryCommandHandler, CountryCommandHandler>();
             services.AddScoped<ICityCommandHandler, CityCommandHandler>();
+            services.AddScoped<ICommentCommandHandler, CommentCommandHandler>();
 
             services.AddMappings();
             

@@ -10,9 +10,14 @@ namespace WildForest.Domain.Marks.Entities
     public sealed class Mark : Entity<MarkId>
     {
         public Rating Rating { get; } = null!;
-        
+
         public Comment? Comment { get; }
-        
+
+        /// <summary>
+        /// Date in UTC now
+        /// </summary>
+        public Date Date { get; } = null!;
+
         public UserId UserId { get; } = null!;
 
         public User User { get; } = null!;
@@ -30,6 +35,7 @@ namespace WildForest.Domain.Marks.Entities
         {
             Rating = rating;
             Comment = comment;
+            Date = Date.Create();
             UserId = userId;
             WeatherId = weatherId;
         }

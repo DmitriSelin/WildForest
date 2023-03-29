@@ -22,7 +22,7 @@ public class Comment : ValueObject
 
         return new(comment);
     }
-    
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;

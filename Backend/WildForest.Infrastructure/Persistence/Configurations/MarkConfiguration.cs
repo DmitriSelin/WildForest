@@ -34,6 +34,14 @@ public class MarkConfiguration : IEntityTypeConfiguration<Mark>
                     .HasColumnName("Comment");
             });
 
+        builder.OwnsOne(
+            x => x.Date,
+            sa =>
+            {
+                sa.Property(p => p.Value)
+                .HasColumnName("Date");
+            });
+
         builder.HasOne(p => p.User)
             .WithMany(x => x.Marks)
             .HasForeignKey(p => p.UserId);
