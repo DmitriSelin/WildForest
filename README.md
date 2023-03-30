@@ -2,7 +2,9 @@
 
 <p align="center">
 
-<img src="https://img.shields.io/badge/made%20by-DmitriSelin-blue.svg?style=for-the-badge&color=6C9ECB&labelColor=343B46" >
+<a href="https://github.com/DmitriSelin">
+  <img src="https://img.shields.io/badge/made%20by-DmitriSelin-blue.svg?style=for-the-badge&color=6C9ECB&labelColor=343B46" >
+</a>
 
 <a href="https://github.com/DmitriSelin/WildForest/pulse">
   <img alt="Last commit" src="https://img.shields.io/github/last-commit/DmitriSelin/WildForest?style=for-the-badge&logo=git&color=6DAE81&logoColor=D9E0EE&labelColor=343B46"/>
@@ -15,7 +17,9 @@
 
 <p align="center">
 
-<img src="https://img.shields.io/github/languages/top/DmitriSelin/WildForest.svg?style=for-the-badge&color=735184&labelColor=343B46">
+<a href='https://github.com/DmitriSelin/WildForest/search?l=C%23'>
+  <img src="https://img.shields.io/github/languages/top/DmitriSelin/WildForest.svg?style=for-the-badge&color=735184&labelColor=343B46">
+</a>
 
 <a href="https://github.com/DmitriSelin/WildForest/issues">
   <img alt="Issues" src="https://img.shields.io/github/issues/DmitriSelin/WildForest?style=for-the-badge&logo=bilibili&color=CD5C5C&logoColor=D9E0EE&labelColor=343B46" />
