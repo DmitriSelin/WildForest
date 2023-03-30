@@ -5,7 +5,7 @@
 <img src="https://img.shields.io/badge/made%20by-DmitriSelin-blue.svg?style=for-the-badge&color=6C9ECB&labelColor=343B46" >
 
 <a href="https://github.com/DmitriSelin/WildForest/pulse">
-  <img alt="Last commit" src="https://img.shields.io/github/last-commit/DmitriSelin/WildForest?style=for-the-                   badge&logo=git&color=6DAE81&logoColor=D9E0EE&labelColor=343B46"/>
+  <img alt="Last commit" src="https://img.shields.io/github/last-commit/DmitriSelin/WildForest?style=for-the-badge&logo=git&color=6DAE81&logoColor=D9E0EE&labelColor=343B46"/>
 </a>
 
 <a href="https://github.com/DmitriSelin/WildForest/stargazers">
