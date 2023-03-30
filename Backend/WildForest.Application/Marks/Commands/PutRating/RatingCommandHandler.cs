@@ -46,7 +46,8 @@ public sealed class RatingCommandHandler : IRatingCommandHandler
 
         return new MarkDto(
             mark.Id.Value,
-            weatherId.Value,
+            user.Id.Value,
+            weatherForecast.Id.Value,
             mark.Date.Value,
             mark.Rating.Value,
             null);

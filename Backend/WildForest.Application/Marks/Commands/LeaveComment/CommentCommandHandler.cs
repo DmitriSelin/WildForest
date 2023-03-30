@@ -48,7 +48,8 @@ public sealed class CommentCommandHandler : ICommentCommandHandler
 
         return new MarkDto(
             mark.Id.Value,
-            weatherId.Value,
+            user.Id.Value,
+            weatherForecast.Id.Value,
             mark.Date.Value,
             mark.Rating.Value,
             mark.Comment?.Value);

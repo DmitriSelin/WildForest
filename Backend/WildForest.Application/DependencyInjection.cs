@@ -9,6 +9,8 @@ using WildForest.Application.Maps.Commands.AddCountry;
 using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
 using WildForest.Application.Marks.Commands.LeaveComment;
+using WildForest.Application.Marks.Commands.PutRating;
+using WildForest.Application.Marks.Queries.GetMarks;
 using WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
 namespace WildForest.Application
@@ -27,6 +29,8 @@ namespace WildForest.Application
             services.AddScoped<ICountryCommandHandler, CountryCommandHandler>();
             services.AddScoped<ICityCommandHandler, CityCommandHandler>();
             services.AddScoped<ICommentCommandHandler, CommentCommandHandler>();
+            services.AddScoped<IRatingCommandHandler, RatingCommandHandler>();
+            services.AddScoped<IMarkQueryHandler, MarkQueryHandler>();
 
             services.AddMappings();
             

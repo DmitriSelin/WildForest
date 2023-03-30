@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Marks.Entities;
+using WildForest.Domain.Weather.ValueObjects;
 using WildForest.Infrastructure.Persistence.Context;
 
 namespace WildForest.Infrastructure.Persistence.Repositories;
@@ -17,5 +19,14 @@ public sealed class MarkRepository : IMarkRepository
     {
         await _context.Marks.AddAsync(mark);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<Mark>?> GetMarksByWeatherIdAsync(WeatherId weatherId)
+    {
+        return await _context.Marks
+            .Include(x => x.WeatherForecast)
+            .Include(x => x.User)
+            .Where(x => x.WeatherId == weatherId)
+            .ToListAsync();
     }
 }
