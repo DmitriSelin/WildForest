@@ -37,6 +37,7 @@ Fullstack application for communication and sharing of weather information
 ---
 
 <h2 align="center">Architecture</h2>
+<br/>
 <p align="center">
 <image src="Assets/ArchitectureDiagram.png"/>
 </p>
