@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WildForest.Application.Marks.Commands.LeaveComment;
 using WildForest.Application.Marks.Commands.PutRating;
-using WildForest.Application.Marks.Queries.GetMarks;
+using WildForest.Application.Marks.Queries.GetComments;
 using WildForest.Contracts.Marks;
 
 namespace WildForest.Api.Controllers;
@@ -15,18 +15,18 @@ public sealed class MarkController : ApiController
     private readonly IMapper _mapper;
     private readonly ICommentCommandHandler _commentCommandHandler;
     private readonly IRatingCommandHandler _ratingCommandHandler;
-    private readonly IMarkQueryHandler _markQueryHandler;
+    private readonly ICommentsQueryHandler _commentsQueryHandler;
 
     public MarkController(
         IMapper mapper,
         ICommentCommandHandler commentCommandHandler,
         IRatingCommandHandler ratingCommandHandler,
-        IMarkQueryHandler markQueryHandler)
+        ICommentsQueryHandler commentsQueryHandler)
     {
         _mapper = mapper;
         _commentCommandHandler = commentCommandHandler;
         _ratingCommandHandler = ratingCommandHandler;
-        _markQueryHandler = markQueryHandler;
+        _commentsQueryHandler = commentsQueryHandler;
     }
 
     [HttpPost("comment")]
@@ -58,7 +58,7 @@ public sealed class MarkController : ApiController
     [HttpGet("{weatherId}")]
     public async Task<IActionResult> GetMarks(Guid weatherId)
     {
-        var marks = await _markQueryHandler.GetMarksByWeatherForecastAsync(weatherId);
+        var marks = await _commentsQueryHandler.GetCommentsAsync(weatherId);
 
         if (marks.IsError)
             return Problem(marks.Errors);

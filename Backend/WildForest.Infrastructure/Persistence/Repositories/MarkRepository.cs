@@ -21,12 +21,12 @@ public sealed class MarkRepository : IMarkRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<Mark>?> GetMarksByWeatherIdAsync(WeatherId weatherId)
+    public async Task<IEnumerable<Mark>?> GetMarksWithCommentsByWeatherIdAsync(WeatherId weatherId)
     {
         return await _context.Marks
             .Include(x => x.WeatherForecast)
             .Include(x => x.User)
-            .Where(x => x.WeatherId == weatherId)
+            .Where(x => x.WeatherId == weatherId && x.Comment! != null!)
             .ToListAsync();
     }
 }

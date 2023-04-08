@@ -7,5 +7,5 @@ public interface IMarkRepository
 {
     Task AddMarkAsync(Mark mark);
 
-    Task<IEnumerable<Mark>?> GetMarksByWeatherIdAsync(WeatherId weatherId);
+    Task<IEnumerable<Mark>?> GetMarksWithCommentsByWeatherIdAsync(WeatherId weatherId);
 }
