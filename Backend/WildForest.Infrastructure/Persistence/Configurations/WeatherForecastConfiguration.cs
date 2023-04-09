@@ -129,6 +129,9 @@ namespace WildForest.Infrastructure.Persistence.Configurations
             
             builder.Metadata.FindNavigation(nameof(WeatherForecast.Marks))!
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
+
+            builder.Metadata.FindNavigation(nameof(WeatherForecast.WeatherMarks))!
+                .SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }

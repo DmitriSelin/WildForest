@@ -3,10 +3,11 @@ using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Common.Models;
 using WildForest.Domain.Marks.Entities;
 using WildForest.Domain.Weather.ValueObjects;
+using WildForest.Domain.WeatherMarks.Entities;
 
 namespace WildForest.Domain.Weather.Entities
 {
-    public class WeatherForecast : Entity<WeatherId>
+    public sealed class WeatherForecast : Entity<WeatherId>
     {
         public ForecastDate ForecastDate { get; } = null!;
 
@@ -37,6 +38,10 @@ namespace WildForest.Domain.Weather.Entities
         private readonly List<Mark> _marks = new();
 
         public IReadOnlyList<Mark> Marks => _marks.AsReadOnly();
+
+        private readonly List<WeatherMark> _weatherMarks = new();
+
+        public IReadOnlyList<WeatherMark> WeatherMarks => _weatherMarks.AsReadOnly();
 
         private WeatherForecast(
             WeatherId id,

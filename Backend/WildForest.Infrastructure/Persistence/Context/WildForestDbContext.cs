@@ -5,6 +5,7 @@ using WildForest.Domain.Marks.Entities;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Weather.Entities;
+using WildForest.Domain.WeatherMarks.Entities;
 using WildForest.Infrastructure.Persistence.Configurations;
 
 namespace WildForest.Infrastructure.Persistence.Context
@@ -21,6 +22,8 @@ namespace WildForest.Infrastructure.Persistence.Context
 
         public DbSet<WeatherForecast> WeatherForecasts => Set<WeatherForecast>();
 
+        public DbSet<WeatherMark> WeatherMarks => Set<WeatherMark>();
+
         public DbSet<Mark> Marks => Set<Mark>();
 
         public WildForestDbContext(DbContextOptions<WildForestDbContext> options) : base(options)
@@ -35,6 +38,7 @@ namespace WildForest.Infrastructure.Persistence.Context
             modelBuilder.ApplyConfiguration(new CityConfiguration());
             modelBuilder.ApplyConfiguration(new CountryConfiguration());
             modelBuilder.ApplyConfiguration(new WeatherForecastConfiguration());
+            modelBuilder.ApplyConfiguration(new WeatherMarkConfiguration());
             modelBuilder.ApplyConfiguration(new MarkConfiguration());
         }
     }
