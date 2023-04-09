@@ -32,7 +32,8 @@ namespace WildForest.Infrastructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_WeatherMarks_WeatherId",
                 table: "WeatherMarks",
-                column: "WeatherId");
+                column: "WeatherId",
+                unique: true);
         }
 
         /// <inheritdoc />

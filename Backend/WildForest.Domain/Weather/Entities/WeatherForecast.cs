@@ -39,9 +39,7 @@ namespace WildForest.Domain.Weather.Entities
 
         public IReadOnlyList<Mark> Marks => _marks.AsReadOnly();
 
-        private readonly List<WeatherMark> _weatherMarks = new();
-
-        public IReadOnlyList<WeatherMark> WeatherMarks => _weatherMarks.AsReadOnly();
+        public WeatherMark WeatherMark { get; } = null!;
 
         private WeatherForecast(
             WeatherId id,

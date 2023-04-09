@@ -37,8 +37,8 @@ namespace WildForest.Infrastructure.Persistence.Context
             modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
             modelBuilder.ApplyConfiguration(new CityConfiguration());
             modelBuilder.ApplyConfiguration(new CountryConfiguration());
-            modelBuilder.ApplyConfiguration(new WeatherForecastConfiguration());
             modelBuilder.ApplyConfiguration(new WeatherMarkConfiguration());
+            modelBuilder.ApplyConfiguration(new WeatherForecastConfiguration());
             modelBuilder.ApplyConfiguration(new MarkConfiguration());
         }
     }

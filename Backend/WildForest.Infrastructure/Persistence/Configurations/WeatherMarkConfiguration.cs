@@ -23,13 +23,5 @@ public sealed class WeatherMarkConfiguration : IEntityTypeConfiguration<WeatherM
                 sa.Property(p => p.Value)
                 .HasColumnName("MediumMark");
             });
-
-        builder.HasOne(p => p.WeatherForecast)
-            .WithMany(x => x.WeatherMarks)
-            .HasForeignKey(p => p.WeatherId);
-
-        builder.Property(x => x.WeatherId)
-            .HasConversion(id => id.ToString(),
-                            value => WeatherId.Parse(value));
     }
 }

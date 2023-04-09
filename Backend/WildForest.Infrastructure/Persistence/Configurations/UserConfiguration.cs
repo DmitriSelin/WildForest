@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WildForest.Domain.Cities.ValueObjects;
-using WildForest.Domain.Marks.Entities;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
 

@@ -12,7 +12,7 @@ using WildForest.Infrastructure.Persistence.Context;
 namespace WildForest.Infrastructure.Migrations
 {
     [DbContext(typeof(WildForestDbContext))]
-    [Migration("20230409113455_WeatherMarksMigration")]
+    [Migration("20230409155857_WeatherMarksMigration")]
     partial class WeatherMarksMigration
     {
         /// <inheritdoc />
@@ -136,7 +136,8 @@ namespace WildForest.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("WeatherId");
+                    b.HasIndex("WeatherId")
+                        .IsUnique();
 
                     b.ToTable("WeatherMarks");
                 });
@@ -827,8 +828,8 @@ namespace WildForest.Infrastructure.Migrations
             modelBuilder.Entity("WildForest.Domain.WeatherMarks.Entities.WeatherMark", b =>
                 {
                     b.HasOne("WildForest.Domain.Weather.Entities.WeatherForecast", "WeatherForecast")
-                        .WithMany("WeatherMarks")
-                        .HasForeignKey("WeatherId")
+                        .WithOne("WeatherMark")
+                        .HasForeignKey("WildForest.Domain.WeatherMarks.Entities.WeatherMark", "WeatherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -878,7 +879,8 @@ namespace WildForest.Infrastructure.Migrations
                 {
                     b.Navigation("Marks");
 
-                    b.Navigation("WeatherMarks");
+                    b.Navigation("WeatherMark")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

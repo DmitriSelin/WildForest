@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Weather.Entities;
 using WildForest.Domain.Weather.ValueObjects;
+using WildForest.Domain.WeatherMarks.Entities;
 
 namespace WildForest.Infrastructure.Persistence.Configurations
 {
@@ -126,11 +127,12 @@ namespace WildForest.Infrastructure.Persistence.Configurations
             builder.Property(x => x.CityId)
                 .HasConversion(id => id.ToString(),
                                 value => CityId.Parse(value));
-            
-            builder.Metadata.FindNavigation(nameof(WeatherForecast.Marks))!
-                .SetPropertyAccessMode(PropertyAccessMode.Field);
 
-            builder.Metadata.FindNavigation(nameof(WeatherForecast.WeatherMarks))!
+            builder.HasOne(x => x.WeatherMark)
+                .WithOne(x => x.WeatherForecast)
+                .HasForeignKey<WeatherMark>(x => x.WeatherId);
+
+            builder.Metadata.FindNavigation(nameof(WeatherForecast.Marks))!
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }

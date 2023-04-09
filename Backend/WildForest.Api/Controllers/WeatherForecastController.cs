@@ -30,9 +30,9 @@ namespace WildForest.Api.Controllers
             {
                 return Problem(userId.Errors);
             }
-            
+
             var query = new HomeWeatherForecastQuery(userId.Value, forecastDate);
-            
+
             var forecasts = await _homeWeatherForecastHandler.GetWeatherForecastAsync(query);
 
             if (forecasts.IsError)

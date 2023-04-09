@@ -2,6 +2,7 @@ using ErrorOr;
 using MapsterMapper;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Application.Weather.Common;
+using WildForest.Application.Weather.Common.Models;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Domain.Weather.Entities;
@@ -25,7 +26,7 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
         _mapper = mapper;
     }
 
-    public async Task<ErrorOr<List<WeatherForecastDto>>> GetWeatherForecastAsync(HomeWeatherForecastQuery query)
+    public async Task<ErrorOr<WeatherForecastVm>> GetWeatherForecastAsync(HomeWeatherForecastQuery query)
     {
         var userId = UserId.Create(query.UserId);
         var user = await _userRepository.GetUserWithCityByIdAsync(userId);
@@ -34,11 +35,11 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
         {
             return Errors.User.NotFoundById;
         }
-        
+
         var forecastDate = ForecastDate.Create(query.ForecastDate);
-        
+
         var forecasts = (List<WeatherForecast>?)
-            await _weatherForecastRepository.GetWeatherForecastsByDateAsync(user.CityId, forecastDate);
+            await _weatherForecastRepository.GetWeatherForecastsWithMarksByDateAsync(user.CityId, forecastDate);
 
         if (forecasts is null)
         {
@@ -47,6 +48,6 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
 
         var forecastsDto = _mapper.Map<List<WeatherForecastDto>>(forecasts);
 
-        return forecastsDto;
+        return new WeatherForecastVm(forecastsDto, 4.0);
     }
 }
