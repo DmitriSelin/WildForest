@@ -9,6 +9,8 @@ public sealed class WeatherMark : Entity<WeatherMarkId>
 {
     public MediumMark MediumMark { get; } = null!;
 
+    public CountOfMarks CountOfMarks { get; } = null!;
+
     public WeatherId WeatherId { get; } = null!;
 
     public WeatherForecast WeatherForecast { get; } = null!;
@@ -16,15 +18,24 @@ public sealed class WeatherMark : Entity<WeatherMarkId>
     private WeatherMark(
         WeatherMarkId id,
         MediumMark mediumMark,
+        CountOfMarks countOfMarks,
         WeatherId weatherId) : base(id)
     {
         MediumMark = mediumMark;
+        CountOfMarks = countOfMarks;
         WeatherId = weatherId;
     }
 
-    public static WeatherMark Create(MediumMark mediumMark, WeatherId weatherId)
+    public static WeatherMark Create(
+        MediumMark mediumMark,
+        CountOfMarks countOfMarks,
+        WeatherId weatherId)
     {
-        return new(WeatherMarkId.Create(), mediumMark, weatherId);
+        return new(
+            WeatherMarkId.Create(),
+            mediumMark,
+            countOfMarks,
+            weatherId);
     }
 
     private WeatherMark(WeatherMarkId id) : base(id) { }

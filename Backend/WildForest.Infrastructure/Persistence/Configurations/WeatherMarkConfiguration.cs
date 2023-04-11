@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WildForest.Domain.Weather.ValueObjects;
 using WildForest.Domain.WeatherMarks.Entities;
 using WildForest.Domain.WeatherMarks.ValueObjects;
 
@@ -21,7 +20,17 @@ public sealed class WeatherMarkConfiguration : IEntityTypeConfiguration<WeatherM
             sa =>
             {
                 sa.Property(p => p.Value)
+                .HasDefaultValue(0)
                 .HasColumnName("MediumMark");
             });
+
+        builder.OwnsOne(
+            x => x.CountOfMarks,
+            sa =>
+            {
+                sa.Property(p => p.Value)
+                .HasColumnName("CountOfMarks");
+            }
+        );
     }
 }

@@ -17,6 +17,13 @@ public sealed class MediumMark : ValueObject
         return new(value);
     }
 
+    /// <summary>
+    /// Use for creating new entry
+    /// </summary>
+    /// <returns>Medium mark == 0</returns>
+    public static MediumMark CreateNewProperty()
+        => new(0);
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;

@@ -56,9 +56,12 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
 
         if (forecastWithMark is null)
         {
-            var mark = MediumMark.Create(5);
+            var mark = MediumMark.CreateNewProperty();
+            var countOfMarks = CountOfMarks.Create();
+
             var weatherForecast = forecasts.First(x => x.ForecastTime.Value == TimeOnly.Parse("00:00"));
-            var weatherMark = WeatherMark.Create(mark, weatherForecast.Id);
+
+            var weatherMark = WeatherMark.Create(mark, countOfMarks, weatherForecast.Id);
 
             await _weatherMarkRepository.AddWeatherMarkAsync(weatherMark);
         }
