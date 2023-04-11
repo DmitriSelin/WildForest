@@ -11,6 +11,7 @@ namespace WildForest.Infrastructure.Persistence.Repositories
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
+            services.AddScoped<IWeatherMarkRepository, WeatherMarkRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IMarkRepository, MarkRepository>();
 

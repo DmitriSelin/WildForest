@@ -7,6 +7,8 @@ using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Domain.Weather.Entities;
 using WildForest.Domain.Weather.ValueObjects;
+using WildForest.Domain.WeatherMarks.Entities;
+using WildForest.Domain.WeatherMarks.ValueObjects;
 
 namespace WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
@@ -15,14 +17,17 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
     private readonly IUserRepository _userRepository;
     private readonly IWeatherForecastRepository _weatherForecastRepository;
     private readonly IMapper _mapper;
+    private readonly IWeatherMarkRepository _weatherMarkRepository;
 
     public HomeWeatherForecastHandler(
         IUserRepository userRepository,
         IWeatherForecastRepository weatherForecastRepository,
+        IWeatherMarkRepository weatherMarkRepository,
         IMapper mapper)
     {
         _userRepository = userRepository;
         _weatherForecastRepository = weatherForecastRepository;
+        _weatherMarkRepository = weatherMarkRepository;
         _mapper = mapper;
     }
 
@@ -39,15 +44,31 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
         var forecastDate = ForecastDate.Create(query.ForecastDate);
 
         var forecasts = (List<WeatherForecast>?)
-            await _weatherForecastRepository.GetWeatherForecastsWithMarksByDateAsync(user.CityId, forecastDate);
+            await _weatherForecastRepository.GetWeatherForecastsWithMarkByDateAsync(user.CityId, forecastDate);
 
         if (forecasts is null)
         {
             return Errors.WeatherForecast.NotFound;
         }
 
+        var forecastWithMark = forecasts.SingleOrDefault(x => x.WeatherMark != null!);
+        double mediumMark = 0;
+
+        if (forecastWithMark is null)
+        {
+            var mark = MediumMark.Create(5);
+            var weatherForecast = forecasts.First(x => x.ForecastTime.Value == TimeOnly.Parse("00:00"));
+            var weatherMark = WeatherMark.Create(mark, weatherForecast.Id);
+
+            await _weatherMarkRepository.AddWeatherMarkAsync(weatherMark);
+        }
+        else
+        {
+            mediumMark = forecastWithMark.WeatherMark.MediumMark.Value;
+        }
+
         var forecastsDto = _mapper.Map<List<WeatherForecastDto>>(forecasts);
 
-        return new WeatherForecastVm(forecastsDto, 4.0);
+        return new WeatherForecastVm(forecastsDto, mediumMark);
     }
 }
