@@ -4,7 +4,7 @@ namespace WildForest.Domain.WeatherMarks.ValueObjects;
 
 public sealed class MediumMark : ValueObject
 {
-    public double Value { get; }
+    public double Value { get; private set; }
 
     private MediumMark(double value)
         => Value = value;
@@ -23,6 +23,14 @@ public sealed class MediumMark : ValueObject
     /// <returns>Medium mark == 0</returns>
     public static MediumMark CreateNewProperty()
         => new(0);
+
+    public void Update(double value)
+    {
+        if (value < 1 || value > 5)
+            throw new ArgumentException("Not correct mark", nameof(value));
+
+        Value = value;
+    }
 
     public override IEnumerable<object> GetEqualityComponents()
     {

@@ -63,6 +63,6 @@ public sealed class MarkController : ApiController
         if (marks.IsError)
             return Problem(marks.Errors);
 
-        return Ok(marks);
+        return Ok(marks.Value);
     }
 }

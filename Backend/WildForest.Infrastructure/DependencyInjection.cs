@@ -23,6 +23,7 @@ namespace WildForest.Infrastructure
             services.AddAuth(configuration);
 
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+            services.AddScoped<IMarkService, MarkService>();
 
             services.AddRepositories();
 

@@ -6,6 +6,7 @@ using WildForest.Domain.Marks.Entities;
 using WildForest.Domain.Marks.ValueObjects;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Domain.Weather.ValueObjects;
+using WildForest.Application.Common.Interfaces.Services;
 
 namespace WildForest.Application.Marks.Commands.LeaveComment;
 
@@ -14,15 +15,18 @@ public sealed class CommentCommandHandler : ICommentCommandHandler
     private readonly IMarkRepository _markRepository;
     private readonly IUserRepository _userRepository;
     private readonly IWeatherForecastRepository _weatherRepository;
+    private readonly IMarkService _markService;
 
     public CommentCommandHandler(
         IMarkRepository markRepository,
         IUserRepository userRepository,
-        IWeatherForecastRepository weatherRepository)
+        IWeatherForecastRepository weatherRepository,
+        IMarkService markService)
     {
         _markRepository = markRepository;
         _userRepository = userRepository;
         _weatherRepository = weatherRepository;
+        _markService = markService;
     }
 
     public async Task<ErrorOr<MarkDto>> LeaveCommentAsync(CommentCommand command)

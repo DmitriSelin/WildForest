@@ -4,7 +4,7 @@ namespace WildForest.Domain.WeatherMarks.ValueObjects;
 
 public sealed class CountOfMarks : ValueObject
 {
-    public uint Value { get; }
+    public uint Value { get; private set; }
 
     private CountOfMarks(uint value)
         => Value = value;
@@ -12,6 +12,11 @@ public sealed class CountOfMarks : ValueObject
     public static CountOfMarks Create(uint value = 0)
     {
         return new(value);
+    }
+
+    public void Increment()
+    {
+        Value++;
     }
 
     public override IEnumerable<object> GetEqualityComponents()
