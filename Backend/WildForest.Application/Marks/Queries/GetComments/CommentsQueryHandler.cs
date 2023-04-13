@@ -2,8 +2,8 @@ using ErrorOr;
 using WildForest.Domain.Common.Errors;
 using MapsterMapper;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
-using WildForest.Application.Marks.Common;
 using WildForest.Domain.Weather.ValueObjects;
+using WildForest.Application.Marks.Common;
 
 namespace WildForest.Application.Marks.Queries.GetComments;
 
@@ -18,7 +18,7 @@ public sealed class CommentsQueryHandler : ICommentsQueryHandler
         _mapper = mapper;
     }
 
-    public async Task<ErrorOr<List<MarkDto>>> GetCommentsAsync(Guid weatherId)
+    public async Task<ErrorOr<List<CommentsModel>>> GetCommentsAsync(Guid weatherId)
     {
         var id = WeatherId.Create(weatherId);
 
@@ -27,7 +27,7 @@ public sealed class CommentsQueryHandler : ICommentsQueryHandler
         if (marks is null)
             return Errors.Mark.NotFound;
 
-        var marksDto = _mapper.Map<List<MarkDto>>(marks);
-        return marksDto;
+        var markList = _mapper.Map<List<CommentsModel>>(marks);
+        return markList;
     }
 }

@@ -5,5 +5,5 @@ namespace WildForest.Application.Marks.Commands.LeaveComment;
 
 public interface ICommentCommandHandler
 {
-    Task<ErrorOr<MarkDto>> LeaveCommentAsync(CommentCommand command);
+    Task<ErrorOr<CommentDto>> LeaveCommentAsync(CommentCommand command);
 }

@@ -8,7 +8,7 @@ public sealed class MarkMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<Mark, MarkDto>()
+        config.NewConfig<Mark, CommentsModel>()
             .Map(dest => dest.MarkId, source => source.Id.Value)
             .Map(dest => dest.UserId, source => source.UserId.Value)
             .Map(dest => dest.WeatherId, source => source.WeatherId.Value)

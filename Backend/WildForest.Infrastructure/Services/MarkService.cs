@@ -4,7 +4,7 @@ using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Application.Common.Interfaces.Services;
 using WildForest.Domain.Weather.ValueObjects;
 using WildForest.Domain.WeatherMarks.Entities;
-using WildForest.Domain.WeatherMarks.ValueObjects;
+using WildForest.Domain.Marks.ValueObjects;
 
 namespace WildForest.Infrastructure.Services;
 
@@ -17,7 +17,7 @@ public sealed class MarkService : IMarkService
         _weatherMarkRepository = weatherMarkRepository;
     }
 
-    public async Task<ErrorOr<WeatherMark>> ChangeMediumMarkAsync(WeatherId weatherId, MediumMark mediumMark)
+    public async Task<ErrorOr<WeatherMark>> ChangeMediumMarkAsync(WeatherId weatherId, Rating rating)
     {
         var weatherMark = await _weatherMarkRepository.GetWeatherMarkByWeatherIdAsync(weatherId);
 
@@ -26,8 +26,7 @@ public sealed class MarkService : IMarkService
 
         weatherMark.CountOfMarks.Increment();
 
-        double sum = CalculateSumOfMarks(weatherMark, mediumMark);
-
+        double sum = CalculateSumOfMarks(weatherMark, rating);
         double avgMark = sum / weatherMark.CountOfMarks.Value;
 
         weatherMark.MediumMark.Update(avgMark);
@@ -37,10 +36,10 @@ public sealed class MarkService : IMarkService
         return weatherMark;
     }
 
-    private static double CalculateSumOfMarks(WeatherMark weatherMark, MediumMark mediumMark)
+    private static double CalculateSumOfMarks(WeatherMark weatherMark, Rating rating)
     {
         double sum = weatherMark.CountOfMarks.Value * weatherMark.MediumMark.Value;
-        sum += mediumMark.Value;
+        sum += rating.Value;
 
         return sum;
     }
