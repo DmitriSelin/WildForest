@@ -17,8 +17,7 @@ public abstract class MarkModel
         Guid userId,
         Guid weatherId,
         DateTime date,
-        byte rating
-    )
+        byte rating)
     {
         MarkId = markId;
         UserId = userId;
