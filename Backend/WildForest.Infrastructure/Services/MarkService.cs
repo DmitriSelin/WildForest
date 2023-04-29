@@ -24,23 +24,27 @@ public sealed class MarkService : IMarkService
         if (weatherMark is null)
             return Errors.WeatherMark.NotFound;
 
-        weatherMark.CountOfMarks.Increment();
+        double sum = CalculateSumOfMarks(weatherMark);
+        double avgMark = CalculateNewAvgMark(sum, weatherMark, rating);
 
-        double sum = CalculateSumOfMarks(weatherMark, rating);
-        double avgMark = sum / weatherMark.CountOfMarks.Value;
-
-        weatherMark.MediumMark.Update(avgMark);
-
+        weatherMark.Update(avgMark);
         await _weatherMarkRepository.UpdateWeatherMarkAsync(weatherMark);
 
         return weatherMark;
     }
 
-    private static double CalculateSumOfMarks(WeatherMark weatherMark, Rating rating)
+    private static double CalculateSumOfMarks(WeatherMark weatherMark)
     {
-        double sum = weatherMark.CountOfMarks.Value * weatherMark.MediumMark.Value;
-        sum += rating.Value;
+        double sum = weatherMark.MediumMark.Value * weatherMark.CountOfMarks.Value;
 
         return sum;
+    }
+
+    private static double CalculateNewAvgMark(double sum, WeatherMark weatherMark, Rating rating)
+    {
+        sum += rating.Value;
+        double avgMark = sum / (weatherMark.CountOfMarks.Value + 1);
+
+        return avgMark;
     }
 }

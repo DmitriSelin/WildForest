@@ -15,6 +15,12 @@ public sealed class WeatherMark : Entity<WeatherMarkId>
 
     public WeatherForecast WeatherForecast { get; } = null!;
 
+    public void Update(double newMediumMark)
+    {
+        CountOfMarks.Increment();
+        MediumMark.Update(newMediumMark);
+    }
+
     private WeatherMark(
         WeatherMarkId id,
         MediumMark mediumMark,

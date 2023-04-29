@@ -24,7 +24,7 @@ public sealed class MediumMark : ValueObject
     public static MediumMark CreateNewProperty()
         => new(0);
 
-    public void Update(double value)
+    internal void Update(double value)
     {
         if (value < 1 || value > 5)
             throw new ArgumentException("Not correct mark", nameof(value));

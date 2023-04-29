@@ -14,7 +14,7 @@ public sealed class CountOfMarks : ValueObject
         return new(value);
     }
 
-    public void Increment()
+    internal void Increment()
     {
         Value++;
     }
