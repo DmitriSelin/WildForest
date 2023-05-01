@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{B66F3F0E-21F4-4194-8777-657F62727863}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{F9A6D612-A0C5-4C25-B8C7-E7220920D26F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Api", "Backend\WildForest.Api\WildForest.Api.csproj", "{CCAF4120-B9CF-4342-B94A-F6C05DE3486E}"
@@ -16,6 +14,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Contracts", "Backend\WildForest.Contracts\WildForest.Contracts.csproj", "{3672A4AA-4473-4CAD-9080-CAAA6DFDD875}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Infrastructure", "Backend\WildForest.Infrastructure\WildForest.Infrastructure.csproj", "{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WildForest.Frontend", "Frontend\WildForest.Frontend\WildForest.Frontend.csproj", "{910625F0-FD01-4BE2-A8F7-B8F2C522CD8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +43,10 @@ Global
 		{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{910625F0-FD01-4BE2-A8F7-B8F2C522CD8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{910625F0-FD01-4BE2-A8F7-B8F2C522CD8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{910625F0-FD01-4BE2-A8F7-B8F2C522CD8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{910625F0-FD01-4BE2-A8F7-B8F2C522CD8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
