@@ -6,9 +6,7 @@
         xmlns:local="clr-namespace:WildForest.Frontend.Views"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
-        MinHeight="900"
-        MinWidth="1300">
+        Style="{StaticResource MainWindowStyle}">
     <Grid>
         
     </Grid>
