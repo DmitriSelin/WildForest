@@ -4,7 +4,7 @@
     <Style TargetType="Window" x:Key="MainWindowStyle">
         <Setter Property="MinHeight" Value="900"/>
         <Setter Property="MinWidth" Value="1300"/>
-        <Setter Property="Background" Value="WhiteSmoke"/>
+        <Setter Property="Background" Value="{DynamicResource WhiteSmokeColor}"/>
         <Setter Property="AllowsTransparency" Value="True"/>
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="Template">
@@ -16,6 +16,10 @@
                         Height="{TemplateBinding Height}"
                         Background="{TemplateBinding Background}"
                         CornerRadius="15">
+                        <ContentPresenter
+                                RecognizesAccessKey="True"
+                                Margin="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="True"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

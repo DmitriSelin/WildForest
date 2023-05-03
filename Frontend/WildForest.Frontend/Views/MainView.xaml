@@ -4,10 +4,37 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WildForest.Frontend.Views"
+        xmlns:vm="clr-namespace:WildForest.Frontend.ViewModels"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Style="{StaticResource MainWindowStyle}">
+        Style="{StaticResource MainWindowStyle}"
+        MouseLeftButtonDown="MoveWindow">
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel 
+            Grid.Row="0" 
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Margin="2"
+            Orientation="Horizontal">
+            <Button
+                Command="{Binding CollapseAppCommand}"
+                Style="{StaticResource MinimizeButtonStyle}"/>
+            <Button 
+                Command="{Binding CollapseAppInWindowCommand}"
+                Style="{StaticResource RestoreButtonStyle}"/>
+            <Button
+                Command="{Binding CloseAppCommand}"
+                Style="{StaticResource CrossButtonStyle}"/>
+        </StackPanel>
     </Grid>
 </Window>
