@@ -1,17 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Windows;
+using WildForest.Frontend.ViewModels;
 
 namespace WildForest.Frontend
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    public sealed partial class App : Application
     {
+        public App()
+        {
+            Services = ConfigureServices();
+
+            this.InitializeComponent();
+        }
+
+        public new static App Current => (App)Application.Current;
+
+        public IServiceProvider Services { get; }
+
+        private static IServiceProvider ConfigureServices()
+        {
+            var services = new ServiceCollection();
+            services.AddViewModels();
+
+            return services.BuildServiceProvider();
+        }
     }
 }

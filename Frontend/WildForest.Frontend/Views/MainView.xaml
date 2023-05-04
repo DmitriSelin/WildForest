@@ -8,11 +8,8 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource MainWindowStyle}"
+        DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
         MouseLeftButtonDown="MoveWindow">
-
-    <Window.DataContext>
-        <vm:MainViewModel/>
-    </Window.DataContext>
 
     <Grid>
         <Grid.RowDefinitions>

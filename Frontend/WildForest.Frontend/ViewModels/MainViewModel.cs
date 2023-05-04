@@ -53,9 +53,13 @@ namespace WildForest.Frontend.ViewModels
 
         public MainViewModel()
         {
+            #region Commands
+
             CloseAppCommand = new RelayCommand(CloseApp);
             CollapseAppCommand = new RelayCommand(CollapseApp);
             CollapseAppInWindowCommand = new RelayCommand(CollapseAppInWindow);
+
+            #endregion
         }
     }
 }
