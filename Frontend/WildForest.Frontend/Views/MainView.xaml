@@ -33,5 +33,10 @@
                 Command="{Binding CloseAppCommand}"
                 Style="{StaticResource CrossButtonStyle}"/>
         </StackPanel>
+
+        <ContentControl
+            Grid.Row="1">
+           
+        </ContentControl>
     </Grid>
 </Window>

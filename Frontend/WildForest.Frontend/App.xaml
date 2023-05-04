@@ -14,6 +14,8 @@
 
                 <ResourceDictionary Source="Resources/Styles/Base/BaseStyles.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/MainWindowStyle.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/TextBaseStyles.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/Components/AuthenticationBorderStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Buttons/SystemButtonStyles.xaml"/>
 

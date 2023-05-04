@@ -6,6 +6,7 @@
         <Setter Property="MinWidth" Value="1300"/>
         <Setter Property="Background" Value="{DynamicResource WhiteSmokeColor}"/>
         <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="Template">
             <Setter.Value>
