@@ -10,7 +10,7 @@
                     <Border
                         x:Name="border"
                         Background="Transparent"
-                        Padding="10">
+                        Padding="5">
                         <fa:ImageAwesome 
                             x:Name="icon"
                             Icon="Close"
@@ -38,7 +38,7 @@
                     <Border
                         x:Name="border"
                         Background="Transparent"
-                        Padding="10">
+                        Padding="5">
                         <fa:ImageAwesome 
                             x:Name="icon"
                             Icon="WindowRestore"
@@ -67,8 +67,8 @@
                     <Border
                         x:Name="border"
                         Background="Transparent"
-                        Padding="10">
-                        <fa:ImageAwesome 
+                        Padding="5">
+                        <fa:ImageAwesome
                             Height="10"
                             Width="20"
                             x:Name="icon"

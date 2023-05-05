@@ -5,10 +5,16 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Images\Icons\bison.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\Icons\bison.ico" />
     <None Remove="Resources\Images\Icons\bison.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Images\Icons\bison.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\Icons\bison.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\Icons\bison.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

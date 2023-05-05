@@ -7,6 +7,20 @@ namespace WildForest.Frontend.ViewModels
 {
     internal class MainViewModel : ObservableObject
     {
+        private ObservableObject currentViewModel;
+
+        public ObservableObject CurrentViewModel
+        {
+            get => currentViewModel;
+            set => SetProperty(ref currentViewModel, value);
+        }
+
+        #region ViewModels
+
+        private readonly LoginViewModel _loginViewModel;
+
+        #endregion
+
         #region Commands
 
         #region CloseAppCommand
@@ -51,8 +65,11 @@ namespace WildForest.Frontend.ViewModels
 
         #endregion
 
-        public MainViewModel()
+        public MainViewModel(LoginViewModel loginViewModel)
         {
+            _loginViewModel = loginViewModel;
+            CurrentViewModel = _loginViewModel;
+
             #region Commands
 
             CloseAppCommand = new RelayCommand(CloseApp);

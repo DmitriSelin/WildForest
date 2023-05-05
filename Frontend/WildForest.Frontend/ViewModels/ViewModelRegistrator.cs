@@ -7,6 +7,7 @@ namespace WildForest.Frontend.ViewModels
         public static IServiceCollection AddViewModels(this IServiceCollection services)
         {
             services.AddSingleton<MainViewModel>();
+            services.AddSingleton<LoginViewModel>();
 
             return services;
         }

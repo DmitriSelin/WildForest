@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style TargetType="Window" x:Key="MainWindowStyle">
-        <Setter Property="MinHeight" Value="900"/>
-        <Setter Property="MinWidth" Value="1300"/>
+        <Setter Property="MinHeight" Value="800"/>
+        <Setter Property="MinWidth" Value="1100"/>
         <Setter Property="Background" Value="{DynamicResource WhiteSmokeColor}"/>
         <Setter Property="AllowsTransparency" Value="True"/>
         <Setter Property="BorderThickness" Value="0"/>

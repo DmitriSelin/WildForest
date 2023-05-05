@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WildForest.Frontend.Views"
         xmlns:vm="clr-namespace:WildForest.Frontend.ViewModels"
         mc:Ignorable="d"
+        Title="Wild forest"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource MainWindowStyle}"
         DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
@@ -18,10 +19,22 @@
         </Grid.RowDefinitions>
 
         <StackPanel 
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Margin="50, 5, 15, 0">
+            <TextBlock 
+                Text="Wild forest"
+                FontSize="25"
+                Foreground="{StaticResource LightBlackGrayColor}"
+                FontWeight="Bold"
+                Style="{StaticResource BaseTextBlockStyle}"/>
+        </StackPanel>
+
+        <StackPanel 
             Grid.Row="0" 
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Margin="2"
+            Margin="5"
             Orientation="Horizontal">
             <Button
                 Command="{Binding CollapseAppCommand}"
@@ -35,8 +48,13 @@
         </StackPanel>
 
         <ContentControl
-            Grid.Row="1">
-           
+            Grid.Row="1"
+            Content="{Binding CurrentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+                    <local:LoginView/>
+                </DataTemplate>
+            </ContentControl.Resources>
         </ContentControl>
     </Grid>
 </Window>
