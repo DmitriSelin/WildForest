@@ -11,9 +11,11 @@
     <components:AuthenticationBorder
         Margin="30, 20">
         <Grid>
-            <TextBox Tag="Write smth..."
+            <TextBox
                 Style="{StaticResource MaterialDesignFilledTextBox}"
-                     Height="50" material:HintAssist.Hint="Write smth" Width="300"/>
+                     Height="50" material:HintAssist.Hint="Write smth"
+                     material:HintAssist.Foreground="White"                     
+                     Width="300"/>
         </Grid>
     </components:AuthenticationBorder>
 </UserControl>
