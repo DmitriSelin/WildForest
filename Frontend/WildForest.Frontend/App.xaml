@@ -16,10 +16,9 @@
                 <ResourceDictionary Source="Resources/Styles/MainWindowStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/TextBaseStyles.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Components/AuthenticationBorderStyle.xaml"/>
-                <ResourceDictionary Source="Resources/Styles/Components/PlaceholderTextBoxStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Buttons/SystemButtonStyles.xaml"/>
-
+                <ResourceDictionary Source="Resources/Styles/Buttons/AppButtonStyles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />

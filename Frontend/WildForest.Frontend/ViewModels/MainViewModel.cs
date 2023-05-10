@@ -7,6 +7,8 @@ namespace WildForest.Frontend.ViewModels
 {
     internal class MainViewModel : ObservableObject
     {
+        #region Properties
+
         private ObservableObject currentViewModel;
 
         public ObservableObject CurrentViewModel
@@ -15,9 +17,12 @@ namespace WildForest.Frontend.ViewModels
             set => SetProperty(ref currentViewModel, value);
         }
 
+        #endregion
+
         #region ViewModels
 
         private readonly LoginViewModel _loginViewModel;
+        private readonly RegisterViewModel _registerViewModel;
 
         #endregion
 
@@ -65,10 +70,17 @@ namespace WildForest.Frontend.ViewModels
 
         #endregion
 
-        public MainViewModel(LoginViewModel loginViewModel)
+        internal void ShowRegisterView()
+        {
+            if (CurrentViewModel != _registerViewModel)
+                CurrentViewModel = _registerViewModel;
+        }
+
+        public MainViewModel(LoginViewModel loginViewModel, RegisterViewModel registerViewModel)
         {
             _loginViewModel = loginViewModel;
             CurrentViewModel = _loginViewModel;
+            _registerViewModel = registerViewModel;
 
             #region Commands
 

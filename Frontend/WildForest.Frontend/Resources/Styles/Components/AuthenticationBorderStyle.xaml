@@ -4,7 +4,8 @@
     <Style x:Key="AuthBorderStyle" TargetType="UserControl">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
-        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Margin" Value="30, 20"/>
+        <Setter Property="Padding" Value="20"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="UserControl">
@@ -35,15 +36,12 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
-                                <Ellipse
+                                <Image 
                                     Grid.Row="0"
                                     Grid.RowSpan="2"
-                                    Height="200"
-                                    Width="200">
-                                    <Ellipse.Fill>
-                                        <ImageBrush ImageSource="../../Images/Icons/bison.png"/>
-                                    </Ellipse.Fill>
-                                </Ellipse>
+                                    Source="../../Images/Icons/bison.png"
+                                    Height="300"/>
+                                
                                 <TextBlock
                                     Grid.Row="2"
                                     Text="Wild forest"

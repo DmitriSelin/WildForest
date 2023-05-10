@@ -18,20 +18,8 @@
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel 
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Margin="50, 5, 15, 0">
-            <TextBlock 
-                Text="Wild forest"
-                FontSize="25"
-                Foreground="{StaticResource LightBlackGrayColor}"
-                FontWeight="Bold"
-                Style="{StaticResource BaseTextBlockStyle}"/>
-        </StackPanel>
-
-        <StackPanel 
-            Grid.Row="0" 
+        <StackPanel
+            Grid.Row="0"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Margin="5"
@@ -53,6 +41,9 @@
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type vm:LoginViewModel}">
                     <local:LoginView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
+                    <local:RegisterView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

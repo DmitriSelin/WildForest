@@ -11,7 +11,7 @@ namespace WildForest.Frontend
         {
             Services = ConfigureServices();
 
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public new static App Current => (App)Application.Current;

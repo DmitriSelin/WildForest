@@ -6,16 +6,92 @@
              xmlns:local="clr-namespace:WildForest.Frontend.Views"
              xmlns:components="clr-namespace:WildForest.Frontend.Components"
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <components:AuthenticationBorder
-        Margin="30, 20">
-        <Grid>
+    <components:AuthenticationBorder>
+        
+        <UniformGrid
+            Rows="4"
+            >
+
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="15">
+                <fa:ImageAwesome
+                    Icon="Heart"
+                    Height="50"
+                    Foreground="{StaticResource BlueColor}"/>
+                <TextBlock
+                    Text="{Binding LoginText}"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BaseTextBlockStyle}"
+                    Foreground="{StaticResource WhiteSmokeColor}"
+                    FontWeight="Bold"
+                    FontSize="40"
+                    Margin="30, 0"
+                    />
+            </StackPanel>
+
             <TextBox
                 Style="{StaticResource MaterialDesignFilledTextBox}"
-                     Height="50" material:HintAssist.Hint="Write smth"
-                     material:HintAssist.Foreground="White"                     
-                     Width="300"/>
-        </Grid>
+                Text="{Binding Email}"
+                material:HintAssist.Hint="Email"
+                material:HintAssist.Foreground="{DynamicResource WhiteSmokeColor}"
+                SelectionBrush="{DynamicResource BlueColor}"
+                Foreground="{DynamicResource WhiteSmokeColor}"
+                CaretBrush="{DynamicResource WhiteSmokeColor}"
+                Background="{DynamicResource TransparentColor}"
+                material:TextFieldAssist.UnderlineBrush="{DynamicResource WhiteSmokeColor}"
+                Height="85"
+                FontSize="28"
+                VerticalContentAlignment="Center"
+                VerticalAlignment="Top"/>
+
+            <TextBox
+                Style="{StaticResource MaterialDesignFilledTextBox}"
+                Text="{Binding Password}"
+                material:HintAssist.Hint="Password"
+                material:HintAssist.Foreground="{DynamicResource WhiteSmokeColor}"
+                Foreground="{DynamicResource WhiteSmokeColor}"
+                CaretBrush="{DynamicResource WhiteSmokeColor}"
+                Background="{DynamicResource TransparentColor}"
+                SelectionBrush="{DynamicResource BlueColor}"
+                material:TextFieldAssist.UnderlineBrush="{DynamicResource WhiteSmokeColor}"
+                Height="85"
+                FontSize="28"
+                VerticalContentAlignment="Center"
+                VerticalAlignment="Top"/>
+
+            <StackPanel>
+                <Button
+                    Content="Log in"
+                    Style="{StaticResource MaterialDesignFlatDarkBgButton}"
+                    Width="300"
+                    Height="50"
+                    FontSize="28"
+                    Background="{DynamicResource BlueColor}"/>
+                <Button 
+                    Style="{StaticResource EmptyButtonStyle}"
+                    Margin="0, 15"
+                    Command="{Binding OpenRegisterViewCommand}">
+                    <TextBlock>
+                        <Run Foreground="Gray" Text="Have not an account?"/>
+                        <Run Foreground="{DynamicResource WhiteSmokeColor}" Text="Register"/>
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Button>
+            </StackPanel>
+        </UniformGrid>
     </components:AuthenticationBorder>
 </UserControl>
