@@ -77,18 +77,10 @@
                     Style="{StaticResource EmptyButtonStyle}"
                     Margin="0, 15"
                     Command="{Binding OpenRegisterViewCommand}">
-                    <TextBlock>
+                    <TextBlock
+                        Style="{StaticResource BoldOnMouseOverTextBlockStyle}">
                         <Run Foreground="Gray" Text="Have not an account?"/>
                         <Run Foreground="{DynamicResource WhiteSmokeColor}" Text="Register"/>
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
                     </TextBlock>
                 </Button>
             </StackPanel>

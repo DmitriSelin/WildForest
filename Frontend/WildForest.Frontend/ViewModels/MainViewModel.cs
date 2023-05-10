@@ -76,6 +76,12 @@ namespace WildForest.Frontend.ViewModels
                 CurrentViewModel = _registerViewModel;
         }
 
+        internal void ShowLoginView()
+        {
+            if (CurrentViewModel != _loginViewModel)
+                CurrentViewModel = _loginViewModel;
+        }
+
         public MainViewModel(LoginViewModel loginViewModel, RegisterViewModel registerViewModel)
         {
             _loginViewModel = loginViewModel;

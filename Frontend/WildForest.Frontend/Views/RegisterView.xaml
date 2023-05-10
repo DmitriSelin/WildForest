@@ -4,9 +4,157 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WildForest.Frontend.Views"
+             xmlns:components="clr-namespace:WildForest.Frontend.Components"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Pink">
+    <components:AuthenticationBorder>
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel
+                    Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="15">
+                <fa:ImageAwesome
+                    Icon="Heart"
+                    Height="40"
+                    Foreground="{StaticResource BlueColor}"/>
+                <TextBlock
+                    Text="Registration"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BaseTextBlockStyle}"
+                    Foreground="{StaticResource WhiteSmokeColor}"
+                    FontWeight="Bold"
+                    FontSize="28"
+                    Margin="30, 0"
+                    />
+            </StackPanel>
+
+            <TextBox
+                Grid.Row="1"
+                Style="{StaticResource MaterialDesignFilledTextBox}"
+                Text="{Binding FirstName}"
+                material:HintAssist.Hint="First name"
+                material:HintAssist.Foreground="{DynamicResource WhiteSmokeColor}"
+                SelectionBrush="{DynamicResource BlueColor}"
+                Foreground="{DynamicResource WhiteSmokeColor}"
+                CaretBrush="{DynamicResource WhiteSmokeColor}"
+                Background="{DynamicResource TransparentColor}"
+                material:TextFieldAssist.UnderlineBrush="{DynamicResource WhiteSmokeColor}"
+                Height="78"
+                FontSize="26"
+                VerticalContentAlignment="Center"/>
+
+            <TextBox
+                Grid.Row="2"
+                Style="{StaticResource MaterialDesignFilledTextBox}"
+                Text="{Binding LastName}"
+                material:HintAssist.Hint="Last name"
+                material:HintAssist.Foreground="{DynamicResource WhiteSmokeColor}"
+                SelectionBrush="{DynamicResource BlueColor}"
+                Foreground="{DynamicResource WhiteSmokeColor}"
+                CaretBrush="{DynamicResource WhiteSmokeColor}"
+                Background="{DynamicResource TransparentColor}"
+                material:TextFieldAssist.UnderlineBrush="{DynamicResource WhiteSmokeColor}"
+                Height="78"
+                FontSize="26"
+                VerticalContentAlignment="Center"/>
+
+            <TextBox
+                Grid.Row="3"
+                Style="{StaticResource MaterialDesignFilledTextBox}"
+                Text="{Binding Email}"
+                material:HintAssist.Hint="Email"
+                material:HintAssist.Foreground="{DynamicResource WhiteSmokeColor}"
+                SelectionBrush="{DynamicResource BlueColor}"
+                Foreground="{DynamicResource WhiteSmokeColor}"
+                CaretBrush="{DynamicResource WhiteSmokeColor}"
+                Background="{DynamicResource TransparentColor}"
+                material:TextFieldAssist.UnderlineBrush="{DynamicResource WhiteSmokeColor}"
+                Height="78"
+                FontSize="26"
+                VerticalContentAlignment="Center"/>
             
-    </Grid>
+            <ComboBox
+                Grid.Row="4"
+                Style="{StaticResource MaterialDesignComboBox}"
+                material:HintAssist.Hint="City"
+                material:HintAssist.Foreground="{DynamicResource WhiteSmokeColor}"
+                Foreground="{DynamicResource WhiteSmokeColor}"
+                Background="{DynamicResource TransparentColor}"
+                material:TextFieldAssist.UnderlineBrush="{DynamicResource WhiteSmokeColor}"
+                Height="78"
+                FontSize="26"
+                VerticalContentAlignment="Center"
+                Padding="15, 0, 0, 0"/>
+
+            <TextBox
+                Grid.Row="5"
+                Style="{StaticResource MaterialDesignFilledTextBox}"
+                Text="{Binding Password}"
+                material:HintAssist.Hint="Password"
+                material:HintAssist.Foreground="{DynamicResource WhiteSmokeColor}"
+                SelectionBrush="{DynamicResource BlueColor}"
+                Foreground="{DynamicResource WhiteSmokeColor}"
+                CaretBrush="{DynamicResource WhiteSmokeColor}"
+                Background="{DynamicResource TransparentColor}"
+                material:TextFieldAssist.UnderlineBrush="{DynamicResource WhiteSmokeColor}"
+                Height="78"
+                FontSize="26"
+                VerticalContentAlignment="Center"/>
+
+            <TextBox
+                Grid.Row="6"
+                Style="{StaticResource MaterialDesignFilledTextBox}"
+                Text="{Binding SamePassword}"
+                material:HintAssist.Hint="Repeat password"
+                material:HintAssist.Foreground="{DynamicResource WhiteSmokeColor}"
+                SelectionBrush="{DynamicResource BlueColor}"
+                Foreground="{DynamicResource WhiteSmokeColor}"
+                CaretBrush="{DynamicResource WhiteSmokeColor}"
+                Background="{DynamicResource TransparentColor}"
+                material:TextFieldAssist.UnderlineBrush="{DynamicResource WhiteSmokeColor}"
+                Height="78"
+                FontSize="26"
+                VerticalContentAlignment="Center"/>
+
+            <StackPanel
+                Grid.Row="7"
+                Margin="0, 40, 0, 0">
+                
+                <Button
+                    VerticalAlignment="Bottom"
+                    Content="Register"
+                    Style="{StaticResource MaterialDesignFlatDarkBgButton}"
+                    Width="300"
+                    Height="50"
+                    FontSize="28"
+                    Background="{DynamicResource BlueColor}"/>
+
+                <Button
+                    Style="{StaticResource EmptyButtonStyle}"
+                    Command="{Binding OpenLoginViewCommand}">
+                    <TextBlock
+                        Style="{StaticResource BoldOnMouseOverTextBlockStyle}">
+                        <Run Foreground="Gray" Text="Already have an account?"/>
+                        <Run Foreground="{DynamicResource WhiteSmokeColor}" Text="Log In"/>
+                    </TextBlock>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </components:AuthenticationBorder>
 </UserControl>

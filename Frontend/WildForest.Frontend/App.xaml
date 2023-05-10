@@ -18,6 +18,7 @@
                 <ResourceDictionary Source="Resources/Styles/Components/AuthenticationBorderStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Buttons/SystemButtonStyles.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/TextStyles.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Buttons/AppButtonStyles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
