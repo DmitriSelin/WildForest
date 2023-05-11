@@ -23,6 +23,7 @@ namespace WildForest.Frontend.ViewModels
 
         private readonly LoginViewModel _loginViewModel;
         private readonly RegisterViewModel _registerViewModel;
+        private readonly CountryViewModel _countryViewModel;
 
         #endregion
 
@@ -82,17 +83,28 @@ namespace WildForest.Frontend.ViewModels
                 CurrentViewModel = _loginViewModel;
         }
 
-        public MainViewModel(LoginViewModel loginViewModel, RegisterViewModel registerViewModel)
+        internal void ShowCountryView()
+        {
+            if (CurrentViewModel != _countryViewModel)
+                CurrentViewModel = _countryViewModel;
+        }
+
+        public MainViewModel(
+            LoginViewModel loginViewModel,
+            RegisterViewModel registerViewModel,
+            CountryViewModel countryViewModel)
         {
             _loginViewModel = loginViewModel;
             CurrentViewModel = _loginViewModel;
             _registerViewModel = registerViewModel;
+            _countryViewModel = countryViewModel;
 
             #region Commands
 
             CloseAppCommand = new RelayCommand(CloseApp);
             CollapseAppCommand = new RelayCommand(CollapseApp);
             CollapseAppInWindowCommand = new RelayCommand(CollapseAppInWindow);
+            _countryViewModel = countryViewModel;
 
             #endregion
         }

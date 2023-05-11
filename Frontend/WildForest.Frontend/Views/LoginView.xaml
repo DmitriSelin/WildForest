@@ -76,7 +76,7 @@
                 <Button 
                     Style="{StaticResource EmptyButtonStyle}"
                     Margin="0, 15"
-                    Command="{Binding OpenRegisterViewCommand}">
+                    Command="{Binding OpenCountryViewCommand}">
                     <TextBlock
                         Style="{StaticResource BoldOnMouseOverTextBlockStyle}">
                         <Run Foreground="Gray" Text="Have not an account?"/>

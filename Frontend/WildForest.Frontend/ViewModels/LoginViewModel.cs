@@ -38,14 +38,14 @@ namespace WildForest.Frontend.ViewModels
 
         #region Commands
 
-        public ICommand OpenRegisterViewCommand { get; }
+        public ICommand OpenCountryViewCommand { get; }
 
-        private void OpenRegisterView()
+        private void OpenCountryView()
         {
             if (mainViewModel is null)
                 mainViewModel = (MainViewModel)App.Current.Services.GetService(typeof(MainViewModel))!;
 
-            mainViewModel.ShowRegisterView();
+            mainViewModel.ShowCountryView();
         }
 
         #endregion
@@ -54,7 +54,7 @@ namespace WildForest.Frontend.ViewModels
         {
             #region Commands
 
-            OpenRegisterViewCommand = new RelayCommand(OpenRegisterView);
+            OpenCountryViewCommand = new RelayCommand(OpenCountryView);
 
             #endregion
         }

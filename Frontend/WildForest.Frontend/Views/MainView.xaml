@@ -45,6 +45,9 @@
                 <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
                     <local:RegisterView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:CountryViewModel}">
+                    <local:CountryView/>
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
     </Grid>
