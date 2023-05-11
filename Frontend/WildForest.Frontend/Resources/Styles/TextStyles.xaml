@@ -9,4 +9,10 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="BoldWhiteTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+        <Setter Property="Foreground" Value="{StaticResource WhiteSmokeColor}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="24"/>
+    </Style>
+
 </ResourceDictionary>
