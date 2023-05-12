@@ -11,6 +11,8 @@ namespace WildForest.Frontend.ViewModels
             services.AddSingleton<RegisterViewModel>();
             services.AddSingleton<CountryViewModel>();
             services.AddSingleton<HomeViewModel>();
+            services.AddSingleton<WeatherViewModel>();
+            services.AddSingleton<CommentsViewModel>();
 
             return services;
         }
