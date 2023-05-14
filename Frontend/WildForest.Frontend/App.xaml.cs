@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
+using WildForest.Frontend.Services;
+using WildForest.Frontend.Validators;
 using WildForest.Frontend.ViewModels;
 
 namespace WildForest.Frontend
@@ -22,6 +24,8 @@ namespace WildForest.Frontend
         {
             var services = new ServiceCollection();
             services.AddViewModels();
+            services.AddServices();
+            services.AddValidators();
 
             return services.BuildServiceProvider();
         }

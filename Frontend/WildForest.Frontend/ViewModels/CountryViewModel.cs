@@ -1,34 +1,56 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Windows.Input;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Windows;
+using WildForest.Frontend.Contracts.Maps;
+using WildForest.Frontend.Services.Authentication.Interfaces;
 
 namespace WildForest.Frontend.ViewModels
 {
     internal class CountryViewModel : ObservableObject
     {
+        private readonly IMapService _mapService;
         private MainViewModel mainViewModel;
+
+        public List<CountryDto> Countries { get; private set; }
+        
+        public object? SelectedCountry { get; set; }
 
         #region Commands
 
-        public ICommand TestCommand { get; }
+        public IAsyncRelayCommand OpenRegisterViewCommand { get; }
 
-        private void Test()
+        private async Task OpenRegisterViewAsync()
         {
             if (mainViewModel is null)
                 mainViewModel = (MainViewModel)App.Current.Services.GetService(typeof(MainViewModel))!;
 
-            mainViewModel.ShowHomeView();
+            if (SelectedCountry is not null)
+            {
+                var country = (CountryDto)SelectedCountry;
+                var cities = await _mapService.GetCitiesAsync(country.CountryId);
+
+                mainViewModel.ShowRegisterView(cities);
+            }
+            else
+            {
+                MessageBox.Show("Choose your country", "Wild forest", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
         }
 
         #endregion
 
-        public CountryViewModel()
+        internal void SetCountries(List<CountryDto> countries)
         {
-            #region Commands
+            Countries = countries;
+        }
 
-            TestCommand = new RelayCommand(Test);
+        public CountryViewModel(IMapService mapService)
+        {
+            _mapService = mapService;
 
-            #endregion
+            OpenRegisterViewCommand = new AsyncRelayCommand(OpenRegisterViewAsync);
         }
     }
 }

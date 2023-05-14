@@ -91,11 +91,14 @@
             
             <ComboBox
                 Grid.Row="4"
+                ItemsSource="{Binding Cities}"
+                SelectedItem="{Binding SelectedCity}"
+                IsEditable="True"
                 Style="{StaticResource MaterialDesignComboBox}"
+                ItemContainerStyle="{StaticResource MaterialDesignNavigationListBoxItem}"
                 material:HintAssist.Hint="City"
                 material:HintAssist.Foreground="{DynamicResource WhiteSmokeColor}"
                 Foreground="{DynamicResource WhiteSmokeColor}"
-                Background="{DynamicResource TransparentColor}"
                 material:TextFieldAssist.UnderlineBrush="{DynamicResource WhiteSmokeColor}"
                 Height="78"
                 FontSize="26"
@@ -137,6 +140,7 @@
                 Margin="0, 40, 0, 0">
                 
                 <Button
+                    Command="{Binding OpenHomeViewCommand}"
                     VerticalAlignment="Bottom"
                     Content="Register"
                     Style="{StaticResource MaterialDesignFlatDarkBgButton}"

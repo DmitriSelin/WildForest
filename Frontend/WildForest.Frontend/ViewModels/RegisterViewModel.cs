@@ -1,12 +1,28 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
+using WildForest.Frontend.Contracts.Maps;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using WildForest.Frontend.Validators.Authentication;
+using System.Windows;
+using WildForest.Frontend.Contracts.Authentication;
 
 namespace WildForest.Frontend.ViewModels
 {
     internal class RegisterViewModel : ObservableObject
     {
         private MainViewModel? _mainViewModel;
+        private readonly IAuthenticationValidator _authenticationValidator;
+
+        public List<CityDto> Cities { get; private set; }
+
+        public object? SelectedCity { get; set; }
+
+        internal void SetCities(List<CityDto> cities)
+        {
+            Cities = cities;
+        }
 
         #region Properties
 
@@ -76,13 +92,43 @@ namespace WildForest.Frontend.ViewModels
 
         #endregion
 
+        #region OpenHomeViewCommand
+
+        public IAsyncRelayCommand OpenHomeViewCommand { get; }
+
+        private async Task OpenHomeViewAsync()
+        {
+            var validationResult = _authenticationValidator.Validate(FirstName, LastName, Email, Password, SamePassword);
+
+            if (!validationResult.isValid)
+            {
+                MessageBox.Show($"{validationResult.CancelReason}", "Wild forest", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                return;
+            }
+
+            if (SelectedCity is null)
+            {
+                MessageBox.Show("Choose your city", "Wild forest", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                return;
+            }
+
+            var city = (CityDto)SelectedCity;
+
+            var registerRequest = new RegisterRequest(FirstName, LastName, Email, Password, city.CityId);
+        }
+
         #endregion
 
-        public RegisterViewModel()
+        #endregion
+
+        public RegisterViewModel(IAuthenticationValidator authenticationValidator)
         {
+            _authenticationValidator = authenticationValidator;
+
             #region Commands
 
             OpenLoginViewCommand = new RelayCommand(OpenLoginView);
+            OpenHomeViewCommand = new AsyncRelayCommand(OpenHomeViewAsync);
 
             #endregion
         }

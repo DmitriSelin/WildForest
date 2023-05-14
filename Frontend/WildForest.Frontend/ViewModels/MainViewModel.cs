@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using WildForest.Frontend.Contracts.Maps;
 
 namespace WildForest.Frontend.ViewModels
 {
@@ -72,10 +74,12 @@ namespace WildForest.Frontend.ViewModels
 
         #endregion
 
-        internal void ShowRegisterView()
+        internal void ShowRegisterView(List<CityDto> cities)
         {
             if (CurrentViewModel != _registerViewModel)
                 CurrentViewModel = _registerViewModel;
+
+            _registerViewModel.SetCities(cities);
         }
 
         internal void ShowLoginView()
@@ -84,10 +88,12 @@ namespace WildForest.Frontend.ViewModels
                 CurrentViewModel = _loginViewModel;
         }
 
-        internal void ShowCountryView()
+        internal void ShowCountryView(List<CountryDto> countries)
         {
             if (CurrentViewModel != _countryViewModel)
                 CurrentViewModel = _countryViewModel;
+
+            _countryViewModel.SetCountries(countries);
         }
 
         internal void ShowHomeView()
