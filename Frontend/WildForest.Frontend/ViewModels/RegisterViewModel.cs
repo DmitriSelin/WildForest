@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WildForest.Frontend.Validators.Authentication;
 using System.Windows;
 using WildForest.Frontend.Contracts.Authentication;
+using WildForest.Frontend.Services.Authentication.Interfaces;
 
 namespace WildForest.Frontend.ViewModels
 {
@@ -14,6 +15,7 @@ namespace WildForest.Frontend.ViewModels
     {
         private MainViewModel? _mainViewModel;
         private readonly IAuthenticationValidator _authenticationValidator;
+        private readonly IAuthenticationService _authenticationService;
 
         public List<CityDto> Cities { get; private set; }
 
@@ -115,15 +117,30 @@ namespace WildForest.Frontend.ViewModels
             var city = (CityDto)SelectedCity;
 
             var registerRequest = new RegisterRequest(FirstName, LastName, Email, Password, city.CityId);
+
+            var response = await _authenticationService.RegisterAsync(registerRequest);
+
+            if (response.Response is not null)
+            {
+                if (_mainViewModel is null)
+                    _mainViewModel = (MainViewModel)App.Current.Services.GetService(typeof(MainViewModel))!;
+
+                _mainViewModel.ShowHomeView();
+            }
+            else
+            {
+                MessageBox.Show(response.Title, "Wild forest", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
         }
 
         #endregion
 
         #endregion
 
-        public RegisterViewModel(IAuthenticationValidator authenticationValidator)
+        public RegisterViewModel(IAuthenticationValidator authenticationValidator, IAuthenticationService authenticationService)
         {
             _authenticationValidator = authenticationValidator;
+            _authenticationService = authenticationService;
 
             #region Commands
 

@@ -9,6 +9,7 @@ namespace WildForest.Frontend.Services
         internal static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddHttpClient<IMapService, MapService>();
+            services.AddHttpClient<IAuthenticationService, AuthenticationService>();
 
             return services;
         }
