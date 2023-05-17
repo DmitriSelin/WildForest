@@ -99,4 +99,37 @@
         </Setter>
     </Style>
 
+    <Style x:Key="EyeCheckBoxStyle" TargetType="CheckBox">
+        <Setter Property="Foreground" Value="{DynamicResource MediumGrayColor}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Background" Value="{DynamicResource BlackGrayColor}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Border
+                        BorderThickness="0"
+                        Height="70"
+                        Padding="5"
+                        Background="{TemplateBinding Background}">
+                        <fa:ImageAwesome
+                            x:Name="icon"
+                            Icon="EyeSlash"
+                            VerticalAlignment="Bottom"
+                            Margin="0, 0, 0, 3"
+                            Height="30"
+                            Foreground="{TemplateBinding Foreground}"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Icon" TargetName="icon" Value="Eye"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

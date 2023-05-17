@@ -7,7 +7,7 @@
              xmlns:components="clr-namespace:WildForest.Frontend.Components"
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <components:AuthenticationBorder>
         
@@ -25,7 +25,7 @@
                     Height="50"
                     Foreground="{StaticResource BlueColor}"/>
                 <TextBlock
-                    Text="{Binding LoginText}"
+                    Text="Log in"
                     VerticalAlignment="Center"
                     Style="{StaticResource BaseTextBlockStyle}"
                     Foreground="{StaticResource WhiteSmokeColor}"
@@ -50,23 +50,13 @@
                 VerticalContentAlignment="Center"
                 VerticalAlignment="Top"/>
 
-            <TextBox
-                Style="{StaticResource MaterialDesignFilledTextBox}"
-                Text="{Binding Password}"
-                material:HintAssist.Hint="Password"
-                material:HintAssist.Foreground="{DynamicResource WhiteSmokeColor}"
-                Foreground="{DynamicResource WhiteSmokeColor}"
-                CaretBrush="{DynamicResource WhiteSmokeColor}"
-                Background="{DynamicResource TransparentColor}"
-                SelectionBrush="{DynamicResource BlueColor}"
-                material:TextFieldAssist.UnderlineBrush="{DynamicResource WhiteSmokeColor}"
-                Height="85"
-                FontSize="28"
-                VerticalContentAlignment="Center"
+            <components:BindablePasswordBox
+                Password="{Binding Password}"
                 VerticalAlignment="Top"/>
 
             <StackPanel>
                 <Button
+                    Command="{Binding LoginCommand}"
                     Content="Log in"
                     Style="{StaticResource MaterialDesignFlatDarkBgButton}"
                     Width="300"

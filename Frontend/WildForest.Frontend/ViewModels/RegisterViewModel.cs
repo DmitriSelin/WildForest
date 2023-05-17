@@ -102,7 +102,7 @@ namespace WildForest.Frontend.ViewModels
         {
             var validationResult = _authenticationValidator.Validate(FirstName, LastName, Email, Password, SamePassword);
 
-            if (!validationResult.isValid)
+            if (!validationResult.IsValid)
             {
                 MessageBox.Show($"{validationResult.CancelReason}", "Wild forest", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                 return;

@@ -9,27 +9,27 @@ namespace WildForest.Frontend.Validators.Authentication
         {
             var isFirstNameValid = ValidateFirstName(firstName);
 
-            if (!isFirstNameValid.isValid)
+            if (!isFirstNameValid.IsValid)
                 return isFirstNameValid;
 
             var isLastNameValid = ValidateLastName(lastName);
 
-            if (!isLastNameValid.isValid)
+            if (!isLastNameValid.IsValid)
                 return isLastNameValid;
 
             var isEmailValid = ValidateEmail(email);
 
-            if (!isEmailValid.isValid)
+            if (!isEmailValid.IsValid)
                 return isEmailValid;
 
             var isPasswordValid = ValidatePassword(password);
 
-            if (!isPasswordValid.isValid)
+            if (!isPasswordValid.IsValid)
                 return isPasswordValid;
 
             var isRepeatedPasswordValid = ValidatePasswords(password, repeatedPassword);
 
-            if (!isRepeatedPasswordValid.isValid)
+            if (!isRepeatedPasswordValid.IsValid)
                 return isRepeatedPasswordValid;
 
             return new("The data are valid", true, null);
@@ -39,12 +39,12 @@ namespace WildForest.Frontend.Validators.Authentication
         {
             var isEmailValid = ValidateEmail(email);
 
-            if (!isEmailValid.isValid)
+            if (!isEmailValid.IsValid)
                 return isEmailValid;
 
             var isPasswordValid = ValidatePassword(password);
 
-            if (!isPasswordValid.isValid)
+            if (!isPasswordValid.IsValid)
                 return isPasswordValid;
 
             return new("The data are valid", true, null);

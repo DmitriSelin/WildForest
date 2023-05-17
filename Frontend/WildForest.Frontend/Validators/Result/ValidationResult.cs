@@ -2,6 +2,6 @@
 {
     internal sealed record ValidationResult<T>(
         T Value,
-        bool isValid,
+        bool IsValid,
         string? CancelReason);
 }
