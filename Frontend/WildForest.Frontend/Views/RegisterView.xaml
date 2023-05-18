@@ -105,35 +105,14 @@
                 VerticalContentAlignment="Center"
                 Padding="15, 0, 0, 0"/>
 
-            <TextBox
+            <components:SmallBindablePasswordBox
                 Grid.Row="5"
-                Style="{StaticResource MaterialDesignFilledTextBox}"
-                Text="{Binding Password}"
-                material:HintAssist.Hint="Password"
-                material:HintAssist.Foreground="{DynamicResource WhiteSmokeColor}"
-                SelectionBrush="{DynamicResource BlueColor}"
-                Foreground="{DynamicResource WhiteSmokeColor}"
-                CaretBrush="{DynamicResource WhiteSmokeColor}"
-                Background="{DynamicResource TransparentColor}"
-                material:TextFieldAssist.UnderlineBrush="{DynamicResource WhiteSmokeColor}"
-                Height="78"
-                FontSize="26"
-                VerticalContentAlignment="Center"/>
+                Password="{Binding Password}"/>
 
-            <TextBox
+            <components:SmallBindablePasswordBox
                 Grid.Row="6"
-                Style="{StaticResource MaterialDesignFilledTextBox}"
-                Text="{Binding SamePassword}"
-                material:HintAssist.Hint="Repeat password"
-                material:HintAssist.Foreground="{DynamicResource WhiteSmokeColor}"
-                SelectionBrush="{DynamicResource BlueColor}"
-                Foreground="{DynamicResource WhiteSmokeColor}"
-                CaretBrush="{DynamicResource WhiteSmokeColor}"
-                Background="{DynamicResource TransparentColor}"
-                material:TextFieldAssist.UnderlineBrush="{DynamicResource WhiteSmokeColor}"
-                Height="78"
-                FontSize="26"
-                VerticalContentAlignment="Center"/>
+                Password="{Binding SamePassword}"
+                material:HintAssist.Hint="Repeat password"/>
 
             <StackPanel
                 Grid.Row="7"
