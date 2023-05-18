@@ -31,10 +31,13 @@ namespace WildForest.Frontend.Components
 
         private void PasswordBoxChanged(object sender, RoutedEventArgs e)
         {
-            _isPasswordChanging = true;
-            Password = CustomPasswordBox.Password;
-            CustomTextBox.Text = Password;
-            _isPasswordChanging = false;
+            if (CustomTextBox.Text != CustomPasswordBox.Password)
+            {
+                _isPasswordChanging = true;
+                Password = CustomPasswordBox.Password;
+                CustomTextBox.Text = Password;
+                _isPasswordChanging = false;
+            }
         }
 
         private void UpdatePassword()
@@ -48,10 +51,13 @@ namespace WildForest.Frontend.Components
 
         private void CustomTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _isPasswordChanging = true;
-            Password = CustomTextBox.Text;
-            CustomPasswordBox.Password = Password;
-            _isPasswordChanging = false;
+            if (CustomPasswordBox.Password != CustomTextBox.Text)
+            {
+                _isPasswordChanging = true;
+                Password = CustomTextBox.Text;
+                CustomPasswordBox.Password = Password;
+                _isPasswordChanging = false;
+            }
         }
 
         #region EyeCheckBox
