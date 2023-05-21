@@ -31,7 +31,7 @@ public sealed class CommentCommandHandler : ICommentCommandHandler
 
     public async Task<ErrorOr<CommentDto>> LeaveCommentAsync(CommentCommand command)
     {
-        var rating = Rating.Create(command.StarsCount);
+        var rating = Rating.Create(command.Rating);
         var comment = Comment.Create(command.Comment);
         var userId = UserId.Create(command.UserId);
         var weatherId = WeatherId.Create(command.WeatherId);

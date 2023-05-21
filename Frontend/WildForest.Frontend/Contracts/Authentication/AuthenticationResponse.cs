@@ -22,6 +22,9 @@ namespace WildForest.Frontend.Contracts.Authentication
         [JsonPropertyName("cityId")]
         public string CityId { get; set; }
 
+        [JsonPropertyName("cityName")]
+        public string CityName { get; set; }
+
         [JsonPropertyName("token")]
         public string Token { get; set; }
 
@@ -32,6 +35,7 @@ namespace WildForest.Frontend.Contracts.Authentication
             string email,
             string password,
             string cityId,
+            string cityName,
             string token)
         {
             Id = id;
@@ -40,6 +44,7 @@ namespace WildForest.Frontend.Contracts.Authentication
             Email = email;
             Password = password;
             CityId = cityId;
+            CityName = cityName;
             Token = token;
         }
     }
