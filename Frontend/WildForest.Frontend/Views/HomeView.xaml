@@ -39,17 +39,17 @@
                 Style="{StaticResource EmptyBlueBorderStyle}"
                 Margin="5">
                 <TextBlock 
-                    Text="Krasnodar"
+                    Text="{Binding CityName}"
                     Style="{StaticResource BoldWhiteTextBlockStyle}"/>
             </Border>
 
             <StackPanel Orientation="Horizontal">
-                <fa:ImageAwesome 
+                <fa:ImageAwesome
                     Icon="UserCircle"
                     Height="50"
                     Foreground="{StaticResource WhiteSmokeColor}"/>
                 <TextBlock
-                    Text="Selin Dmitri"
+                    Text="{Binding FullName}"
                     Style="{StaticResource BoldWhiteTextBlockStyle}"
                     Margin="10, 0, 0, 0"/>
             </StackPanel>

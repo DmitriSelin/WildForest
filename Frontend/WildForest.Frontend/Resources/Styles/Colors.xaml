@@ -16,5 +16,6 @@
     <SolidColorBrush x:Key="GreenColor" Color="#53BB51"/>
 
     <SolidColorBrush x:Key="TransparentColor" Color="Transparent"/>
+    <SolidColorBrush x:Key="WhiteColor" Color="White"/>
 
 </ResourceDictionary>

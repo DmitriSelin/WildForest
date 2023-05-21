@@ -20,6 +20,7 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/BorderStyles.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Buttons/SystemButtonStyles.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/Icons/IconStyles.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Buttons/RadioButtonStyles.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/TextStyles.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Buttons/AppButtonStyles.xaml"/>

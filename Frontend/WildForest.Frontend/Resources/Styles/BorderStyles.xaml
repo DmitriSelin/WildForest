@@ -14,4 +14,12 @@
         <Setter Property="BorderBrush" Value="{StaticResource BlueColor}"/>
     </Style>
 
+    <Style x:Key="WhiteBorderStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource WhiteColor}"/>
+        <Setter Property="CornerRadius" Value="20"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="40"/>
+        <Setter Property="Padding" Value="20"/>
+    </Style>
+
 </ResourceDictionary>

@@ -16,6 +16,22 @@ namespace WildForest.Frontend.ViewModels
             set => SetProperty(ref currentViewModel, value);
         }
 
+        private string fullName;
+
+        public string FullName
+        {
+            get => fullName;
+            set => SetProperty(ref fullName, value);
+        }
+
+        private string cityName;
+
+        public string CityName
+        {
+            get => cityName;
+            set => SetProperty(ref cityName, value);
+        }
+
         #endregion
 
         #region ViewModels
@@ -52,6 +68,12 @@ namespace WildForest.Frontend.ViewModels
         #endregion
 
         #endregion
+
+        internal void SetCredentials(string fullName, string cityName)
+        {
+            FullName = fullName;
+            CityName = cityName;
+        }
 
         public HomeViewModel(WeatherViewModel weatherViewModel, CommentsViewModel commentsViewModel)
         {

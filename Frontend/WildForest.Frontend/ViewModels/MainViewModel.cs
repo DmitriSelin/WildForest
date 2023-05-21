@@ -96,10 +96,12 @@ namespace WildForest.Frontend.ViewModels
             _countryViewModel.SetCountries(countries);
         }
 
-        internal void ShowHomeView()
+        internal void ShowHomeView(string fullName, string cityName)
         {
             if (CurrentViewModel != _homeViewModel)
                 CurrentViewModel = _homeViewModel;
+
+            _homeViewModel.SetCredentials(fullName, cityName);
         }
 
         public MainViewModel(
