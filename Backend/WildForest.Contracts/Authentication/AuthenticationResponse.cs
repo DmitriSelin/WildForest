@@ -3,9 +3,10 @@
     public sealed record AuthenticationResponse(
         Guid Id, 
         string FirstName,
-        string LastName, 
+        string LastName,
         string Email,
         string Password,
         Guid CityId,
+        string CityName,
         string Token);
 }

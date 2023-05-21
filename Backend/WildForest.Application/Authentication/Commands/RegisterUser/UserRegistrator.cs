@@ -36,7 +36,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
         {
             var email = Email.Create(command.Email);
 
-            User? user = await _userRepository.GetUserByEmailAsync(email);
+            User? user = await _userRepository.GetUserByEmailWithCityAsync(email);
 
             if (user is not null)
             {
@@ -78,7 +78,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
         {
             var email = Email.Create(command.Email);
 
-            User? user = await _userRepository.GetUserByEmailAsync(email);
+            User? user = await _userRepository.GetUserByEmailWithCityAsync(email);
 
             if (user is not null)
             {

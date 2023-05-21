@@ -33,7 +33,7 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
             var email = Email.Create(query.Email);
             var password = Password.Create(query.Password);
 
-            User? user = await _userRepository.GetUserByEmailAsync(email);
+            User? user = await _userRepository.GetUserByEmailWithCityAsync(email);
 
             if (user is null || password != user.Password)
             {

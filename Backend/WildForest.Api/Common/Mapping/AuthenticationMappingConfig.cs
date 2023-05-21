@@ -30,7 +30,8 @@ namespace WildForest.Api.Common.Mapping
                 .Map(dest => dest.LastName, src => src.User.LastName.ToString())
                 .Map(dest => dest.Email, src => src.User.Email.ToString())
                 .Map(dest => dest.Password, src => src.User.Password.ToString())
-                .Map(dest => dest.CityId, src => src.User.CityId.Value);
+                .Map(dest => dest.CityId, src => src.User.CityId.Value)
+                .Map(dest => dest.CityName, src => src.User.City.CityName.Value);
         }
     }
 }
