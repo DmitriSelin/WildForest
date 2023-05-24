@@ -1,11 +1,12 @@
 ﻿<UserControl x:Class="WildForest.Frontend.Views.WeatherView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:WildForest.Frontend.Views"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
-             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="{StaticResource WhiteSmokeColor}">
         <Grid.RowDefinitions>
@@ -32,29 +33,170 @@
                 <UniformGrid
                     Grid.Column="0"
                     Rows="4">
+                    
                     <TextBlock
                         Text="Weather forecast"
                         Style="{StaticResource MainTextBlockStyle}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"/>
 
-                    <TextBlock
-                        Text="20 °C"
-                        Style="{StaticResource MainTextBlockStyle}"
-                        HorizontalAlignment="Left"/>
+                    <materialDesign:Card
+                        ToolTip="Temperature"
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        Margin="0, 5"
+                        VerticalAlignment="Top">
+                        <TextBlock
+                            Text="20 °C"
+                            Style="{StaticResource MainTextBlockStyle}"
+                            HorizontalAlignment="Left"/>
+                    </materialDesign:Card>
 
-                    <TextBlock
-                        Text="18 °C"
-                        Style="{StaticResource MainTextBlockStyle}"
-                        HorizontalAlignment="Left"/>
+                    <materialDesign:Card
+                        ToolTip="Temperature feels like"
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        Margin="0, 5"
+                        VerticalAlignment="Top">
+                        <TextBlock
+                            Text="18 °C"
+                            Style="{StaticResource MainTextBlockStyle}"
+                            HorizontalAlignment="Left"/>
+                    </materialDesign:Card>
 
-                    <StackPanel
-                        Orientation="Horizontal">
-                        <fa:ImageAwesome
-                            Style="{StaticResource WeatherIconStyle}"
-                            Icon="SunOutline"/>
-                    </StackPanel>
+                    <materialDesign:Card
+                        ToolTip="Weather"
+                        HorizontalAlignment="Left"
+                        Width="200">
+                        <StackPanel
+                            Style="{StaticResource HorizontalStackPanelStyle}"
+                            HorizontalAlignment="Left">
+                            <Image
+                                Source="../Resources/Images/Icons/sunny.png"
+                                Height="50"
+                                Margin="10, 0, 0, 0"/>
+
+                            <TextBlock
+                                Text="Sunny"
+                                Style="{StaticResource MainTextBlockStyle}"/>
+
+                        </StackPanel>
+                    </materialDesign:Card>
                 </UniformGrid>
+
+                <Grid
+                    Grid.Column="1">
+
+                    <TextBlock
+                        Text="Today"
+                        Style="{StaticResource WeatherTextBlockStyle}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Margin="5"/>
+
+                    <ScrollViewer
+                        HorizontalScrollBarVisibility="Visible"
+                        Style="{StaticResource MaterialDesignScrollViewer}">
+                        <StackPanel
+                            Style="{StaticResource HorizontalStackPanelStyle}">
+                            <materialDesign:Card
+                                Height="100"
+                                Width="100"
+                                Margin="10, 0">
+                                <TextBlock
+                                    Style="{StaticResource WeatherTextBlockStyle}">
+                                <Run Text="17 °C"/>
+                                <LineBreak/>
+                                <Run Text="00:00"/>
+                                </TextBlock>
+                            </materialDesign:Card>
+
+                            <materialDesign:Card
+                                Height="100"
+                                Width="100"
+                                Margin="10, 0">
+                                <TextBlock
+                                    Style="{StaticResource WeatherTextBlockStyle}">
+                                <Run Text="17 °C"/>
+                                <LineBreak/>
+                                <Run Text="03:00"/>
+                                </TextBlock>
+                            </materialDesign:Card>
+
+                            <materialDesign:Card
+                                Height="100"
+                                Width="100"
+                                Margin="10, 0">
+                                <TextBlock
+                                    Style="{StaticResource WeatherTextBlockStyle}">
+                                <Run Text="17 °C"/>
+                                <LineBreak/>
+                                <Run Text="06:00"/>
+                                </TextBlock>
+                            </materialDesign:Card>
+
+                            <materialDesign:Card
+                                Height="100"
+                                Width="100"
+                                Margin="10, 0">
+                                <TextBlock
+                                    Style="{StaticResource WeatherTextBlockStyle}">
+                                <Run Text="17 °C"/>
+                                <LineBreak/>
+                                <Run Text="09:00"/>
+                                </TextBlock>
+                            </materialDesign:Card>
+
+                            <materialDesign:Card
+                                Height="100"
+                                Width="100"
+                                Margin="10, 0">
+                                <TextBlock
+                                    Style="{StaticResource WeatherTextBlockStyle}">
+                                <Run Text="17 °C"/>
+                                <LineBreak/>
+                                <Run Text="12:00"/>
+                                </TextBlock>
+                            </materialDesign:Card>
+
+                            <materialDesign:Card
+                                Height="100"
+                                Width="100"
+                                Margin="10, 0">
+                                <TextBlock
+                                    Style="{StaticResource WeatherTextBlockStyle}">
+                                <Run Text="17 °C"/>
+                                <LineBreak/>
+                                <Run Text="15:00"/>
+                                </TextBlock>
+                            </materialDesign:Card>
+
+                            <materialDesign:Card
+                                Height="100"
+                                Width="100"
+                                Margin="10, 0">
+                                <TextBlock
+                                    Style="{StaticResource WeatherTextBlockStyle}">
+                                <Run Text="17 °C"/>
+                                <LineBreak/>
+                                <Run Text="18:00"/>
+                                </TextBlock>
+                            </materialDesign:Card>
+
+                            <materialDesign:Card
+                                Height="100"
+                                Width="100"
+                                Margin="10, 0">
+                                <TextBlock
+                                    Style="{StaticResource WeatherTextBlockStyle}">
+                                <Run Text="17 °C"/>
+                                <LineBreak/>
+                                <Run Text="21:00"/>
+                                </TextBlock>
+                            </materialDesign:Card>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
             </Grid>
         </Border>
 
@@ -62,7 +204,95 @@
             Grid.Column="0"
             Grid.Row="1"
             Style="{StaticResource WhiteBorderStyle}">
-            
+            <UniformGrid
+                Rows="2"
+                Columns="3">
+
+                <materialDesign:Card
+                    ToolTip="Pressure"
+                    Margin="10">
+                    <StackPanel
+                        Style="{StaticResource HorizontalStackPanelStyle}">
+                        <Image
+                            Source="../Resources/Images/Icons/barometer.png"
+                            Style="{StaticResource WeatherIconStyle}"/>
+                        <TextBlock
+                            Text="Pressure"
+                            Style="{StaticResource MainTextBlockStyle}"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <materialDesign:Card
+                    ToolTip="Humidity"
+                    Margin="10">
+                    <StackPanel
+                        Style="{StaticResource HorizontalStackPanelStyle}">
+                        <Image
+                            Source="../Resources/Images/Icons/humidity.png"
+                            Style="{StaticResource WeatherIconStyle}"/>
+                        <TextBlock
+                            Text="Humidity"
+                            Style="{StaticResource MainTextBlockStyle}"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <materialDesign:Card
+                    ToolTip="Precipitation probability"
+                    Margin="10">
+                    <StackPanel
+                        Style="{StaticResource HorizontalStackPanelStyle}">
+                        <Image
+                            Source="../Resources/Images/Icons/wave-chart.png"
+                            Style="{StaticResource WeatherIconStyle}"/>
+                        <TextBlock
+                            Text="Probability"
+                            Style="{StaticResource MainTextBlockStyle}"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <materialDesign:Card
+                    ToolTip="Cloudiness"
+                    Margin="10">
+                    <StackPanel
+                        Style="{StaticResource HorizontalStackPanelStyle}">
+                        <Image 
+                            Source="../Resources/Images/Icons/cloud.png"
+                            Style="{StaticResource WeatherIconStyle}"/>
+                        <TextBlock
+                            Text="Cloudiness"
+                            Style="{StaticResource MainTextBlockStyle}"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <materialDesign:Card
+                    ToolTip="Visibility"
+                    Margin="10">
+                    <StackPanel
+                        Style="{StaticResource HorizontalStackPanelStyle}">
+                        <Image
+                            Source="../Resources/Images/Icons/binoculars.png"
+                            Style="{StaticResource WeatherIconStyle}"/>
+                        <TextBlock
+                            Text="Visibility"
+                            Style="{StaticResource MainTextBlockStyle}"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <materialDesign:Card
+                    ToolTip="Precipitation volume"
+                    Margin="10">
+                    <StackPanel
+                        Style="{StaticResource HorizontalStackPanelStyle}">
+                        <Image
+                            Source="../Resources/Images/Icons/drop.png"
+                            Style="{StaticResource WeatherIconStyle}"/>
+                        <TextBlock
+                            Text="Volume"
+                            Style="{StaticResource MainTextBlockStyle}"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+            </UniformGrid>
         </Border>
 
         <Border
@@ -70,41 +300,57 @@
             Grid.Row="1"
             Style="{StaticResource WhiteBorderStyle}">
             <UniformGrid
-                Rows="3">
+                Rows="3"
+                HorizontalAlignment="Center">
 
-                <StackPanel
-                    Orientation="Horizontal">
-                    <fa:ImageAwesome
-                        Icon="Compass"
-                        Style="{StaticResource WeatherIconStyle}"/>
+                <materialDesign:Card
+                    ToolTip="Speed of wind"
+                    Margin="5">
+                    <StackPanel
+                        Style="{StaticResource HorizontalStackPanelStyle}">
 
-                    <TextBlock
-                        Text="5 m/s"
-                        Style="{StaticResource MainTextBlockStyle}"/>
-                </StackPanel>
+                        <Image
+                            Source="../Resources/Images/Icons/wind-power.png"
+                            Style="{StaticResource WeatherIconStyle}"/>
+                        <TextBlock
+                            Text="5 m/s"
+                            Style="{StaticResource MainTextBlockStyle}"/>
 
-                <StackPanel
-                    Orientation="Horizontal">
-                    <fa:ImageAwesome
-                        Icon="Compass"
-                        Style="{StaticResource WeatherIconStyle}"/>
+                    </StackPanel>
+                </materialDesign:Card>
 
-                    <TextBlock
-                        Text="North - West"
-                        FontSize="24"
-                        Style="{StaticResource MainTextBlockStyle}"/>
-                </StackPanel>
+                <materialDesign:Card
+                    ToolTip="Wind direction"
+                    Margin="5">
+                    <StackPanel
+                        Style="{StaticResource HorizontalStackPanelStyle}">
+                        
+                        <Image
+                            Source="../Resources/Images/Icons/compass.png"
+                            Style="{StaticResource WeatherIconStyle}"/>
 
-                <StackPanel
-                    Orientation="Horizontal">
-                    <fa:ImageAwesome
-                        Icon="Compass"
-                        Style="{StaticResource WeatherIconStyle}"/>
+                        <TextBlock
+                            Text="North - West"
+                            FontSize="24"
+                            Style="{StaticResource MainTextBlockStyle}"/>
+                    </StackPanel>
+                </materialDesign:Card>
 
-                    <TextBlock
-                        Text="10 m/s"
-                        Style="{StaticResource MainTextBlockStyle}"/>
-                </StackPanel>
+                <materialDesign:Card
+                    ToolTip="Wind gust"
+                    Margin="5">
+                    
+                    <StackPanel
+                        Style="{StaticResource HorizontalStackPanelStyle}">
+                        <Image
+                            Source="../Resources/Images/Icons/wind.png"
+                            Style="{StaticResource WeatherIconStyle}"/>
+
+                        <TextBlock
+                            Text="10 m/s"
+                            Style="{StaticResource MainTextBlockStyle}"/>
+                    </StackPanel>
+                </materialDesign:Card>
             </UniformGrid>
         </Border>
 

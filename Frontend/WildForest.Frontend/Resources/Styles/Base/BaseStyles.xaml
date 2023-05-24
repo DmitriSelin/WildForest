@@ -11,4 +11,9 @@
         <Setter Property="FontFamily" Value="Yu Gothic UI Semibold"/>
     </Style>
 
+    <Style x:Key="HorizontalStackPanelStyle" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
 </ResourceDictionary>

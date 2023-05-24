@@ -9,8 +9,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\Icons\barometer.png" />
+    <None Remove="Resources\Images\Icons\binoculars.png" />
     <None Remove="Resources\Images\Icons\bison.ico" />
     <None Remove="Resources\Images\Icons\bison.png" />
+    <None Remove="Resources\Images\Icons\cloud-computing.png" />
+    <None Remove="Resources\Images\Icons\cloud.png" />
+    <None Remove="Resources\Images\Icons\compass.png" />
+    <None Remove="Resources\Images\Icons\drop.png" />
+    <None Remove="Resources\Images\Icons\humidity.png" />
+    <None Remove="Resources\Images\Icons\sunny.png" />
+    <None Remove="Resources\Images\Icons\wave-chart.png" />
+    <None Remove="Resources\Images\Icons\wind-power.png" />
+    <None Remove="Resources\Images\Icons\wind.png" />
+    <None Remove="Resources\Images\Icons\windmill.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,12 +40,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\Icons\barometer.png" />
+    <Resource Include="Resources\Images\Icons\binoculars.png" />
     <Resource Include="Resources\Images\Icons\bison.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\Icons\bison.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\Icons\cloud.png" />
+    <Resource Include="Resources\Images\Icons\compass.png" />
+    <Resource Include="Resources\Images\Icons\drop.png" />
+    <Resource Include="Resources\Images\Icons\humidity.png" />
+    <Resource Include="Resources\Images\Icons\sunny.png" />
+    <Resource Include="Resources\Images\Icons\wave-chart.png" />
+    <Resource Include="Resources\Images\Icons\wind-power.png" />
+    <Resource Include="Resources\Images\Icons\wind.png" />
+    <Resource Include="Resources\Images\Icons\windmill.png" />
   </ItemGroup>
 
 </Project>
