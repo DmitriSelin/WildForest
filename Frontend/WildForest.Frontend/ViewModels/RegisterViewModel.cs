@@ -125,7 +125,10 @@ namespace WildForest.Frontend.ViewModels
                 if (_mainViewModel is null)
                     _mainViewModel = (MainViewModel)App.Current.Services.GetService(typeof(MainViewModel))!;
 
-                _mainViewModel.ShowHomeView($"{response.Response.LastName} {response.Response.FirstName}", response.Response.CityName);
+                _mainViewModel.ShowHomeView(
+                    $"{response.Response.LastName} {response.Response.FirstName}",
+                    response.Response.CityName,
+                    response.Response.Token);
             }
             else
             {

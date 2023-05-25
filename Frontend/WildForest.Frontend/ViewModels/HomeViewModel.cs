@@ -69,10 +69,14 @@ namespace WildForest.Frontend.ViewModels
 
         #endregion
 
-        internal void SetCredentials(string fullName, string cityName)
+        internal void SetCredentials(
+            string fullName,
+            string cityName,
+            string token)
         {
             FullName = fullName;
             CityName = cityName;
+            _weatherViewModel.SetToken(token);
         }
 
         public HomeViewModel(WeatherViewModel weatherViewModel, CommentsViewModel commentsViewModel)
