@@ -46,7 +46,7 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
         var forecasts = (List<WeatherForecast>?)
             await _weatherForecastRepository.GetWeatherForecastsWithMarkByDateAsync(user.CityId, forecastDate);
 
-        if (forecasts is null)
+        if (forecasts is null || forecasts.Count == 0)
         {
             return Errors.WeatherForecast.NotFound;
         }

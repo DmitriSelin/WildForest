@@ -7,6 +7,7 @@ using WildForest.Frontend.Common;
 using WildForest.Frontend.Contracts.Authentication;
 using WildForest.Frontend.Contracts.Weather;
 using WildForest.Frontend.Services.Weather.Interfaces;
+using WildForest.Frontend.Services.Weather.JsonConverters;
 
 namespace WildForest.Frontend.Services.Weather
 {
@@ -23,7 +24,10 @@ namespace WildForest.Frontend.Services.Weather
         {
             var date = DateOnly.FromDateTime(DateTime.Now.Date);
 
-            var forecastDate = JsonSerializer.Serialize(date);
+            var options = new JsonSerializerOptions();
+            options.Converters.Add(new DateOnlyConverter());
+
+            var forecastDate = JsonSerializer.Serialize(date, options);
 
             _httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", token);

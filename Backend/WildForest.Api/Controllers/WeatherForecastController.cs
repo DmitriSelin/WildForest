@@ -21,8 +21,8 @@ namespace WildForest.Api.Controllers
             _homeWeatherForecastHandler = homeWeatherForecastHandler;
         }
 
-        [HttpGet("homeCity/{forecastDate}")]
-        public async Task<IActionResult> GetWeather([FromRoute] DateOnly forecastDate)
+        [HttpGet("homeCity/{date}")]
+        public async Task<IActionResult> GetWeather(string date)
         {
             ErrorOr<Guid> userId = _jwtTokenDecoder.GetUserIdFromToken(HttpContext.Request);
 
@@ -30,6 +30,8 @@ namespace WildForest.Api.Controllers
             {
                 return Problem(userId.Errors);
             }
+
+            var forecastDate = DateOnly.Parse(date);
 
             var query = new HomeWeatherForecastQuery(userId.Value, forecastDate);
 
