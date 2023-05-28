@@ -16,58 +16,57 @@ using WildForest.Infrastructure.Weather;
 using WildForest.Application.Common.Interfaces.Http;
 using WildForest.Infrastructure.Http;
 
-namespace WildForest.Infrastructure
+namespace WildForest.Infrastructure;
+
+public static class DependencyInjection
 {
-    public static class DependencyInjection
+    public static IServiceCollection AddInfrastructure(
+        this IServiceCollection services,
+        ConfigurationManager configuration)
     {
-        public static IServiceCollection AddInfrastructure(
-            this IServiceCollection services,
-            ConfigurationManager configuration)
+        services.AddAuth(configuration);
+
+        services.AddHttpClient<IWeatherForecastHttpClient, WeatherForecastHttpClient>();
+
+        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+        services.AddScoped<IMarkService, MarkService>();
+        services.AddScoped<IExistingWeatherDataService, ExistingWeatherDataService>();
+
+        services.AddRepositories();
+
+        services.AddDbContext<WildForestDbContext>(options =>
         {
-            services.AddAuth(configuration);
+            options.UseNpgsql(configuration.GetConnectionString("PostgreSQL"));
+        });
 
-            services.AddHttpClient<IWeatherForecastHttpClient, WeatherForecastHttpClient>();
+        return services;
+    }
 
-            services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-            services.AddScoped<IMarkService, MarkService>();
-            services.AddScoped<IExistingWeatherDataService, ExistingWeatherDataService>();
+    private static IServiceCollection AddAuth(
+        this IServiceCollection services,
+        ConfigurationManager configuration)
+    {
+        var jwtSettings = new JwtSettings();
 
-            services.AddRepositories();
+        configuration.Bind(JwtSettings.SectionName, jwtSettings);
 
-            services.AddDbContext<WildForestDbContext>(options =>
+        services.AddSingleton(Options.Create(jwtSettings));
+
+        services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
+
+        services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
             {
-                options.UseNpgsql(configuration.GetConnectionString("PostgreSQL"));
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = jwtSettings.Issuer,
+                ValidAudience = jwtSettings.Audience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
             });
 
-            return services;
-        }
-
-        private static IServiceCollection AddAuth(
-            this IServiceCollection services,
-            ConfigurationManager configuration)
-        {
-            var jwtSettings = new JwtSettings();
-
-            configuration.Bind(JwtSettings.SectionName, jwtSettings);
-
-            services.AddSingleton(Options.Create(jwtSettings));
-
-            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-            services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
-
-            services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = jwtSettings.Issuer,
-                    ValidAudience = jwtSettings.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
-                });
-
-            return services;
-        }
+        return services;
     }
 }

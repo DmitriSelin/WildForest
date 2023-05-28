@@ -9,11 +9,14 @@ namespace WildForest.Infrastructure.Weather;
 public sealed class ExistingWeatherDataService : IExistingWeatherDataService
 {
     private readonly IWeatherForecastRepository _weatherForecastRepository;
-    private readonly IWeatherForecastHttpClient _httpClient;
+    private readonly IWeatherForecastHttpClient _weatherForecastHttpClient;
 
-    public ExistingWeatherDataService(IWeatherForecastRepository weatherForecastRepository)
+    public ExistingWeatherDataService(
+        IWeatherForecastRepository weatherForecastRepository,
+        IWeatherForecastHttpClient weatherForecastHttpClient)
     {
         _weatherForecastRepository = weatherForecastRepository;
+        _weatherForecastHttpClient = weatherForecastHttpClient;
     }
 
     public async Task CheckWeatherDataExisting(CityId cityId)
@@ -22,7 +25,8 @@ public sealed class ExistingWeatherDataService : IExistingWeatherDataService
 
         if (forecasts is null || forecasts.Count == 0)
         {
-
+            var weatherForecasts = await _weatherForecastHttpClient.GetWeatherForecastAsync(cityId);
+            await _weatherForecastRepository.AddWeatherForecastsAsync(weatherForecasts);
         }
     }
 }
