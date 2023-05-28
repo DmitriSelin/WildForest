@@ -11,6 +11,10 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using WildForest.Infrastructure.Persistence.Repositories;
 using WildForest.Infrastructure.Persistence.Context;
+using WildForest.Application.Common.Interfaces.Weather;
+using WildForest.Infrastructure.Weather;
+using WildForest.Application.Common.Interfaces.Http;
+using WildForest.Infrastructure.Http;
 
 namespace WildForest.Infrastructure
 {
@@ -22,8 +26,11 @@ namespace WildForest.Infrastructure
         {
             services.AddAuth(configuration);
 
+            services.AddHttpClient<IWeatherForecastHttpClient, WeatherForecastHttpClient>();
+
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             services.AddScoped<IMarkService, MarkService>();
+            services.AddScoped<IExistingWeatherDataService, ExistingWeatherDataService>();
 
             services.AddRepositories();
 

@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Cities.ValueObjects;
-using WildForest.Domain.Weather.ValueObjects;
-using WildForest.Infrastructure.Persistence.Context;
+using WildForest.Domain.Weather.Entities;
 
 namespace WildForest.Api.Controllers
 {
@@ -10,25 +9,20 @@ namespace WildForest.Api.Controllers
     [Route("test")]
     public class TestController : ControllerBase
     {
-        private readonly WildForestDbContext _context;
+        private readonly IWeatherForecastRepository _weatherForecastRepository;
 
-        public TestController(WildForestDbContext context)
+        public TestController(IWeatherForecastRepository weatherForecastRepository)
         {
-            _context = context;
+            _weatherForecastRepository = weatherForecastRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> TestEf()
         {
-            var date = ForecastDate.Create(DateOnly.FromDateTime(DateTime.Now.Date));
-            var cityId = CityId.Create(Guid.Parse("e1846ac0-66fa-42db-a9da-e6f12e54bf47"));
+            Guid cityId = Guid.Parse("9fec3e39-a47f-4581-8d9b-416bdff66ec2");
+            var forecasts = await _weatherForecastRepository.GetWeatherForecastsByCityIdAsync(CityId.Create(cityId));
 
-            var forecasts = await _context.WeatherForecasts
-                .Include(x => x.WeatherMark)
-                .Where(x => x.CityId == cityId && x.ForecastDate.Value == date.Value)
-                .ToListAsync();
-
-            return Ok(forecasts);
+            return Ok("Ok");
         }
     }
 }

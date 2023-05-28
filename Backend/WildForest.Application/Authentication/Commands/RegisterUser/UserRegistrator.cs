@@ -32,11 +32,11 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
             _refreshTokenRepository = refreshTokenRepository;
         }
 
-        public async Task<ErrorOr<AuthenticationResult>> RegisterAsync(RegisterUserCommand command)
+        public async Task<ErrorOr<AuthenticationResult>> RegisterAsync(RegisterUserCommand command, bool isUserRole = true)
         {
             var email = Email.Create(command.Email);
 
-            User? user = await _userRepository.GetUserByEmailWithCityAsync(email);
+            User? user = await _userRepository.GetUserByEmailAsync(email);
 
             if (user is not null)
             {
@@ -52,16 +52,14 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
                 return Errors.City.NotFoundById;
             }
 
-            var firstName = FirstName.Create(command.FirstName);
-            var lastName = LastName.Create(command.LastName);
-            var password = Password.Create(command.Password);
-
-            user = User.Create(
-                firstName,
-                lastName,
-                email,
-                password,
-                city.Id);
+            if (isUserRole)
+            {
+                user = CreateUser(command, email, city.Id);
+            }
+            else
+            {
+                user = CreateAdmin(command, email, city.Id);
+            }
 
             await _userRepository.AddUserAsync(user);
 
@@ -74,46 +72,32 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
             return new AuthenticationResult(user, token, refreshToken.Token.Value);
         }
 
-        public async Task<ErrorOr<AuthenticationResult>> RegisterAdminAsync(RegisterUserCommand command)
+        private User CreateUser(RegisterUserCommand command, Email email, CityId cityId)
         {
-            var email = Email.Create(command.Email);
-
-            User? user = await _userRepository.GetUserByEmailWithCityAsync(email);
-
-            if (user is not null)
-            {
-                return Errors.User.DuplicateEmail;
-            }
-
-            var cityId = CityId.Create(command.CityId);
-
-            var city = await _cityRepository.GetCityByIdAsync(cityId);
-
-            if (city is null)
-            {
-                return Errors.City.NotFoundById;
-            }
-
             var firstName = FirstName.Create(command.FirstName);
             var lastName = LastName.Create(command.LastName);
             var password = Password.Create(command.Password);
 
-            user = User.CreateAdmin(
+            return User.Create(
                 firstName,
                 lastName,
                 email,
                 password,
-                city.Id);
+                cityId);
+        }
 
-            await _userRepository.AddUserAsync(user);
+        private User CreateAdmin(RegisterUserCommand command, Email email, CityId cityId)
+        {
+            var firstName = FirstName.Create(command.FirstName);
+            var lastName = LastName.Create(command.LastName);
+            var password = Password.Create(command.Password);
 
-            var createdByIp = CreatedByIp.Create(command.IpAddress);
-            var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, createdByIp);
-            await _refreshTokenRepository.AddTokenAsync(refreshToken);
-
-            var token = _jwtTokenGenerator.GenerateToken(user);
-
-            return new AuthenticationResult(user, token, refreshToken.Token.Value);
+            return User.CreateAdmin(
+                firstName,
+                lastName,
+                email,
+                password,
+                cityId);
         }
     }
 }

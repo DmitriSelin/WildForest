@@ -7,6 +7,8 @@ namespace WildForest.Application.Common.Interfaces.Persistence.Repositories
     {
         Task<User?> GetUserByEmailWithCityAsync(Email email);
 
+        Task<User?> GetUserByEmailAsync(Email email);
+
         Task AddUserAsync(User user);
 
         Task<User?> GetUserByIdAsync(UserId userId);

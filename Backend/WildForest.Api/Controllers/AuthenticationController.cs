@@ -114,7 +114,7 @@ namespace WildForest.Api.Controllers
             var command = _mapper.Map<RegisterUserCommand>((request, iPAddress));
 
             ErrorOr<AuthenticationResult> authenticationResult =
-                await _userRegistrator.RegisterAdminAsync(command);
+                await _userRegistrator.RegisterAsync(command, false);
             
             if (authenticationResult.IsError)
             {

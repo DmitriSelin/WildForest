@@ -5,35 +5,41 @@ using WildForest.Domain.Weather.Entities;
 using WildForest.Domain.Weather.ValueObjects;
 using WildForest.Infrastructure.Persistence.Context;
 
-namespace WildForest.Infrastructure.Persistence.Repositories
+namespace WildForest.Infrastructure.Persistence.Repositories;
+
+public sealed class WeatherForecastRepository : IWeatherForecastRepository
 {
-    public sealed class WeatherForecastRepository : IWeatherForecastRepository
+    private readonly WildForestDbContext _context;
+
+    public WeatherForecastRepository(WildForestDbContext context)
     {
-        private readonly WildForestDbContext _context;
+        _context = context;
+    }
 
-        public WeatherForecastRepository(WildForestDbContext context)
-        {
-            _context = context;
-        }
+    public async Task<IEnumerable<WeatherForecast>?> GetWeatherForecastsWithMarkByDateAsync(CityId cityId, ForecastDate forecastDate)
+    {
+        return await _context.WeatherForecasts
+            .Include(x => x.WeatherMark)
+            .Where(x => x.CityId == cityId && x.ForecastDate.Value == forecastDate.Value)
+            .ToListAsync();
+    }
 
-        public async Task<IEnumerable<WeatherForecast>?> GetWeatherForecastsWithMarkByDateAsync(CityId cityId, ForecastDate forecastDate)
-        {
-            return await _context.WeatherForecasts
-                .Include(x => x.WeatherMark)
-                .Where(x => x.CityId == cityId && x.ForecastDate.Value == forecastDate.Value)
-                .ToListAsync();
-        }
+    public async Task AddWeatherForecastsAsync(IEnumerable<WeatherForecast> forecasts)
+    {
+        await _context.WeatherForecasts.AddRangeAsync(forecasts);
+        await _context.SaveChangesAsync();
+    }
 
-        public async Task AddWeatherForecastsAsync(IEnumerable<WeatherForecast> forecasts)
-        {
-            await _context.WeatherForecasts.AddRangeAsync(forecasts);
-            await _context.SaveChangesAsync();
-        }
+    public async Task<WeatherForecast?> GetWeatherForecastByIdAsync(WeatherId weatherId)
+    {
+        return await _context.WeatherForecasts
+            .FirstOrDefaultAsync(x => x.Id == weatherId);
+    }
 
-        public async Task<WeatherForecast?> GetWeatherForecastByIdAsync(WeatherId weatherId)
-        {
-            return await _context.WeatherForecasts
-                .FirstOrDefaultAsync(x => x.Id == weatherId);
-        }
+    public async Task<IEnumerable<WeatherForecast>?> GetWeatherForecastsByCityIdAsync(CityId cityId)
+    {
+        return await _context.WeatherForecasts
+            .Where(x => x.CityId == cityId)
+            .ToListAsync();
     }
 }

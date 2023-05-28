@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
+﻿using Quartz;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.OpenApi.Models;
-using Quartz;
 using Swashbuckle.AspNetCore.Filters;
 using WildForest.Api.BackgroundServices;
 using WildForest.Api.Common.Errors;
 using WildForest.Api.Common.Mapping;
 using WildForest.Api.Services.Http.Jwt;
-using WildForest.Api.Services.Http.Weather;
 using WildForest.Api.Services.Weather;
 
 namespace WildForest.Api
@@ -21,10 +20,8 @@ namespace WildForest.Api
             services.AddQuartzToDI();
 
             services.AddSingleton<ProblemDetailsFactory, WildForestProblemDetailsFactory>();
-            services.AddTransient<IWeatherForecastService, WeatherForecastService>();
             services.AddMappings();
             services.AddTransient<IJwtTokenDecoder, JwtTokenDecoder>();
-            services.AddHttpClient<IWeatherForecastHttpClient, WeatherForecastHttpClient>();
             services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 
             return services;

@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Contracts", "Bac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Infrastructure", "Backend\WildForest.Infrastructure\WildForest.Infrastructure.csproj", "{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WildForest.Frontend", "Frontend\WildForest.Frontend\WildForest.Frontend.csproj", "{910625F0-FD01-4BE2-A8F7-B8F2C522CD8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Frontend", "Frontend\WildForest.Frontend\WildForest.Frontend.csproj", "{910625F0-FD01-4BE2-A8F7-B8F2C522CD8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{EC3A8B43-BB9D-422D-A99E-55DCD0A62C3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,7 @@ Global
 		{06302420-A71F-4D00-9004-A620807B19F0} = {F9A6D612-A0C5-4C25-B8C7-E7220920D26F}
 		{3672A4AA-4473-4CAD-9080-CAAA6DFDD875} = {F9A6D612-A0C5-4C25-B8C7-E7220920D26F}
 		{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31} = {F9A6D612-A0C5-4C25-B8C7-E7220920D26F}
+		{910625F0-FD01-4BE2-A8F7-B8F2C522CD8C} = {EC3A8B43-BB9D-422D-A99E-55DCD0A62C3D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {86AAB985-0438-49A5-AFA1-2D4A7F274723}

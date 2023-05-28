@@ -1,4 +1,4 @@
-using WildForest.Api.Services.Http.Weather;
+using WildForest.Application.Common.Interfaces.Http;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Cities.Entities;
 

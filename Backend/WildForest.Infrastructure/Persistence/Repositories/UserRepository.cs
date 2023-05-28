@@ -21,6 +21,12 @@ namespace WildForest.Infrastructure.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<User?> GetUserByEmailAsync(Email email)
+        {
+            return await _context.Users
+                .FirstOrDefaultAsync(x => x.Email.Value == email.Value);
+        }
+
         public async Task<User?> GetUserByEmailWithCityAsync(Email email)
         {
             return await _context.Users
