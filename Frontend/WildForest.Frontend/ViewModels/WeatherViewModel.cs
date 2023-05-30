@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Threading.Tasks;
+using System.Windows;
 using WildForest.Frontend.Services.Weather.Interfaces;
 
 namespace WildForest.Frontend.ViewModels
@@ -33,10 +34,18 @@ namespace WildForest.Frontend.ViewModels
             if (!isFirstLoaded)
                 return;
 
-            var weatherForecast = await _weatherService.GetTodayWeatherForecastAsync(Token);
-            isFirstLoaded = false;            
+            var response = await _weatherService.GetTodayWeatherForecastAsync(Token);
 
-            await Task.CompletedTask;
+            if (response.WeatherForecast is not null)
+            {
+
+            }
+            else
+            {
+                MessageBox.Show(response.Title, "Wild forest", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+
+            isFirstLoaded = false;
         }
 
         #endregion
