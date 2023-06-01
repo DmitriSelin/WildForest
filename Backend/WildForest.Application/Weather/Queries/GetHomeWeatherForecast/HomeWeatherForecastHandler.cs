@@ -51,7 +51,7 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
             return Errors.WeatherForecast.NotFound;
         }
 
-        var forecastWithMark = forecasts.SingleOrDefault(x => x.WeatherMark != null!);
+        var forecastWithMark = forecasts.Find(x => x.WeatherMark != null!);
         double mediumMark = 0;
 
         if (forecastWithMark is null)

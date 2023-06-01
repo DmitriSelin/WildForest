@@ -194,7 +194,17 @@ public sealed class WeatherForecastConverter : JsonConverter<List<WeatherForecas
         var wind = Wind.Create(windSpeed, windDirection, windGust);
         var visibility = Visibility.Create(visibilityValue);
         var precipitationProbability = PrecipitationProbability.Create(precipitationProbabilityValue);
-        var precipitationVolume = PrecipitationVolume.Create(precipitationVolumeValue);
+
+        PrecipitationVolume? precipitationVolume;
+
+        if (precipitationVolumeValue is not null)
+        {
+            precipitationVolume = PrecipitationVolume.Create((double)precipitationVolumeValue);
+        }
+        else
+        {
+            precipitationVolume = null;
+        }
 
         var forecast = WeatherForecast.Create(
             forecastDate,

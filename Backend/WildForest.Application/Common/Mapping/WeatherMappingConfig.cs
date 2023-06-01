@@ -25,7 +25,7 @@ namespace WildForest.Application.Common.Mapping
                 .Map(dest => dest.PrecipitationProbability,
                     source => source.PrecipitationProbability.Value)
                 .Map(dest => dest.PrecipitationVolume,
-                    source => source.PrecipitationVolume!.Value ?? 0);
+                    source => source.PrecipitationVolume! == null! ? 0 : source!.PrecipitationVolume.Value);
         }
     }
 }

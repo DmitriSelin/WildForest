@@ -116,7 +116,6 @@ namespace WildForest.Infrastructure.Persistence.Configurations
                 sa =>
                 {
                     sa.Property(p => p.Value)
-                    .IsRequired(false)
                     .HasColumnName("PrecipitationVolume");
                 });
 

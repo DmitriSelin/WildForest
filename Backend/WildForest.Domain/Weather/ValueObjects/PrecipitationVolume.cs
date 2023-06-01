@@ -7,25 +7,22 @@ namespace WildForest.Domain.Weather.ValueObjects
     /// </summary>
     public sealed class PrecipitationVolume : ValueObject
     {
-        public double? Value { get; }
+        public double Value { get; }
 
-        private PrecipitationVolume(double? value)
+        private PrecipitationVolume(double value)
             => Value = value;
 
-        public static PrecipitationVolume Create(double? value)
+        public static PrecipitationVolume Create(double value)
         {
-            if (value is not null)
-            {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException("Invalid precipitation probability");
-            }
+            if (value < 0)
+                throw new ArgumentOutOfRangeException("Invalid precipitation probability");
 
             return new(value);
         }
 
         public override IEnumerable<object> GetEqualityComponents()
         {
-            yield return Value ?? 0;
+            yield return Value;
         }
     }
 }
