@@ -61,7 +61,7 @@
                             HorizontalAlignment="Center"
                             Margin="0, 10">
                             <TextBlock
-                                Text="20 °C"
+                                Text="{Binding Temperature, StringFormat={}{0} °C}"
                                 Style="{StaticResource MainTextBlockStyle}"
                                 HorizontalAlignment="Left"/>
                         </materialDesign:Card>
@@ -72,7 +72,7 @@
                             HorizontalAlignment="Center"
                             Margin="5, 10">
                             <TextBlock
-                                Text="18 °C"
+                                Text="{Binding TemperatureFeelsLike, StringFormat={}{0} °C}"
                                 Style="{StaticResource MainTextBlockStyle}"
                                 HorizontalAlignment="Left"/>
                         </materialDesign:Card>
@@ -92,7 +92,7 @@
                                     Margin="5, 0, 0, 0"/>
 
                                 <TextBlock
-                                    Text="Sunny"
+                                    Text="{Binding WeatherDescription}"
                                     Style="{StaticResource MainTextBlockStyle}"/>
 
                             </StackPanel>
@@ -232,7 +232,7 @@
                             Source="../Resources/Images/Icons/barometer.png"
                             Style="{StaticResource WeatherIconStyle}"/>
                         <TextBlock
-                            Text="Pressure"
+                            Text="{Binding Pressure, StringFormat={}{0} mm Hg}"
                             Style="{StaticResource MainTextBlockStyle}"/>
                     </StackPanel>
                 </materialDesign:Card>
@@ -246,7 +246,7 @@
                             Source="../Resources/Images/Icons/humidity.png"
                             Style="{StaticResource WeatherIconStyle}"/>
                         <TextBlock
-                            Text="Humidity"
+                            Text="{Binding Humidity, StringFormat={}{0} %}"
                             Style="{StaticResource MainTextBlockStyle}"/>
                     </StackPanel>
                 </materialDesign:Card>
@@ -260,7 +260,7 @@
                             Source="../Resources/Images/Icons/wave-chart.png"
                             Style="{StaticResource WeatherIconStyle}"/>
                         <TextBlock
-                            Text="Probability"
+                            Text="{Binding PrecipitationProbability, StringFormat={}{0} %}"
                             Style="{StaticResource MainTextBlockStyle}"/>
                     </StackPanel>
                 </materialDesign:Card>
@@ -274,7 +274,7 @@
                             Source="../Resources/Images/Icons/cloud.png"
                             Style="{StaticResource WeatherIconStyle}"/>
                         <TextBlock
-                            Text="Cloudiness"
+                            Text="{Binding Cloudiness, StringFormat={}{0} %}"
                             Style="{StaticResource MainTextBlockStyle}"/>
                     </StackPanel>
                 </materialDesign:Card>
@@ -288,7 +288,7 @@
                             Source="../Resources/Images/Icons/binoculars.png"
                             Style="{StaticResource WeatherIconStyle}"/>
                         <TextBlock
-                            Text="Visibility"
+                            Text="{Binding Visibility, StringFormat={}{0} m}"
                             Style="{StaticResource MainTextBlockStyle}"/>
                     </StackPanel>
                 </materialDesign:Card>
@@ -302,7 +302,7 @@
                             Source="../Resources/Images/Icons/drop.png"
                             Style="{StaticResource WeatherIconStyle}"/>
                         <TextBlock
-                            Text="Volume"
+                            Text="{Binding PrecipitationVolume, StringFormat={}{0} mm}"
                             Style="{StaticResource MainTextBlockStyle}"/>
                     </StackPanel>
                 </materialDesign:Card>
@@ -319,6 +319,7 @@
                 HorizontalAlignment="Center">
 
                 <materialDesign:Card
+                    Padding="10, 0"
                     ToolTip="Speed of wind"
                     Margin="5">
                     <StackPanel
@@ -328,30 +329,34 @@
                             Source="../Resources/Images/Icons/wind-power.png"
                             Style="{StaticResource WeatherIconStyle}"/>
                         <TextBlock
-                            Text="5 m/s"
+                            Text="{Binding WindSpeed, StringFormat={}{0} m/s}"
                             Style="{StaticResource MainTextBlockStyle}"/>
 
                     </StackPanel>
                 </materialDesign:Card>
 
                 <materialDesign:Card
+                    Padding="10, 0"
                     ToolTip="Wind direction"
                     Margin="5">
                     <StackPanel
-                        Style="{StaticResource HorizontalStackPanelStyle}">
+                        Style="{StaticResource HorizontalStackPanelStyle}"
+                        HorizontalAlignment="Left">
                         
                         <Image
+                            HorizontalAlignment="Left"
                             Source="../Resources/Images/Icons/compass.png"
                             Style="{StaticResource WeatherIconStyle}"/>
 
                         <TextBlock
-                            Text="North - West"
+                            Text="{Binding Direction, StringFormat={}{0} °}"
                             FontSize="24"
                             Style="{StaticResource MainTextBlockStyle}"/>
                     </StackPanel>
                 </materialDesign:Card>
 
                 <materialDesign:Card
+                    Padding="10, 0"
                     ToolTip="Wind gust"
                     Margin="5">
                     
@@ -362,7 +367,7 @@
                             Style="{StaticResource WeatherIconStyle}"/>
 
                         <TextBlock
-                            Text="10 m/s"
+                            Text="{Binding WindGust, StringFormat={}{0} m/s}"
                             Style="{StaticResource MainTextBlockStyle}"/>
                     </StackPanel>
                 </materialDesign:Card>
