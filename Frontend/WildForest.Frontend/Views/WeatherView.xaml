@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:WildForest.Frontend.Views"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converters="clr-namespace:WildForest.Frontend.Converters"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1100">
     <i:Interaction.Triggers>
@@ -102,114 +103,40 @@
 
                 <Grid
                     Grid.Column="1">
+                    <Grid.Resources>
+                        <converters:TimeOnlyConverter x:Key="TimeOnlyConverter"/>
+                    </Grid.Resources>
 
-                    <TextBlock
+                        <TextBlock
                         Text="Today"
                         Style="{StaticResource WeatherTextBlockStyle}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top"/>
 
                     <ScrollViewer
-                        HorizontalScrollBarVisibility="Visible"
-                        Style="{StaticResource MaterialDesignScrollViewer}">
-                        <StackPanel
-                            Style="{StaticResource HorizontalStackPanelStyle}">
-                            <materialDesign:Card
-                                Height="100"
-                                Width="100"
-                                Margin="10, 0">
-                                <TextBlock
-                                    Style="{StaticResource WeatherTextBlockStyle}">
-                                <Run Text="17 °C"/>
-                                <LineBreak/>
-                                <Run Text="00:00"/>
-                                </TextBlock>
-                            </materialDesign:Card>
-
-                            <materialDesign:Card
-                                Height="100"
-                                Width="100"
-                                Margin="10, 0">
-                                <TextBlock
-                                    Style="{StaticResource WeatherTextBlockStyle}">
-                                <Run Text="17 °C"/>
-                                <LineBreak/>
-                                <Run Text="03:00"/>
-                                </TextBlock>
-                            </materialDesign:Card>
-
-                            <materialDesign:Card
-                                Height="100"
-                                Width="100"
-                                Margin="10, 0">
-                                <TextBlock
-                                    Style="{StaticResource WeatherTextBlockStyle}">
-                                <Run Text="17 °C"/>
-                                <LineBreak/>
-                                <Run Text="06:00"/>
-                                </TextBlock>
-                            </materialDesign:Card>
-
-                            <materialDesign:Card
-                                Height="100"
-                                Width="100"
-                                Margin="10, 0">
-                                <TextBlock
-                                    Style="{StaticResource WeatherTextBlockStyle}">
-                                <Run Text="17 °C"/>
-                                <LineBreak/>
-                                <Run Text="09:00"/>
-                                </TextBlock>
-                            </materialDesign:Card>
-
-                            <materialDesign:Card
-                                Height="100"
-                                Width="100"
-                                Margin="10, 0">
-                                <TextBlock
-                                    Style="{StaticResource WeatherTextBlockStyle}">
-                                <Run Text="17 °C"/>
-                                <LineBreak/>
-                                <Run Text="12:00"/>
-                                </TextBlock>
-                            </materialDesign:Card>
-
-                            <materialDesign:Card
-                                Height="100"
-                                Width="100"
-                                Margin="10, 0">
-                                <TextBlock
-                                    Style="{StaticResource WeatherTextBlockStyle}">
-                                <Run Text="17 °C"/>
-                                <LineBreak/>
-                                <Run Text="15:00"/>
-                                </TextBlock>
-                            </materialDesign:Card>
-
-                            <materialDesign:Card
-                                Height="100"
-                                Width="100"
-                                Margin="10, 0">
-                                <TextBlock
-                                    Style="{StaticResource WeatherTextBlockStyle}">
-                                <Run Text="17 °C"/>
-                                <LineBreak/>
-                                <Run Text="18:00"/>
-                                </TextBlock>
-                            </materialDesign:Card>
-
-                            <materialDesign:Card
-                                Height="100"
-                                Width="100"
-                                Margin="10, 0">
-                                <TextBlock
-                                    Style="{StaticResource WeatherTextBlockStyle}">
-                                <Run Text="17 °C"/>
-                                <LineBreak/>
-                                <Run Text="21:00"/>
-                                </TextBlock>
-                            </materialDesign:Card>
-                        </StackPanel>
+                        HorizontalScrollBarVisibility="Visible">
+                        <ListBox ItemsSource="{Binding Forecasts}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="8"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <materialDesign:Card
+                                        Width="120"
+                                        Height="120"
+                                        Margin="10, 0">
+                                        <TextBlock
+                                            Style="{StaticResource WeatherTextBlockStyle}">
+                                        <Run Text="{Binding Temperature.Value, StringFormat={}{0} °C}"/>
+                                        <LineBreak/>
+                                        <Run Text="{Binding Time, Converter={StaticResource TimeOnlyConverter}}"/>
+                                        </TextBlock>
+                                    </materialDesign:Card>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </ScrollViewer>
                 </Grid>
             </Grid>

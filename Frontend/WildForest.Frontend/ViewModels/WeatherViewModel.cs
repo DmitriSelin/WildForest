@@ -13,6 +13,9 @@ namespace WildForest.Frontend.ViewModels
 {
     internal partial class WeatherViewModel : ObservableObject
     {
+        [ObservableProperty]
+        public List<WeatherForecastDto> forecasts;
+
         private readonly IWeatherService _weatherService;
 
         private WeatherForecastDto currentWeatherForecast = null!;
@@ -55,30 +58,6 @@ namespace WildForest.Frontend.ViewModels
         [ObservableProperty]
         private string weatherDescription;
 
-        [ObservableProperty]
-        private string firstTemperature;
-
-        [ObservableProperty]
-        private string secondTemperature;
-
-        [ObservableProperty]
-        private string thirdTemperature;
-
-        [ObservableProperty]
-        private string fourthTemperature;
-
-        [ObservableProperty]
-        private string fifthTemperature;
-
-        [ObservableProperty]
-        private string sixthTemperature;
-
-        [ObservableProperty]
-        private string seventhTemperature;
-
-        [ObservableProperty]
-        private string eighthTemperature;
-
         private void FillObservableProperties()
         {
             WindSpeed = currentWeatherForecast.Wind.Speed.ToString();
@@ -93,18 +72,6 @@ namespace WildForest.Frontend.ViewModels
             Temperature = currentWeatherForecast.Temperature.Value.ToString();
             TemperatureFeelsLike = currentWeatherForecast.Temperature.ValueFeelsLike.ToString();
             WeatherDescription = currentWeatherForecast.WeatherDescription.Description;
-        }
-
-        private void FillTemperature(List<WeatherForecastDto> forecasts)
-        {
-            FirstTemperature = forecasts[0].Temperature.Value.ToString();
-            SecondTemperature = forecasts[1].Temperature.Value.ToString();
-            ThirdTemperature = forecasts[2].Temperature.Value.ToString();
-            FourthTemperature = forecasts[3].Temperature.Value.ToString();
-            FifthTemperature = forecasts[4].Temperature.Value.ToString();
-            SixthTemperature = forecasts[5].Temperature.Value.ToString();
-            SeventhTemperature = forecasts[6].Temperature.Value.ToString();
-            EighthTemperature = forecasts[7].Temperature.Value.ToString();
         }
 
         #endregion
@@ -141,9 +108,9 @@ namespace WildForest.Frontend.ViewModels
                     .PutIntoTimeInterval();
 
                 currentWeatherForecast = response.WeatherForecast.WeatherForecasts.FirstOrDefault(x => x.Time == currentHour)!;
+                Forecasts = response.WeatherForecast.WeatherForecasts.OrderBy(x => x.Time).ToList();
 
                 FillObservableProperties();
-                FillTemperature(response.WeatherForecast.WeatherForecasts);
             }
             else
             {
