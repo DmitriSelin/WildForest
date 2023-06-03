@@ -6,10 +6,31 @@ internal class WeatherImage
     {
         switch (weatherName)
         {
-            case "":
-                return "../Resources/Images/Icons/sunny.png";
+            case "Thunderstorm":
+                return ReturnFullPath("thunderstorm.png");
+            case "Drizzle":
+                return ReturnFullPath("drizzle.png");
+            case "Rain":
+                return ReturnFullPath("rain.png");
+            case "Snow":
+                return ReturnFullPath("snow.png");
+            case "Clear":
+                return ReturnFullPath("sunny.png");
+            case "Clouds":
+                return ReturnFullPath("clouds.png");
+            case "Dust":
+            case "Sand":
+                return ReturnFullPath("sandstorm.png");
+            case "Squall":
+            case "Tornado":
+                return ReturnFullPath("typhoon.png");
+            default:
+                return "fog.png";
         }
+    }
 
-        return "";
+    private static string ReturnFullPath(string imageName)
+    {
+        return "../Resources/Images/WeatherIcons/" + imageName;
     }
 }

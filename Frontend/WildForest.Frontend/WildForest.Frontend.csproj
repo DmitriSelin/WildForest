@@ -23,6 +23,14 @@
     <None Remove="Resources\Images\Icons\wind-power.png" />
     <None Remove="Resources\Images\Icons\wind.png" />
     <None Remove="Resources\Images\Icons\windmill.png" />
+    <None Remove="Resources\Images\WeatherIcons\clouds.png" />
+    <None Remove="Resources\Images\WeatherIcons\drizzle.png" />
+    <None Remove="Resources\Images\WeatherIcons\fog.png" />
+    <None Remove="Resources\Images\WeatherIcons\rain.png" />
+    <None Remove="Resources\Images\WeatherIcons\sandstorm.png" />
+    <None Remove="Resources\Images\WeatherIcons\snow.png" />
+    <None Remove="Resources\Images\WeatherIcons\thunderstorm.png" />
+    <None Remove="Resources\Images\WeatherIcons\typhoon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,11 +60,19 @@
     <Resource Include="Resources\Images\Icons\compass.png" />
     <Resource Include="Resources\Images\Icons\drop.png" />
     <Resource Include="Resources\Images\Icons\humidity.png" />
-    <Resource Include="Resources\Images\Icons\sunny.png" />
+    <Resource Include="Resources\Images\WeatherIcons\sunny.png" />
     <Resource Include="Resources\Images\Icons\wave-chart.png" />
     <Resource Include="Resources\Images\Icons\wind-power.png" />
     <Resource Include="Resources\Images\Icons\wind.png" />
     <Resource Include="Resources\Images\Icons\windmill.png" />
+    <Resource Include="Resources\Images\WeatherIcons\clouds.png" />
+    <Resource Include="Resources\Images\WeatherIcons\drizzle.png" />
+    <Resource Include="Resources\Images\WeatherIcons\fog.png" />
+    <Resource Include="Resources\Images\WeatherIcons\rain.png" />
+    <Resource Include="Resources\Images\WeatherIcons\sandstorm.png" />
+    <Resource Include="Resources\Images\WeatherIcons\snow.png" />
+    <Resource Include="Resources\Images\WeatherIcons\thunderstorm.png" />
+    <Resource Include="Resources\Images\WeatherIcons\typhoon.png" />
   </ItemGroup>
 
 </Project>

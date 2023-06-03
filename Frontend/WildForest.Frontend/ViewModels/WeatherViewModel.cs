@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using WildForest.Frontend.Contracts.Weather.Models;
+using WildForest.Frontend.Resources.ItemKeys;
 using WildForest.Frontend.Services.Weather.Extensions;
 using WildForest.Frontend.Services.Weather.Interfaces;
 
@@ -13,72 +14,24 @@ namespace WildForest.Frontend.ViewModels
 {
     internal partial class WeatherViewModel : ObservableObject
     {
-        [ObservableProperty]
-        public List<WeatherForecastDto> forecasts;
-
-        private readonly IWeatherService _weatherService;
-
-        private WeatherForecastDto currentWeatherForecast = null!;
-
         #region Properties
 
         [ObservableProperty]
-        private string windSpeed;
+        public List<WeatherForecastDto> forecasts = null!;
+
+        private readonly IWeatherService _weatherService;
 
         [ObservableProperty]
-        private string direction;
+        private WeatherForecastDto currentWeatherForecast = null!;
 
         [ObservableProperty]
-        private string windGust;
-
-        [ObservableProperty]
-        private string pressure;
-
-        [ObservableProperty]
-        private string humidity;
-
-        [ObservableProperty]
-        private string precipitationProbability;
-
-        [ObservableProperty]
-        private string cloudiness;
-
-        [ObservableProperty]
-        private string visibility;
-
-        [ObservableProperty]
-        private string precipitationVolume;
-
-        [ObservableProperty]
-        private string temperature;
-
-        [ObservableProperty]
-        private string temperatureFeelsLike;
-
-        [ObservableProperty]
-        private string weatherDescription;
-
-        private void FillObservableProperties()
-        {
-            WindSpeed = currentWeatherForecast.Wind.Speed.ToString();
-            Direction = currentWeatherForecast.Wind.Direction.ToString();
-            WindGust = currentWeatherForecast.Wind.Gust.ToString();
-            Pressure = currentWeatherForecast.Pressure.ToString();
-            Humidity = currentWeatherForecast.Humidity.ToString();
-            PrecipitationProbability = currentWeatherForecast.PrecipitationProbability.ToString();
-            Cloudiness = currentWeatherForecast.Cloudiness.ToString();
-            Visibility = currentWeatherForecast.Visibility.ToString();
-            PrecipitationVolume = currentWeatherForecast.PrecipitationVolume.ToString();
-            Temperature = currentWeatherForecast.Temperature.Value.ToString();
-            TemperatureFeelsLike = currentWeatherForecast.Temperature.ValueFeelsLike.ToString();
-            WeatherDescription = currentWeatherForecast.WeatherDescription.Description;
-        }
+        private string imagePath = null!;
 
         #endregion
 
         #region Token
 
-        public string Token { get; private set; }
+        public string Token { get; private set; } = null!;
 
         internal void SetToken(string token)
         {
@@ -107,10 +60,9 @@ namespace WildForest.Frontend.ViewModels
                 var currentHour = TimeOnly.FromTimeSpan(DateTime.Now.TimeOfDay)
                     .PutIntoTimeInterval();
 
-                currentWeatherForecast = response.WeatherForecast.WeatherForecasts.FirstOrDefault(x => x.Time == currentHour)!;
+                CurrentWeatherForecast = response.WeatherForecast.WeatherForecasts.FirstOrDefault(x => x.Time == currentHour)!;
                 Forecasts = response.WeatherForecast.WeatherForecasts.OrderBy(x => x.Time).ToList();
-
-                FillObservableProperties();
+                ImagePath = WeatherImage.GetWeatherImage(CurrentWeatherForecast.WeatherDescription.Name);
             }
             else
             {
