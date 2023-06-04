@@ -14,6 +14,8 @@ public sealed class MarkMappingConfig : IRegister
             .Map(dest => dest.WeatherId, source => source.WeatherId.Value)
             .Map(dest => dest.Date, source => source.Date.Value)
             .Map(dest => dest.Rating, source => source.Rating.Value)
+            .Map(dest => dest.FirstName, source => source.User.FirstName.Value)
+            .Map(dest => dest.LastName, source => source.User.FirstName.Value)
             .Map(dest => dest.Comment, source => source.Comment!.Value);
     }
 }

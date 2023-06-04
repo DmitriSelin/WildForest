@@ -108,7 +108,8 @@ namespace WildForest.Frontend.ViewModels
             LoginViewModel loginViewModel,
             RegisterViewModel registerViewModel,
             CountryViewModel countryViewModel,
-            HomeViewModel homeViewModel)
+            HomeViewModel homeViewModel,
+            CommentsViewModel cVM)
         {
             _loginViewModel = loginViewModel;
             CurrentViewModel = _loginViewModel;
