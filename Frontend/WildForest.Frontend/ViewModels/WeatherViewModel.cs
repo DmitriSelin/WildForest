@@ -14,6 +14,8 @@ namespace WildForest.Frontend.ViewModels
 {
     internal partial class WeatherViewModel : ObservableObject
     {
+        internal static Guid CurrentWeatherId { get; private set; }
+
         #region Properties
 
         [ObservableProperty]
@@ -63,6 +65,7 @@ namespace WildForest.Frontend.ViewModels
                 CurrentWeatherForecast = response.WeatherForecast.WeatherForecasts.FirstOrDefault(x => x.Time == currentHour)!;
                 Forecasts = response.WeatherForecast.WeatherForecasts.OrderBy(x => x.Time).ToList();
                 ImagePath = WeatherImage.GetWeatherImage(CurrentWeatherForecast.WeatherDescription.Name);
+                CurrentWeatherId = CurrentWeatherForecast.WeatherId;
             }
             else
             {

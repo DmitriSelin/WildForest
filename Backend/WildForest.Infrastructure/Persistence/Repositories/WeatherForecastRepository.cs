@@ -18,10 +18,11 @@ public sealed class WeatherForecastRepository : IWeatherForecastRepository
 
     public async Task<IEnumerable<WeatherForecast>?> GetWeatherForecastsWithMarkByDateAsync(CityId cityId, ForecastDate forecastDate)
     {
-        return await _context.WeatherForecasts
+        var items = await _context.WeatherForecasts
             .Include(x => x.WeatherMark)
             .Where(x => x.CityId == cityId && x.ForecastDate.Value == forecastDate.Value)
             .ToListAsync();
+            return items;
     }
 
     public async Task AddWeatherForecastsAsync(IEnumerable<WeatherForecast> forecasts)

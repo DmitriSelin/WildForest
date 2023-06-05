@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -81,7 +82,8 @@ namespace WildForest.Frontend.ViewModels
                 _mainViewModel.ShowHomeView(
                     $"{response.Response.LastName} {response.Response.FirstName}",
                     response.Response.CityName,
-                    response.Response.Token);
+                    response.Response.Token,
+                    Guid.Parse(response.Response.Id));
             }
             else
             {

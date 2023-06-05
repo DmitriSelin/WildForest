@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Windows.Input;
 
 namespace WildForest.Frontend.ViewModels
@@ -72,7 +73,8 @@ namespace WildForest.Frontend.ViewModels
         internal void SetCredentials(
             string fullName,
             string cityName,
-            string token)
+            string token,
+            Guid userId)
         {
             FullName = fullName;
             CityName = cityName;

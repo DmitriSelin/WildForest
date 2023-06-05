@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -96,12 +97,14 @@ namespace WildForest.Frontend.ViewModels
             _countryViewModel.SetCountries(countries);
         }
 
-        internal void ShowHomeView(string fullName, string cityName, string token)
+        internal void ShowHomeView(
+            string fullName, string cityName,
+            string token, Guid userId)
         {
             if (CurrentViewModel != _homeViewModel)
                 CurrentViewModel = _homeViewModel;
 
-            _homeViewModel.SetCredentials(fullName, cityName, token);
+            _homeViewModel.SetCredentials(fullName, cityName, token, userId);
         }
 
         public MainViewModel(

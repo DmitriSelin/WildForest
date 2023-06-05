@@ -130,6 +130,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBox
+                Text="{Binding Message}"
                 Style="{StaticResource MaterialDesignFilledTextBox}"
                 material:HintAssist.Hint="Write a message"
                 material:HintAssist.Foreground="{DynamicResource MediumGrayColor}"
@@ -137,11 +138,13 @@
                 CaretBrush="{DynamicResource MediumGrayColor}"
                 material:TextFieldAssist.UnderlineBrush="{DynamicResource TransparentColor}"
                 FontSize="20"
-                VerticalContentAlignment="Center"/>
+                VerticalContentAlignment="Center"
+                MaxLength="200"/>
 
             <Button
                 Grid.Column="1"
-                Style="{StaticResource SendButtonStyle}"/>
+                Style="{StaticResource SendButtonStyle}"
+                Command="{Binding CommentCommand}"/>
 
         </Grid>
     </Grid>
