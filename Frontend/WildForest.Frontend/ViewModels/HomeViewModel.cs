@@ -79,6 +79,7 @@ namespace WildForest.Frontend.ViewModels
             FullName = fullName;
             CityName = cityName;
             _weatherViewModel.SetToken(token);
+            _commentsViewModel.FillData(token, userId);
         }
 
         public HomeViewModel(WeatherViewModel weatherViewModel, CommentsViewModel commentsViewModel)
