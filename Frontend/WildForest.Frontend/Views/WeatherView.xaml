@@ -83,6 +83,7 @@
                             HorizontalAlignment="Center"
                             Width="200"
                             Margin="5, 0">
+                            
                             <StackPanel
                                 Style="{StaticResource HorizontalStackPanelStyle}"
                                 HorizontalAlignment="Left">
@@ -94,6 +95,8 @@
 
                                 <TextBlock
                                     Text="{Binding CurrentWeatherForecast.WeatherDescription.Description}"
+                                    TextWrapping="Wrap"
+                                    FontSize="18"
                                     Style="{StaticResource MainTextBlockStyle}"/>
 
                             </StackPanel>

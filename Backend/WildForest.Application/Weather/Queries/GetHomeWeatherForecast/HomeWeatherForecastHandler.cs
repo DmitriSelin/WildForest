@@ -56,7 +56,10 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
 
         if (forecastWithMark is null)
         {
-            var weatherForecast = forecasts.First(x => x.ForecastTime.Value == forecasts[0].ForecastTime.Value);
+            var weatherForecast = forecasts
+                .OrderBy(x => x.ForecastTime.Value)
+                .First();
+
             var weatherMark = CreateWeatherMark(weatherForecast);
 
             await _weatherMarkRepository.AddWeatherMarkAsync(weatherMark);

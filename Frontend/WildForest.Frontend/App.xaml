@@ -23,6 +23,7 @@
                 <ResourceDictionary Source="Resources/Styles/Icons/IconStyles.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Buttons/RadioButtonStyles.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/TextStyles.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/ListBoxStyles.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Buttons/AppButtonStyles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />

@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using WildForest.Frontend.Contracts.Marks;
@@ -30,7 +31,7 @@ namespace WildForest.Frontend.ViewModels
         private object? selectedMark;
 
         [ObservableProperty]
-        private List<CommentsModel> comments = null!;
+        private ObservableCollection<CommentsModel> comments = new();
 
         [ObservableProperty]
         private string message = null!;
@@ -54,7 +55,7 @@ namespace WildForest.Frontend.ViewModels
 
             if (markResponse.Comments is not null)
             {
-                Comments = markResponse.Comments;
+                FillComments(markResponse.Comments);
             }
             else
             {
@@ -94,6 +95,8 @@ namespace WildForest.Frontend.ViewModels
             if (commentResponseBase.Comment is not null)
             {
                 var comment = commentResponseBase.Comment;
+                var newComment = new CommentsModel(comment.MarkId, comment.UserId, WeatherViewModel.CurrentWeatherId, comment.Date, rating, "Me", "", comment.Comment);
+                Comments.Add(newComment);
             }
             else
             {
@@ -110,6 +113,14 @@ namespace WildForest.Frontend.ViewModels
             _markService = markService;
             DownloadCommentsCommand = new AsyncRelayCommand(DownloadCommentsAsync);
             CommentCommand = new AsyncRelayCommand(AddCommentAsync);
+        }
+
+        private void FillComments(List<CommentsModel> comments)
+        {
+            foreach (var comment in comments)
+            {
+                Comments.Add(comment);
+            }
         }
     }
 }
