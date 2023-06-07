@@ -46,7 +46,13 @@ public sealed class CommentCommandHandler : ICommentCommandHandler
         if (user is null)
             return Errors.User.NotFoundById;
 
-        var mark = Mark.Create(rating, comment, userId, weatherId);
+        var mark = await _markRepository.GetMarkByWeatherIdAndUserIdAsync(weatherId, userId);
+
+        if (mark is not null) {
+            return Errors.Mark.DuplicateComment;
+        }
+
+        mark = Mark.Create(rating, comment, userId, weatherId);
 
         await _markRepository.AddMarkAsync(mark);
 
