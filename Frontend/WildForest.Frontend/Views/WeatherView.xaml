@@ -16,7 +16,9 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     
-    <Grid Background="{StaticResource WhiteSmokeColor}">
+    <Grid
+        x:Name="MainGrid"
+        Background="{StaticResource WhiteSmokeColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -102,6 +104,13 @@
                             </StackPanel>
                         </materialDesign:Card>
                     </StackPanel>
+
+                    <Button
+                        Grid.Row="1"
+                        Click="CreatePDFClick"
+                        Style="{StaticResource PdfButtonStyle}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"/>
                 </Grid>
 
                 <Grid
@@ -111,10 +120,10 @@
                     </Grid.Resources>
 
                         <TextBlock
-                        Text="Today"
-                        Style="{StaticResource WeatherTextBlockStyle}"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"/>
+                            Text="Today"
+                            Style="{StaticResource WeatherTextBlockStyle}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"/>
 
                     <ScrollViewer
                         HorizontalScrollBarVisibility="Visible">

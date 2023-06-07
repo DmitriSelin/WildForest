@@ -9,37 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Images\Icons\barometer.png" />
-    <None Remove="Resources\Images\Icons\binoculars.png" />
-    <None Remove="Resources\Images\Icons\bison.ico" />
-    <None Remove="Resources\Images\Icons\bison.png" />
-    <None Remove="Resources\Images\Icons\cloud-computing.png" />
-    <None Remove="Resources\Images\Icons\cloud.png" />
-    <None Remove="Resources\Images\Icons\compass.png" />
-    <None Remove="Resources\Images\Icons\drop.png" />
-    <None Remove="Resources\Images\Icons\humidity.png" />
-    <None Remove="Resources\Images\Icons\sunny.png" />
-    <None Remove="Resources\Images\Icons\wave-chart.png" />
-    <None Remove="Resources\Images\Icons\wind-power.png" />
-    <None Remove="Resources\Images\Icons\wind.png" />
-    <None Remove="Resources\Images\Icons\windmill.png" />
-    <None Remove="Resources\Images\WeatherIcons\clouds.png" />
-    <None Remove="Resources\Images\WeatherIcons\drizzle.png" />
-    <None Remove="Resources\Images\WeatherIcons\fog.png" />
-    <None Remove="Resources\Images\WeatherIcons\rain.png" />
-    <None Remove="Resources\Images\WeatherIcons\sandstorm.png" />
-    <None Remove="Resources\Images\WeatherIcons\snow.png" />
-    <None Remove="Resources\Images\WeatherIcons\thunderstorm.png" />
-    <None Remove="Resources\Images\WeatherIcons\typhoon.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Resources\Images\Icons\bison.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="MaterialDesignColors" Version="2.1.2" />
     <PackageReference Include="MaterialDesignThemes" Version="4.8.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />

@@ -18,7 +18,7 @@
         <Setter Property="Background" Value="{StaticResource WhiteColor}"/>
         <Setter Property="CornerRadius" Value="20"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Margin" Value="40"/>
+        <Setter Property="Margin" Value="40, 20"/>
         <Setter Property="Padding" Value="20"/>
     </Style>
 
