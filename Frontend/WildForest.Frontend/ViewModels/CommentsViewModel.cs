@@ -36,6 +36,12 @@ namespace WildForest.Frontend.ViewModels
         [ObservableProperty]
         private string message = null!;
 
+        [ObservableProperty]
+        private bool isElementsEnabled = true;
+
+        [ObservableProperty]
+        private string mediumMark;
+
         #endregion
 
         #region Commands
@@ -56,6 +62,7 @@ namespace WildForest.Frontend.ViewModels
             if (markResponse.Comments is not null)
             {
                 FillComments(markResponse.Comments);
+                MediumMark = Math.Round(WeatherViewModel.MediumMark, 2).ToString();
             }
             else
             {
@@ -81,6 +88,12 @@ namespace WildForest.Frontend.ViewModels
 
             byte rating = (byte)SelectedMark;
 
+            if (Message == null)
+            {
+                MessageBox.Show("Write something to send message", "Wild forest", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                return;
+            }
+
             Message = Message.Trim();
 
             if(Message == string.Empty)
@@ -95,8 +108,11 @@ namespace WildForest.Frontend.ViewModels
             if (commentResponseBase.Comment is not null)
             {
                 var comment = commentResponseBase.Comment;
-                var newComment = new CommentsModel(comment.MarkId, comment.UserId, WeatherViewModel.CurrentWeatherId, comment.Date, rating, "Me", "", comment.Comment);
+                var newComment = new CommentsModel(comment.MarkId, comment.UserId, WeatherViewModel.CurrentWeatherId, comment.Date, rating, "", "Me", comment.Comment);
+                MediumMark = Math.Round(comment.MediumMark, 2).ToString();
                 Comments.Add(newComment);
+                IsElementsEnabled = false; 
+                Message = string.Empty;
             }
             else
             {
