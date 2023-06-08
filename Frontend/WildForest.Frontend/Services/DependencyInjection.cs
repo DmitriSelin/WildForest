@@ -8,8 +8,16 @@ using WildForest.Frontend.Services.Weather.Interfaces;
 
 namespace WildForest.Frontend.Services
 {
+    /// <summary>
+    /// DI Extension for services
+    /// </summary>
     internal static class DependencyInjection
     {
+        /// <summary>
+        /// Method for adding services in DI
+        /// </summary>
+        /// <param name="services">Services</param>
+        /// <returns>Services</returns>
         internal static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddHttpClient<IMapService, MapService>();

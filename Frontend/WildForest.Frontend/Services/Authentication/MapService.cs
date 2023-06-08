@@ -7,29 +7,40 @@ using WildForest.Frontend.Common;
 using WildForest.Frontend.Contracts.Maps;
 using WildForest.Frontend.Services.Authentication.Interfaces;
 
-namespace WildForest.Frontend.Services.Authentication
+namespace WildForest.Frontend.Services.Authentication;
+
+/// <summary>
+/// Service for getting lists of countries and cities
+/// </summary>
+internal class MapService : IMapService
 {
-    internal class MapService : IMapService
+    private readonly HttpClient _httpClient;
+
+    public MapService(HttpClient httpClient)
     {
-        private readonly HttpClient _httpClient;
+        _httpClient = httpClient;
+    }
 
-        public MapService(HttpClient httpClient)
-        {
-            _httpClient = httpClient;
-        }
+    /// <summary>
+    /// Method for getting list of countries
+    /// </summary>
+    /// <returns>List<CountryDto></returns>
+    public async Task<List<CountryDto>> GetCountriesAsync()
+    {
+        var countries = await _httpClient.GetFromJsonAsync<List<CountryDto>?>($"{ApiItemKeys.BaseUrl}/auth/countries");
 
-        public async Task<List<CountryDto>> GetCountriesAsync()
-        {
-            var countries = await _httpClient.GetFromJsonAsync<List<CountryDto>?>($"{ApiItemKeys.BaseUrl}/auth/countries");
+        return countries!;
+    }
 
-            return countries!;
-        }
+    /// <summary>
+    /// Method for getting list of cities by id of country
+    /// </summary>
+    /// <param name="countryId">Id of country</param>
+    /// <returns>List<CityDto></returns>
+    public async Task<List<CityDto>> GetCitiesAsync(Guid countryId)
+    {
+        var cities = await _httpClient.GetFromJsonAsync<List<CityDto>?>($"{ApiItemKeys.BaseUrl}/auth/cities/{countryId}");
 
-        public async Task<List<CityDto>> GetCitiesAsync(Guid countryId)
-        {
-            var cities = await _httpClient.GetFromJsonAsync<List<CityDto>?>($"{ApiItemKeys.BaseUrl}/auth/cities/{countryId}");
-
-            return cities!;
-        }
+        return cities!;
     }
 }

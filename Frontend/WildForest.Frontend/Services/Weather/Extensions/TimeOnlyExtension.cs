@@ -2,8 +2,17 @@
 
 namespace WildForest.Frontend.Services.Weather.Extensions;
 
+/// <summary>
+/// Extension for putting time in 3-hours intervals
+/// </summary>
 internal static class TimeOnlyExtension
 {
+    /// <summary>
+    /// Method for putting time in 3-hours intervals
+    /// </summary>
+    /// <param name="currentTime">Current time</param>
+    /// <returns>TimeOnly object in interval</returns>
+    /// <exception cref="ArgumentException">Throw ArgumentException if time is invalid</exception>
     internal static TimeOnly PutIntoTimeInterval(this TimeOnly currentTime)
     {
         TimeOnly[] timeIntervals = new TimeOnly[]

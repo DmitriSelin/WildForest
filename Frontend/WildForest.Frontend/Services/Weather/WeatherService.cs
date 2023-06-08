@@ -10,6 +10,9 @@ using WildForest.Frontend.Services.Weather.Interfaces;
 
 namespace WildForest.Frontend.Services.Weather;
 
+/// <summary>
+/// Service for getting weather forecast
+/// </summary>
 public sealed class WeatherService : IWeatherService
 {
     private readonly HttpClient _httpClient;
@@ -19,6 +22,11 @@ public sealed class WeatherService : IWeatherService
         _httpClient = httpClient;
     }
 
+    /// <summary>
+    /// Method for getting today weather forecast
+    /// </summary>
+    /// <param name="token">Jwt token</param>
+    /// <returns>WeatherResponseBase</returns>
     public async Task<WeatherResponseBase> GetTodayWeatherForecastAsync(string token)
     {
         var now = DateTime.Now;

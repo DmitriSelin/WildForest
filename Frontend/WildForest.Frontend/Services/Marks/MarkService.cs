@@ -12,6 +12,9 @@ using WildForest.Frontend.Services.Marks.Interfaces;
 
 namespace WildForest.Frontend.Services.Marks;
 
+/// <summary>
+/// Serivce for working with comments and marks
+/// </summary>
 internal class MarkService : IMarkService
 {
     private readonly HttpClient _httpClient;
@@ -21,6 +24,12 @@ internal class MarkService : IMarkService
         _httpClient = httpClient;
     }
 
+    /// <summary>
+    /// Method for writing new comment
+    /// </summary>
+    /// <param name="request">HTTP request</param>
+    /// <param name="token">Jwt Token</param>
+    /// <returns>CommentResponseBase</returns>
     public async Task<CommentResponseBase> AddCommentWithMarkAsync(CommentRequest request, string token)
     {
         _httpClient.DefaultRequestHeaders.Authorization =
@@ -42,6 +51,12 @@ internal class MarkService : IMarkService
         return new(null!, badResponse!.Status, badResponse.Title);
     }
 
+    /// <summary>
+    /// Method for getting all comments and avg mark by day weather forecast
+    /// </summary>
+    /// <param name="weatherId">Id of weather</param>
+    /// <param name="token">Jwt token</param>
+    /// <returns>MarksResponseBase</returns>
     public async Task<MarksResponseBase> GetMarksAsync(Guid weatherId, string token)
     {
         _httpClient.DefaultRequestHeaders.Authorization =
@@ -61,6 +76,12 @@ internal class MarkService : IMarkService
         return new(null, badResponse!.Status, badResponse.Title);
     }
 
+    /// <summary>
+    /// Method for creating payload
+    /// </summary>
+    /// <typeparam name="T">Type of request data</typeparam>
+    /// <param name="request">HTTP request</param>
+    /// <returns>Payload</returns>
     private StringContent CreatePayload<T>(T request)
     {
         var data = JsonSerializer.Serialize(request);
