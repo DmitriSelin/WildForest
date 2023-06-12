@@ -12,7 +12,7 @@
     <components:AuthenticationBorder>
         <UniformGrid
             Rows="3">
-            
+
             <StackPanel
                 Orientation="Horizontal"
                 HorizontalAlignment="Left"

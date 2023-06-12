@@ -83,7 +83,7 @@ namespace WildForest.Api.Controllers
             {
                 return Problem(authenticationResult.Errors);
             }
-            
+
             HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
 
             var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);

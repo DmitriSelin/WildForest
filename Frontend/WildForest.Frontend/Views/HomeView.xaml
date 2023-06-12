@@ -70,6 +70,10 @@
                 Style="{StaticResource CommentsRadioButtonStyle}"
                 Command="{Binding OpenCommentsViewCommand}"/>
 
+            <RadioButton
+                Style="{StaticResource DiagramRadioButtonStyle}"
+                Command="{Binding OpenChartViewCommand}"/>
+
         </StackPanel>
 
         <ContentControl
@@ -84,6 +88,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:CommentsViewModel}">
                     <local:CommentsView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:ChartViewModel}">
+                    <local:ChartView/>
                 </DataTemplate>
             </ContentControl.Resources>
 

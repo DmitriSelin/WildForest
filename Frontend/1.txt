@@ -1,0 +1,13 @@
+       <lvc:CartesianChart>
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries Values="{Binding Values}" Title="Example Series">
+                    <lvc:LineSeries.ToolTipPointFormatter>
+                        <lvc:FuncTooltipPointFormatter PointLabel="{Binding LabelFormatString}" />
+                    </lvc:LineSeries.ToolTipPointFormatter>
+                </lvc:LineSeries>
+            </lvc:CartesianChart.Series>
+
+            <lvc:CartesianChart.Tooltip>
+                <lvc:DefaultTooltip />
+            </lvc:CartesianChart.Tooltip>
+        </lvc:CartesianChart>

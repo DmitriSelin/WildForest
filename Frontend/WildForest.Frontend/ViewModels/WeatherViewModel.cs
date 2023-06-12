@@ -69,6 +69,7 @@ namespace WildForest.Frontend.ViewModels
                 ImagePath = WeatherImage.GetWeatherImage(CurrentWeatherForecast.WeatherDescription.Name);
                 MediumMark = response.WeatherForecast.MediumMark;
                 CurrentWeatherId = Forecasts[0].WeatherId;
+                FillDiagram(Forecasts);
             }
             else
             {
@@ -76,6 +77,13 @@ namespace WildForest.Frontend.ViewModels
             }
 
             isFirstLoaded = false;
+        }
+
+        private void FillDiagram(List<WeatherForecastDto> forecasts)
+        {
+            var vm = (ChartViewModel)App.Current.Services.GetService(typeof(ChartViewModel))!;
+
+            vm.FillCollections(forecasts);
         }
 
         #endregion

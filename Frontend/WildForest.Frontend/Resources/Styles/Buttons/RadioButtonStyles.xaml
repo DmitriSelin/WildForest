@@ -99,6 +99,46 @@
         </Setter>
     </Style>
 
+    <Style x:Key="DiagramRadioButtonStyle" TargetType="RadioButton" BasedOn="{StaticResource MenuRadioButtonStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+
+                    <Border    
+                        x:Name="border"
+                        CornerRadius="10"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        SnapsToDevicePixels="true">
+
+                        <fa:ImageAwesome 
+                            Icon="AreaChart"
+                            Foreground="{DynamicResource WhiteSmokeColor}"
+                            Height="50"/>
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsChecked" Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter Property="BorderThickness" TargetName="border" Value="2"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource MediumGrayColor}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="EyeCheckBoxStyle" TargetType="CheckBox">
         <Setter Property="Foreground" Value="{DynamicResource MediumGrayColor}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>

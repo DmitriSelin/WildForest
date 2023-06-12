@@ -39,6 +39,7 @@ namespace WildForest.Frontend.ViewModels
 
         private readonly WeatherViewModel _weatherViewModel;
         private readonly CommentsViewModel _commentsViewModel;
+        private ChartViewModel? _chartViewModel;
 
         #endregion
 
@@ -68,6 +69,21 @@ namespace WildForest.Frontend.ViewModels
 
         #endregion
 
+        #region OpenChartViewCommand
+
+        public ICommand OpenChartViewCommand { get; }
+
+        private void OpenChartView()
+        {
+            if (_chartViewModel == null)
+                _chartViewModel = (ChartViewModel)App.Current.Services.GetService(typeof(ChartViewModel))!;
+
+            if (CurrentViewModel != _chartViewModel)
+                CurrentViewModel = _chartViewModel;
+        }
+
+        #endregion
+
         #endregion
 
         internal void SetCredentials(
@@ -93,6 +109,7 @@ namespace WildForest.Frontend.ViewModels
 
             OpenWeatherViewCommand = new RelayCommand(OpenWeatherView);
             OpenCommentsViewCommand = new RelayCommand(OpenCommentsView);
+            OpenChartViewCommand = new RelayCommand(OpenChartView);
 
             #endregion
         }
