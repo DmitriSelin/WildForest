@@ -18,7 +18,7 @@ internal partial class ChartViewModel : ObservableObject
         {
             new LineSeries<ChartDto>
             {
-                TooltipLabelFormatter = point => $"{point.Model?.Time}",
+                XToolTipLabelFormatter = point => $"{point.Model?.Time}",
                 Values = forecasts.Select(x => new ChartDto(x.Time, x.Temperature.Value)),
                 Mapping = (dto, point) =>
                 {
