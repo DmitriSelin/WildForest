@@ -30,7 +30,7 @@ public sealed class WeatherService : IWeatherService
     public async Task<WeatherResponseBase> GetTodayWeatherForecastAsync(string token)
     {
         var now = DateTime.Now;
-        var forecastDate = $"{now.Year}.{now.Month}.{now.AddDays(1).Day}";
+        var forecastDate = $"{now.Year}.{now.Month}.{now.Day}";
 
         _httpClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", token);
