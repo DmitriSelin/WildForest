@@ -21,12 +21,7 @@ internal sealed class UtcDateTimeConverter : IValueConverter
     {
         if (value is DateTime dt)
         {
-            int difference = DateTime.UtcNow.Hour - DateTime.Now.Hour;
-
-            if (difference < 0)
-                difference *= -1;
-
-            dt = dt.AddHours(difference);
+            dt = dt.AddHours(3);
 
             return dt.ToString("HH:mm");
         }
