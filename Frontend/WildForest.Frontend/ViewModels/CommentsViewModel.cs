@@ -57,19 +57,26 @@ namespace WildForest.Frontend.ViewModels
             if (!isFirstLoaded)
                 return;
 
-            var markResponse = await _markService.GetMarksAsync(WeatherViewModel.CurrentWeatherId, token);
-
-            if (markResponse.Comments is not null)
+            try
             {
-                FillComments(markResponse.Comments);
-                MediumMark = Math.Round(WeatherViewModel.MediumMark, 2).ToString();
-            }
-            else
-            {
-                MessageBox.Show(markResponse.Title, "Wild forest", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-            }
+                var markResponse = await _markService.GetMarksAsync(WeatherViewModel.CurrentWeatherId, token);
 
-            isFirstLoaded = false;
+                if (markResponse.Comments is not null)
+                {
+                    FillComments(markResponse.Comments);
+                    MediumMark = Math.Round(WeatherViewModel.MediumMark, 2).ToString();
+                }
+                else
+                {
+                    MessageBox.Show(markResponse.Title, "Wild forest", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                }
+
+                isFirstLoaded = false;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Server is not available", "Wild forest", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         #endregion
@@ -103,20 +110,28 @@ namespace WildForest.Frontend.ViewModels
             }
 
             var request = new CommentRequest(WeatherViewModel.CurrentWeatherId, userId, rating, Message);
-            var commentResponseBase = await _markService.AddCommentWithMarkAsync(request, token);
 
-            if (commentResponseBase.Comment is not null)
+            try
             {
-                var comment = commentResponseBase.Comment;
-                var newComment = new CommentsModel(comment.MarkId, comment.UserId, WeatherViewModel.CurrentWeatherId, comment.Date, rating, "", "Me", comment.Comment);
-                MediumMark = Math.Round(comment.MediumMark, 2).ToString();
-                Comments.Add(newComment);
-                IsElementsEnabled = false; 
-                Message = string.Empty;
+                var commentResponseBase = await _markService.AddCommentWithMarkAsync(request, token);
+
+                if (commentResponseBase.Comment is not null)
+                {
+                    var comment = commentResponseBase.Comment;
+                    var newComment = new CommentsModel(comment.MarkId, comment.UserId, WeatherViewModel.CurrentWeatherId, comment.Date, rating, "", "Me", comment.Comment);
+                    MediumMark = Math.Round(comment.MediumMark, 2).ToString();
+                    Comments.Add(newComment);
+                    IsElementsEnabled = false;
+                    Message = string.Empty;
+                }
+                else
+                {
+                    MessageBox.Show(commentResponseBase.Title, "Wild forest", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                }
             }
-            else
+            catch (Exception)
             {
-                MessageBox.Show(commentResponseBase.Title, "Wild forest", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                MessageBox.Show("Server is not available", "Wild forest", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

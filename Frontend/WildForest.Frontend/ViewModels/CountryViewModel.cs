@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,10 +29,17 @@ namespace WildForest.Frontend.ViewModels
 
             if (SelectedCountry is not null)
             {
-                var country = (CountryDto)SelectedCountry;
-                var cities = await _mapService.GetCitiesAsync(country.CountryId);
+                try
+                {
+                    var country = (CountryDto)SelectedCountry;
+                    var cities = await _mapService.GetCitiesAsync(country.CountryId);
 
-                mainViewModel.ShowRegisterView(cities);
+                    mainViewModel.ShowRegisterView(cities);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Server is not available", "Wild forest", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             else
             {

@@ -46,12 +46,19 @@ internal class LoginViewModel : ObservableObject
 
     private async Task OpenCountryView()
     {
-        List<CountryDto> countries = await _mapsService.GetCountriesAsync();
+        try
+        {
+            List<CountryDto> countries = await _mapsService.GetCountriesAsync();
 
-        if (_mainViewModel is null)
-            _mainViewModel = (MainViewModel)App.Current.Services.GetService(typeof(MainViewModel))!;
+            if (_mainViewModel is null)
+                _mainViewModel = (MainViewModel)App.Current.Services.GetService(typeof(MainViewModel))!;
 
-        _mainViewModel.ShowCountryView(countries);
+            _mainViewModel.ShowCountryView(countries);
+        }
+        catch (Exception)
+        {
+            MessageBox.Show("Server is not available", "Wild forest", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     #endregion
@@ -72,22 +79,29 @@ internal class LoginViewModel : ObservableObject
 
         var loginRequest = new LoginRequest(Email, Password);
 
-        var response = await _authenticationService.LoginAsync(loginRequest);
-
-        if (response.Response is not null)
+        try
         {
-            if (_mainViewModel is null)
-                _mainViewModel = (MainViewModel)App.Current.Services.GetService(typeof(MainViewModel))!;
+            var response = await _authenticationService.LoginAsync(loginRequest);
 
-            _mainViewModel.ShowHomeView(
-                $"{response.Response.LastName} {response.Response.FirstName}",
-                response.Response.CityName,
-                response.Response.Token,
-                Guid.Parse(response.Response.Id));
+            if (response.Response is not null)
+            {
+                if (_mainViewModel is null)
+                    _mainViewModel = (MainViewModel)App.Current.Services.GetService(typeof(MainViewModel))!;
+
+                _mainViewModel.ShowHomeView(
+                    $"{response.Response.LastName} {response.Response.FirstName}",
+                    response.Response.CityName,
+                    response.Response.Token,
+                    Guid.Parse(response.Response.Id));
+            }
+            else
+            {
+                MessageBox.Show(response.Title, "Wild forest", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
         }
-        else
+        catch (Exception)
         {
-            MessageBox.Show(response.Title, "Wild forest", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            MessageBox.Show("Server is not available", "Wild forest", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
