@@ -5,7 +5,7 @@ namespace WildForest.Frontend.Validators.Authentication;
 /// <summary>
 /// Validator for user authentication
 /// </summary>
-internal interface IAuthenticationValidator
+public interface IAuthenticationValidator
 {
     /// <summary>
     /// Validate user registration
