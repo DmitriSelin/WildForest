@@ -16,12 +16,12 @@ namespace WildForest.Infrastructure.Persistence.Configurations
                                 value => CountryId.Parse(value));
 
             builder.OwnsOne(
-                x => x.CountryName,
+                x => x.Name,
                 sa =>
                 {
                     sa.Property(p => p.Value)
                     .HasMaxLength(ConfigurationSettings.MaxStringLength)
-                    .HasColumnName("CountryName");
+                    .HasColumnName("Name");
                 });
 
             builder.Metadata.FindNavigation(nameof(Country.Cities))!

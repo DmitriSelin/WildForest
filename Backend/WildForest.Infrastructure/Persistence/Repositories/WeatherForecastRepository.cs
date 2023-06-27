@@ -20,7 +20,7 @@ public sealed class WeatherForecastRepository : IWeatherForecastRepository
     {
         var items = await _context.WeatherForecasts
             .Include(x => x.WeatherMark)
-            .Where(x => x.CityId == cityId && x.ForecastDate.Value == forecastDate.Value)
+            .Where(x => x.CityId == cityId && x.Time == forecastDate.Value)
             .ToListAsync();
             return items;
     }

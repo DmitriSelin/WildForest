@@ -17,11 +17,11 @@ namespace WildForest.Infrastructure.Persistence.Configurations
                                 value => CityId.Parse(value));
 
             builder.OwnsOne(
-                x => x.CityName,
+                x => x.Name,
                 sa =>
                 {
                     sa.Property(p => p.Value)
-                    .HasColumnName("CityName");
+                    .HasColumnName("Name");
                 });
 
             builder.OwnsOne(

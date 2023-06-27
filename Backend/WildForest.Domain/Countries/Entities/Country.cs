@@ -6,22 +6,22 @@ namespace WildForest.Domain.Countries.Entities
 {
     public class Country : Entity<CountryId>
     {
-        public CountryName CountryName { get; } = null!;
+        public CountryName Name { get; } = null!;
 
         private readonly List<City> _cities = new();
 
         public IReadOnlyList<City> Cities => _cities.AsReadOnly(); 
 
-        private Country(CountryId id, CountryName countryName) : base(id)
+        private Country(CountryId id, CountryName name) : base(id)
         {
-            CountryName = countryName;
+            Name = name;
         }
 
         private Country(CountryId id) : base(id) { }
 
-        public static Country Create(CountryName countryName)
+        public static Country Create(CountryName name)
         {
-            return new(CountryId.Create(), countryName);
+            return new(CountryId.Create(), name);
         }
     }
 }

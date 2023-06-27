@@ -7,7 +7,7 @@ using WildForest.Domain.WeatherMarks.Entities;
 
 namespace WildForest.Domain.Weather.Entities;
 
-public sealed class WeatherForecast : Entity<WeatherId>
+public sealed class WeatherForecast : Entity<WeatherForecastId>
 {
     public DateTime Time { get; }
 
@@ -40,7 +40,7 @@ public sealed class WeatherForecast : Entity<WeatherId>
     public WeatherMark WeatherMark { get; } = null!;
 
     private WeatherForecast(
-        WeatherId id,
+        WeatherForecastId id,
         DateTime time,
         Temperature temperature,
         Pressure pressure,
@@ -66,7 +66,7 @@ public sealed class WeatherForecast : Entity<WeatherId>
         CityId = cityId;
     }
 
-    private WeatherForecast(WeatherId id) : base(id) { }
+    private WeatherForecast(WeatherForecastId id) : base(id) { }
 
     public static WeatherForecast Create(
         DateTime time,
@@ -82,7 +82,7 @@ public sealed class WeatherForecast : Entity<WeatherId>
         CityId cityId)
     {
         return new(
-            WeatherId.Create(),
+            WeatherForecastId.Create(),
             time,
             temperature,
             pressure,

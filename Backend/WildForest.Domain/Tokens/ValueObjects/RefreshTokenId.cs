@@ -22,7 +22,7 @@ public sealed class RefreshTokenId :  ValueObject
     public static RefreshTokenId Parse(string refreshTokenId)
     {
         return Create(Guid.Parse(refreshTokenId));
-    } 
+    }
 
     public override IEnumerable<object> GetEqualityComponents()
     {

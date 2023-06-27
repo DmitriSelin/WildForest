@@ -9,7 +9,7 @@ namespace WildForest.Domain.Cities.Entities
 {
     public class City : Entity<CityId>
     {
-        public CityName CityName { get; } = null!;
+        public CityName Name { get; } = null!;
 
         public Location Location { get; } = null!;
 
@@ -27,22 +27,22 @@ namespace WildForest.Domain.Cities.Entities
 
         private City(
             CityId id,
-            CityName cityName,
+            CityName name,
             Location location,
             CountryId countryId) : base(id)
         {
-            CityName = cityName;
+            Name = name;
             Location = location;
             CountryId = countryId;
         }
 
         private City(CityId id) : base(id) { }
 
-        public static City Create(CityName cityName, Location location, CountryId countryId)
+        public static City Create(CityName name, Location location, CountryId countryId)
         {
             return new(
                 CityId.Create(),
-                cityName,
+                name,
                 location,
                 countryId);
         }

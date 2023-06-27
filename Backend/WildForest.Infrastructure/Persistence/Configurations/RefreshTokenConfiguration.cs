@@ -16,33 +16,23 @@ public sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<Refresh
             .HasConversion(id => id.ToString(),
                 value => RefreshTokenId.Parse(value));
 
-        builder.OwnsOne(
-            x => x.Token, sa =>
-            {
-                sa.Property(p => p.Value)
-                    .HasColumnName("Token");
-            });
+        builder.Property(p => p.Token)
+            .IsRequired()
+            .HasColumnName("Token");
 
-        builder.OwnsOne(
-            x => x.Expiration, sa =>
-            {
-                sa.Property(p => p.Value)
-                    .HasColumnName("Expiration");
-            });
+        builder.Property(p => p.Expiration)
+            .IsRequired()
+            .HasColumnType("timestamp without time zone")
+            .HasColumnName("Expiration");
 
-        builder.OwnsOne(
-            x => x.CreationDate, sa =>
-            {
-                sa.Property(p => p.Value)
-                    .HasColumnName("CreationDate");
-            });
+        builder.Property(p => p.CreationDate)
+            .IsRequired()
+            .HasColumnType("timestamp without time zone")
+            .HasColumnName("CreationDate");
 
-        builder.OwnsOne(
-            x => x.CreatedByIp, sa =>
-            {
-                sa.Property(p => p.Value)
-                    .HasColumnName("CreatedByIp");
-            });
+        builder.Property(p => p.CreatedByIp)
+            .IsRequired()
+            .HasColumnName("CreatedByIp");
 
         builder.HasOne(p => p.User)
             .WithMany(x => x.RefreshTokens)
@@ -51,35 +41,23 @@ public sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<Refresh
         builder.Property(p => p.UserId)
             .HasConversion(id => id.ToString(),
                             value => UserId.Parse(value));
-        
-        builder.OwnsOne(
-            x => x.Revoked, sa =>
-            {
-                sa.Property(p => p.Value)
-                    .HasColumnName("Revoked");
-            });
-        
-        builder.OwnsOne(
-            x => x.RevokedByIp, sa =>
-            {
-                sa.Property(p => p.Value)
-                    .HasColumnName("RevokedByIp");
-            });
-        
-        builder.OwnsOne(
-            x => x.ReplacedByToken, sa =>
-            {
-                sa.Property(p => p.Value)
-                    .HasColumnName("ReplacedByToken");
-            });
-        
-        builder.OwnsOne(
-            x => x.ReasonRevoked, sa =>
-            {
-                sa.Property(p => p.Value)
-                    .HasMaxLength(ConfigurationSettings.MaxStringLength)
-                    .HasColumnName("ReasonRevoked");
-            });
+
+        builder.Property(p => p.RevokedDate)
+            .IsRequired(false)
+            .HasColumnType("timestamp without time zone")
+            .HasColumnName("CreationDate");
+
+        builder.Property(p => p.RevokedByIp)
+            .IsRequired(false)
+            .HasColumnName("RevokedByIp");
+
+        builder.Property(p => p.ReplacedByToken)
+            .IsRequired(false)
+            .HasColumnName("ReplacedByToken");
+
+        builder.Property(p => p.ReasonRevoked)
+            .IsRequired(false)
+            .HasColumnName("ReasonRevoked");
 
         builder.Ignore(p => p.IsExpired);
         builder.Ignore(p => p.IsRevoked);
