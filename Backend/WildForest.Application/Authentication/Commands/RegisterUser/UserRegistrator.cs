@@ -5,7 +5,6 @@ using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
-using WildForest.Domain.Tokens.ValueObjects;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Application.Common.Interfaces.Weather;
 
@@ -69,16 +68,15 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
 
             await _existingWeatherDataService.CheckWeatherDataExisting(city.Id);
 
-            var createdByIp = CreatedByIp.Create(command.IpAddress);
-            var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, createdByIp);
+            var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, command.IpAddress);
             await _refreshTokenRepository.AddTokenAsync(refreshToken);
 
             var token = _jwtTokenGenerator.GenerateToken(user);
 
-            return new AuthenticationResult(user, token, refreshToken.Token.Value);
+            return new AuthenticationResult(user, token, refreshToken.Token);
         }
 
-        private User CreateUser(RegisterUserCommand command, Email email, CityId cityId)
+        private static User CreateUser(RegisterUserCommand command, Email email, CityId cityId)
         {
             var firstName = FirstName.Create(command.FirstName);
             var lastName = LastName.Create(command.LastName);
@@ -92,7 +90,7 @@ namespace WildForest.Application.Authentication.Commands.RegisterUser
                 cityId);
         }
 
-        private User CreateAdmin(RegisterUserCommand command, Email email, CityId cityId)
+        private static User CreateAdmin(RegisterUserCommand command, Email email, CityId cityId)
         {
             var firstName = FirstName.Create(command.FirstName);
             var lastName = LastName.Create(command.LastName);

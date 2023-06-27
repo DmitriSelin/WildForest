@@ -4,7 +4,6 @@ using WildForest.Application.Authentication.Common.Extensions;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Common.Errors;
-using WildForest.Domain.Tokens.ValueObjects;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
@@ -29,38 +28,35 @@ public sealed class RefreshTokenCommandHandler : IRefreshTokenCommandHandler
 
     public async Task<ErrorOr<AuthenticationResult>> RefreshTokenAsync(RefreshTokenCommand command)
     {
-        var token = Token.Create(command.Token);
-        var iPAddress = CreatedByIp.Create(command.IpAddress);
-        
-        var refreshToken = await _refreshTokenRepository.GetTokenWithUserByValueAsync(token);
+        var refreshToken = await _refreshTokenRepository.GetTokenWithUserByValueAsync(command.Token);
 
         if (refreshToken is null)
             return Errors.RefreshToken.NotFound;
 
         if (refreshToken.IsRevoked)
         {
-            await RevokeDescendantRefreshTokens(refreshToken, refreshToken.User, iPAddress, 
-                $"Attempted reuse of revoked ancestor token: {token.Value}");
+            await RevokeDescendantRefreshTokens(refreshToken, refreshToken.User, command.IpAddress,
+                $"Attempted reuse of revoked ancestor token: {command.Token}");
             await _refreshTokenRepository.UpdateRefreshTokenAsync(refreshToken);
         }
 
         if (!refreshToken.IsActive)
             return Errors.RefreshToken.InvalidToken;
 
-        var newRefreshToken = await ReplaceRefreshTokenAsync(refreshToken.UserId, refreshToken, iPAddress);
+        var newRefreshToken = await ReplaceRefreshTokenAsync(refreshToken.UserId, refreshToken, command.IpAddress);
 
         await _refreshTokenRepository.AddTokenAsync(newRefreshToken, false);
         await _refreshTokenRepository.RemoveOldRefreshTokensByUserIdAsync(newRefreshToken.UserId);
 
         var jwt = _jwtTokenGenerator.GenerateToken(refreshToken.User);
 
-        return new AuthenticationResult(refreshToken.User, jwt, newRefreshToken.Token.Value);
+        return new AuthenticationResult(refreshToken.User, jwt, newRefreshToken.Token);
     }
 
-    private async Task<RefreshToken> ReplaceRefreshTokenAsync(UserId userId, RefreshToken token, CreatedByIp createdByIp)
+    private async Task<RefreshToken> ReplaceRefreshTokenAsync(UserId userId, RefreshToken token, string createdByIp)
     {
         var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(userId, createdByIp);
-        token.Update(createdByIp.Value, "Replaced by new token", refreshToken.Token.Value);
+        token.Update(createdByIp, "Replaced by new token", refreshToken.Token);
 
         return refreshToken;
     }
@@ -68,17 +64,17 @@ public sealed class RefreshTokenCommandHandler : IRefreshTokenCommandHandler
     private async Task RevokeDescendantRefreshTokens(
         RefreshToken refreshToken,
         User user,
-        CreatedByIp createdByIp,
+        string createdByIp,
         string reason)
     {
-        if (!string.IsNullOrEmpty(refreshToken.ReplacedByToken?.Value))
+        if (!string.IsNullOrEmpty(refreshToken?.ReplacedByToken))
         {
             var childToken = await _refreshTokenRepository.GetRefreshTokenByReplacedTokenAndUserIdAsync(
                 refreshToken.ReplacedByToken, user.Id);
 
             if (childToken!.IsActive)
             {
-                childToken.RevokeRefreshToken(createdByIp.Value, reason);
+                childToken.RevokeRefreshToken(createdByIp, reason);
             }
             else
             {

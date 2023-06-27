@@ -18,7 +18,7 @@ namespace WildForest.Infrastructure.Persistence.Repositories
         public async Task<IEnumerable<Country>> GetAllCountriesAsync()
         {
             return await _context.Countries
-                .OrderBy(x => x.CountryName.Value)
+                .OrderBy(x => x.Name.Value)
                 .ToListAsync();
         }
 
@@ -31,7 +31,7 @@ namespace WildForest.Infrastructure.Persistence.Repositories
         public async Task<Country?> GetCountryByNameAsync(CountryName countryName)
         {
             return await _context.Countries
-                .FirstOrDefaultAsync(x => x.CountryName.Value == countryName.Value);
+                .FirstOrDefaultAsync(x => x.Name.Value == countryName.Value);
         }
 
         public async Task<Country?> GetCountryByIdAsync(CountryId countryId)

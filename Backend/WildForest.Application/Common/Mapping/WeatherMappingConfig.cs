@@ -10,8 +10,8 @@ namespace WildForest.Application.Common.Mapping
         {
             config.NewConfig<WeatherForecast, WeatherForecastDto>()
                 .Map(dest => dest.WeatherId, source => source.Id.Value)
-                .Map(dest => dest.Date, source => source.ForecastDate.Value)
-                .Map(dest => dest.Time, source => source.ForecastTime.Value)
+                .Map(dest => dest.Date, source => source.Time)//TODO: redone weather mapping
+                .Map(dest => dest.Time, source => source.Time)
                 .Map(dest => dest.Temperature, source => new Temperature(
                     source.Temperature.Value, source.Temperature.ValueFeelsLike))
                 .Map(dest => dest.Pressure, source => source.Pressure.Value)

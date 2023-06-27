@@ -2,7 +2,6 @@ using ErrorOr;
 using WildForest.Application.Authentication.Common.Extensions;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Common.Errors;
-using WildForest.Domain.Tokens.ValueObjects;
 
 namespace WildForest.Application.Authentication.Commands.RevokeTokens;
 
@@ -17,8 +16,7 @@ public sealed class RevokeTokenCommandHandler : IRevokeTokenCommandHandler
 
     public async Task<ErrorOr<string>> RevokeRefreshTokenAsync(RevokeTokenCommand command)
     {
-        var token = Token.Create(command.Token);
-        var refreshToken = await _refreshTokenRepository.GetTokenWithUserByValueAsync(token);
+        var refreshToken = await _refreshTokenRepository.GetTokenWithUserByValueAsync(command.Token);
 
         if (refreshToken is null)
         {
@@ -30,12 +28,9 @@ public sealed class RevokeTokenCommandHandler : IRevokeTokenCommandHandler
             return Errors.RefreshToken.InvalidToken;
         }
 
-        var createdByIp = CreatedByIp.Create(command.IpAddress);
-        
-        refreshToken.RevokeRefreshToken(createdByIp.Value, "Revoke without replacement");
+        refreshToken.RevokeRefreshToken(command.IpAddress, "Revoke without replacement");
         await _refreshTokenRepository.UpdateRefreshTokenAsync(refreshToken);
 
-        var result = "Token revoked";
-        return result;
+        return "Token revoked";
     }
 }

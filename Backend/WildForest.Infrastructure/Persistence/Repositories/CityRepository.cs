@@ -26,14 +26,14 @@ namespace WildForest.Infrastructure.Persistence.Repositories
         {
             return await _context.Cities
                 .Where(x => x.CountryId == countryId)
-                .OrderBy(x => x.CityName.Value)
+                .OrderBy(x => x.Name.Value)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<City>> GetDistinctCitiesFromUsersAsync()
         {
             return await _context.Cities.FromSqlRaw("""
-                SELECT DISTINCT c."Id", c."CityName", c."Latitude",
+                SELECT DISTINCT c."Id", c."Name", c."Latitude",
                 c."Longitude", c."CountryId" FROM public."Cities" c
                 INNER JOIN public."Users" u
                 ON c."Id" = u."CityId"

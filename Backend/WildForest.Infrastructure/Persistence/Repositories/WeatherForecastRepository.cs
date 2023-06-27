@@ -16,22 +16,13 @@ public sealed class WeatherForecastRepository : IWeatherForecastRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<WeatherForecast>?> GetWeatherForecastsWithMarkByDateAsync(CityId cityId, ForecastDate forecastDate)
-    {
-        var items = await _context.WeatherForecasts
-            .Include(x => x.WeatherMark)
-            .Where(x => x.CityId == cityId && x.Time == forecastDate.Value)
-            .ToListAsync();
-            return items;
-    }
-
     public async Task AddWeatherForecastsAsync(IEnumerable<WeatherForecast> forecasts)
     {
         await _context.WeatherForecasts.AddRangeAsync(forecasts);
         await _context.SaveChangesAsync();
     }
 
-    public async Task<WeatherForecast?> GetWeatherForecastByIdAsync(WeatherId weatherId)
+    public async Task<WeatherForecast?> GetWeatherForecastByIdAsync(WeatherForecastId weatherId)
     {
         return await _context.WeatherForecasts
             .FirstOrDefaultAsync(x => x.Id == weatherId);

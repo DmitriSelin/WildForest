@@ -14,7 +14,7 @@ namespace WildForest.Api.Common.Mapping
                 .Map(dest => dest.Email, source => source.Item1.Email)
                 .Map(dest => dest.Password, source => source.Item1.Password)
                 .Map(dest => dest.IpAddress, source => source.IpAddress);
-            
+
             config.NewConfig<(RegisterRequest, string iPAddress), RegisterUserCommand>()
                 .Map(dest => dest.FirstName, source => source.Item1.FirstName)
                 .Map(dest => dest.LastName, source => source.Item1.LastName)
@@ -31,7 +31,7 @@ namespace WildForest.Api.Common.Mapping
                 .Map(dest => dest.Email, src => src.User.Email.ToString())
                 .Map(dest => dest.Password, src => src.User.Password.ToString())
                 .Map(dest => dest.CityId, src => src.User.CityId.Value)
-                .Map(dest => dest.CityName, src => src.User.City.CityName.Value);
+                .Map(dest => dest.CityName, src => src.User.City.Name.Value);
         }
     }
 }

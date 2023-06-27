@@ -6,11 +6,9 @@ namespace WildForest.Application.Common.Interfaces.Persistence.Repositories;
 
 public interface IWeatherForecastRepository
 {
-    Task<IEnumerable<WeatherForecast>?> GetWeatherForecastsWithMarkByDateAsync(CityId cityId, ForecastDate forecastDate);
-
     Task AddWeatherForecastsAsync(IEnumerable<WeatherForecast> forecasts);
 
-    Task<WeatherForecast?> GetWeatherForecastByIdAsync(WeatherId weatherId);
+    Task<WeatherForecast?> GetWeatherForecastByIdAsync(WeatherForecastId weatherId);
 
     Task<IEnumerable<WeatherForecast>?> GetWeatherForecastsByCityIdAsync(CityId cityId);
 }

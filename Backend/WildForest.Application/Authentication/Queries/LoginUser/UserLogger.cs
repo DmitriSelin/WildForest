@@ -3,7 +3,6 @@ using WildForest.Application.Authentication.Common;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Common.Errors;
-using WildForest.Domain.Tokens.ValueObjects;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
 
@@ -40,15 +39,14 @@ namespace WildForest.Application.Authentication.Queries.LoginUser
                 return Errors.Authentication.InvalidCredentials;
             }
 
-            var createdByIp = CreatedByIp.Create(query.IpAddress);
-            var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, createdByIp);
+            var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, query.IpAddress);
             await _refreshTokenRepository.AddTokenAsync(refreshToken, false);
-            
+
             await _refreshTokenRepository.RemoveOldRefreshTokensByUserIdAsync(user.Id);
-            
+
             var token = _jwtTokenGenerator.GenerateToken(user);
 
-            return new AuthenticationResult(user, token, refreshToken.Token.Value);
+            return new AuthenticationResult(user, token, refreshToken.Token);
         }
     }
 }
