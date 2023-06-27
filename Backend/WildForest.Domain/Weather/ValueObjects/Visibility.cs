@@ -17,7 +17,7 @@ namespace WildForest.Domain.Weather.ValueObjects
         public static Visibility Create(double value)
         {
             if (value < 0 || value > 10_000)
-                throw new ArgumentOutOfRangeException("Invalid visibility");
+                throw new ArgumentOutOfRangeException(nameof(value), "Invalid visibility");
 
             return new(value);
         }

@@ -15,7 +15,7 @@ namespace WildForest.Domain.Weather.ValueObjects
         public static Humidity Create(byte value)
         {
             if (value > 100)
-                throw new ArgumentOutOfRangeException("Invalid humidity");
+                throw new ArgumentOutOfRangeException(nameof(value), "Invalid humidity");
 
             return new(value);
         }

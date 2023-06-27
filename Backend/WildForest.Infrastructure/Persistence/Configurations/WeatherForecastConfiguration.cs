@@ -17,21 +17,9 @@ namespace WildForest.Infrastructure.Persistence.Configurations
                 .HasConversion(id => id.ToString(),
                                 value => WeatherId.Parse(value));
 
-            builder.OwnsOne(
-                x => x.ForecastDate,
-                sa =>
-                {
-                    sa.Property(p => p.Value)
-                    .HasColumnName("ForecastDate");
-                });
-
-            builder.OwnsOne(
-                x => x.ForecastTime,
-                sa =>
-                {
-                    sa.Property(p => p.Value)
-                    .HasColumnName("ForecastTime");
-                });
+            builder.Property(p => p.Time)
+                .IsRequired()
+                .HasColumnName("Time");
 
             builder.OwnsOne(
                 x => x.Temperature,

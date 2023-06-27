@@ -15,7 +15,7 @@ namespace WildForest.Domain.Weather.ValueObjects
         public static PrecipitationProbability Create(byte value)
         {
             if (value > 100)
-                throw new ArgumentOutOfRangeException("Invalid precipitation probability");
+                throw new ArgumentOutOfRangeException(nameof(value), "Invalid precipitation probability");
 
             return new(value);
         }

@@ -15,7 +15,7 @@ namespace WildForest.Domain.Weather.ValueObjects
         public static Cloudiness Create(byte value)
         {
             if (value > 100)
-                throw new ArgumentOutOfRangeException("Invalid cloudiness");
+                throw new ArgumentOutOfRangeException(nameof(value), "Invalid cloudiness");
 
             return new(value);
         }
