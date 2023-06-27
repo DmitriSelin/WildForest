@@ -7,24 +7,18 @@ namespace WildForest.Api.Services.Http.Jwt
 {
     public sealed class JwtTokenDecoder : IJwtTokenDecoder
     {
-        public ErrorOr<Guid> GetUserIdFromToken(HttpRequest? request)
+        public ErrorOr<Guid> GetUserIdFromToken(StringValues bearer)
         {
             var userId = Guid.Empty;
 
-            if (request is not null)
+            if (bearer.Any())
             {
-                request.Headers.TryGetValue("Authorization", out StringValues bearer);
+                string? token = bearer[0]?.Split(" ")[1];
 
-                if (bearer.Any())
-                {
-                    string? token = bearer[0]?.Split(" ")[1];
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwt = tokenHandler.ReadJwtToken(token);
 
-                    var tokenHandler = new JwtSecurityTokenHandler();
-
-                    var jwt = tokenHandler.ReadJwtToken(token);
-
-                    userId = Guid.Parse(jwt.Claims.First(c => c.Type.Equals("sub")).Value);
-                }
+                userId = Guid.Parse(jwt.Claims.First(c => c.Type.Equals("sub")).Value);
             }
 
             if (userId == Guid.Empty)

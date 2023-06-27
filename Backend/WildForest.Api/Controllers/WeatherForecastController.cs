@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WildForest.Api.Common.Extensions;
 using WildForest.Api.Services.Http.Jwt;
 using WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
@@ -24,7 +25,8 @@ namespace WildForest.Api.Controllers
         [HttpGet("homeCity/{date}")]
         public async Task<IActionResult> GetWeather(string date)
         {
-            ErrorOr<Guid> userId = _jwtTokenDecoder.GetUserIdFromToken(HttpContext.Request);
+            var bearer = HttpContext.GetJwtTokenFromAuthHeader();
+            ErrorOr<Guid> userId = _jwtTokenDecoder.GetUserIdFromToken(bearer);
 
             if (userId.IsError)
             {
@@ -32,7 +34,6 @@ namespace WildForest.Api.Controllers
             }
 
             var forecastDate = DateOnly.Parse(date);
-
             var query = new HomeWeatherForecastQuery(userId.Value, forecastDate);
 
             var forecasts = await _homeWeatherForecastHandler.GetWeatherForecastAsync(query);

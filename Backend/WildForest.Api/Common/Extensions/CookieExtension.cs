@@ -9,7 +9,7 @@ public static class CookieExtension
             HttpOnly = true,
             Expires = DateTime.UtcNow.AddDays(7)
         };
-        
+
         cookies.Append("refreshToken", refreshToken, cookieOptions);
     }
 }

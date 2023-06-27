@@ -16,7 +16,7 @@ public sealed class TokenController : ApiController
     private readonly IRefreshTokenCommandHandler _refreshTokenCommandHandler;
     private readonly IRevokeTokenCommandHandler _revokeTokenCommandHandler;
     private readonly IMapper _mapper;
-    
+
     public TokenController(
         IRefreshTokenCommandHandler refreshTokenCommandHandler,
         IRevokeTokenCommandHandler revokeTokenCommandHandler,
@@ -38,18 +38,18 @@ public sealed class TokenController : ApiController
                 statusCode: StatusCodes.Status400BadRequest,
                 title: "Token is required");
         }
-        
+
         var iPAddress = HttpContext.GetIpAddress();
 
         var command = new RefreshTokenCommand(refreshToken, iPAddress);
-        
+
         var authenticationResult = await _refreshTokenCommandHandler.RefreshTokenAsync(command);
 
         if (authenticationResult.IsError)
         {
             return Problem(authenticationResult.Errors);
         }
-        
+
         HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
 
         var authenticationResponse = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
@@ -71,7 +71,7 @@ public sealed class TokenController : ApiController
         }
 
         var command = new RevokeTokenCommand(token, iPAddress);
-        
+
         ErrorOr<string> result = await _revokeTokenCommandHandler.RevokeRefreshTokenAsync(command);
 
         if (result.IsError)

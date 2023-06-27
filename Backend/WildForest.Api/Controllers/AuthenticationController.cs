@@ -122,14 +122,14 @@ namespace WildForest.Api.Controllers
 
             ErrorOr<AuthenticationResult> authenticationResult =
                 await _userRegistrator.RegisterAsync(command, false);
-            
+
             if (authenticationResult.IsError)
             {
                 return Problem(authenticationResult.Errors);
             }
-            
+
             HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
-            
+
             var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
             return Ok(response);
         }

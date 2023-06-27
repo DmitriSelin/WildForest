@@ -73,7 +73,7 @@ public sealed class MapsController : ApiController
         {
             return Problem(result.Errors);
         }
-        
+
         return Ok(result.Value);
     }
 }
