@@ -7,8 +7,6 @@ using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Domain.Weather.Entities;
 using WildForest.Domain.Weather.ValueObjects;
-using WildForest.Domain.WeatherMarks.Entities;
-using WildForest.Domain.WeatherMarks.ValueObjects;
 
 namespace WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 

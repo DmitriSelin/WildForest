@@ -24,7 +24,7 @@ namespace WildForest.Api
 
             return services;
         }
-        
+
         private static IServiceCollection AddSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(options =>
@@ -36,10 +36,10 @@ namespace WildForest.Api
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey
                 });
-                
+
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
             });
-            
+
             return services;
         }
 
@@ -55,11 +55,11 @@ namespace WildForest.Api
                 q.AddTrigger(options => options
                     .ForJob(jobKey)
                     .WithIdentity("WeatherDetectorJob-trigger")
-                    .WithCronSchedule("10 0 0 */5 * ?"));
+                    .WithCronSchedule("10 0 0 */5 * ?"));//TODO: redone trigger
             });
 
             services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
-            
+
             return services;
         }
     }

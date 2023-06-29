@@ -13,28 +13,27 @@ using WildForest.Application.Marks.Commands.PutRating;
 using WildForest.Application.Marks.Queries.GetComments;
 using WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
-namespace WildForest.Application
-{
-    public static class DependencyInjection
-    {
-        public static IServiceCollection AddApplication(this IServiceCollection services)
-        {
-            services.AddScoped<IUserRegistrator, UserRegistrator>();
-            services.AddScoped<IUserLogger, UserLogger>();
-            services.AddScoped<IRefreshTokenCommandHandler, RefreshTokenCommandHandler>();
-            services.AddScoped<IRevokeTokenCommandHandler, RevokeTokenCommandHandler>();
-            services.AddScoped<ICountriesListQueryHandler, CountriesListQueryHandler>();
-            services.AddScoped<ICitiesListQueryHandler, CitiesListQueryHandler>();
-            services.AddScoped<IHomeWeatherForecastHandler, HomeWeatherForecastHandler>();
-            services.AddScoped<ICountryCommandHandler, CountryCommandHandler>();
-            services.AddScoped<ICityCommandHandler, CityCommandHandler>();
-            services.AddScoped<ICommentCommandHandler, CommentCommandHandler>();
-            services.AddScoped<IRatingCommandHandler, RatingCommandHandler>();
-            services.AddScoped<ICommentsQueryHandler, CommentsQueryHandler>();
+namespace WildForest.Application;
 
-            services.AddMappings();
-            
-            return services;
-        }
+public static class DependencyInjection
+{
+    public static IServiceCollection AddApplication(this IServiceCollection services)
+    {
+        services.AddScoped<IUserRegistrator, UserRegistrator>();
+        services.AddScoped<IUserLogger, UserLogger>();
+        services.AddScoped<IRefreshTokenCommandHandler, RefreshTokenCommandHandler>();
+        services.AddScoped<IRevokeTokenCommandHandler, RevokeTokenCommandHandler>();
+        services.AddScoped<ICountriesListQueryHandler, CountriesListQueryHandler>();
+        services.AddScoped<ICitiesListQueryHandler, CitiesListQueryHandler>();
+        services.AddScoped<IHomeWeatherForecastHandler, HomeWeatherForecastHandler>();
+        services.AddScoped<ICountryCommandHandler, CountryCommandHandler>();
+        services.AddScoped<ICityCommandHandler, CityCommandHandler>();
+        services.AddScoped<ICommentCommandHandler, CommentCommandHandler>();
+        services.AddScoped<IRatingCommandHandler, RatingCommandHandler>();
+        services.AddScoped<ICommentsQueryHandler, CommentsQueryHandler>();
+
+        services.AddMappings();
+
+        return services;
     }
 }

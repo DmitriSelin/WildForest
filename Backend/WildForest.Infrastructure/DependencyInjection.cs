@@ -29,15 +29,11 @@ public static class DependencyInjection
         services.AddHttpClient<IWeatherForecastHttpClient, WeatherForecastHttpClient>();
 
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-        services.AddScoped<IMarkService, MarkService>();
         services.AddScoped<IExistingWeatherDataService, ExistingWeatherDataService>();
 
         services.AddRepositories();
 
-        services.AddDbContext<WildForestDbContext>(options =>
-        {
-            options.UseNpgsql(configuration.GetConnectionString("PostgreSQL"));
-        });
+        services.AddDbContext<WildForestDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")));
 
         return services;
     }

@@ -23,22 +23,19 @@ namespace WildForest.Api.Controllers
         private readonly IMapper _mapper;
         private readonly ICountriesListQueryHandler _countriesListQueryHandler;
         private readonly ICitiesListQueryHandler _citiesListQueryHandler;
-        private readonly ILogger _logger;
 
         public AuthenticationController(
             IUserRegistrator userRegistrator,
             IUserLogger userLogger,
             IMapper mapper,
             ICountriesListQueryHandler countriesListQueryHandler,
-            ICitiesListQueryHandler citiesListQueryHandler,
-            ILogger<AuthenticationResponse> logger)
+            ICitiesListQueryHandler citiesListQueryHandler)
         {
             _userRegistrator = userRegistrator;
             _userLogger = userLogger;
             _mapper = mapper;
             _countriesListQueryHandler = countriesListQueryHandler;
             _citiesListQueryHandler = citiesListQueryHandler;
-            _logger = logger;
         }
 
         [AllowAnonymous]
@@ -58,7 +55,6 @@ namespace WildForest.Api.Controllers
             HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
 
             var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
-            _logger.LogInformation($"User {response.LastName} {response.FirstName} register in app at {DateTime.Now.ToShortTimeString()}");
 
             return Ok(response);
         }
@@ -87,7 +83,6 @@ namespace WildForest.Api.Controllers
             HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
 
             var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
-            _logger.LogInformation($"User {response.LastName} {response.FirstName} login in app at {DateTime.Now.ToShortTimeString()}");
 
             return Ok(response);
         }
