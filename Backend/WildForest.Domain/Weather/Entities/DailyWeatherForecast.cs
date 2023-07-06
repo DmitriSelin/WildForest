@@ -7,7 +7,7 @@ namespace WildForest.Domain.Weather.Entities;
 
 public sealed class WeatherForecast : Entity<WeatherForecastId>
 {
-    public DateTime Time { get; }
+    public DateTime Date { get; }
 
     public Temperature Temperature { get; } = null!;
 
@@ -21,8 +21,6 @@ public sealed class WeatherForecast : Entity<WeatherForecastId>
 
     public Wind Wind { get; } = null!;
 
-    public Visibility Visibility { get; } = null!;
-
     public PrecipitationProbability PrecipitationProbability { get; } = null!;
 
     public PrecipitationVolume? PrecipitationVolume { get; }
@@ -33,26 +31,24 @@ public sealed class WeatherForecast : Entity<WeatherForecastId>
 
     private WeatherForecast(
         WeatherForecastId id,
-        DateTime time,
+        DateTime date,
         Temperature temperature,
         Pressure pressure,
         Humidity humidity,
         WeatherDescription weatherDescription,
         Cloudiness cloudiness,
         Wind wind,
-        Visibility visibility,
         PrecipitationProbability precipitationProbability,
         PrecipitationVolume? precipitationVolume,
         CityId cityId) : base(id)
     {
-        Time = time;
+        Date = date;
         Temperature = temperature;
         Pressure = pressure;
         Humidity = humidity;
         WeatherDescription = weatherDescription;
         Cloudiness = cloudiness;
         Wind = wind;
-        Visibility = visibility;
         PrecipitationProbability = precipitationProbability;
         PrecipitationVolume = precipitationVolume;
         CityId = cityId;
@@ -61,28 +57,26 @@ public sealed class WeatherForecast : Entity<WeatherForecastId>
     private WeatherForecast(WeatherForecastId id) : base(id) { }
 
     public static WeatherForecast Create(
-        DateTime time,
+        DateTime date,
         Temperature temperature,
         Pressure pressure,
         Humidity humidity,
         WeatherDescription weatherDescription,
         Cloudiness cloudiness,
         Wind wind,
-        Visibility visibility,
         PrecipitationProbability precipitationProbability,
         PrecipitationVolume? precipitationVolume,
         CityId cityId)
     {
         return new(
             WeatherForecastId.Create(),
-            time,
+            date,
             temperature,
             pressure,
             humidity,
             weatherDescription,
             cloudiness,
             wind,
-            visibility,
             precipitationProbability,
             precipitationVolume,
             cityId);

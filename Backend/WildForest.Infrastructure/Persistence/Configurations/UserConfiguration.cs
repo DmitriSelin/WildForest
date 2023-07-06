@@ -47,14 +47,14 @@ namespace WildForest.Infrastructure.Persistence.Configurations
                 });
 
             builder.OwnsOne(
-                x => x.Password, 
-                sa => 
-                { 
+                x => x.Password,
+                sa =>
+                {
                     sa.Property(p => p.Value)
                     .HasMaxLength(ConfigurationSettings.MaxStringLength)
                     .HasColumnName("Password");
                 });
-            
+
             builder.Metadata.FindNavigation(nameof(User.RefreshTokens))!
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
 
@@ -65,7 +65,7 @@ namespace WildForest.Infrastructure.Persistence.Configurations
             builder.Property(p => p.CityId)
                 .HasConversion(id => id.ToString(),
                                 value => CityId.Parse(value));
-            
+
             builder.Metadata.FindNavigation(nameof(User.Marks))!
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
         }
