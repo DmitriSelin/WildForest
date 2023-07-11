@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using WildForest.Domain.Clients.Users.ValueObjects;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Tokens.ValueObjects;
-using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Infrastructure.Persistence.Configurations;
 

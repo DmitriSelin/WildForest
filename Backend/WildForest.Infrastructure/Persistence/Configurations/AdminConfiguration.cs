@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WildForest.Domain.Admins.Entites;
-using WildForest.Domain.Admins.ValueObjects;
+using WildForest.Domain.Clients.Admins.Entites;
+using WildForest.Domain.Clients.ValueObjects;
 
 namespace WildForest.Infrastructure.Persistence.Configurations;
 
@@ -13,7 +13,7 @@ public sealed class AdminConfiguration : IEntityTypeConfiguration<Admin>
 
         builder.Property(x => x.Id)
             .HasConversion(id => id.ToString(),
-                            value => AdminId.Parse(value));
+                            value => PersonId.Parse(value));
 
         builder.OwnsOne(
             x => x.FirstName,

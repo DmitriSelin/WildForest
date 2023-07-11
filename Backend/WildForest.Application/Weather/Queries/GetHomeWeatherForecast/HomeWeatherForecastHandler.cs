@@ -3,8 +3,8 @@ using MapsterMapper;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Application.Weather.Common;
 using WildForest.Application.Weather.Common.Models;
+using WildForest.Domain.Clients.ValueObjects;
 using WildForest.Domain.Common.Errors;
-using WildForest.Domain.Users.ValueObjects;
 using WildForest.Domain.Weather.Entities;
 
 namespace WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
@@ -14,31 +14,28 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
     private readonly IUserRepository _userRepository;
     private readonly IWeatherForecastRepository _weatherForecastRepository;
     private readonly IMapper _mapper;
-    private readonly IWeatherMarkRepository _weatherMarkRepository;
 
     public HomeWeatherForecastHandler(
         IUserRepository userRepository,
         IWeatherForecastRepository weatherForecastRepository,
-        IWeatherMarkRepository weatherMarkRepository,
         IMapper mapper)
     {
         _userRepository = userRepository;
         _weatherForecastRepository = weatherForecastRepository;
-        _weatherMarkRepository = weatherMarkRepository;
         _mapper = mapper;
     }
 
     public async Task<ErrorOr<WeatherForecastVm>> GetWeatherForecastAsync(HomeWeatherForecastQuery query)
     {
-        var userId = UserId.Create(query.UserId);
+        var userId = PersonId.Create(query.UserId);
         var user = await _userRepository.GetUserWithCityByIdAsync(userId);
 
         if (user is null)
         {
-            return Errors.User.NotFoundById;
+            return Errors.Person.NotFoundById;
         }
 
-        var forecastDate = ForecastDate.Create(query.ForecastDate);
+        var forecastDate = query.ForecastDate;
 
         var forecasts = (List<ThreeHourWeatherForecast>?)
             await _weatherForecastRepository.GetWeatherForecastsWithMarkByDateAsync(user.CityId, forecastDate);

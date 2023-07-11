@@ -1,9 +1,8 @@
-﻿using WildForest.Domain.Users.Entities;
+﻿using WildForest.Domain.Clients.Models;
 
-namespace WildForest.Application.Common.Interfaces.Authentication
+namespace WildForest.Application.Common.Interfaces.Authentication;
+
+public interface IJwtTokenGenerator
 {
-    public interface IJwtTokenGenerator
-    {
-        string GenerateToken(User user);
-    }
+    string GenerateToken(Person person);
 }

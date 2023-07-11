@@ -8,9 +8,6 @@ using WildForest.Application.Maps.Commands.AddCities;
 using WildForest.Application.Maps.Commands.AddCountry;
 using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
-using WildForest.Application.Marks.Commands.LeaveComment;
-using WildForest.Application.Marks.Commands.PutRating;
-using WildForest.Application.Marks.Queries.GetComments;
 using WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
 namespace WildForest.Application;
@@ -19,8 +16,8 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<IUserRegistrator, UserRegistrator>();
-        services.AddScoped<IUserLogger, UserLogger>();
+        services.AddScoped<IRegistrationService, RegistrationService>();
+        services.AddScoped<ILoginService, LoginService>();
         services.AddScoped<IRefreshTokenCommandHandler, RefreshTokenCommandHandler>();
         services.AddScoped<IRevokeTokenCommandHandler, RevokeTokenCommandHandler>();
         services.AddScoped<ICountriesListQueryHandler, CountriesListQueryHandler>();
@@ -28,9 +25,6 @@ public static class DependencyInjection
         services.AddScoped<IHomeWeatherForecastHandler, HomeWeatherForecastHandler>();
         services.AddScoped<ICountryCommandHandler, CountryCommandHandler>();
         services.AddScoped<ICityCommandHandler, CityCommandHandler>();
-        services.AddScoped<ICommentCommandHandler, CommentCommandHandler>();
-        services.AddScoped<IRatingCommandHandler, RatingCommandHandler>();
-        services.AddScoped<ICommentsQueryHandler, CommentsQueryHandler>();
 
         services.AddMappings();
 

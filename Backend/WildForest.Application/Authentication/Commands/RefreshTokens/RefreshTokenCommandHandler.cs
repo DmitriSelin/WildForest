@@ -3,10 +3,10 @@ using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Common.Extensions;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
+using WildForest.Domain.Clients.Users.Entities;
+using WildForest.Domain.Clients.ValueObjects;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Tokens.Entities;
-using WildForest.Domain.Users.Entities;
-using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Application.Authentication.Commands.RefreshTokens;
 
@@ -26,7 +26,7 @@ public sealed class RefreshTokenCommandHandler : IRefreshTokenCommandHandler
         _jwtTokenGenerator = jwtTokenGenerator;
     }
 
-    public async Task<ErrorOr<AuthenticationResult>> RefreshTokenAsync(RefreshTokenCommand command)
+    public async Task<ErrorOr<AuthenticationResult<User>>> RefreshTokenAsync(RefreshTokenCommand command)
     {
         var refreshToken = await _refreshTokenRepository.GetTokenWithUserByValueAsync(command.Token);
 
@@ -50,10 +50,10 @@ public sealed class RefreshTokenCommandHandler : IRefreshTokenCommandHandler
 
         var jwt = _jwtTokenGenerator.GenerateToken(refreshToken.User);
 
-        return new AuthenticationResult(refreshToken.User, jwt, newRefreshToken.Token);
+        return new AuthenticationResult<User>(refreshToken.User, jwt, newRefreshToken.Token);
     }
 
-    private async Task<RefreshToken> ReplaceRefreshTokenAsync(UserId userId, RefreshToken token, string createdByIp)
+    private async Task<RefreshToken> ReplaceRefreshTokenAsync(PersonId userId, RefreshToken token, string createdByIp)
     {
         var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(userId, createdByIp);
         token.Update(createdByIp, "Replaced by new token", refreshToken.Token);

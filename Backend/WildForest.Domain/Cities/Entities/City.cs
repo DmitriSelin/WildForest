@@ -1,8 +1,8 @@
 ﻿using WildForest.Domain.Cities.ValueObjects;
+using WildForest.Domain.Clients.Users.Entities;
 using WildForest.Domain.Common.Models;
 using WildForest.Domain.Countries.Entities;
 using WildForest.Domain.Countries.ValueObjects;
-using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Weather.Entities;
 
 namespace WildForest.Domain.Cities.Entities

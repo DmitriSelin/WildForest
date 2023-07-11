@@ -1,7 +1,7 @@
+using WildForest.Domain.Clients.Users.Entities;
+using WildForest.Domain.Clients.ValueObjects;
 using WildForest.Domain.Common.Models;
 using WildForest.Domain.Tokens.ValueObjects;
-using WildForest.Domain.Users.Entities;
-using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Domain.Tokens.Entities;
 
@@ -15,7 +15,7 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
 
     public string CreatedByIp { get; } = null!;
 
-    public UserId UserId { get; } = null!;
+    public PersonId UserId { get; } = null!;
 
     public User User { get; } = null!;
 
@@ -39,7 +39,7 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
         DateTime expiration,
         DateTime creationDate,
         string createdByIp,
-        UserId userId,
+        PersonId userId,
         DateTime? revokedDate,
         string? revokedByIp,
         string? replacedByToken,
@@ -59,7 +59,7 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
     public static RefreshToken Create(
         string token,
         string createdByIp,
-        UserId userId)
+        PersonId personId)
     {
         if (string.IsNullOrWhiteSpace(token))
             throw new ArgumentNullException(nameof(token));
@@ -68,7 +68,7 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
 
         return new(
             RefreshTokenId.Create(), token, utcNow.AddDays(7),
-            utcNow, createdByIp, userId,
+            utcNow, createdByIp, personId,
             null, null, null, null);
     }
 

@@ -4,12 +4,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WildForest.Api.Common.Extensions;
 using WildForest.Application.Authentication.Commands.RegisterUser;
+using WildForest.Application.Authentication.Commands.Registration.Commands;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Queries.LoginUser;
 using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
 using WildForest.Contracts.Authentication;
 using WildForest.Contracts.Maps;
+using WildForest.Domain.Clients.Admins.Entites;
+using WildForest.Domain.Clients.Users.Entities;
 using WildForest.Domain.Common.Errors;
 
 namespace WildForest.Api.Controllers
@@ -18,21 +21,21 @@ namespace WildForest.Api.Controllers
     [Route("api/auth")]
     public sealed class AuthenticationController : ApiController
     {
-        private readonly IUserRegistrator _userRegistrator;
-        private readonly IUserLogger _userLogger;
+        private readonly IRegistrationService _registrationService;
+        private readonly ILoginService _loginService;
         private readonly IMapper _mapper;
         private readonly ICountriesListQueryHandler _countriesListQueryHandler;
         private readonly ICitiesListQueryHandler _citiesListQueryHandler;
 
         public AuthenticationController(
-            IUserRegistrator userRegistrator,
-            IUserLogger userLogger,
+            IRegistrationService registrationService,
+            ILoginService loginService,
             IMapper mapper,
             ICountriesListQueryHandler countriesListQueryHandler,
             ICitiesListQueryHandler citiesListQueryHandler)
         {
-            _userRegistrator = userRegistrator;
-            _userLogger = userLogger;
+            _registrationService = registrationService;
+            _loginService = loginService;
             _mapper = mapper;
             _countriesListQueryHandler = countriesListQueryHandler;
             _citiesListQueryHandler = citiesListQueryHandler;
@@ -45,7 +48,7 @@ namespace WildForest.Api.Controllers
             string iPAddress = HttpContext.GetIpAddress();
             var command = _mapper.Map<RegisterUserCommand>((request, iPAddress));
 
-            ErrorOr<AuthenticationResult> authenticationResult = await _userRegistrator.RegisterAsync(command);
+            ErrorOr<AuthenticationResult<User>> authenticationResult = await _registrationService.RegisterUserAsync(command);
 
             if (authenticationResult.IsError)
             {
@@ -64,9 +67,9 @@ namespace WildForest.Api.Controllers
         public async Task<IActionResult> Login(LoginRequest request)
         {
             string iPAddress = HttpContext.GetIpAddress();
-            var query = _mapper.Map<LoginUserQuery>((request, iPAddress));
+            var query = _mapper.Map<LoginQuery>((request, iPAddress));
 
-            var authenticationResult = await _userLogger.LoginAsync(query);
+            var authenticationResult = await _loginService.LoginUserAsync(query);
 
             if (authenticationResult.IsError && authenticationResult.FirstError == Errors.Authentication.InvalidCredentials)
             {
@@ -115,8 +118,8 @@ namespace WildForest.Api.Controllers
             string iPAddress = HttpContext.GetIpAddress();
             var command = _mapper.Map<RegisterUserCommand>((request, iPAddress));
 
-            ErrorOr<AuthenticationResult> authenticationResult =
-                await _userRegistrator.RegisterAsync(command, false);
+            ErrorOr<AuthenticationResult<Admin>> authenticationResult =
+                await _registrationService.RegisterAdminAsync(command);
 
             if (authenticationResult.IsError)
             {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WildForest.Domain.Cities.ValueObjects;
-using WildForest.Domain.Users.Entities;
-using WildForest.Domain.Users.ValueObjects;
+using WildForest.Domain.Clients.Users.Entities;
+using WildForest.Domain.Clients.ValueObjects;
 
 namespace WildForest.Infrastructure.Persistence.Configurations;
 
@@ -14,7 +14,7 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.Id)
             .HasConversion(id => id.ToString(),
-                            value => UserId.Parse(value));
+                            value => PersonId.Parse(value));
 
         builder.OwnsOne(
             x => x.FirstName,

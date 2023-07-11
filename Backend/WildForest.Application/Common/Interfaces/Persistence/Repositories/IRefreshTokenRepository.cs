@@ -1,6 +1,5 @@
+using WildForest.Domain.Clients.ValueObjects;
 using WildForest.Domain.Tokens.Entities;
-using WildForest.Domain.Tokens.ValueObjects;
-using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Application.Common.Interfaces.Persistence.Repositories;
 
@@ -12,9 +11,9 @@ public interface IRefreshTokenRepository
 
     Task AddTokenAsync(RefreshToken refreshToken, bool autoSaveChanges = true);
 
-    Task RemoveOldRefreshTokensByUserIdAsync(UserId userId, bool autoSaveChanges = true);
+    Task RemoveOldRefreshTokensByUserIdAsync(PersonId userId, bool autoSaveChanges = true);
 
-    Task<RefreshToken?> GetRefreshTokenByReplacedTokenAndUserIdAsync(string replacedByToken, UserId userId);
+    Task<RefreshToken?> GetRefreshTokenByReplacedTokenAndUserIdAsync(string replacedByToken, PersonId userId);
 
     Task UpdateRefreshTokenAsync(RefreshToken refreshToken);
 }
