@@ -2,8 +2,7 @@
 
 public sealed record WeatherForecastDto(
     Guid WeatherId,
-    DateOnly Date,
-    TimeOnly Time,
+    DateTime Date,
     Temperature Temperature,
     int Pressure,
     byte Humidity,

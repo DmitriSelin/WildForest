@@ -16,7 +16,7 @@ public sealed class RefreshTokenGenerator : IRefreshTokenGenerator
         _refreshTokenRepository = refreshTokenRepository;
     }
 
-    public async Task<RefreshToken> GenerateTokenAsync(UserId userId, CreatedByIp createdByIp)
+    public async Task<RefreshToken> GenerateTokenAsync(UserId userId, string createdByIp)
     {
         var token = await GenerateUniqueTokenAsync();
         
@@ -24,10 +24,9 @@ public sealed class RefreshTokenGenerator : IRefreshTokenGenerator
         return refreshToken;
     }
 
-    private async Task<Token> GenerateUniqueTokenAsync()
+    private async Task<string> GenerateUniqueTokenAsync()
     {
-        string randomSequence = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
-        var token = Token.Create(randomSequence);
+        string token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
 
         bool isTokenUnique = await _refreshTokenRepository.IsTokenUnique(token);
 

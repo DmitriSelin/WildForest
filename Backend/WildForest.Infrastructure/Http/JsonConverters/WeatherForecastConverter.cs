@@ -6,20 +6,19 @@ using WildForest.Domain.Weather.Entities;
 
 namespace WildForest.Infrastructure.Http.JsonConverters;
 
-public sealed class WeatherForecastConverter : JsonConverter<List<WeatherForecast>>
+public sealed class WeatherForecastConverter : JsonConverter<List<ThreeHourWeatherForecast>>
 {
     private readonly CityId _cityId;
 
     public WeatherForecastConverter(CityId cityId)
         => _cityId = cityId;
 
-    public override List<WeatherForecast>? Read(
+    public override List<ThreeHourWeatherForecast>? Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options)
     {
-        DateOnly date = DateOnly.MinValue;
-        TimeOnly time = TimeOnly.MinValue;
+        DateTime date = DateTime.MinValue;
         double temperatureValue = 0;
         double temperatureFeelsLike = 0;
         int pressureValue = 0;
@@ -36,7 +35,7 @@ public sealed class WeatherForecastConverter : JsonConverter<List<WeatherForecas
 
         bool isFilled = false;
 
-        List<WeatherForecast>? weatherForecasts = new();
+        List<ThreeHourWeatherForecast>? weatherForecasts = new();
 
         while (reader.Read())
         {
@@ -89,18 +88,15 @@ public sealed class WeatherForecastConverter : JsonConverter<List<WeatherForecas
                         precipitationVolume = reader.GetDouble();
                         break;
                     case "dt_txt":
-                        var dateAndTime = GetDateAndTime(reader.GetString());
-                        date = dateAndTime.Item1;
-                        time = dateAndTime.Item2;
+                        date = GetDateTime(reader.GetString());
                         isFilled = true;
                         break;
                 }
 
                 if (isFilled)
                 {
-                    var forecast = CreateWeatherForecast(
+                    var forecast = CreateThreeHourWeatherForecast(
                         date,
-                        time,
                         temperatureValue,
                         temperatureFeelsLike,
                         pressureValue,
@@ -149,27 +145,18 @@ public sealed class WeatherForecastConverter : JsonConverter<List<WeatherForecas
         return result;
     }
 
-    private static (DateOnly, TimeOnly) GetDateAndTime(string? value)
+    private static DateTime GetDateTime(string? value)
     {
         if (!string.IsNullOrWhiteSpace(value))
         {
-            string[] array = value.Split(' ');
-
-            if (DateOnly.TryParse(array[0], out DateOnly date))
-            {
-                if (TimeOnly.TryParse(array[1], out TimeOnly time))
-                {
-                    return new(date, time);
-                }
-            }
+            return DateTime.Parse(value);
         }
 
-        throw new ArgumentException(nameof(value));
+        throw new ArgumentNullException(nameof(value));
     }
 
-    private WeatherForecast CreateWeatherForecast(
-        DateOnly date,
-        TimeOnly time,
+    private ThreeHourWeatherForecast CreateThreeHourWeatherForecast(
+        DateTime date,
         double temperatureValue,
         double temperatureFeelsLike,
         int pressureValue,
@@ -184,8 +171,6 @@ public sealed class WeatherForecastConverter : JsonConverter<List<WeatherForecas
         byte precipitationProbabilityValue,
         double? precipitationVolumeValue)
     {
-        var forecastDate = ForecastDate.Create(date);
-        var forecastTime = ForecastTime.Create(time);
         var temperature = Temperature.Create(temperatureValue, temperatureFeelsLike);
         var pressure = Pressure.Create(pressureValue);
         var humidity = Humidity.Create(humidityValue);
@@ -206,9 +191,8 @@ public sealed class WeatherForecastConverter : JsonConverter<List<WeatherForecas
             precipitationVolume = null;
         }
 
-        var forecast = WeatherForecast.Create(
-            forecastDate,
-            forecastTime,
+        var forecast = ThreeHourWeatherForecast.Create(
+            date,
             temperature,
             pressure,
             humidity,
@@ -223,7 +207,7 @@ public sealed class WeatherForecastConverter : JsonConverter<List<WeatherForecas
         return forecast;
     }
 
-    public override void Write(Utf8JsonWriter writer, List<WeatherForecast> value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, List<ThreeHourWeatherForecast> value, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

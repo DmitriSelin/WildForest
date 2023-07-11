@@ -5,5 +5,5 @@ namespace WildForest.Application.Common.Interfaces.Http;
 
 public interface IWeatherForecastHttpClient
 {
-    Task<List<WeatherForecast>> GetWeatherForecastAsync(CityId cityId);
+    Task<List<ThreeHourWeatherForecast>> GetWeatherForecastAsync(CityId cityId);
 }

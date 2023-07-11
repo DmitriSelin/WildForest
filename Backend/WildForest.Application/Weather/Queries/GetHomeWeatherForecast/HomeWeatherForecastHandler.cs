@@ -6,7 +6,6 @@ using WildForest.Application.Weather.Common.Models;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Domain.Weather.Entities;
-using WildForest.Domain.Weather.ValueObjects;
 
 namespace WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
@@ -41,7 +40,7 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
 
         var forecastDate = ForecastDate.Create(query.ForecastDate);
 
-        var forecasts = (List<WeatherForecast>?)
+        var forecasts = (List<ThreeHourWeatherForecast>?)
             await _weatherForecastRepository.GetWeatherForecastsWithMarkByDateAsync(user.CityId, forecastDate);
 
         if (forecasts is null || forecasts.Count == 0)
@@ -72,7 +71,7 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
         return new WeatherForecastVm(forecastsDto, mediumMark);
     }
 
-    private static WeatherMark CreateWeatherMark(WeatherForecast forecast)
+    private static WeatherMark CreateWeatherMark(ThreeHourWeatherForecast forecast)
     {
         var mark = MediumMark.CreateNewProperty();
         var countOfMarks = CountOfMarks.Create();

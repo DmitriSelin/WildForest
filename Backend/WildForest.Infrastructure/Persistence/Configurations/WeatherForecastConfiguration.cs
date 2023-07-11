@@ -4,115 +4,114 @@ using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Weather.Entities;
 using WildForest.Domain.Weather.ValueObjects;
 
-namespace WildForest.Infrastructure.Persistence.Configurations
+namespace WildForest.Infrastructure.Persistence.Configurations;
+
+public sealed class WeatherForecastConfiguration : IEntityTypeConfiguration<ThreeHourWeatherForecast>
 {
-    public sealed class WeatherForecastConfiguration : IEntityTypeConfiguration<WeatherForecast>
+    public void Configure(EntityTypeBuilder<ThreeHourWeatherForecast> builder)
     {
-        public void Configure(EntityTypeBuilder<WeatherForecast> builder)
-        {
-            builder.HasKey(x => x.Id);
+        builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Id)
-                .HasConversion(id => id.ToString(),
-                                value => WeatherForecastId.Parse(value));
+        builder.Property(x => x.Id)
+            .HasConversion(id => id.ToString(),
+                            value => WeatherForecastId.Parse(value));
 
-            builder.Property(p => p.Time)
-                .IsRequired()
-                .HasColumnName("Time");
+        builder.Property(p => p.Date)
+            .IsRequired()
+            .HasColumnName("Date");
 
-            builder.OwnsOne(
-                x => x.Temperature,
-                sa =>
-                {
-                    sa.Property(p => p.Value)
-                    .HasColumnName("Temperature");
+        builder.OwnsOne(
+            x => x.Temperature,
+            sa =>
+            {
+                sa.Property(p => p.Value)
+                .HasColumnName("Temperature");
 
-                    sa.Property(p => p.ValueFeelsLike)
-                    .HasColumnName("TemperatureFeelsLike");
-                });
+                sa.Property(p => p.ValueFeelsLike)
+                .HasColumnName("TemperatureFeelsLike");
+            });
 
-            builder.OwnsOne(
-                x => x.Pressure,
-                sa =>
-                {
-                    sa.Property(p => p.Value)
-                    .HasColumnName("Pressure");
-                });
+        builder.OwnsOne(
+            x => x.Pressure,
+            sa =>
+            {
+                sa.Property(p => p.Value)
+                .HasColumnName("Pressure");
+            });
 
-            builder.OwnsOne(
-                x => x.Humidity,
-                sa =>
-                {
-                    sa.Property(p => p.Value)
-                    .HasColumnName("Humidity");
-                });
+        builder.OwnsOne(
+            x => x.Humidity,
+            sa =>
+            {
+                sa.Property(p => p.Value)
+                .HasColumnName("Humidity");
+            });
 
-            builder.OwnsOne(
-                x => x.WeatherDescription,
-                sa =>
-                {
-                    sa.Property(p => p.Name)
-                    .HasMaxLength(ConfigurationSettings.MaxStringLength)
-                    .HasColumnName("WeatherName");
+        builder.OwnsOne(
+            x => x.WeatherDescription,
+            sa =>
+            {
+                sa.Property(p => p.Name)
+                .HasMaxLength(ConfigurationSettings.MaxStringLength)
+                .HasColumnName("WeatherName");
 
-                    sa.Property(p => p.Description)
-                    .HasMaxLength(ConfigurationSettings.MaxStringLength)
-                    .HasColumnName("WeatherDescription");
-                });
+                sa.Property(p => p.Description)
+                .HasMaxLength(ConfigurationSettings.MaxStringLength)
+                .HasColumnName("WeatherDescription");
+            });
 
-            builder.OwnsOne(
-                x => x.Cloudiness,
-                sa =>
-                {
-                    sa.Property(p => p.Value)
-                    .HasColumnName("Cloudiness");
-                });
+        builder.OwnsOne(
+            x => x.Cloudiness,
+            sa =>
+            {
+                sa.Property(p => p.Value)
+                .HasColumnName("Cloudiness");
+            });
 
-            builder.OwnsOne(
-                x => x.Wind,
-                sa =>
-                {
-                    sa.Property(p => p.Speed)
-                    .HasColumnName("WindSpeed");
+        builder.OwnsOne(
+            x => x.Wind,
+            sa =>
+            {
+                sa.Property(p => p.Speed)
+                .HasColumnName("WindSpeed");
 
-                    sa.Property(p => p.Direction)
-                    .HasColumnName("WindDirection");
+                sa.Property(p => p.Direction)
+                .HasColumnName("WindDirection");
 
-                    sa.Property(p => p.Gust)
-                    .HasColumnName("WindGust");
-                });
+                sa.Property(p => p.Gust)
+                .HasColumnName("WindGust");
+            });
 
-            builder.OwnsOne(
-                x => x.Visibility,
-                sa =>
-                {
-                    sa.Property(p => p.Value)
-                    .HasColumnName("Visibility");
-                });
+        builder.OwnsOne(
+            x => x.Visibility,
+            sa =>
+            {
+                sa.Property(p => p.Value)
+                .HasColumnName("Visibility");
+            });
 
-            builder.OwnsOne(
-                x => x.PrecipitationProbability,
-                sa =>
-                {
-                    sa.Property(p => p.Value)
-                    .HasColumnName("PrecipitationProbability");
-                });
+        builder.OwnsOne(
+            x => x.PrecipitationProbability,
+            sa =>
+            {
+                sa.Property(p => p.Value)
+                .HasColumnName("PrecipitationProbability");
+            });
 
-            builder.OwnsOne(
-                x => x.PrecipitationVolume,
-                sa =>
-                {
-                    sa.Property(p => p.Value)
-                    .HasColumnName("PrecipitationVolume");
-                });
+        builder.OwnsOne(
+            x => x.PrecipitationVolume,
+            sa =>
+            {
+                sa.Property(p => p.Value)
+                .HasColumnName("PrecipitationVolume");
+            });
 
-            builder.HasOne(p => p.City)
-                .WithMany(x => x.WeatherForecasts)
-                .HasForeignKey(p => p.CityId);
+        builder.HasOne(p => p.City)
+            .WithMany(x => x.WeatherForecasts)
+            .HasForeignKey(p => p.CityId);
 
-            builder.Property(x => x.CityId)
-                .HasConversion(id => id.ToString(),
-                                value => CityId.Parse(value));
-        }
+        builder.Property(x => x.CityId)
+            .HasConversion(id => id.ToString(),
+                            value => CityId.Parse(value));
     }
 }

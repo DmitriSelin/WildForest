@@ -18,7 +18,7 @@ namespace WildForest.Infrastructure.Persistence.Context
 
         public DbSet<Country> Countries => Set<Country>();
 
-        public DbSet<WeatherForecast> WeatherForecasts => Set<WeatherForecast>();
+        public DbSet<ThreeHourWeatherForecast> ThreeHourWeatherForecast => Set<ThreeHourWeatherForecast>();
 
         public WildForestDbContext(DbContextOptions<WildForestDbContext> options) : base(options)
         {
@@ -32,6 +32,7 @@ namespace WildForest.Infrastructure.Persistence.Context
             modelBuilder.ApplyConfiguration(new CityConfiguration());
             modelBuilder.ApplyConfiguration(new CountryConfiguration());
             modelBuilder.ApplyConfiguration(new WeatherForecastConfiguration());
+            modelBuilder.ApplyConfiguration(new AdminConfiguration());
         }
     }
 }

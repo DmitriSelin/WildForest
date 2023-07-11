@@ -21,9 +21,9 @@ namespace WildForest.Domain.Cities.Entities
 
         public IReadOnlyList<User> Users => _users.AsReadOnly();
 
-        private readonly List<WeatherForecast> _weatherForecasts = new();
+        private readonly List<ThreeHourWeatherForecast> _weatherForecasts = new();
 
-        public IReadOnlyList<WeatherForecast> WeatherForecasts => _weatherForecasts.AsReadOnly();
+        public IReadOnlyList<ThreeHourWeatherForecast> WeatherForecasts => _weatherForecasts.AsReadOnly();
 
         private City(
             CityId id,

@@ -1,20 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WildForest.Domain.Cities.ValueObjects;
-using WildForest.Domain.Users.Entities;
-using WildForest.Domain.Users.ValueObjects;
+using WildForest.Domain.Admins.Entites;
+using WildForest.Domain.Admins.ValueObjects;
 
 namespace WildForest.Infrastructure.Persistence.Configurations;
 
-public sealed class UserConfiguration : IEntityTypeConfiguration<User>
+public sealed class AdminConfiguration : IEntityTypeConfiguration<Admin>
 {
-    public void Configure(EntityTypeBuilder<User> builder)
+    public void Configure(EntityTypeBuilder<Admin> builder)
     {
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id)
             .HasConversion(id => id.ToString(),
-                            value => UserId.Parse(value));
+                            value => AdminId.Parse(value));
 
         builder.OwnsOne(
             x => x.FirstName,
@@ -56,15 +55,7 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
                 .HasColumnName("Password");
             });
 
-        builder.Metadata.FindNavigation(nameof(User.RefreshTokens))!
+        builder.Metadata.FindNavigation(nameof(Admin.RefreshTokens))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
-
-        builder.HasOne(p => p.City)
-            .WithMany(x => x.Users)
-            .HasForeignKey(p => p.CityId);
-
-        builder.Property(p => p.CityId)
-            .HasConversion(id => id.ToString(),
-                            value => CityId.Parse(value));
     }
 }

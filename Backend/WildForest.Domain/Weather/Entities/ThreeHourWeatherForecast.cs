@@ -5,7 +5,7 @@ using WildForest.Domain.Weather.ValueObjects;
 
 namespace WildForest.Domain.Weather.Entities;
 
-public sealed class WeatherForecast : Entity<WeatherForecastId>
+public sealed class ThreeHourWeatherForecast : Entity<WeatherForecastId>
 {
     public DateTime Date { get; }
 
@@ -21,6 +21,8 @@ public sealed class WeatherForecast : Entity<WeatherForecastId>
 
     public Wind Wind { get; } = null!;
 
+    public Visibility Visibility { get; } = null!;
+
     public PrecipitationProbability PrecipitationProbability { get; } = null!;
 
     public PrecipitationVolume? PrecipitationVolume { get; }
@@ -29,7 +31,7 @@ public sealed class WeatherForecast : Entity<WeatherForecastId>
 
     public City City { get; } = null!;
 
-    private WeatherForecast(
+    private ThreeHourWeatherForecast(
         WeatherForecastId id,
         DateTime date,
         Temperature temperature,
@@ -38,6 +40,7 @@ public sealed class WeatherForecast : Entity<WeatherForecastId>
         WeatherDescription weatherDescription,
         Cloudiness cloudiness,
         Wind wind,
+        Visibility visibility,
         PrecipitationProbability precipitationProbability,
         PrecipitationVolume? precipitationVolume,
         CityId cityId) : base(id)
@@ -49,14 +52,15 @@ public sealed class WeatherForecast : Entity<WeatherForecastId>
         WeatherDescription = weatherDescription;
         Cloudiness = cloudiness;
         Wind = wind;
+        Visibility = visibility;
         PrecipitationProbability = precipitationProbability;
         PrecipitationVolume = precipitationVolume;
         CityId = cityId;
     }
 
-    private WeatherForecast(WeatherForecastId id) : base(id) { }
+    private ThreeHourWeatherForecast(WeatherForecastId id) : base(id) { }
 
-    public static WeatherForecast Create(
+    public static ThreeHourWeatherForecast Create(
         DateTime date,
         Temperature temperature,
         Pressure pressure,
@@ -64,6 +68,7 @@ public sealed class WeatherForecast : Entity<WeatherForecastId>
         WeatherDescription weatherDescription,
         Cloudiness cloudiness,
         Wind wind,
+        Visibility visibility,
         PrecipitationProbability precipitationProbability,
         PrecipitationVolume? precipitationVolume,
         CityId cityId)
@@ -77,6 +82,7 @@ public sealed class WeatherForecast : Entity<WeatherForecastId>
             weatherDescription,
             cloudiness,
             wind,
+            visibility,
             precipitationProbability,
             precipitationVolume,
             cityId);
