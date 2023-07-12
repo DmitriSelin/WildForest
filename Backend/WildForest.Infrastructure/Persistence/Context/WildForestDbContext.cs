@@ -20,7 +20,7 @@ public sealed class WildForestDbContext : DbContext
 
     public DbSet<Country> Countries => Set<Country>();
 
-    public DbSet<ThreeHourWeatherForecast> ThreeHourWeatherForecast => Set<ThreeHourWeatherForecast>();
+    public DbSet<ThreeHourWeatherForecast> ThreeHourWeatherForecasts => Set<ThreeHourWeatherForecast>();
 
     public WildForestDbContext(DbContextOptions<WildForestDbContext> options) : base(options)
     {

@@ -35,7 +35,7 @@ public sealed class WeatherForecastHttpClient : IWeatherForecastHttpClient
         _httpClient.BaseAddress = new Uri(baseUrl);
     }
 
-    public async Task<List<WeatherForecast>> GetWeatherForecastAsync(CityId cityId)
+    public async Task<List<ThreeHourWeatherForecast>> GetWeatherForecastAsync(CityId cityId)
     {
         var city = await _cityRepository.GetCityByIdAsync(cityId);
 
@@ -59,7 +59,7 @@ public sealed class WeatherForecastHttpClient : IWeatherForecastHttpClient
         var jsonOptions = new JsonSerializerOptions();
         jsonOptions.Converters.Add(new WeatherForecastConverter(city.Id));
 
-        var weatherForecast = await _httpClient.GetFromJsonAsync<List<WeatherForecast>>(url, jsonOptions);
+        var weatherForecast = await _httpClient.GetFromJsonAsync<List<ThreeHourWeatherForecast>>(url, jsonOptions);
 
         if (weatherForecast is null)
         {

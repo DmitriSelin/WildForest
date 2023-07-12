@@ -16,21 +16,21 @@ public sealed class WeatherForecastRepository : IWeatherForecastRepository
         _context = context;
     }
 
-    public async Task AddWeatherForecastsAsync(IEnumerable<WeatherForecast> forecasts)
+    public async Task AddWeatherForecastsAsync(IEnumerable<ThreeHourWeatherForecast> forecasts)
     {
-        await _context.WeatherForecasts.AddRangeAsync(forecasts);
+        await _context.ThreeHourWeatherForecasts.AddRangeAsync(forecasts);
         await _context.SaveChangesAsync();
     }
 
-    public async Task<WeatherForecast?> GetWeatherForecastByIdAsync(WeatherForecastId weatherId)
+    public async Task<ThreeHourWeatherForecast?> GetWeatherForecastByIdAsync(WeatherForecastId weatherId)
     {
-        return await _context.WeatherForecasts
+        return await _context.ThreeHourWeatherForecasts
             .FirstOrDefaultAsync(x => x.Id == weatherId);
     }
 
-    public async Task<IEnumerable<WeatherForecast>?> GetWeatherForecastsByCityIdAsync(CityId cityId)
+    public async Task<IEnumerable<ThreeHourWeatherForecast>?> GetWeatherForecastsByCityIdAsync(CityId cityId)
     {
-        return await _context.WeatherForecasts
+        return await _context.ThreeHourWeatherForecasts
             .Where(x => x.CityId == cityId)
             .ToListAsync();
     }
