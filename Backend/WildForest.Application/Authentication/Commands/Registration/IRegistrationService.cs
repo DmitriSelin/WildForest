@@ -1,5 +1,5 @@
 ﻿using ErrorOr;
-using WildForest.Application.Authentication.Commands.Registration.Commands;
+using WildForest.Application.Authentication.Commands.Registration;
 using WildForest.Application.Authentication.Common;
 
 namespace WildForest.Application.Authentication.Commands.RegisterUser;

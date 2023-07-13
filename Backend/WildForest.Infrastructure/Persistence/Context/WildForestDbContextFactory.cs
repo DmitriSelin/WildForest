@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace WildForest.Infrastructure.Persistence.Context;
 
-public class WildForestDbContextFactory : IDesignTimeDbContextFactory<WildForestDbContext>
+public sealed class WildForestDbContextFactory : IDesignTimeDbContextFactory<WildForestDbContext>
 {
     public WildForestDbContext CreateDbContext(string[] args)
     {

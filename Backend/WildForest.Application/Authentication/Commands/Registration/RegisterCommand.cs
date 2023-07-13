@@ -1,4 +1,4 @@
-﻿namespace WildForest.Application.Authentication.Commands.Registration.Commands;
+﻿namespace WildForest.Application.Authentication.Commands.Registration;
 
 public sealed record RegisterCommand(
     string FirstName,

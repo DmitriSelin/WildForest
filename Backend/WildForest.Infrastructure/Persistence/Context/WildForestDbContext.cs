@@ -4,6 +4,7 @@ using WildForest.Domain.Countries.Entities;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Weather.Entities;
+using WildForest.Infrastructure.Persistence.Configurations;
 
 namespace WildForest.Infrastructure.Persistence.Context;
 
@@ -20,12 +21,11 @@ public sealed class WildForestDbContext : DbContext
     public DbSet<ThreeHourWeatherForecast> ThreeHourWeatherForecasts => Set<ThreeHourWeatherForecast>();
 
     public WildForestDbContext(DbContextOptions<WildForestDbContext> options) : base(options)
-    {
-        Database.EnsureCreated();
-    }
+        => Database.EnsureCreated();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(WildForestDbContext).Assembly);
     }
 }

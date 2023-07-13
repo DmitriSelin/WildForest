@@ -1,5 +1,5 @@
 ﻿using Mapster;
-using WildForest.Application.Authentication.Commands.Registration.Commands;
+using WildForest.Application.Authentication.Commands.Registration;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Queries.LoginUser;
 using WildForest.Contracts.Authentication;

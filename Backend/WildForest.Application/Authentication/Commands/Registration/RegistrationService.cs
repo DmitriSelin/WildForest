@@ -3,10 +3,10 @@ using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
-using WildForest.Application.Authentication.Commands.Registration.Commands;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Application.Authentication.Common;
+using WildForest.Application.Authentication.Commands.Registration;
 
 namespace WildForest.Application.Authentication.Commands.RegisterUser;
 

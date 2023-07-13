@@ -1,6 +1,6 @@
 ﻿namespace WildForest.Domain.Common.Models;
 
-public abstract class Entity<TId> : IEquatable<TId>, IEntity
+public abstract class Entity<TId> : IEquatable<TId>
     where TId : notnull
 {
     public TId Id { get; protected set; }
@@ -34,11 +34,4 @@ public abstract class Entity<TId> : IEquatable<TId>, IEntity
     {
         return Id.GetHashCode();
     }
-}
-
-/// <summary>
-/// Used to restrict generics
-/// </summary>
-public interface IEntity
-{
 }

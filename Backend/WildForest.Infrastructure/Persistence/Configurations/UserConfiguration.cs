@@ -56,9 +56,6 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
                 .HasColumnName("Password");
             });
 
-        builder.Metadata.FindNavigation(nameof(User.RefreshTokens))!
-            .SetPropertyAccessMode(PropertyAccessMode.Field);
-
         builder.HasOne(p => p.City)
             .WithMany(x => x.Users)
             .HasForeignKey(p => p.CityId);
@@ -66,5 +63,8 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(p => p.CityId)
             .HasConversion(id => id.ToString(),
                             value => CityId.Parse(value));
+
+        builder.Metadata.FindNavigation(nameof(User.RefreshTokens))!
+            .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }
