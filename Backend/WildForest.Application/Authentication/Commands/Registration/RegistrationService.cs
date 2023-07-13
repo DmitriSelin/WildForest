@@ -3,121 +3,98 @@ using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
-using WildForest.Application.Common.Interfaces.Weather;
 using WildForest.Application.Authentication.Commands.Registration.Commands;
-using WildForest.Domain.Clients.Users.Entities;
-using WildForest.Domain.Clients.Admins.Entites;
-using WildForest.Domain.Clients.ValueObjects;
+using WildForest.Domain.Users.Entities;
+using WildForest.Domain.Users.ValueObjects;
 using WildForest.Application.Authentication.Common;
 
-namespace WildForest.Application.Authentication.Commands.RegisterUser
+namespace WildForest.Application.Authentication.Commands.RegisterUser;
+
+public sealed class RegistrationService : IRegistrationService
 {
-    public sealed class RegistrationService : IRegistrationService
+    private readonly IJwtTokenGenerator _jwtTokenGenerator;
+    private readonly IRefreshTokenGenerator _refreshTokenGenerator;
+    private readonly IUserRepository _userRepository;
+    private readonly ICityRepository _cityRepository;
+    private readonly IRefreshTokenRepository _refreshTokenRepository;
+
+    public RegistrationService(
+        IJwtTokenGenerator jwtTokenGenerator,
+        IRefreshTokenGenerator refreshTokenGenerator,
+        IUserRepository userRepository,
+        ICityRepository cityRepository,
+        IRefreshTokenRepository refreshTokenRepository)
     {
-        private readonly IJwtTokenGenerator _jwtTokenGenerator;
-        private readonly IRefreshTokenGenerator _refreshTokenGenerator;
-        private readonly IUserRepository _userRepository;
-        private readonly IAdminRepository _adminRepository;
-        private readonly ICityRepository _cityRepository;
-        private readonly IRefreshTokenRepository _refreshTokenRepository;
+        _jwtTokenGenerator = jwtTokenGenerator;
+        _refreshTokenGenerator = refreshTokenGenerator;
+        _userRepository = userRepository;
+        _cityRepository = cityRepository;
+        _refreshTokenRepository = refreshTokenRepository;
+    }
 
-        public RegistrationService(
-            IJwtTokenGenerator jwtTokenGenerator,
-            IRefreshTokenGenerator refreshTokenGenerator,
-            IUserRepository userRepository,
-            IAdminRepository adminRepository,
-            ICityRepository cityRepository,
-            IRefreshTokenRepository refreshTokenRepository)
-        {
-            _jwtTokenGenerator = jwtTokenGenerator;
-            _refreshTokenGenerator = refreshTokenGenerator;
-            _userRepository = userRepository;
-            _adminRepository = adminRepository;
-            _cityRepository = cityRepository;
-            _refreshTokenRepository = refreshTokenRepository;
-        }
+    public async Task<ErrorOr<AuthenticationResult>> RegisterAsync(RegisterCommand command, bool isUserRole = true)
+    {
+        var email = Email.Create(command.Email);
 
-        public async Task<ErrorOr<AuthenticationResult<User>>> RegisterUserAsync(RegisterUserCommand command)
-        {
-            var email = Email.Create(command.Email);
+        User? user = await _userRepository.GetUserByEmailAsync(email);
 
-            User? user = await _userRepository.GetUserByEmailAsync(email);
+        if (user is not null)
+            return Errors.User.DuplicateEmail;
 
-            if (user is not null)
-                return Errors.Person.DuplicateEmail;
+        var cityId = CityId.Create(command.CityId);
 
-            var cityId = CityId.Create(command.CityId);
+        var city = await _cityRepository.GetCityByIdAsync(cityId);
 
-            var city = await _cityRepository.GetCityByIdAsync(cityId);
+        if (city is null)
+            return Errors.City.NotFoundById;
 
-            if (city is null)
-                return Errors.City.NotFoundById;
+        if (isUserRole)
+            user = CreateUser(command, email);
+        else
+            user = CreateAdmin(command, email);
 
-            user = CreateUser(command, email, city.Id);
+        await _userRepository.AddUserAsync(user);
 
-            await _userRepository.AddUserAsync(user);
+        var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, command.IpAddress);
 
-            var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, command.IpAddress);
+        await _refreshTokenRepository.AddTokenAsync(refreshToken);
 
-            await _refreshTokenRepository.AddTokenAsync(refreshToken);
+        var token = _jwtTokenGenerator.GenerateToken(user);
 
-            var token = _jwtTokenGenerator.GenerateToken(user);
+        return new AuthenticationResult(user, token, refreshToken.Token);
+    }
 
-            return new AuthenticationResult<User>(user, token, refreshToken.Token);
-        }
+    private static User CreateUser(RegisterCommand command, Email email)
+    {
+        var credentials = CreateCredentials(command);
 
-        public async Task<ErrorOr<AuthenticationResult<Admin>>> RegisterAdminAsync(RegisterCommand command)
-        {
-            var email = Email.Create(command.Email);
+        return User.CreateUser(
+            firstName: credentials.Item1,
+            lastName: credentials.Item2,
+            email: email,
+            password: credentials.Item3,
+            cityId: credentials.Item4);
+    }
 
-            Admin? admin = await _adminRepository.GetAdminByEmailAsync(email);
+    private static User CreateAdmin(RegisterCommand command, Email email)
+    {
+        var credentials = CreateCredentials(command);
 
-            if (admin is null)
-                return Errors.Person.DuplicateEmail;
+        return User.CreateAdmin(
+            firstName: credentials.Item1,
+            lastName: credentials.Item2,
+            email: email,
+            password: credentials.Item3,
+            cityId: credentials.Item4);
+    }
 
-            admin = CreateAdmin(command, email);
+    private static Tuple<FirstName, LastName, Password, CityId> CreateCredentials(RegisterCommand command)
+    {
+        var firstName = FirstName.Create(command.FirstName);
+        var lastName = LastName.Create(command.LastName);
+        var password = Password.Create(command.Password);
+        var cityId = CityId.Create(command.CityId);
 
-            await _adminRepository.AddAdminAsync(admin);
-
-            var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(admin.Id, command.IpAddress);
-
-            await _refreshTokenRepository.AddTokenAsync(refreshToken);
-
-            var token = _jwtTokenGenerator.GenerateToken(admin);
-
-            return new AuthenticationResult<Admin>(admin, token, refreshToken.Token);
-        }
-
-        private static User CreateUser(RegisterUserCommand command, Email email, CityId cityId)
-        {
-            var credentials = CreateCredentials(command.FirstName, command.LastName, command.Password);
-
-            return User.Create(
-                firstName: credentials.Item1,
-                lastName: credentials.Item2,
-                email: email,
-                password: credentials.Item3,
-                cityId: cityId);
-        }
-
-        private static Admin CreateAdmin(RegisterCommand command, Email email)
-        {
-            var credentials = CreateCredentials(command.FirstName, command.LastName, command.Password);
-
-            return Admin.Create(
-                firstName: credentials.Item1,
-                lastName: credentials.Item2,
-                email: email,
-                password: credentials.Item3);
-        }
-
-        private static Tuple<FirstName, LastName, Password> CreateCredentials(string fName, string lName, string personPassword)
-        {
-            var firstName = FirstName.Create(fName);
-            var lastName = LastName.Create(lName);
-            var password = Password.Create(personPassword);
-
-            return new(firstName, lastName, password);
-        }
+        return new(firstName, lastName, password, cityId);
     }
 }

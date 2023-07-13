@@ -3,7 +3,6 @@ using WildForest.Application.Authentication.Commands.Registration.Commands;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Queries.LoginUser;
 using WildForest.Contracts.Authentication;
-using WildForest.Domain.Clients.Users.Entities;
 
 namespace WildForest.Api.Common.Mapping;
 
@@ -16,7 +15,7 @@ public sealed class AuthenticationMappingConfig : IRegister
             .Map(dest => dest.Password, source => source.Item1.Password)
             .Map(dest => dest.IpAddress, source => source.IpAddress);
 
-        config.NewConfig<(RegisterRequest, string iPAddress), RegisterUserCommand>()
+        config.NewConfig<(RegisterRequest, string iPAddress), RegisterCommand>()
             .Map(dest => dest.FirstName, source => source.Item1.FirstName)
             .Map(dest => dest.LastName, source => source.Item1.LastName)
             .Map(dest => dest.Email, source => source.Item1.Email)
@@ -24,7 +23,7 @@ public sealed class AuthenticationMappingConfig : IRegister
             .Map(dest => dest.IpAddress, source => source.iPAddress)
             .Map(dest => dest.CityId, source => source.Item1.CityId);
 
-        config.NewConfig<AuthenticationResult<User>, AuthenticationResponse>()
+        config.NewConfig<AuthenticationResult, AuthenticationResponse>()
             .Map(dest => dest.Token, src => src.AccessToken)
             .Map(dest => dest.Id, src => src.User.Id.Value)
             .Map(dest => dest.FirstName, src => src.User.FirstName.ToString())

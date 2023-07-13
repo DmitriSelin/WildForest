@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.Clients.ValueObjects;
+namespace WildForest.Domain.Users.ValueObjects;
 
 public sealed class Email : ValueObject
 {

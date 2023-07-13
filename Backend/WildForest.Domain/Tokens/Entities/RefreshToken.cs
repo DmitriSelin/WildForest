@@ -1,8 +1,7 @@
-using WildForest.Domain.Clients.Admins.Entites;
-using WildForest.Domain.Clients.Users.Entities;
-using WildForest.Domain.Clients.ValueObjects;
 using WildForest.Domain.Common.Models;
 using WildForest.Domain.Tokens.ValueObjects;
+using WildForest.Domain.Users.Entities;
+using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Domain.Tokens.Entities;
 
@@ -16,13 +15,9 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
 
     public string CreatedByIp { get; } = null!;
 
-    public PersonId? UserId { get; }
+    public UserId UserId { get; } = null!;
 
-    public User? User { get; }
-
-    public PersonId? AdminId { get; }
-
-    public Admin? Admin { get; }
+    public User User { get; } = null!;
 
     public DateTime? RevokedDate { get; private set; }
 
@@ -44,8 +39,7 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
         DateTime expiration,
         DateTime creationDate,
         string createdByIp,
-        PersonId? userId,
-        PersonId? adminId,
+        UserId userId,
         DateTime? revokedDate,
         string? revokedByIp,
         string? replacedByToken,
@@ -56,7 +50,6 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
         CreationDate = creationDate;
         CreatedByIp = createdByIp;
         UserId = userId;
-        AdminId = adminId;
         RevokedDate = revokedDate;
         RevokedByIp = revokedByIp;
         ReplacedByToken = replacedByToken;
@@ -66,7 +59,7 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
     public static RefreshToken Create(
         string token,
         string createdByIp,
-        PersonId personId)
+        UserId personId)
     {
         if (string.IsNullOrWhiteSpace(token))
             throw new ArgumentNullException(nameof(token));
@@ -76,7 +69,7 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
         return new(
             RefreshTokenId.Create(), token, utcNow.AddDays(7),
             utcNow, createdByIp, personId,
-            null, null, null, null, null);
+            null, null, null, null);
     }
 
     public void Update(string revokedByIp, string reasonRevoked)

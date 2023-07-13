@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
-using WildForest.Domain.Clients.ValueObjects;
 using WildForest.Domain.Tokens.Entities;
+using WildForest.Domain.Users.ValueObjects;
 using WildForest.Infrastructure.Persistence.Context;
 
 namespace WildForest.Infrastructure.Persistence.Repositories;
@@ -38,7 +38,7 @@ public sealed class RefreshTokenRepository : IRefreshTokenRepository
             await _context.SaveChangesAsync();
     }
 
-    public async Task RemoveOldRefreshTokensByUserIdAsync(PersonId userId, bool autoSaveChanges = true)
+    public async Task RemoveOldRefreshTokensByUserIdAsync(UserId userId, bool autoSaveChanges = true)
     {
         var utcNow = DateTime.UtcNow;
 
@@ -53,7 +53,7 @@ public sealed class RefreshTokenRepository : IRefreshTokenRepository
     }
 
     public async Task<RefreshToken?> GetRefreshTokenByReplacedTokenAndUserIdAsync(
-        string replacedByToken, PersonId userId)
+        string replacedByToken, UserId userId)
     {
         return await _context.RefreshTokens
             .SingleOrDefaultAsync(x => x.Token == replacedByToken && x.UserId == userId);

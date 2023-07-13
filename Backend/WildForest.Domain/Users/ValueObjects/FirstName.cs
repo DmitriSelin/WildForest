@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.Clients.ValueObjects;
+namespace WildForest.Domain.Users.ValueObjects;
 
 public sealed class FirstName : ValueObject
 {

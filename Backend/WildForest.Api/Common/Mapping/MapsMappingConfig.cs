@@ -3,14 +3,13 @@ using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
 using WildForest.Contracts.Maps;
 
-namespace WildForest.Api.Common.Mapping
+namespace WildForest.Api.Common.Mapping;
+
+public sealed class MapsMappingConfig : IRegister
 {
-    public sealed class MapsMappingConfig : IRegister
+    public void Register(TypeAdapterConfig config)
     {
-        public void Register(TypeAdapterConfig config)
-        {
-            config.NewConfig<CityQuery, CityResponse>();
-            config.NewConfig<CountryQuery, CountryResponse>();
-        }
+        config.NewConfig<CityQuery, CityResponse>();
+        config.NewConfig<CountryQuery, CountryResponse>();
     }
 }

@@ -1,18 +1,5 @@
-﻿namespace WildForest.Application.Authentication.Common;
+﻿using WildForest.Domain.Users.Entities;
 
-public sealed class AuthenticationResult<T>
-    where T : class
-{
-    public T User { get; }
+namespace WildForest.Application.Authentication.Common;
 
-    public string AccessToken { get; }
-
-    public string RefreshToken { get; }
-
-    public AuthenticationResult(T user, string accessToken, string refreshToken)
-    {
-        User = user;
-        AccessToken = accessToken;
-        RefreshToken = refreshToken;
-    }
-}
+public sealed record AuthenticationResult(User User, string AccessToken, string RefreshToken);

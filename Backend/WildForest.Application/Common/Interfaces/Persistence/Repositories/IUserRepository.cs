@@ -1,5 +1,5 @@
-﻿using WildForest.Domain.Clients.Users.Entities;
-using WildForest.Domain.Clients.ValueObjects;
+﻿using WildForest.Domain.Users.Entities;
+using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Application.Common.Interfaces.Persistence.Repositories;
 
@@ -11,7 +11,7 @@ public interface IUserRepository
 
     Task AddUserAsync(User user);
 
-    Task<User?> GetUserByIdAsync(PersonId userId);
+    Task<User?> GetUserByIdAsync(UserId userId);
 
-    Task<User?> GetUserWithCityByIdAsync(PersonId userId);
+    Task<User?> GetUserWithCityByIdAsync(UserId userId);
 }

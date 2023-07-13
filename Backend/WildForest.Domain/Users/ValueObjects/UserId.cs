@@ -1,21 +1,21 @@
 ﻿using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.Clients.ValueObjects;
+namespace WildForest.Domain.Users.ValueObjects;
 
-public sealed class PersonId : ValueObject
+public sealed class UserId : ValueObject
 {
     public Guid Value { get; }
 
-    private PersonId(Guid value)
+    private UserId(Guid value)
         => Value = value;
 
-    public static PersonId Create()
+    public static UserId Create()
         => new(Guid.NewGuid());
 
-    public static PersonId Create(Guid value)
+    public static UserId Create(Guid value)
         => new(value);
 
-    public static PersonId Parse(string cityId)
+    public static UserId Parse(string cityId)
         => Create(Guid.Parse(cityId));
 
     public override string ToString()

@@ -11,125 +11,116 @@ using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
 using WildForest.Contracts.Authentication;
 using WildForest.Contracts.Maps;
-using WildForest.Domain.Clients.Admins.Entites;
-using WildForest.Domain.Clients.Users.Entities;
 using WildForest.Domain.Common.Errors;
 
-namespace WildForest.Api.Controllers
+namespace WildForest.Api.Controllers;
+
+[Authorize(Roles = "Admin")]
+[Route("api/auth")]
+public sealed class AuthenticationController : ApiController
 {
-    [Authorize(Roles = "Admin")]
-    [Route("api/auth")]
-    public sealed class AuthenticationController : ApiController
+    private readonly IRegistrationService _registrationService;
+    private readonly ILoginService _loginService;
+    private readonly IMapper _mapper;
+    private readonly ICountriesListQueryHandler _countriesListQueryHandler;
+    private readonly ICitiesListQueryHandler _citiesListQueryHandler;
+
+    public AuthenticationController(
+        IRegistrationService registrationService,
+        ILoginService loginService,
+        IMapper mapper,
+        ICountriesListQueryHandler countriesListQueryHandler,
+        ICitiesListQueryHandler citiesListQueryHandler)
     {
-        private readonly IRegistrationService _registrationService;
-        private readonly ILoginService _loginService;
-        private readonly IMapper _mapper;
-        private readonly ICountriesListQueryHandler _countriesListQueryHandler;
-        private readonly ICitiesListQueryHandler _citiesListQueryHandler;
+        _registrationService = registrationService;
+        _loginService = loginService;
+        _mapper = mapper;
+        _countriesListQueryHandler = countriesListQueryHandler;
+        _citiesListQueryHandler = citiesListQueryHandler;
+    }
 
-        public AuthenticationController(
-            IRegistrationService registrationService,
-            ILoginService loginService,
-            IMapper mapper,
-            ICountriesListQueryHandler countriesListQueryHandler,
-            ICitiesListQueryHandler citiesListQueryHandler)
+    [AllowAnonymous]
+    [HttpPost("register")]
+    public async Task<IActionResult> Register(RegisterRequest request)
+    {
+        string iPAddress = HttpContext.GetIpAddress();
+        var command = _mapper.Map<RegisterCommand>((request, iPAddress));
+
+        ErrorOr<AuthenticationResult> authenticationResult = await _registrationService.RegisterAsync(command);
+
+        if (authenticationResult.IsError)
+            return Problem(authenticationResult.Errors);
+
+        HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
+
+        var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
+
+        return Ok(response);
+    }
+
+    [AllowAnonymous]
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(LoginRequest request)
+    {
+        string iPAddress = HttpContext.GetIpAddress();
+        var query = _mapper.Map<LoginQuery>((request, iPAddress));
+
+        ErrorOr<AuthenticationResult> authenticationResult = await _loginService.LoginAsync(query);
+
+        if (authenticationResult.IsError && authenticationResult.FirstError == Errors.Authentication.InvalidCredentials)
         {
-            _registrationService = registrationService;
-            _loginService = loginService;
-            _mapper = mapper;
-            _countriesListQueryHandler = countriesListQueryHandler;
-            _citiesListQueryHandler = citiesListQueryHandler;
+            return Problem(
+                statusCode: StatusCodes.Status401Unauthorized,
+                title: authenticationResult.FirstError.Description);
         }
 
-        [AllowAnonymous]
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterRequest request)
-        {
-            string iPAddress = HttpContext.GetIpAddress();
-            var command = _mapper.Map<RegisterUserCommand>((request, iPAddress));
+        if (authenticationResult.IsError)
+            return Problem(authenticationResult.Errors);
 
-            ErrorOr<AuthenticationResult<User>> authenticationResult = await _registrationService.RegisterUserAsync(command);
+        HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
 
-            if (authenticationResult.IsError)
-            {
-                return Problem(authenticationResult.Errors);
-            }
+        var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
 
-            HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
+        return Ok(response);
+    }
 
-            var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
+    [AllowAnonymous]
+    [HttpGet("countries")]
+    public async Task<IActionResult> GetCountries()
+    {
+        List<CountryQuery> countries = await _countriesListQueryHandler.GetCountriesAsync();
 
-            return Ok(response);
-        }
+        var countriesResponse = _mapper.Map<List<CountryResponse>>(countries);
 
-        [AllowAnonymous]
-        [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginRequest request)
-        {
-            string iPAddress = HttpContext.GetIpAddress();
-            var query = _mapper.Map<LoginQuery>((request, iPAddress));
+        return Ok(countriesResponse);
+    }
 
-            var authenticationResult = await _loginService.LoginUserAsync(query);
+    [AllowAnonymous]
+    [HttpGet("cities/{countryId}")]
+    public async Task<IActionResult> GetCitiesByCountryId(Guid countryId)
+    {
+        var cities = await _citiesListQueryHandler.GetCitiesByCountryIdAsync(countryId);
 
-            if (authenticationResult.IsError && authenticationResult.FirstError == Errors.Authentication.InvalidCredentials)
-            {
-                return Problem(
-                    statusCode: StatusCodes.Status401Unauthorized,
-                    title: authenticationResult.FirstError.Description);
-            }
+        return cities.Match(
+            citiesResponse => Ok(_mapper.Map<List<CityResponse>>(citiesResponse)),
+            errors => Problem(errors));
+    }
 
-            if (authenticationResult.IsError)
-            {
-                return Problem(authenticationResult.Errors);
-            }
+    [HttpPost("admins/register")]
+    public async Task<IActionResult> RegisterAdmin(RegisterRequest request)
+    {
+        string iPAddress = HttpContext.GetIpAddress();
+        var command = _mapper.Map<RegisterCommand>((request, iPAddress));
 
-            HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
+        ErrorOr<AuthenticationResult> authenticationResult =
+            await _registrationService.RegisterAsync(command: command, isUserRole: false);
 
-            var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
+        if (authenticationResult.IsError)
+            return Problem(authenticationResult.Errors);
 
-            return Ok(response);
-        }
+        HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
 
-        [AllowAnonymous]
-        [HttpGet("countries")]
-        public async Task<IActionResult> GetCountries()
-        {
-            List<CountryQuery> countries = await _countriesListQueryHandler.GetCountriesAsync();
-
-            var countriesResponse = _mapper.Map<List<CountryResponse>>(countries);
-
-            return Ok(countriesResponse);
-        }
-
-        [AllowAnonymous]
-        [HttpGet("cities/{countryId}")]
-        public async Task<IActionResult> GetCitiesByCountryId(Guid countryId)
-        {
-            var cities = await _citiesListQueryHandler.GetCitiesByCountryIdAsync(countryId);
-
-            return cities.Match(
-                citiesResponse => Ok(_mapper.Map<List<CityResponse>>(citiesResponse)),
-                errors => Problem(errors));
-        }
-
-        [HttpPost("admins/register")]
-        public async Task<IActionResult> RegisterAdmin(RegisterRequest request)
-        {
-            string iPAddress = HttpContext.GetIpAddress();
-            var command = _mapper.Map<RegisterUserCommand>((request, iPAddress));
-
-            ErrorOr<AuthenticationResult<Admin>> authenticationResult =
-                await _registrationService.RegisterAdminAsync(command);
-
-            if (authenticationResult.IsError)
-            {
-                return Problem(authenticationResult.Errors);
-            }
-
-            HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
-
-            var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
-            return Ok(response);
-        }
+        var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
+        return Ok(response);
     }
 }

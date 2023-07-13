@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WildForest.Domain.Clients.ValueObjects;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Tokens.ValueObjects;
+using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Infrastructure.Persistence.Configurations;
 
@@ -40,20 +40,12 @@ public sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<Refresh
 
         builder.Property(p => p.UserId)
             .HasConversion(id => id.ToString(),
-                            value => PersonId.Parse(value));
-
-        builder.HasOne(p => p.Admin)
-            .WithMany(x => x.RefreshTokens)
-            .HasForeignKey(p => p.AdminId);
-
-        builder.Property(p => p.AdminId)
-            .HasConversion(id => id.ToString(),
-                            value => PersonId.Parse(value));
+                            value => UserId.Parse(value));
 
         builder.Property(p => p.RevokedDate)
             .IsRequired(false)
             .HasColumnType("timestamp without time zone")
-            .HasColumnName("CreationDate");
+            .HasColumnName("RevokedDate");
 
         builder.Property(p => p.RevokedByIp)
             .IsRequired(false)
