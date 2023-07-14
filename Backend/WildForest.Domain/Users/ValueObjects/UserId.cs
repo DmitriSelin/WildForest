@@ -15,8 +15,8 @@ public sealed class UserId : ValueObject
     public static UserId Create(Guid value)
         => new(value);
 
-    public static UserId Parse(string cityId)
-        => Create(Guid.Parse(cityId));
+    public static UserId Parse(string value)
+        => Create(Guid.Parse(value));
 
     public override string ToString()
         => Value.ToString();

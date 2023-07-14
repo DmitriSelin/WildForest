@@ -18,6 +18,7 @@ public sealed class WeatherForecastConfiguration : IEntityTypeConfiguration<Thre
 
         builder.Property(p => p.Date)
             .IsRequired()
+            .HasColumnType(ConfigurationSettings.TimeStampWithoutTimeZone)
             .HasColumnName("Date");
 
         builder.OwnsOne(

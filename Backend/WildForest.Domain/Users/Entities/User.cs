@@ -39,7 +39,7 @@ public class User : Entity<UserId>
         CityId = cityId;
     }
 
-    //private User(UserId userId) : base(userId) { }
+    private User(UserId userId) : base(userId) { }
 
     public static User CreateUser(
         FirstName firstName,

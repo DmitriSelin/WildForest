@@ -22,12 +22,12 @@ public sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<Refresh
 
         builder.Property(p => p.Expiration)
             .IsRequired()
-            .HasColumnType("timestamp without time zone")
+            .HasColumnType(ConfigurationSettings.TimeStampWithoutTimeZone)
             .HasColumnName("Expiration");
 
         builder.Property(p => p.CreationDate)
             .IsRequired()
-            .HasColumnType("timestamp without time zone")
+            .HasColumnType(ConfigurationSettings.TimeStampWithoutTimeZone)
             .HasColumnName("CreationDate");
 
         builder.Property(p => p.CreatedByIp)
@@ -44,7 +44,7 @@ public sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<Refresh
 
         builder.Property(p => p.RevokedDate)
             .IsRequired(false)
-            .HasColumnType("timestamp without time zone")
+            .HasColumnType(ConfigurationSettings.TimeStampWithoutTimeZone)
             .HasColumnName("RevokedDate");
 
         builder.Property(p => p.RevokedByIp)
