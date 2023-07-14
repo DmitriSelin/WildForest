@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Contracts", "Bac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildForest.Infrastructure", "Backend\WildForest.Infrastructure\WildForest.Infrastructure.csproj", "{BEEA6525-85CD-4CC1-AFC6-AA9392F8FF31}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{EC3A8B43-BB9D-422D-A99E-55DCD0A62C3D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

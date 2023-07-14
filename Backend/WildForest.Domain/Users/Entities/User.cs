@@ -28,8 +28,8 @@ public class User : Entity<UserId>
     public IReadOnlyList<RefreshToken> RefreshTokens => _refreshTokens.AsReadOnly();
 
     private User(
-        UserId userId, FirstName firstName, LastName lastName,
-        Role role, Email email, Password password, CityId cityId) : base(userId)
+        UserId id, FirstName firstName, LastName lastName,
+        Role role, Email email, Password password, CityId cityId) : base(id)
     {
         FirstName = firstName;
         LastName = lastName;
@@ -38,8 +38,6 @@ public class User : Entity<UserId>
         Password = password;
         CityId = cityId;
     }
-
-    private User(UserId userId) : base(userId) { }
 
     public static User CreateUser(
         FirstName firstName,
@@ -62,4 +60,6 @@ public class User : Entity<UserId>
         return new(UserId.Create(), firstName, lastName,
                     Role.Admin, email, password, cityId);
     }
+
+    private User(UserId id) : base(id) { }
 }
