@@ -66,5 +66,8 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Metadata.FindNavigation(nameof(User.RefreshTokens))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
+
+        builder.Metadata.FindNavigation(nameof(User.Votes))!
+            .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

@@ -7,32 +7,22 @@ public sealed class WeatherForecastId : ValueObject
     public Guid Value { get; }
 
     private WeatherForecastId(Guid value)
-    {
-        Value = value;
-    }
+        => Value = value;
 
     public static WeatherForecastId Create()
-    {
-        return new(Guid.NewGuid());
-    }
+        => new(Guid.NewGuid());
 
     public static WeatherForecastId Create(Guid value)
-    {
-        return new(value);
-    }
+        => new(value);
 
     public static WeatherForecastId Parse(string weatherId)
-    {
-        return Create(Guid.Parse(weatherId));
-    }
+        => Create(Guid.Parse(weatherId));
+
+    public override string ToString()
+        => Value.ToString();
 
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
-    }
-
-    public override string ToString()
-    {
-        return Value.ToString();
     }
 }

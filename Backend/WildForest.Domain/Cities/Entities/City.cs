@@ -21,9 +21,9 @@ public class City : Entity<CityId>
 
     public IReadOnlyList<User> Users => _users.AsReadOnly();
 
-    private readonly List<ThreeHourWeatherForecast> _weatherForecasts = new();
+    private readonly List<DayWeatherForecast> _dayWeatherForecasts = new();
 
-    public IReadOnlyList<ThreeHourWeatherForecast> WeatherForecasts => _weatherForecasts.AsReadOnly();
+    public IReadOnlyList<DayWeatherForecast> DayWeatherForecasts => _dayWeatherForecasts.AsReadOnly();
 
     private City(
         CityId id,

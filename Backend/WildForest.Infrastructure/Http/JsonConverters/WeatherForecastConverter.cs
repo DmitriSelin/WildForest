@@ -201,8 +201,7 @@ public sealed class WeatherForecastConverter : JsonConverter<List<ThreeHourWeath
             wind,
             visibility,
             precipitationProbability,
-            precipitationVolume,
-            _cityId);
+            precipitationVolume);//cityId
 
         return forecast;
     }

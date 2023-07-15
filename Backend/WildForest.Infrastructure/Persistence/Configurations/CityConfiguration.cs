@@ -35,7 +35,7 @@ public sealed class CityConfiguration : IEntityTypeConfiguration<City>
                 .HasColumnName("Longitude");
             });
 
-        builder.Metadata.FindNavigation(nameof(City.WeatherForecasts))!
+        builder.Metadata.FindNavigation(nameof(City.DayWeatherForecasts))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
 
         builder.Metadata.FindNavigation(nameof(City.Users))!

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using WildForest.Domain.Users.ValueObjects;
 using WildForest.Domain.Votes.Entities;
 using WildForest.Domain.Votes.ValueObjects;
 
@@ -18,5 +19,18 @@ public sealed class VoteConfiguration : IEntityTypeConfiguration<Vote>
         builder.Property(p => p.Points)
             .IsRequired()
             .HasColumnName("Points");
+
+        builder.HasOne(p => p.User)
+            .WithMany(x => x.Votes)
+            .HasForeignKey(p => p.UserId);
+
+        builder.Property(p => p.UserId)
+            .HasConversion(id => id.ToString(),
+                            value => UserId.Parse(value));
+
+        builder.HasOne(x => x.DayWeatherForecast)
+            .WithOne(x => x.Vote)
+            .HasForeignKey<Vote>(x => x.DayWeatherForecastId)
+            .IsRequired();
     }
 }

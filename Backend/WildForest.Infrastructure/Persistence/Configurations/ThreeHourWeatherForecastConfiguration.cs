@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Weather.Entities;
 using WildForest.Domain.Weather.ValueObjects;
 
 namespace WildForest.Infrastructure.Persistence.Configurations;
 
-public sealed class WeatherForecastConfiguration : IEntityTypeConfiguration<ThreeHourWeatherForecast>
+public sealed class ThreeHourWeatherForecastConfiguration : IEntityTypeConfiguration<ThreeHourWeatherForecast>
 {
     public void Configure(EntityTypeBuilder<ThreeHourWeatherForecast> builder)
     {
@@ -54,11 +53,11 @@ public sealed class WeatherForecastConfiguration : IEntityTypeConfiguration<Thre
             {
                 sa.Property(p => p.Name)
                 .HasMaxLength(ConfigurationSettings.MaxStringLength)
-                .HasColumnName("WeatherName");
+                .HasColumnName("Name");
 
                 sa.Property(p => p.Description)
                 .HasMaxLength(ConfigurationSettings.MaxStringLength)
-                .HasColumnName("WeatherDescription");
+                .HasColumnName("Description");
             });
 
         builder.OwnsOne(
@@ -107,12 +106,12 @@ public sealed class WeatherForecastConfiguration : IEntityTypeConfiguration<Thre
                 .HasColumnName("PrecipitationVolume");
             });
 
-        builder.HasOne(p => p.City)
-            .WithMany(x => x.WeatherForecasts)
-            .HasForeignKey(p => p.CityId);
+        builder.HasOne(p => p.DayWeatherForecast)
+            .WithMany(x => x.ThreeHourWeatherForecasts)
+            .HasForeignKey(p => p.DayWeatherForecastId);
 
-        builder.Property(x => x.CityId)
+        builder.Property(x => x.DayWeatherForecastId)
             .HasConversion(id => id.ToString(),
-                            value => CityId.Parse(value));
+                            value => WeatherForecastId.Parse(value));
     }
 }

@@ -4,6 +4,7 @@ using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Common.Models;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.ValueObjects;
+using WildForest.Domain.Votes.Entities;
 
 namespace WildForest.Domain.Users.Entities;
 
@@ -26,6 +27,10 @@ public class User : Entity<UserId>
     private readonly List<RefreshToken> _refreshTokens = new();
 
     public IReadOnlyList<RefreshToken> RefreshTokens => _refreshTokens.AsReadOnly();
+
+    private readonly List<Vote> _votes = new();
+
+    public IReadOnlyList<Vote> Votes => _votes.AsReadOnly();
 
     private User(
         UserId id, FirstName firstName, LastName lastName,

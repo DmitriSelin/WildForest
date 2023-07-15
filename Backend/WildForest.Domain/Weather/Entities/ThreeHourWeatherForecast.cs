@@ -1,6 +1,4 @@
-﻿using WildForest.Domain.Cities.Entities;
-using WildForest.Domain.Cities.ValueObjects;
-using WildForest.Domain.Common.Models;
+﻿using WildForest.Domain.Common.Models;
 using WildForest.Domain.Weather.ValueObjects;
 
 namespace WildForest.Domain.Weather.Entities;
@@ -27,9 +25,9 @@ public sealed class ThreeHourWeatherForecast : Entity<WeatherForecastId>
 
     public PrecipitationVolume? PrecipitationVolume { get; }
 
-    public CityId CityId { get; } = null!;
+    public WeatherForecastId DayWeatherForecastId { get; } = null!;
 
-    public City City { get; } = null!;
+    public DayWeatherForecast DayWeatherForecast { get; } = null!;
 
     private ThreeHourWeatherForecast(
         WeatherForecastId id,
@@ -43,7 +41,7 @@ public sealed class ThreeHourWeatherForecast : Entity<WeatherForecastId>
         Visibility visibility,
         PrecipitationProbability precipitationProbability,
         PrecipitationVolume? precipitationVolume,
-        CityId cityId) : base(id)
+        WeatherForecastId dayWeatherForecastId) : base(id)
     {
         Date = date;
         Temperature = temperature;
@@ -55,7 +53,7 @@ public sealed class ThreeHourWeatherForecast : Entity<WeatherForecastId>
         Visibility = visibility;
         PrecipitationProbability = precipitationProbability;
         PrecipitationVolume = precipitationVolume;
-        CityId = cityId;
+        DayWeatherForecastId = dayWeatherForecastId;
     }
 
     private ThreeHourWeatherForecast(WeatherForecastId id) : base(id) { }
@@ -71,7 +69,7 @@ public sealed class ThreeHourWeatherForecast : Entity<WeatherForecastId>
         Visibility visibility,
         PrecipitationProbability precipitationProbability,
         PrecipitationVolume? precipitationVolume,
-        CityId cityId)
+        WeatherForecastId dayWeatherForecastId)
     {
         return new(
             WeatherForecastId.Create(),
@@ -85,6 +83,6 @@ public sealed class ThreeHourWeatherForecast : Entity<WeatherForecastId>
             visibility,
             precipitationProbability,
             precipitationVolume,
-            cityId);
+            dayWeatherForecastId);
     }
 }
