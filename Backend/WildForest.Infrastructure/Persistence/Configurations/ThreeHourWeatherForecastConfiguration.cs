@@ -15,10 +15,10 @@ public sealed class ThreeHourWeatherForecastConfiguration : IEntityTypeConfigura
             .HasConversion(id => id.ToString(),
                             value => WeatherForecastId.Parse(value));
 
-        builder.Property(p => p.Date)
+        builder.Property(p => p.Time)
             .IsRequired()
-            .HasColumnType(ConfigurationSettings.TimeStampWithoutTimeZone)
-            .HasColumnName("Date");
+            .HasColumnType(ConfigurationSettings.TimeWithoutTimeZone)
+            .HasColumnName("Time");
 
         builder.OwnsOne(
             x => x.Temperature,

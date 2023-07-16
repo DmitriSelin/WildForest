@@ -1,9 +1,9 @@
-﻿using WildForest.Domain.Cities.ValueObjects;
-using WildForest.Domain.Weather.Entities;
+﻿using WildForest.Application.Weather.Common.JsonModels;
+using WildForest.Domain.Cities.ValueObjects;
 
 namespace WildForest.Application.Common.Interfaces.Http;
 
 public interface IWeatherForecastHttpClient
 {
-    Task<List<ThreeHourWeatherForecast>> GetWeatherForecastAsync(CityId cityId);
+    Task<List<WeatherForecastVm>> GetWeatherForecastAsync(CityId cityId);
 }

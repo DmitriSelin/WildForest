@@ -19,7 +19,7 @@ public sealed class DayWeatherForecastConfiguration : IEntityTypeConfiguration<D
         builder.Property(p => p.Date)
             .IsRequired()
             .HasColumnType(ConfigurationSettings.Date)
-            .HasColumnName(ConfigurationSettings.Date);
+            .HasColumnName("Date");
 
         builder.HasOne(p => p.City)
             .WithMany(x => x.DayWeatherForecasts)

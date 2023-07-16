@@ -15,6 +15,7 @@ using WildForest.Application.Common.Interfaces.Weather;
 using WildForest.Infrastructure.Weather;
 using WildForest.Application.Common.Interfaces.Http;
 using WildForest.Infrastructure.Http;
+using WildForest.Infrastructure.Http.Builders;
 
 namespace WildForest.Infrastructure;
 
@@ -30,10 +31,12 @@ public static class DependencyInjection
 
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddScoped<IExistingWeatherDataService, ExistingWeatherDataService>();
+        services.AddScoped<IWeatherForecastBuilder, WeatherForecastBuilder>();
 
         services.AddRepositories();
 
-        services.AddDbContext<WildForestDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")));
+        services.AddDbContext<WildForestDbContext>(options =>
+            options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")));
 
         return services;
     }

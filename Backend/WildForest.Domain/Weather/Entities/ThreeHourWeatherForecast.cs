@@ -5,7 +5,7 @@ namespace WildForest.Domain.Weather.Entities;
 
 public sealed class ThreeHourWeatherForecast : Entity<WeatherForecastId>
 {
-    public DateTime Date { get; }
+    public DateTime Time { get; }
 
     public Temperature Temperature { get; } = null!;
 
@@ -31,7 +31,7 @@ public sealed class ThreeHourWeatherForecast : Entity<WeatherForecastId>
 
     private ThreeHourWeatherForecast(
         WeatherForecastId id,
-        DateTime date,
+        DateTime time,
         Temperature temperature,
         Pressure pressure,
         Humidity humidity,
@@ -43,7 +43,7 @@ public sealed class ThreeHourWeatherForecast : Entity<WeatherForecastId>
         PrecipitationVolume? precipitationVolume,
         WeatherForecastId dayWeatherForecastId) : base(id)
     {
-        Date = date;
+        Time = time;
         Temperature = temperature;
         Pressure = pressure;
         Humidity = humidity;
@@ -56,10 +56,8 @@ public sealed class ThreeHourWeatherForecast : Entity<WeatherForecastId>
         DayWeatherForecastId = dayWeatherForecastId;
     }
 
-    private ThreeHourWeatherForecast(WeatherForecastId id) : base(id) { }
-
     public static ThreeHourWeatherForecast Create(
-        DateTime date,
+        DateTime time,
         Temperature temperature,
         Pressure pressure,
         Humidity humidity,
@@ -73,7 +71,7 @@ public sealed class ThreeHourWeatherForecast : Entity<WeatherForecastId>
     {
         return new(
             WeatherForecastId.Create(),
-            date,
+            time,
             temperature,
             pressure,
             humidity,
@@ -85,4 +83,6 @@ public sealed class ThreeHourWeatherForecast : Entity<WeatherForecastId>
             precipitationVolume,
             dayWeatherForecastId);
     }
+
+    private ThreeHourWeatherForecast(WeatherForecastId id) : base(id) { }
 }

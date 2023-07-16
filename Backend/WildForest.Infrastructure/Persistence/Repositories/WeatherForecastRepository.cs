@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
-using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Weather.Entities;
 using WildForest.Domain.Weather.ValueObjects;
 using WildForest.Infrastructure.Persistence.Context;
@@ -26,12 +25,5 @@ public sealed class WeatherForecastRepository : IWeatherForecastRepository
     {
         return await _context.ThreeHourWeatherForecasts
             .FirstOrDefaultAsync(x => x.Id == weatherId);
-    }
-
-    public async Task<IEnumerable<ThreeHourWeatherForecast>?> GetWeatherForecastsByCityIdAsync(CityId cityId)
-    {
-        return await _context.ThreeHourWeatherForecasts
-            .Where(x => x.CityId == cityId)
-            .ToListAsync();
     }
 }
