@@ -24,9 +24,7 @@ public sealed class FirstName : ValueObject
     }
 
     public override string ToString()
-    {
-        return Value;
-    }
+        => Value;
 
     public override IEnumerable<object> GetEqualityComponents()
     {

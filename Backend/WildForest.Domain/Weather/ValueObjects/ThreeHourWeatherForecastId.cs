@@ -1,18 +1,18 @@
 ﻿using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.Users.ValueObjects;
+namespace WildForest.Domain.Weather.ValueObjects;
 
-public sealed class UserId : ValueObject
+public sealed class ThreeHourWeatherForecastId : ValueObject
 {
     public Guid Value { get; }
 
-    private UserId(Guid value)
+    private ThreeHourWeatherForecastId(Guid value)
         => Value = value;
 
-    public static UserId Create()
+    public static ThreeHourWeatherForecastId Create()
         => new(Guid.NewGuid());
 
-    public static UserId Create(Guid value)
+    public static ThreeHourWeatherForecastId Create(Guid value)
         => new(value);
 
     public override string ToString()

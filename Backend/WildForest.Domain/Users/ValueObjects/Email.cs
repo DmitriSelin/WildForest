@@ -25,9 +25,7 @@ public sealed class Email : ValueObject
     }
 
     public override string ToString()
-    {
-        return Value;
-    }
+        => Value;
 
     public override IEnumerable<object> GetEqualityComponents()
     {

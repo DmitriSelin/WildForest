@@ -1,34 +1,33 @@
 ﻿using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.Weather.ValueObjects
+namespace WildForest.Domain.Weather.ValueObjects;
+
+public sealed class WeatherDescription : ValueObject
 {
-    public sealed class WeatherDescription : ValueObject
+    public string Name { get; }
+
+    public string Description { get; }
+
+    private WeatherDescription(string name, string description)
     {
-        public string Name { get; }
+        Name = name;
+        Description = description;
+    }
 
-        public string Description { get; }
+    public static WeatherDescription Create(string name, string description)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentNullException(nameof(name));
 
-        private WeatherDescription(string name, string description)
-        {
-            Name = name;
-            Description = description;
-        }
+        if (string.IsNullOrWhiteSpace(description))
+            throw new ArgumentNullException(nameof(description));
 
-        public static WeatherDescription Create(string name, string description)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentNullException(nameof(name));
+        return new(name, description);
+    }
 
-            if (string.IsNullOrWhiteSpace(description))
-                throw new ArgumentNullException(nameof(description));
-
-            return new(name, description);
-        }
-
-        public override IEnumerable<object> GetEqualityComponents()
-        {
-            yield return Name;
-            yield return Description;
-        }
+    public override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return Name;
+        yield return Description;
     }
 }

@@ -15,9 +15,6 @@ public sealed class WeatherForecastId : ValueObject
     public static WeatherForecastId Create(Guid value)
         => new(value);
 
-    public static WeatherForecastId Parse(string weatherId)
-        => Create(Guid.Parse(weatherId));
-
     public override string ToString()
         => Value.ToString();
 

@@ -7,24 +7,13 @@ public sealed class CityId : ValueObject
     public Guid Value { get; }
 
     private CityId(Guid value)
-    {
-        Value = value;
-    }
+        => Value = value;
 
     public static CityId Create()
-    {
-        return new(Guid.NewGuid());
-    }
+        => new(Guid.NewGuid());
 
     public static CityId Create(Guid value)
-    {
-        return new(value);
-    }
-
-    public static CityId Parse(string cityId)
-    {
-        return Create(Guid.Parse(cityId));
-    }
+        => new (value);
 
     public override IEnumerable<object> GetEqualityComponents()
     {
@@ -32,7 +21,5 @@ public sealed class CityId : ValueObject
     }
 
     public override string ToString()
-    {
-        return Value.ToString();
-    }
+        => Value.ToString();
 }

@@ -1,31 +1,30 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.Cities.ValueObjects
+namespace WildForest.Domain.Cities.ValueObjects;
+
+public sealed class CityName : ValueObject
 {
-    public sealed class CityName : ValueObject
+    public string Value { get; }
+
+    private CityName(string value)
+        => Value = value;
+
+    public static CityName Create(string value)
     {
-        public string Value { get; }
+        if (string.IsNullOrWhiteSpace(value))
+            throw new ArgumentNullException(nameof(value));
 
-        private CityName(string value)
-            => Value = value;
+        string cityName = value.Trim();
 
-        public static CityName Create(string value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentNullException(nameof(value));
+        if (cityName.Length < 1 || cityName.Length > 50)
+            throw new ValidationException("Invalid cityName");
 
-            string cityName = value.Trim();
+        return new(cityName);
+    }
 
-            if (cityName.Length < 1 || cityName.Length > 50)
-                throw new ValidationException("Invalid cityName");
-
-            return new(cityName);
-        }
-
-        public override IEnumerable<object> GetEqualityComponents()
-        {
-            yield return Value;
-        }
+    public override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return Value;
     }
 }

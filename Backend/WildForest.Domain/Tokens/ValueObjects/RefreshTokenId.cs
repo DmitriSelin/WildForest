@@ -10,19 +10,10 @@ public sealed class RefreshTokenId :  ValueObject
         => Value = value;
 
     public static RefreshTokenId Create()
-    {
-        return new(Guid.NewGuid());
-    }
+        => new(Guid.NewGuid());
 
     public static RefreshTokenId Create(Guid value)
-    {
-        return new(value);
-    }
-
-    public static RefreshTokenId Parse(string refreshTokenId)
-    {
-        return Create(Guid.Parse(refreshTokenId));
-    }
+        => new(value);
 
     public override IEnumerable<object> GetEqualityComponents()
     {
@@ -30,7 +21,5 @@ public sealed class RefreshTokenId :  ValueObject
     }
 
     public override string ToString()
-    {
-        return Value.ToString();
-    }
+        => Value.ToString();
 }

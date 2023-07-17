@@ -1,28 +1,27 @@
 ﻿using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.Weather.ValueObjects
+namespace WildForest.Domain.Weather.ValueObjects;
+
+/// <summary>
+/// Value in percentages
+/// </summary>
+public sealed class Humidity : ValueObject
 {
-    /// <summary>
-    /// Value in percentages
-    /// </summary>
-    public sealed class Humidity : ValueObject
+    public byte Value { get; }
+
+    private Humidity(byte value) 
+        => Value = value;
+
+    public static Humidity Create(byte value)
     {
-        public byte Value { get; }
+        if (value > 100)
+            throw new ArgumentOutOfRangeException(nameof(value), "Invalid humidity");
 
-        private Humidity(byte value) 
-            => Value = value;
+        return new(value);
+    }
 
-        public static Humidity Create(byte value)
-        {
-            if (value > 100)
-                throw new ArgumentOutOfRangeException(nameof(value), "Invalid humidity");
-
-            return new(value);
-        }
-
-        public override IEnumerable<object> GetEqualityComponents()
-        {
-            yield return Value;
-        }
+    public override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return Value;
     }
 }
