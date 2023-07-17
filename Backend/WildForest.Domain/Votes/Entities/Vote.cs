@@ -2,7 +2,7 @@
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Domain.Votes.ValueObjects;
-using WildForest.Domain.Weather.Entities;
+using WildForest.Domain.Weather;
 using WildForest.Domain.Weather.ValueObjects;
 
 namespace WildForest.Domain.Votes.Entities;
@@ -15,9 +15,9 @@ public sealed class Vote : Entity<VoteId>
 
     public User User { get; } = null!;
 
-    public WeatherForecastId DayWeatherForecastId { get; } = null!;
+    public WeatherForecastId WeatherForecastId { get; } = null!;
 
-    public DayWeatherForecast DayWeatherForecast { get; } = null!;
+    public WeatherForecast WeatherForecast { get; } = null!;
 
     public static Vote Create(UserId userId, WeatherForecastId dayWeatherForecastId)
         => new(VoteId.Create(), userId, dayWeatherForecastId);
@@ -28,10 +28,10 @@ public sealed class Vote : Entity<VoteId>
     public void Down()
         => Points--;
 
-    private Vote(VoteId id, UserId userId, WeatherForecastId dayWeatherForecastId) : base(id)
+    private Vote(VoteId id, UserId userId, WeatherForecastId weatherForecastId) : base(id)
     {
         Points = 0;
-        DayWeatherForecastId = dayWeatherForecastId;
+        WeatherForecastId = weatherForecastId;
         UserId = userId;
     }
 

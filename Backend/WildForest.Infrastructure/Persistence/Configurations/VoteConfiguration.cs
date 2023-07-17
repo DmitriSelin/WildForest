@@ -12,25 +12,33 @@ public sealed class VoteConfiguration : IEntityTypeConfiguration<Vote>
     {
         builder.HasKey(x => x.Id);
 
-        builder.Property(p => p.Id)
-            .HasConversion(id => id.Value,
-                            value => VoteId.Create(value));
+        builder
+            .Property(p => p.Id)
+            .ValueGeneratedNever()
+            .HasConversion(
+                id => id.Value,
+                value => VoteId.Create(value));
 
-        builder.Property(p => p.Points)
+        builder
+            .Property(p => p.Points)
             .IsRequired()
             .HasColumnName("Points");
 
-        builder.HasOne(p => p.User)
+        builder
+            .HasOne(p => p.User)
             .WithMany(x => x.Votes)
             .HasForeignKey(p => p.UserId);
 
-        builder.Property(p => p.UserId)
-            .HasConversion(id => id.Value,
-                            value => UserId.Create(value));
+        builder
+            .Property(p => p.UserId)
+            .HasConversion(
+                id => id.Value,
+                value => UserId.Create(value));
 
-        builder.HasOne(x => x.DayWeatherForecast)
+        builder
+            .HasOne(x => x.WeatherForecast)
             .WithOne(x => x.Vote)
-            .HasForeignKey<Vote>(x => x.DayWeatherForecastId)
+            .HasForeignKey<Vote>(x => x.WeatherForecastId)
             .IsRequired();
     }
 }

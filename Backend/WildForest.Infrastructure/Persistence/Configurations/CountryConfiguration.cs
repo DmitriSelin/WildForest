@@ -11,9 +11,12 @@ public sealed class CountryConfiguration : IEntityTypeConfiguration<Country>
     {
         builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.Id)
-            .HasConversion(id => id.Value,
-                            value => CountryId.Create(value));
+        builder
+            .Property(x => x.Id)
+            .ValueGeneratedNever()
+            .HasConversion(
+                id => id.Value,
+                value => CountryId.Create(value));
 
         builder.OwnsOne(
             x => x.Name,
@@ -24,7 +27,8 @@ public sealed class CountryConfiguration : IEntityTypeConfiguration<Country>
                 .HasColumnName("Name");
             });
 
-        builder.Metadata.FindNavigation(nameof(Country.Cities))!
+        builder.Metadata
+            .FindNavigation(nameof(Country.Cities))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

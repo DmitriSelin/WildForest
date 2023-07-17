@@ -12,9 +12,12 @@ public sealed class CityConfiguration : IEntityTypeConfiguration<City>
     {
         builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.Id)
-            .HasConversion(id => id.Value,
-                            value => CityId.Create(value));
+        builder
+            .Property(x => x.Id)
+            .ValueGeneratedNever()
+            .HasConversion(
+                id => id.Value,
+                value => CityId.Create(value));
 
         builder.OwnsOne(
             x => x.Name,
@@ -35,18 +38,23 @@ public sealed class CityConfiguration : IEntityTypeConfiguration<City>
                 .HasColumnName("Longitude");
             });
 
-        builder.Metadata.FindNavigation(nameof(City.WeatherForecasts))!
-            .SetPropertyAccessMode(PropertyAccessMode.Field);
-
-        builder.Metadata.FindNavigation(nameof(City.Users))!
-            .SetPropertyAccessMode(PropertyAccessMode.Field);
-
-        builder.HasOne(p => p.Country)
+        builder
+            .HasOne(p => p.Country)
             .WithMany(x => x.Cities)
             .HasForeignKey(p => p.CountryId);
 
-        builder.Property(x => x.CountryId)
-            .HasConversion(id => id.Value,
-                            value => CountryId.Create(value));
+        builder
+            .Property(x => x.CountryId)
+            .HasConversion(
+                id => id.Value,
+                value => CountryId.Create(value));
+
+        builder.Metadata
+            .FindNavigation(nameof(City.WeatherForecasts))!
+            .SetPropertyAccessMode(PropertyAccessMode.Field);
+
+        builder.Metadata
+            .FindNavigation(nameof(City.Users))!
+            .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

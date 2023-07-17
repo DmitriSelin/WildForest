@@ -12,9 +12,12 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
     {
         builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.Id)
-            .HasConversion(id => id.Value,
-                            value => UserId.Create(value));
+        builder
+            .Property(x => x.Id)
+            .ValueGeneratedNever()
+            .HasConversion(
+                id => id.Value,
+                value => UserId.Create(value));
 
         builder.OwnsOne(
             x => x.FirstName,
@@ -34,7 +37,8 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
                 .HasColumnName("LastName");
             });
 
-        builder.Property(x => x.Role)
+        builder
+            .Property(x => x.Role)
             .IsRequired()
             .HasColumnName("Role");
 
@@ -56,13 +60,16 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
                 .HasColumnName("Password");
             });
 
-        builder.HasOne(p => p.City)
+        builder
+            .HasOne(p => p.City)
             .WithMany(x => x.Users)
             .HasForeignKey(p => p.CityId);
 
-        builder.Property(p => p.CityId)
-            .HasConversion(id => id.Value,
-                            value => CityId.Create(value));
+        builder
+            .Property(p => p.CityId)
+            .HasConversion(
+                id => id.Value,
+                value => CityId.Create(value));
 
         builder.Metadata
             .FindNavigation(nameof(User.RefreshTokens))!

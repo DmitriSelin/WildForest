@@ -20,22 +20,29 @@ public sealed class WeatherForecastConfiguration : IEntityTypeConfiguration<Weat
 
         builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.Id)
-            .HasConversion(id => id.Value,
-                            value => WeatherForecastId.Create(value));
+        builder
+            .Property(x => x.Id)
+            .ValueGeneratedNever()
+            .HasConversion(
+                id => id.Value,
+                value => WeatherForecastId.Create(value));
 
-        builder.Property(p => p.Date)
+        builder
+            .Property(p => p.Date)
             .IsRequired()
             .HasColumnType(ConfigurationSettings.Date)
             .HasColumnName("Date");
 
-        builder.HasOne(p => p.City)
+        builder
+            .HasOne(p => p.City)
             .WithMany(x => x.WeatherForecasts)
             .HasForeignKey(p => p.CityId);
 
-        builder.Property(x => x.CityId)
-            .HasConversion(id => id.Value,
-                            value => CityId.Create(value));
+        builder
+            .Property(x => x.CityId)
+            .HasConversion(
+                id => id.Value,
+                value => CityId.Create(value));
     }
 
     private void ConfigureThreeHourWeatherForecasts(EntityTypeBuilder<WeatherForecast> builder)
@@ -46,11 +53,15 @@ public sealed class WeatherForecastConfiguration : IEntityTypeConfiguration<Weat
 
             sectionBuilder.HasKey(x => x.Id);
 
-            sectionBuilder.Property(x => x.Id)
-                .HasConversion(id => id.Value,
-                                value => ThreeHourWeatherForecastId.Create(value));
+            sectionBuilder
+                .Property(x => x.Id)
+                .ValueGeneratedNever()
+                .HasConversion(
+                    id => id.Value,
+                    value => ThreeHourWeatherForecastId.Create(value));
 
-            sectionBuilder.Property(p => p.Time)
+            sectionBuilder
+                .Property(p => p.Time)
                 .IsRequired()
                 .HasColumnType(ConfigurationSettings.TimeWithoutTimeZone)
                 .HasColumnName("Time");
@@ -141,13 +152,16 @@ public sealed class WeatherForecastConfiguration : IEntityTypeConfiguration<Weat
                     .HasColumnName("PrecipitationVolume");
                 });
 
-            sectionBuilder.HasOne(p => p.WeatherForecast)
+            sectionBuilder
+                .HasOne(p => p.WeatherForecast)
                 .WithMany(x => x.ThreeHourWeatherForecasts)
                 .HasForeignKey(p => p.WeatherForecastId);
 
-            sectionBuilder.Property(x => x.WeatherForecastId)
-                .HasConversion(id => id.Value,
-                                value => WeatherForecastId.Create(value));
+            sectionBuilder
+                .Property(x => x.WeatherForecastId)
+                .HasConversion(
+                    id => id.Value,
+                    value => WeatherForecastId.Create(value));
         });
 
         builder.Metadata
