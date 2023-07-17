@@ -13,8 +13,8 @@ public sealed class CityConfiguration : IEntityTypeConfiguration<City>
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id)
-            .HasConversion(id => id.ToString(),
-                            value => CityId.Parse(value));
+            .HasConversion(id => id.Value,
+                            value => CityId.Create(value));
 
         builder.OwnsOne(
             x => x.Name,
@@ -46,7 +46,7 @@ public sealed class CityConfiguration : IEntityTypeConfiguration<City>
             .HasForeignKey(p => p.CountryId);
 
         builder.Property(x => x.CountryId)
-            .HasConversion(id => id.ToString(),
-                            value => CountryId.Parse(value));
+            .HasConversion(id => id.Value,
+                            value => CountryId.Create(value));
     }
 }

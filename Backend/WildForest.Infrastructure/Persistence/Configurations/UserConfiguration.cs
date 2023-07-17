@@ -13,8 +13,8 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id)
-            .HasConversion(id => id.ToString(),
-                            value => UserId.Parse(value));
+            .HasConversion(id => id.Value,
+                            value => UserId.Create(value));
 
         builder.OwnsOne(
             x => x.FirstName,
@@ -61,8 +61,8 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .HasForeignKey(p => p.CityId);
 
         builder.Property(p => p.CityId)
-            .HasConversion(id => id.ToString(),
-                            value => CityId.Parse(value));
+            .HasConversion(id => id.Value,
+                            value => CityId.Create(value));
 
         builder.Metadata.FindNavigation(nameof(User.RefreshTokens))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);

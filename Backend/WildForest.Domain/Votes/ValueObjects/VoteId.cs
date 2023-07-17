@@ -15,9 +15,6 @@ public sealed class VoteId : ValueObject
     public static VoteId Create(Guid value)
         => new(value);
 
-    public static VoteId Parse(string value)
-        => Create(Guid.Parse(value));
-
     public override string ToString()
         => Value.ToString();
 

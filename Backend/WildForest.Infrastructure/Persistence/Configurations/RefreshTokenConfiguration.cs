@@ -13,8 +13,8 @@ public sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<Refresh
         builder.HasKey(p => p.Id);
 
         builder.Property(p => p.Id)
-            .HasConversion(id => id.ToString(),
-                value => RefreshTokenId.Parse(value));
+            .HasConversion(id => id.Value,
+                value => RefreshTokenId.Create(value));
 
         builder.Property(p => p.Token)
             .IsRequired()
@@ -39,8 +39,8 @@ public sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<Refresh
             .HasForeignKey(p => p.UserId);
 
         builder.Property(p => p.UserId)
-            .HasConversion(id => id.ToString(),
-                            value => UserId.Parse(value));
+            .HasConversion(id => id.Value,
+                            value => UserId.Create(value));
 
         builder.Property(p => p.RevokedDate)
             .IsRequired(false)

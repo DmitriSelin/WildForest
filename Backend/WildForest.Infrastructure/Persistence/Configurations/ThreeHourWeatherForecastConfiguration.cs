@@ -12,8 +12,8 @@ public sealed class ThreeHourWeatherForecastConfiguration : IEntityTypeConfigura
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id)
-            .HasConversion(id => id.ToString(),
-                            value => WeatherForecastId.Parse(value));
+            .HasConversion(id => id.Value,
+                            value => WeatherForecastId.Create(value));
 
         builder.Property(p => p.Time)
             .IsRequired()
@@ -111,7 +111,7 @@ public sealed class ThreeHourWeatherForecastConfiguration : IEntityTypeConfigura
             .HasForeignKey(p => p.DayWeatherForecastId);
 
         builder.Property(x => x.DayWeatherForecastId)
-            .HasConversion(id => id.ToString(),
-                            value => WeatherForecastId.Parse(value));
+            .HasConversion(id => id.Value,
+                            value => WeatherForecastId.Create(value));
     }
 }
