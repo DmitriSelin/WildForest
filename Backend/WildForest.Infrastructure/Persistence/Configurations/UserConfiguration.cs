@@ -64,10 +64,12 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .HasConversion(id => id.Value,
                             value => CityId.Create(value));
 
-        builder.Metadata.FindNavigation(nameof(User.RefreshTokens))!
+        builder.Metadata
+            .FindNavigation(nameof(User.RefreshTokens))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
 
-        builder.Metadata.FindNavigation(nameof(User.Votes))!
+        builder.Metadata
+            .FindNavigation(nameof(User.Votes))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

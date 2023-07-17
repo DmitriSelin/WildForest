@@ -4,7 +4,7 @@ using WildForest.Domain.Countries.Entities;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Votes.Entities;
-using WildForest.Domain.Weather.Entities;
+using WildForest.Domain.Weather;
 
 namespace WildForest.Infrastructure.Persistence.Context;
 
@@ -17,8 +17,8 @@ public sealed class WildForestDbContext : DbContext
     public DbSet<User> Users => Set<User>();
 
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
-
-    public DbSet<ThreeHourWeatherForecast> ThreeHourWeatherForecasts => Set<ThreeHourWeatherForecast>();
+    
+    public DbSet<WeatherForecast> WeatherForecasts => Set<WeatherForecast>();
 
     public DbSet<Vote> Votes => Set<Vote>();
 
