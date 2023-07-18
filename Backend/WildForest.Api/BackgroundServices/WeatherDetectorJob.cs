@@ -24,7 +24,7 @@ public sealed class WeatherDetectorJob : IJob
 
         foreach (var city in cities)
         {
-            await _weatherForecastDbService.AddWeatherForecastsInDbAsync(city.Id);//TODO:think about redone http client
+            await _weatherForecastDbService.AddWeatherForecastsInDbAsync(city.Id);
         }
     }
 }

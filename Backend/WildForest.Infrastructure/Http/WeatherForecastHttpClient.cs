@@ -2,9 +2,8 @@
 using System.Net.Http.Json;
 using System.Text.Json;
 using WildForest.Application.Common.Interfaces.Http;
-using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Application.Weather.Common.JsonModels;
-using WildForest.Domain.Cities.ValueObjects;
+using WildForest.Domain.Cities.Entities;
 using WildForest.Infrastructure.Common.Extensions;
 using WildForest.Infrastructure.Http.Builders;
 using WildForest.Infrastructure.Http.JsonConverters;
@@ -15,19 +14,16 @@ public sealed class WeatherForecastHttpClient : IWeatherForecastHttpClient
 {
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
-    private readonly ICityRepository _cityRepository;
-    private readonly IWeatherForecastBuilder _builder;
+    private readonly IWeatherForecastBuilder _weatherForecastBuilder;
 
     public WeatherForecastHttpClient(
         HttpClient httpClient,
         IConfiguration configuration,
-        ICityRepository cityRepository,
-        IWeatherForecastBuilder builder)
+        IWeatherForecastBuilder weatherForecastBuilder)
     {
         _httpClient = httpClient;
         _configuration = configuration;
-        _cityRepository = cityRepository;
-        _builder = builder;
+        _weatherForecastBuilder = weatherForecastBuilder;
 
         var baseUrl = _configuration["WeatherForecast:BaseWeatherForecastUrl"];
 
@@ -37,15 +33,8 @@ public sealed class WeatherForecastHttpClient : IWeatherForecastHttpClient
         _httpClient.BaseAddress = new Uri(baseUrl);
     }
 
-    public async Task<List<WeatherForecastVm>> GetWeatherForecastAsync(CityId cityId)
+    public async Task<List<WeatherForecastVm>> GetWeatherForecastAsync(City city)
     {
-        var city = await _cityRepository.GetCityByIdAsync(cityId);
-
-        if (city is null)
-        {
-            throw new ArgumentNullException(nameof(city));
-        }
-
         string lat = city.Location.Latitude
             .ToString()
             .ReplaceCommaByPeriod();
@@ -59,7 +48,7 @@ public sealed class WeatherForecastHttpClient : IWeatherForecastHttpClient
         var url = $"?lat={lat}&lon={lon}&units=metric&appid={appid}";
 
         var jsonOptions = new JsonSerializerOptions();
-        jsonOptions.Converters.Add(new WeatherForecastConverter(_builder));
+        jsonOptions.Converters.Add(new WeatherForecastConverter(_weatherForecastBuilder));
 
         var weatherForecasts = await _httpClient.GetFromJsonAsync<List<WeatherForecastVm>>(url, jsonOptions);
 
