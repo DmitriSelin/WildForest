@@ -6,7 +6,7 @@ public sealed record WeatherForecastDto(
     Temperature Temperature,
     int Pressure,
     byte Humidity,
-    WeatherDescription WeatherDescription,
+    WeatherDescription Description,
     byte Cloudiness,
     Wind Wind,
     double Visibility,

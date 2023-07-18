@@ -22,7 +22,7 @@ public static class DependencyInjection
         services.AddScoped<IRevokeTokenCommandHandler, RevokeTokenCommandHandler>();
         services.AddScoped<ICountriesListQueryHandler, CountriesListQueryHandler>();
         services.AddScoped<ICitiesListQueryHandler, CitiesListQueryHandler>();
-        services.AddScoped<IHomeWeatherForecastHandler, HomeWeatherForecastHandler>();
+        services.AddScoped<IHomeWeatherForecastService, HomeWeatherForecastService>();
         services.AddScoped<ICountryCommandHandler, CountryCommandHandler>();
         services.AddScoped<ICityCommandHandler, CityCommandHandler>();
 

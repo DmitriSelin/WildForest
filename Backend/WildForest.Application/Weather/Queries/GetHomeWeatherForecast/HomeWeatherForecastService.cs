@@ -1,17 +1,17 @@
 using ErrorOr;
 using MapsterMapper;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
-using WildForest.Application.Weather.Common.JsonModels;
+using WildForest.Application.Weather.Common.Models;
 
 namespace WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
-public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
+public sealed class HomeWeatherForecastService : IHomeWeatherForecastService
 {
     private readonly IUserRepository _userRepository;
     private readonly IWeatherForecastRepository _weatherForecastRepository;
     private readonly IMapper _mapper;
 
-    public HomeWeatherForecastHandler(
+    public HomeWeatherForecastService(
         IUserRepository userRepository,
         IWeatherForecastRepository weatherForecastRepository,
         IMapper mapper)
@@ -21,9 +21,9 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
         _mapper = mapper;
     }
 
-    public async Task<ErrorOr<WeatherForecastVm>> GetWeatherForecastAsync(HomeWeatherForecastQuery query)
+    public Task<ErrorOr<WeatherForecastDto>> GetWeatherForecastsAsync(HomeWeatherForecastQuery query)
     {
-        throw new();
+        throw new NotImplementedException();
     }
     //    var userId = PersonId.Create(query.UserId);
     //    var user = await _userRepository.GetUserWithCityByIdAsync(userId);
@@ -64,13 +64,5 @@ public sealed class HomeWeatherForecastHandler : IHomeWeatherForecastHandler
     //    var forecastsDto = _mapper.Map<List<WeatherForecastDto>>(forecasts);
 
     //    return new WeatherForecastVm(forecastsDto, mediumMark);
-    //}
-
-    //private static WeatherMark CreateWeatherMark(ThreeHourWeatherForecast forecast)
-    //{
-    //    var mark = MediumMark.CreateNewProperty();
-    //    var countOfMarks = CountOfMarks.Create();
-
-    //    return WeatherMark.Create(mark, countOfMarks, forecast.Id);
     //}
 }

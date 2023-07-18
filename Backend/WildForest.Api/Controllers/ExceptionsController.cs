@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace WildForest.Api.Controllers
+namespace WildForest.Api.Controllers;
+
+[ApiExplorerSettings(IgnoreApi = true)]
+public sealed class ExceptionsController : ControllerBase
 {
-    [ApiExplorerSettings(IgnoreApi = true)]
-    public sealed class ExceptionsController : ControllerBase
+    [Route("error")]
+    public IActionResult Error()
     {
-        [Route("error")]
-        public IActionResult Error()
-        {
-            return Problem();
-        }
+        return Problem();
     }
 }

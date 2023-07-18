@@ -15,7 +15,7 @@ public sealed class WeatherMappingConfig : IRegister
                 source.Temperature.Value, source.Temperature.ValueFeelsLike))
             .Map(dest => dest.Pressure, source => source.Pressure.Value)
             .Map(dest => dest.Humidity, source => source.Humidity.Value)
-            .Map(dest => dest.WeatherDescription, source => new WeatherDescription(
+            .Map(dest => dest.Description, source => new WeatherDescription(
                 source.Description.Name, source.Description.Description))
             .Map(dest => dest.Cloudiness, source => source.Cloudiness.Value)
             .Map(dest => dest.Wind, source => new Wind(
