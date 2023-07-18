@@ -12,6 +12,7 @@ public static class RepositoryRegistrator
         services.AddScoped<ICityRepository, CityRepository>();
         services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
         services.AddScoped<ICountryRepository, CountryRepository>();
+        services.AddScoped<IThreeHourWeatherForecastRepository, ThreeHourWeatherForecastRepository>();
 
         return services;
     }

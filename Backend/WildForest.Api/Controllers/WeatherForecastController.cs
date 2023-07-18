@@ -12,14 +12,14 @@ namespace WildForest.Api.Controllers;
 public sealed class WeatherForecastController : ApiController
 {
     private readonly IJwtTokenDecoder _jwtTokenDecoder;
-    private readonly IHomeWeatherForecastService _homeWeatherForecastHandler;  
+    private readonly IHomeWeatherForecastService _homeWeatherForecastService;
 
     public WeatherForecastController(
         IJwtTokenDecoder jwtTokenDecoder,
-        IHomeWeatherForecastService homeWeatherForecastHandler)
+        IHomeWeatherForecastService homeWeatherForecastService)
     {
         _jwtTokenDecoder = jwtTokenDecoder;
-        _homeWeatherForecastHandler = homeWeatherForecastHandler;
+        _homeWeatherForecastService = homeWeatherForecastService;
     }
 
     [HttpGet("homeCity/{date}")]
@@ -34,7 +34,7 @@ public sealed class WeatherForecastController : ApiController
         var forecastDate = DateOnly.Parse(date);
         var query = new HomeWeatherForecastQuery(userId.Value, forecastDate);
 
-        var forecasts = await _homeWeatherForecastHandler.GetWeatherForecastsAsync(query);
+        var forecasts = await _homeWeatherForecastService.GetWeatherForecastsAsync(query);
 
         if (forecasts.IsError)
             return Problem(forecasts.Errors);

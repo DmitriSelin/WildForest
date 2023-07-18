@@ -8,6 +8,7 @@ using WildForest.Application.Maps.Commands.AddCities;
 using WildForest.Application.Maps.Commands.AddCountry;
 using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
+using WildForest.Application.Weather.Commands.AddWeatherForecasts.Fabrics;
 using WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
 namespace WildForest.Application;
@@ -25,6 +26,8 @@ public static class DependencyInjection
         services.AddScoped<IHomeWeatherForecastService, HomeWeatherForecastService>();
         services.AddScoped<ICountryCommandHandler, CountryCommandHandler>();
         services.AddScoped<ICityCommandHandler, CityCommandHandler>();
+
+        services.AddScoped<IWeatherForecastFactory, WeatherForecastFactory>();
 
         services.AddMappings();
 
