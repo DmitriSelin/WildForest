@@ -8,6 +8,7 @@ using WildForest.Application.Maps.Commands.AddCities;
 using WildForest.Application.Maps.Commands.AddCountry;
 using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
+using WildForest.Application.Weather.Commands.AddWeatherForecasts;
 using WildForest.Application.Weather.Commands.AddWeatherForecasts.Fabrics;
 using WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
@@ -17,19 +18,40 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        services.AddAuthenticationServices();
+        services.AddMapServices();
+        services.AddWeatherServices();
+
+        services.AddMappings();
+
+        return services;
+    }
+
+    private static IServiceCollection AddAuthenticationServices(this IServiceCollection services)
+    {
         services.AddScoped<IRegistrationService, RegistrationService>();
         services.AddScoped<ILoginService, LoginService>();
         services.AddScoped<IRefreshTokenCommandHandler, RefreshTokenCommandHandler>();
         services.AddScoped<IRevokeTokenCommandHandler, RevokeTokenCommandHandler>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddMapServices(this IServiceCollection services)
+    {
         services.AddScoped<ICountriesListQueryHandler, CountriesListQueryHandler>();
         services.AddScoped<ICitiesListQueryHandler, CitiesListQueryHandler>();
-        services.AddScoped<IHomeWeatherForecastService, HomeWeatherForecastService>();
         services.AddScoped<ICountryCommandHandler, CountryCommandHandler>();
         services.AddScoped<ICityCommandHandler, CityCommandHandler>();
 
-        services.AddScoped<IWeatherForecastFactory, WeatherForecastFactory>();
+        return services;
+    }
 
-        services.AddMappings();
+    private static IServiceCollection AddWeatherServices(this IServiceCollection services)
+    {
+        services.AddScoped<IHomeWeatherForecastService, HomeWeatherForecastService>();
+        services.AddScoped<IWeatherForecastFactory, WeatherForecastFactory>();
+        services.AddScoped<IWeatherForecastDbService, WeatherForecastDbService>();
 
         return services;
     }
