@@ -17,13 +17,11 @@ public sealed class WeatherForecastRepository : IWeatherForecastRepository
 
     public async Task AddWeatherForecastsAsync(IEnumerable<ThreeHourWeatherForecast> forecasts)
     {
-        await _context.ThreeHourWeatherForecasts.AddRangeAsync(forecasts);
-        await _context.SaveChangesAsync();
+        
     }
 
     public async Task<ThreeHourWeatherForecast?> GetWeatherForecastByIdAsync(WeatherForecastId weatherId)
     {
-        return await _context.ThreeHourWeatherForecasts
-            .FirstOrDefaultAsync(x => x.Id == weatherId);
+        throw new();
     }
 }

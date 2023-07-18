@@ -9,7 +9,7 @@ namespace WildForest.Domain.Weather;
 
 public class WeatherForecast : AggregateRoot<WeatherForecastId>
 {
-    public DateTime Date { get; }
+    public DateOnly Date { get; }
 
     public CityId CityId { get; } = null!;
 
@@ -21,12 +21,12 @@ public class WeatherForecast : AggregateRoot<WeatherForecastId>
 
     public IReadOnlyList<ThreeHourWeatherForecast> ThreeHourWeatherForecasts => _threeHourWeatherForecasts.AsReadOnly();
 
-    public static WeatherForecast Create(DateTime date, CityId cityId)
+    public static WeatherForecast Create(DateOnly date, CityId cityId)
         => new(WeatherForecastId.Create(), date, cityId);
 
     private WeatherForecast(
         WeatherForecastId id,
-        DateTime date,
+        DateOnly date,
         CityId cityId) : base(id)
     {
         Date = date;

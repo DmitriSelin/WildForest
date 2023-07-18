@@ -1,7 +1,7 @@
 using ErrorOr;
 using MapsterMapper;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
-using WildForest.Application.Weather.Common;
+using WildForest.Application.Weather.Common.JsonModels;
 
 namespace WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 

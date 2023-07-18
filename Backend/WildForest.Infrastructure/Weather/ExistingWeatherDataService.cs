@@ -21,12 +21,12 @@ public sealed class ExistingWeatherDataService : IExistingWeatherDataService
 
     public async Task CheckWeatherDataExisting(CityId cityId)
     {
-        var forecasts = (List<ThreeHourWeatherForecast>?) await _weatherForecastRepository.GetWeatherForecastsByCityIdAsync(cityId);
+        //var forecasts = (List<ThreeHourWeatherForecast>?) await _weatherForecastRepository.GetWeatherForecastsByCityIdAsync(cityId);
 
-        if (forecasts is null || forecasts.Count == 0)
-        {
-            var weatherForecasts = await _weatherForecastHttpClient.GetWeatherForecastAsync(cityId);
-            await _weatherForecastRepository.AddWeatherForecastsAsync(weatherForecasts);
-        }
+        //if (forecasts is null || forecasts.Count == 0)
+        //{
+        //    var weatherForecasts = await _weatherForecastHttpClient.GetWeatherForecastAsync(cityId);
+        //    await _weatherForecastRepository.AddWeatherForecastsAsync(weatherForecasts);
+        //}
     }
 }
