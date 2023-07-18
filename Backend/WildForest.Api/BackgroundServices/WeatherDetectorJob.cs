@@ -1,6 +1,6 @@
 using Quartz;
-using WildForest.Application.Common.Interfaces.Http;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
+using WildForest.Application.Weather.Commands.AddWeatherForecasts;
 using WildForest.Domain.Cities.Entities;
 
 namespace WildForest.Api.BackgroundServices;
@@ -8,17 +8,14 @@ namespace WildForest.Api.BackgroundServices;
 public sealed class WeatherDetectorJob : IJob
 {
     private readonly ICityRepository _cityRepository;
-    private readonly IWeatherForecastHttpClient _httpClient;
-    private readonly IWeatherForecastRepository _weatherForecastRepository;
+    private readonly IWeatherForecastDbService _weatherForecastDbService;
 
     public WeatherDetectorJob(
         ICityRepository cityRepository,
-        IWeatherForecastHttpClient httpClient,
-        IWeatherForecastRepository weatherForecastRepository)
+        IWeatherForecastDbService weatherForecastDbService)
     {
         _cityRepository = cityRepository;
-        _httpClient = httpClient;
-        _weatherForecastRepository = weatherForecastRepository;
+        _weatherForecastDbService = weatherForecastDbService;
     }
 
     public async Task Execute(IJobExecutionContext context)
@@ -27,8 +24,7 @@ public sealed class WeatherDetectorJob : IJob
 
         foreach (var city in cities)
         {
-            var forecasts = await _httpClient.GetWeatherForecastAsync(city.Id);
-            //await _weatherForecastRepository.AddWeatherForecastsAsync(forecasts);
+            await _weatherForecastDbService.AddWeatherForecastsInDbAsync(city.Id);//TODO:think about redone http client
         }
     }
 }
