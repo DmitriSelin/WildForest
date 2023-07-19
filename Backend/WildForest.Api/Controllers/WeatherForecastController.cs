@@ -26,13 +26,15 @@ public sealed class WeatherForecastController : ApiController
     public async Task<IActionResult> GetHomeWeatherForecasts(string date)
     {
         var bearer = HttpContext.GetJwtTokenFromAuthHeader();
+
         ErrorOr<Guid> userId = _jwtTokenDecoder.GetUserIdFromToken(bearer);
 
         if (userId.IsError)
             return Problem(userId.Errors);
 
-        var forecastDate = DateOnly.Parse(date);
-        var query = new HomeWeatherForecastQuery(userId.Value, forecastDate);
+        var currentDate = DateOnly.Parse(date);
+
+        var query = new HomeWeatherForecastQuery(userId.Value, currentDate);
 
         var forecasts = await _homeWeatherForecastService.GetWeatherForecastsAsync(query);
 

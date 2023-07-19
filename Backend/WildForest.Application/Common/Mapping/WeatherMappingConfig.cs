@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using WildForest.Application.Weather.Common.Models;
+using WildForest.Application.Weather.Common.Models.Properties;
 using WildForest.Domain.Weather.Entities;
 
 namespace WildForest.Application.Common.Mapping;
@@ -9,8 +10,7 @@ public sealed class WeatherMappingConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<ThreeHourWeatherForecast, WeatherForecastDto>()
-            .Map(dest => dest.WeatherId, source => source.Id.Value)
-            .Map(dest => dest.Date, source => source.Time)
+            .Map(dest => dest.Time, source => source.Time)
             .Map(dest => dest.Temperature, source => new Temperature(
                 source.Temperature.Value, source.Temperature.ValueFeelsLike))
             .Map(dest => dest.Pressure, source => source.Pressure.Value)

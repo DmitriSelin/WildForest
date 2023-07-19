@@ -1,4 +1,6 @@
-﻿using WildForest.Application.Common.Interfaces.Persistence.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using WildForest.Application.Common.Interfaces.Persistence.Repositories;
+using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Weather;
 using WildForest.Infrastructure.Persistence.Context;
 
@@ -17,5 +19,14 @@ public sealed class WeatherForecastRepository : IWeatherForecastRepository
     {
         await _context.WeatherForecasts.AddRangeAsync(weatherForecasts);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<WeatherForecast>> GetWeatherForecastsWithVoteByDateAsync(DateOnly date, CityId cityId)
+    {
+        return await _context.WeatherForecasts
+            .Include(x => x.Vote)
+            .Include(x => x.ThreeHourWeatherForecasts)
+            .Where(x => x.Date >= date && x.CityId == cityId)
+            .ToListAsync();
     }
 }

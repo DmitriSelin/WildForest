@@ -11,6 +11,7 @@ using WildForest.Application.Maps.Queries.GetCountriesList;
 using WildForest.Application.Weather.Commands.AddWeatherForecasts;
 using WildForest.Application.Weather.Commands.AddWeatherForecasts.Fabrics;
 using WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
+using WildForest.Application.Weather.Queries.GetHomeWeatherForecast.Fabrics;
 
 namespace WildForest.Application;
 
@@ -52,6 +53,7 @@ public static class DependencyInjection
         services.AddScoped<IHomeWeatherForecastService, HomeWeatherForecastService>();
         services.AddScoped<IWeatherForecastFactory, WeatherForecastFactory>();
         services.AddScoped<IWeatherForecastDbService, WeatherForecastDbService>();
+        services.AddScoped<IWeatherForecastResponseFactory, WeatherForecastResponseFactory>();
 
         return services;
     }

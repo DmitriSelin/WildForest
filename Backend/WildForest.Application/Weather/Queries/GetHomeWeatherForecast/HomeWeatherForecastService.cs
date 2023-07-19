@@ -1,7 +1,10 @@
 using ErrorOr;
-using MapsterMapper;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Application.Weather.Common.Models;
+using WildForest.Domain.Users.ValueObjects;
+using WildForest.Domain.Common.Errors;
+using WildForest.Domain.Weather;
+using WildForest.Application.Weather.Queries.GetHomeWeatherForecast.Fabrics;
 
 namespace WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
@@ -9,60 +12,33 @@ public sealed class HomeWeatherForecastService : IHomeWeatherForecastService
 {
     private readonly IUserRepository _userRepository;
     private readonly IWeatherForecastRepository _weatherForecastRepository;
-    private readonly IMapper _mapper;
+    private readonly IWeatherForecastResponseFactory _weatherForecastResponseFactory;
 
     public HomeWeatherForecastService(
         IUserRepository userRepository,
         IWeatherForecastRepository weatherForecastRepository,
-        IMapper mapper)
+        IWeatherForecastResponseFactory weatherForecastResponseFactory)
     {
         _userRepository = userRepository;
         _weatherForecastRepository = weatherForecastRepository;
-        _mapper = mapper;
+        _weatherForecastResponseFactory = weatherForecastResponseFactory;
     }
 
-    public Task<ErrorOr<WeatherForecastDto>> GetWeatherForecastsAsync(HomeWeatherForecastQuery query)
+    public async Task<ErrorOr<List<WeatherForecastResponse>>> GetWeatherForecastsAsync(HomeWeatherForecastQuery query)
     {
-        throw new NotImplementedException();
+        var userId = UserId.Create(query.UserId);
+        var user = await _userRepository.GetUserByIdAsync(userId);
+
+        if (user is null)
+            return Errors.User.NotFoundById;
+
+        var forecasts = (List<WeatherForecast>?)
+            await _weatherForecastRepository.GetWeatherForecastsWithVoteByDateAsync(query.ForecastDate, user.CityId);
+
+        if (forecasts is null || forecasts.Count == 0)
+            return Errors.WeatherForecast.NotFound;
+
+        var weatherForecasts = _weatherForecastResponseFactory.Create(forecasts);
+        return weatherForecasts;
     }
-    //    var userId = PersonId.Create(query.UserId);
-    //    var user = await _userRepository.GetUserWithCityByIdAsync(userId);
-
-    //    if (user is null)
-    //    {
-    //        return Errors.Person.NotFoundById;
-    //    }
-
-    //    var forecastDate = query.ForecastDate;
-
-    //    var forecasts = (List<ThreeHourWeatherForecast>?)
-    //        await _weatherForecastRepository.GetWeatherForecastsWithMarkByDateAsync(user.CityId, forecastDate);
-
-    //    if (forecasts is null || forecasts.Count == 0)
-    //    {
-    //        return Errors.WeatherForecast.NotFound;
-    //    }
-
-    //    var forecastWithMark = forecasts.Find(x => x.WeatherMark != null!);
-    //    double mediumMark = 0;
-
-    //    if (forecastWithMark is null)
-    //    {
-    //        var weatherForecast = forecasts
-    //            .OrderBy(x => x.ForecastTime.Value)
-    //            .First();
-
-    //        var weatherMark = CreateWeatherMark(weatherForecast);
-
-    //        await _weatherMarkRepository.AddWeatherMarkAsync(weatherMark);
-    //    }
-    //    else
-    //    {
-    //        mediumMark = forecastWithMark.WeatherMark.MediumMark.Value;
-    //    }
-
-    //    var forecastsDto = _mapper.Map<List<WeatherForecastDto>>(forecasts);
-
-    //    return new WeatherForecastVm(forecastsDto, mediumMark);
-    //}
 }

@@ -5,5 +5,5 @@ namespace WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
 public interface IHomeWeatherForecastService
 {
-    Task<ErrorOr<WeatherForecastDto>> GetWeatherForecastsAsync(HomeWeatherForecastQuery query);
+    Task<ErrorOr<List<WeatherForecastResponse>>> GetWeatherForecastsAsync(HomeWeatherForecastQuery query);
 }

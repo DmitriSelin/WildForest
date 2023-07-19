@@ -3,30 +3,29 @@ using WildForest.Domain.Common.Errors;
 using Microsoft.Extensions.Primitives;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace WildForest.Api.Services.Http.Jwt
+namespace WildForest.Api.Services.Http.Jwt;
+
+public sealed class JwtTokenDecoder : IJwtTokenDecoder
 {
-    public sealed class JwtTokenDecoder : IJwtTokenDecoder
+    public ErrorOr<Guid> GetUserIdFromToken(StringValues bearer)
     {
-        public ErrorOr<Guid> GetUserIdFromToken(StringValues bearer)
+        var userId = Guid.Empty;
+
+        if (bearer.Any())
         {
-            var userId = Guid.Empty;
+            string? token = bearer[0]?.Split(" ")[1];
 
-            if (bearer.Any())
-            {
-                string? token = bearer[0]?.Split(" ")[1];
+            var tokenHandler = new JwtSecurityTokenHandler();
+            JwtSecurityToken jwt = tokenHandler.ReadJwtToken(token);
 
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var jwt = tokenHandler.ReadJwtToken(token);
-
-                userId = Guid.Parse(jwt.Claims.First(c => c.Type.Equals("sub")).Value);
-            }
-
-            if (userId == Guid.Empty)
-            {
-                return Errors.Authentication.InvalidAuthorizationHeader;
-            }
-
-            return userId;
+            userId = Guid.Parse(jwt.Claims.First(c => c.Type.Equals("sub")).Value);
         }
+
+        if (userId == Guid.Empty)
+        {
+            return Errors.Authentication.InvalidAuthorizationHeader;
+        }
+
+        return userId;
     }
 }
