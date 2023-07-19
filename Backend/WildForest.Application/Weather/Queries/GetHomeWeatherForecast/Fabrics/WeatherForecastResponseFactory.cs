@@ -27,7 +27,7 @@ public sealed class WeatherForecastResponseFactory : IWeatherForecastResponseFac
         return responses;
     }
 
-    private WeatherForecastResponse CreateWeatherForecastResponse(
+    private static WeatherForecastResponse CreateWeatherForecastResponse(
         WeatherForecast forecast, List<WeatherForecastDto> weatherForecasts)
     {
         return new(

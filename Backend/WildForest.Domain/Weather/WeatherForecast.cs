@@ -33,5 +33,7 @@ public class WeatherForecast : AggregateRoot<WeatherForecastId>
         CityId = cityId;
     }
 
+#pragma warning disable IDE0051 // Remove unused private members
     private WeatherForecast(WeatherForecastId id) : base(id) { }
+#pragma warning restore IDE0051 // Remove unused private members
 }
