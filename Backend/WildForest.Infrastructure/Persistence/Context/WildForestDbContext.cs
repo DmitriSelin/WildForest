@@ -25,8 +25,7 @@ public sealed class WildForestDbContext : DbContext
 
     public DbSet<Vote> Votes => Set<Vote>();
 
-    public WildForestDbContext(DbContextOptions<WildForestDbContext> options) : base(options)
-        => Database.EnsureCreated();
+    public WildForestDbContext(DbContextOptions<WildForestDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
         => modelBuilder.ApplyConfigurationsFromAssembly(typeof(WildForestDbContext).Assembly);
