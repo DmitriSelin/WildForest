@@ -24,4 +24,10 @@
     <ProjectReference Include="..\WildForest.Application\WildForest.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Persistence\DataInitialization\ru.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

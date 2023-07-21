@@ -45,7 +45,9 @@ public static class InitializationDbExtension
         var jsonOptions = new JsonSerializerOptions();
         jsonOptions.Converters.Add(new CityConverter(countryId));
 
-        using var fs = new FileStream("ru.json", FileMode.Open);
+        string relativePath = "..\\WildForest.Infrastructure\\Persistence\\DataInitialization\\ru.json";
+
+        using var fs = new FileStream(relativePath, FileMode.Open);
         var cities = JsonSerializer.Deserialize(fs, typeof(List<City>), jsonOptions) as List<City>;
 
         if (cities is null)
