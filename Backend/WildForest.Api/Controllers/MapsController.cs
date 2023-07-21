@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using WildForest.Application.Maps.Commands.AddCountry;
 using ErrorOr;
 using MapsterMapper;
-using WildForest.Application.Maps.Commands.AddCities;
 using WildForest.Application.Maps.Queries.GetCountriesList;
 using WildForest.Contracts.Maps;
 
@@ -15,18 +14,15 @@ public sealed class MapsController : ApiController
 {
     private readonly ICountryCommandHandler _countryCommandHandler;
     private readonly ICountriesListQueryHandler _countriesListQueryHandler;
-    private readonly ICityCommandHandler _cityCommandHandler;
     private readonly IMapper _mapper;
 
     public MapsController(
         ICountryCommandHandler countryCommandHandler, 
         ICountriesListQueryHandler countriesListQueryHandler,
-        ICityCommandHandler cityCommandHandler,
         IMapper mapper)
     {
         _countryCommandHandler = countryCommandHandler;
         _countriesListQueryHandler = countriesListQueryHandler;
-        _cityCommandHandler = cityCommandHandler;
         _mapper = mapper;
     }
 
@@ -45,9 +41,7 @@ public sealed class MapsController : ApiController
         ErrorOr<string> result = await _countryCommandHandler.AddCountryAsync(command);
 
         if (result.IsError)
-        {
             return Problem(result.Errors);
-        }
 
         return Ok(result.Value);
     }
@@ -60,20 +54,5 @@ public sealed class MapsController : ApiController
         var countriesResponse = _mapper.Map<List<CountryResponse>>(countries);
 
         return Ok(countriesResponse);
-    }
-
-    [HttpPost("cities")]
-    public async Task<IActionResult> AddCities(CityRequest request)
-    {
-        var command = new CityCommand(request.CountryId, request.FileName);
-
-        ErrorOr<string> result = await _cityCommandHandler.AddCitiesFromJsonFileAsync(command);
-
-        if (result.IsError)
-        {
-            return Problem(result.Errors);
-        }
-
-        return Ok(result.Value);
     }
 }
