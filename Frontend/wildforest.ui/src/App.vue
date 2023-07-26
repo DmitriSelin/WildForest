@@ -1,7 +1,9 @@
 <script setup></script>
 
 <template>
-  <div></div>
+  <div class="underline bg-red-700">
+    kekich
+  </div>
 </template>
 
 <style scoped>
