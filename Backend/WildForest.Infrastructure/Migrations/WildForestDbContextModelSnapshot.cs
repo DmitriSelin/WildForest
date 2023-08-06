@@ -47,6 +47,50 @@ namespace WildForest.Infrastructure.Migrations
                     b.ToTable("Countries");
                 });
 
+            modelBuilder.Entity("WildForest.Domain.Marks.Entities.Vote", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("MarkId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Result")
+                        .HasColumnType("integer")
+                        .HasColumnName("Result");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MarkId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Votes", (string)null);
+                });
+
+            modelBuilder.Entity("WildForest.Domain.Marks.Mark", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Points")
+                        .HasColumnType("integer")
+                        .HasColumnName("Points");
+
+                    b.Property<Guid>("WeatherForecastId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WeatherForecastId")
+                        .IsUnique();
+
+                    b.ToTable("Marks", (string)null);
+                });
+
             modelBuilder.Entity("WildForest.Domain.Tokens.Entities.RefreshToken", b =>
                 {
                     b.Property<Guid>("Id")
@@ -113,31 +157,6 @@ namespace WildForest.Infrastructure.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("WildForest.Domain.Votes.Entities.Vote", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Points")
-                        .HasColumnType("integer")
-                        .HasColumnName("Points");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("WeatherForecastId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("WeatherForecastId")
-                        .IsUnique();
-
-                    b.ToTable("Votes");
                 });
 
             modelBuilder.Entity("WildForest.Domain.Weather.WeatherForecast", b =>
@@ -238,6 +257,36 @@ namespace WildForest.Infrastructure.Migrations
 
                     b.Navigation("Name")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WildForest.Domain.Marks.Entities.Vote", b =>
+                {
+                    b.HasOne("WildForest.Domain.Marks.Mark", "Mark")
+                        .WithMany("Votes")
+                        .HasForeignKey("MarkId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WildForest.Domain.Users.Entities.User", "User")
+                        .WithMany("Votes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Mark");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WildForest.Domain.Marks.Mark", b =>
+                {
+                    b.HasOne("WildForest.Domain.Weather.WeatherForecast", "WeatherForecast")
+                        .WithOne("Mark")
+                        .HasForeignKey("WildForest.Domain.Marks.Mark", "WeatherForecastId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WeatherForecast");
                 });
 
             modelBuilder.Entity("WildForest.Domain.Tokens.Entities.RefreshToken", b =>
@@ -348,25 +397,6 @@ namespace WildForest.Infrastructure.Migrations
 
                     b.Navigation("Password")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("WildForest.Domain.Votes.Entities.Vote", b =>
-                {
-                    b.HasOne("WildForest.Domain.Users.Entities.User", "User")
-                        .WithMany("Votes")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WildForest.Domain.Weather.WeatherForecast", "WeatherForecast")
-                        .WithOne("Vote")
-                        .HasForeignKey("WildForest.Domain.Votes.Entities.Vote", "WeatherForecastId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-
-                    b.Navigation("WeatherForecast");
                 });
 
             modelBuilder.Entity("WildForest.Domain.Weather.WeatherForecast", b =>
@@ -617,6 +647,11 @@ namespace WildForest.Infrastructure.Migrations
                     b.Navigation("Cities");
                 });
 
+            modelBuilder.Entity("WildForest.Domain.Marks.Mark", b =>
+                {
+                    b.Navigation("Votes");
+                });
+
             modelBuilder.Entity("WildForest.Domain.Users.Entities.User", b =>
                 {
                     b.Navigation("RefreshTokens");
@@ -626,7 +661,7 @@ namespace WildForest.Infrastructure.Migrations
 
             modelBuilder.Entity("WildForest.Domain.Weather.WeatherForecast", b =>
                 {
-                    b.Navigation("Vote")
+                    b.Navigation("Mark")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

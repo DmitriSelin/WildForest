@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Countries.Entities;
-using WildForest.Domain.Marks.Entities;
+using WildForest.Domain.Marks;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Weather;
@@ -11,9 +11,9 @@ namespace WildForest.Infrastructure.Persistence.Context;
 
 public sealed class WildForestDbContext : DbContext
 {
-    public DbSet<City> Cities => Set<City>();
-
     public DbSet<Country> Countries => Set<Country>();
+
+    public DbSet<City> Cities => Set<City>();
 
     public DbSet<User> Users => Set<User>();
 
@@ -23,7 +23,7 @@ public sealed class WildForestDbContext : DbContext
 
     public DbSet<ThreeHourWeatherForecast> ThreeHourWeatherForecasts => Set<ThreeHourWeatherForecast>();
 
-    public DbSet<Vote> Votes => Set<Vote>();
+    public DbSet<Mark> Marks => Set<Mark>();
 
     public WildForestDbContext(DbContextOptions<WildForestDbContext> options) : base(options) { }
 

@@ -113,6 +113,25 @@ namespace WildForest.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Marks",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Points = table.Column<int>(type: "integer", nullable: false),
+                    WeatherForecastId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Marks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Marks_WeatherForecasts_WeatherForecastId",
+                        column: x => x.WeatherForecastId,
+                        principalTable: "WeatherForecasts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ThreeHourWeatherForecasts",
                 columns: table => new
                 {
@@ -149,23 +168,23 @@ namespace WildForest.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Points = table.Column<int>(type: "integer", nullable: false),
+                    Result = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    WeatherForecastId = table.Column<Guid>(type: "uuid", nullable: false)
+                    MarkId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Votes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Votes_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
+                        name: "FK_Votes_Marks_MarkId",
+                        column: x => x.MarkId,
+                        principalTable: "Marks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Votes_WeatherForecasts_WeatherForecastId",
-                        column: x => x.WeatherForecastId,
-                        principalTable: "WeatherForecasts",
+                        name: "FK_Votes_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -174,6 +193,12 @@ namespace WildForest.Infrastructure.Migrations
                 name: "IX_Cities_CountryId",
                 table: "Cities",
                 column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Marks_WeatherForecastId",
+                table: "Marks",
+                column: "WeatherForecastId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
@@ -191,15 +216,14 @@ namespace WildForest.Infrastructure.Migrations
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Votes_MarkId",
+                table: "Votes",
+                column: "MarkId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Votes_UserId",
                 table: "Votes",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Votes_WeatherForecastId",
-                table: "Votes",
-                column: "WeatherForecastId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_WeatherForecasts_CityId",
@@ -218,6 +242,9 @@ namespace WildForest.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Votes");
+
+            migrationBuilder.DropTable(
+                name: "Marks");
 
             migrationBuilder.DropTable(
                 name: "Users");

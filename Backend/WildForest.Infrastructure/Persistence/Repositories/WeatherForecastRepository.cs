@@ -24,7 +24,7 @@ public sealed class WeatherForecastRepository : IWeatherForecastRepository
     public async Task<IEnumerable<WeatherForecast>> GetWeatherForecastsWithVoteByDateAsync(DateOnly date, CityId cityId)
     {
         return await _context.WeatherForecasts
-            .Include(x => x.Vote)
+            .Include(x => x.Mark)
             .Include(x => x.ThreeHourWeatherForecasts)
             .Where(x => x.Date >= date && x.CityId == cityId)
             .ToListAsync();
