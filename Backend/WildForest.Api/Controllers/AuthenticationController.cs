@@ -84,6 +84,24 @@ public sealed class AuthenticationController : ApiController
         return Ok(response);
     }
 
+    [HttpPost("admins/register")]
+    public async Task<IActionResult> RegisterAdmin(RegisterRequest request)
+    {
+        string iPAddress = HttpContext.GetIpAddress();
+        var command = _mapper.Map<RegisterCommand>((request, iPAddress));
+
+        ErrorOr<AuthenticationResult> authenticationResult =
+            await _registrationService.RegisterAsync(command: command, isUserRole: false);
+
+        if (authenticationResult.IsError)
+            return Problem(authenticationResult.Errors);
+
+        HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
+
+        var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
+        return Ok(response);
+    }
+
     [AllowAnonymous]
     [HttpGet("countries")]
     public async Task<IActionResult> GetCountries()
@@ -104,23 +122,5 @@ public sealed class AuthenticationController : ApiController
         return cities.Match(
             citiesResponse => Ok(_mapper.Map<List<CityResponse>>(citiesResponse)),
             errors => Problem(errors));
-    }
-
-    [HttpPost("admins/register")]
-    public async Task<IActionResult> RegisterAdmin(RegisterRequest request)
-    {
-        string iPAddress = HttpContext.GetIpAddress();
-        var command = _mapper.Map<RegisterCommand>((request, iPAddress));
-
-        ErrorOr<AuthenticationResult> authenticationResult =
-            await _registrationService.RegisterAsync(command: command, isUserRole: false);
-
-        if (authenticationResult.IsError)
-            return Problem(authenticationResult.Errors);
-
-        HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
-
-        var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
-        return Ok(response);
     }
 }
