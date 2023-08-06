@@ -14,7 +14,7 @@ public sealed class WeatherForecastConfiguration : IEntityTypeConfiguration<Weat
         ConfigureThreeHourWeatherForecasts(builder);
     }
 
-    private void ConfigureWeatherForecasts(EntityTypeBuilder<WeatherForecast> builder)
+    private static void ConfigureWeatherForecasts(EntityTypeBuilder<WeatherForecast> builder)
     {
         builder.ToTable("WeatherForecasts");
 
@@ -45,7 +45,7 @@ public sealed class WeatherForecastConfiguration : IEntityTypeConfiguration<Weat
                 value => CityId.Create(value));
     }
 
-    private void ConfigureThreeHourWeatherForecasts(EntityTypeBuilder<WeatherForecast> builder)
+    private static void ConfigureThreeHourWeatherForecasts(EntityTypeBuilder<WeatherForecast> builder)
     {
         builder.OwnsMany(x => x.ThreeHourWeatherForecasts, sectionBuilder =>
         {

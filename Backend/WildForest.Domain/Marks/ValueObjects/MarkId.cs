@@ -1,22 +1,19 @@
 ﻿using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.Votes.ValueObjects;
+namespace WildForest.Domain.Marks.ValueObjects;
 
-public sealed class VoteId : ValueObject
+public sealed class MarkId : ValueObject
 {
     public Guid Value { get; }
 
-    private VoteId(Guid value)
+    private MarkId(Guid value)
         => Value = value;
 
-    public static VoteId Create()
+    public static MarkId Create()
         => new(Guid.NewGuid());
 
-    public static VoteId Create(Guid value)
+    public static MarkId Create(Guid value)
         => new(value);
-
-    public override string ToString()
-        => Value.ToString();
 
     public override IEnumerable<object> GetEqualityComponents()
     {

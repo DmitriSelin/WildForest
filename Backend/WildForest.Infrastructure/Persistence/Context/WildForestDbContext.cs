@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Countries.Entities;
+using WildForest.Domain.Marks.Entities;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.Entities;
-using WildForest.Domain.Votes.Entities;
 using WildForest.Domain.Weather;
 using WildForest.Domain.Weather.Entities;
 

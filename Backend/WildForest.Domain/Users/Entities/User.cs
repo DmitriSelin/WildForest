@@ -2,9 +2,9 @@
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Common.Models;
+using WildForest.Domain.Marks.Entities;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.ValueObjects;
-using WildForest.Domain.Votes.Entities;
 
 namespace WildForest.Domain.Users.Entities;
 
