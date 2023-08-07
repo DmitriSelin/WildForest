@@ -12,11 +12,13 @@ public class Country : Entity<CountryId>
 
     public IReadOnlyList<City> Cities => _cities.AsReadOnly();
 
+    public static Country Create(CountryName name)
+        => new(CountryId.Create(), name);
+
     private Country(CountryId id, CountryName name) : base(id)
         => Name = name;
 
+#pragma warning disable IDE0051 // Remove unused private members
     private Country(CountryId id) : base(id) { }
-
-    public static Country Create(CountryName name)
-        => new(CountryId.Create(), name);
+#pragma warning restore IDE0051 // Remove unused private members
 }

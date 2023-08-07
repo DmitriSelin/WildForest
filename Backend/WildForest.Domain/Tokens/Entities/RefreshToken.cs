@@ -85,5 +85,7 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
         ReplacedByToken = replacedByToken;
     }
 
+#pragma warning disable IDE0051 // Remove unused private members
     private RefreshToken(RefreshTokenId id) : base(id) { }
+#pragma warning restore IDE0051 // Remove unused private members
 }

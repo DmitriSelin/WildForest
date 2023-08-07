@@ -77,5 +77,7 @@ public sealed class ThreeHourWeatherForecast : Entity<ThreeHourWeatherForecastId
             precipitationVolume, weatherForecastId);
     }
 
+#pragma warning disable IDE0051 // Remove unused private members
     private ThreeHourWeatherForecast(ThreeHourWeatherForecastId id) : base(id) { }
+#pragma warning restore IDE0051 // Remove unused private members
 }

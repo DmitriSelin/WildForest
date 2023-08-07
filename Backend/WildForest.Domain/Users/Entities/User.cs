@@ -66,5 +66,7 @@ public class User : Entity<UserId>
                     Role.Admin, email, password, cityId);
     }
 
+#pragma warning disable IDE0051 // Remove unused private members
     private User(UserId id) : base(id) { }
+#pragma warning restore IDE0051 // Remove unused private members
 }

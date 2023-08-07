@@ -45,5 +45,7 @@ public class City : Entity<CityId>
             countryId);
     }
 
+#pragma warning disable IDE0051 // Remove unused private members
     private City(CityId id) : base(id) { }
+#pragma warning restore IDE0051 // Remove unused private members
 }
