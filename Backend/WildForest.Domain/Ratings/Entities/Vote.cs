@@ -1,10 +1,10 @@
 ﻿using WildForest.Domain.Common.Models;
-using WildForest.Domain.Marks.Enums;
-using WildForest.Domain.Marks.ValueObjects;
+using WildForest.Domain.Ratings.Enums;
+using WildForest.Domain.Ratings.ValueObjects;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
 
-namespace WildForest.Domain.Marks.Entities;
+namespace WildForest.Domain.Ratings.Entities;
 
 public sealed class Vote : Entity<VoteId>
 {
@@ -14,9 +14,9 @@ public sealed class Vote : Entity<VoteId>
 
     public User User { get; } = null!;
 
-    public MarkId MarkId { get; } = null!;
+    public RatingId RatingId { get; } = null!;
 
-    public Mark Mark { get; } = null!;
+    public Rating Rating { get; } = null!;
 
     public void Up()
     {
@@ -28,16 +28,16 @@ public sealed class Vote : Entity<VoteId>
         Result = VoteResult.Down;
     }
 
-    internal static Vote Create(UserId userId, VoteResult result, MarkId markId)
-        => new(VoteId.Create(), result, userId, markId);
+    internal static Vote Create(UserId userId, VoteResult result, RatingId ratingId)
+        => new(VoteId.Create(), result, userId, ratingId);
 
     private Vote(
         VoteId id, VoteResult result,
-        UserId userId, MarkId markId) : base(id)
+        UserId userId, RatingId ratingId) : base(id)
     {
         Result = result;
         UserId = userId;
-        MarkId = markId;
+        RatingId = ratingId;
     }
 
 #pragma warning disable IDE0051 // Remove unused private members

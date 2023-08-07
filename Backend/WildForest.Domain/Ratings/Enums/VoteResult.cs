@@ -1,4 +1,4 @@
-﻿namespace WildForest.Domain.Marks.Enums;
+﻿namespace WildForest.Domain.Ratings.Enums;
 
 public enum VoteResult
 {

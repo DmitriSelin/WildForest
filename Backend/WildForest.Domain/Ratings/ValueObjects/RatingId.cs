@@ -1,18 +1,18 @@
 ﻿using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.Marks.ValueObjects;
+namespace WildForest.Domain.Ratings.ValueObjects;
 
-public sealed class MarkId : ValueObject
+public sealed class RatingId : ValueObject
 {
     public Guid Value { get; }
 
-    private MarkId(Guid value)
+    private RatingId(Guid value)
         => Value = value;
 
-    public static MarkId Create()
+    public static RatingId Create()
         => new(Guid.NewGuid());
 
-    public static MarkId Create(Guid value)
+    public static RatingId Create(Guid value)
         => new(value);
 
     public override IEnumerable<object> GetEqualityComponents()

@@ -1,17 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WildForest.Domain.Marks;
-using WildForest.Domain.Marks.ValueObjects;
+using WildForest.Domain.Ratings;
+using WildForest.Domain.Ratings.ValueObjects;
 using WildForest.Domain.Weather.ValueObjects;
 
 namespace WildForest.Infrastructure.Persistence.Configurations;
 
-public sealed class MarkConfiguration : IEntityTypeConfiguration<Mark>
+public sealed class RatingConfiguration : IEntityTypeConfiguration<Rating>
 {
-    public void Configure(EntityTypeBuilder<Mark> builder)
+    public void Configure(EntityTypeBuilder<Rating> builder)
     {
-        builder.ToTable("Marks");
-
         builder.HasKey(x => x.Id);
 
         builder
@@ -19,7 +17,7 @@ public sealed class MarkConfiguration : IEntityTypeConfiguration<Mark>
             .ValueGeneratedNever()
             .HasConversion(
                 id => id.Value,
-                value => MarkId.Create(value));
+                value => RatingId.Create(value));
 
         builder
             .Property(p => p.Points)
@@ -28,8 +26,8 @@ public sealed class MarkConfiguration : IEntityTypeConfiguration<Mark>
 
         builder
             .HasOne(x => x.WeatherForecast)
-            .WithOne(x => x.Mark)
-            .HasForeignKey<Mark>(x => x.WeatherForecastId)
+            .WithOne(x => x.Rating)
+            .HasForeignKey<Rating>(x => x.WeatherForecastId)
             .IsRequired();
 
         builder
@@ -39,7 +37,7 @@ public sealed class MarkConfiguration : IEntityTypeConfiguration<Mark>
                 value => WeatherForecastId.Create(value));
 
         builder.Metadata
-            .FindNavigation(nameof(Mark.Votes))!
+            .FindNavigation(nameof(Rating.Votes))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

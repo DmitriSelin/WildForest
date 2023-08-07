@@ -1,14 +1,14 @@
 ﻿using WildForest.Domain.Common.Models;
-using WildForest.Domain.Marks.Entities;
-using WildForest.Domain.Marks.Enums;
-using WildForest.Domain.Marks.ValueObjects;
+using WildForest.Domain.Ratings.Entities;
+using WildForest.Domain.Ratings.Enums;
+using WildForest.Domain.Ratings.ValueObjects;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Domain.Weather;
 using WildForest.Domain.Weather.ValueObjects;
 
-namespace WildForest.Domain.Marks;
+namespace WildForest.Domain.Ratings;
 
-public sealed class Mark : AggregateRoot<MarkId>
+public sealed class Rating : AggregateRoot<RatingId>
 {
     public int Points { get; private set; }
 
@@ -39,16 +39,16 @@ public sealed class Mark : AggregateRoot<MarkId>
         return vote;
     }
 
-    public static Mark Create(WeatherForecastId weatherForecastId)
-        => new(MarkId.Create(), weatherForecastId);
+    public static Rating Create(WeatherForecastId weatherForecastId)
+        => new(RatingId.Create(), weatherForecastId);
 
-    private Mark(MarkId id, WeatherForecastId weatherForecastId) : base(id)
+    private Rating(RatingId id, WeatherForecastId weatherForecastId) : base(id)
     {
         Points = 0;
         WeatherForecastId = weatherForecastId;
     }
 
 #pragma warning disable IDE0051 // Remove unused private members
-    private Mark(MarkId id) : base(id) { }
+    private Rating(RatingId id) : base(id) { }
 #pragma warning restore IDE0051 // Remove unused private members
 }

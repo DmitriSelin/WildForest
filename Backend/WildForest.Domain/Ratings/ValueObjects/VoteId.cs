@@ -1,6 +1,6 @@
 ﻿using WildForest.Domain.Common.Models;
 
-namespace WildForest.Domain.Marks.ValueObjects;
+namespace WildForest.Domain.Ratings.ValueObjects;
 
 public sealed class VoteId : ValueObject
 {

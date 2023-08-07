@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WildForest.Domain.Marks.Entities;
-using WildForest.Domain.Marks.ValueObjects;
+using WildForest.Domain.Ratings.Entities;
+using WildForest.Domain.Ratings.ValueObjects;
 using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Infrastructure.Persistence.Configurations;
@@ -10,8 +10,6 @@ public sealed class VoteConfiguration : IEntityTypeConfiguration<Vote>
 {
     public void Configure(EntityTypeBuilder<Vote> builder)
     {
-        builder.ToTable("Votes");
-
         builder.HasKey(x => x.Id);
 
         builder
@@ -38,14 +36,14 @@ public sealed class VoteConfiguration : IEntityTypeConfiguration<Vote>
                 value => UserId.Create(value));
 
         builder
-            .HasOne(x => x.Mark)
+            .HasOne(x => x.Rating)
             .WithMany(x => x.Votes)
-            .HasForeignKey(x => x.MarkId);
+            .HasForeignKey(x => x.RatingId);
 
         builder
-            .Property(p => p.MarkId)
+            .Property(p => p.RatingId)
             .HasConversion(
                 id => id.Value,
-                value => MarkId.Create(value));
+                value => RatingId.Create(value));
     }
 }

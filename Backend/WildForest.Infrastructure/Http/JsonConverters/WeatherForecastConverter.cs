@@ -8,11 +8,11 @@ namespace WildForest.Infrastructure.Http.JsonConverters;
 public sealed class WeatherForecastConverter : JsonConverter<List<WeatherForecastVm>>
 {
     private const string dateTimePropertyName = "dt_txt";
-    private readonly IWeatherForecastBuilder _builder;
+    private readonly IWeatherForecastBuilder _weatherForecastBuilder;
 
-    public WeatherForecastConverter(IWeatherForecastBuilder builder)
+    public WeatherForecastConverter(IWeatherForecastBuilder weatherForecastBuilder)
     {
-        _builder = builder;
+        _weatherForecastBuilder = weatherForecastBuilder;
     }
 
     public override List<WeatherForecastVm>? Read(
@@ -32,7 +32,7 @@ public sealed class WeatherForecastConverter : JsonConverter<List<WeatherForecas
 
                 if (propertyName == dateTimePropertyName)
                 {
-                    var weatherForecast = _builder.Build();
+                    var weatherForecast = _weatherForecastBuilder.Build();
                     weatherForecasts.Add(weatherForecast);
                 }
             }
@@ -44,7 +44,7 @@ public sealed class WeatherForecastConverter : JsonConverter<List<WeatherForecas
     private void ReadJsonProperty(ref Utf8JsonReader reader, string propertyName)
     {
         reader.Read();
-        _builder.BuildProperty(propertyName, ref reader);
+        _weatherForecastBuilder.BuildProperty(propertyName, ref reader);
     }
 
     public override void Write(Utf8JsonWriter writer, List<WeatherForecastVm> value, JsonSerializerOptions options)

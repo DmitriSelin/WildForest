@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Countries.Entities;
-using WildForest.Domain.Marks;
-using WildForest.Domain.Marks.Entities;
+using WildForest.Domain.Ratings;
+using WildForest.Domain.Ratings.Entities;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Weather;
@@ -24,7 +24,7 @@ public sealed class WildForestDbContext : DbContext
 
     public DbSet<ThreeHourWeatherForecast> ThreeHourWeatherForecasts => Set<ThreeHourWeatherForecast>();
 
-    public DbSet<Mark> Marks => Set<Mark>();
+    public DbSet<Rating> Ratings => Set<Rating>();
 
     public DbSet<Vote> Votes => Set<Vote>();
 

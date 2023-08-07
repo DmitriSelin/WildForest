@@ -1,7 +1,7 @@
 ﻿using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Common.Models;
-using WildForest.Domain.Marks;
+using WildForest.Domain.Ratings;
 using WildForest.Domain.Weather.Entities;
 using WildForest.Domain.Weather.ValueObjects;
 
@@ -15,7 +15,7 @@ public class WeatherForecast : AggregateRoot<WeatherForecastId>
 
     public City City { get; } = null!;
 
-    public Mark Mark { get; } = null!;
+    public Rating Rating { get; } = null!;
 
     private readonly List<ThreeHourWeatherForecast> _threeHourWeatherForecasts = new();
 

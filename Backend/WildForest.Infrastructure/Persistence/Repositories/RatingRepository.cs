@@ -1,32 +1,32 @@
 using Microsoft.EntityFrameworkCore;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
-using WildForest.Domain.Marks;
-using WildForest.Domain.Marks.ValueObjects;
+using WildForest.Domain.Ratings;
+using WildForest.Domain.Ratings.ValueObjects;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Infrastructure.Persistence.Context;
 
 namespace WildForest.Infrastructure.Persistence.Repositories;
 
-public sealed class MarkRepository : IMarkRepository
+public sealed class RatingRepository : IRatingRepository
 {
     private readonly WildForestDbContext _context;
 
-    public MarkRepository(WildForestDbContext context)
+    public RatingRepository(WildForestDbContext context)
     {
         _context = context;
     }
 
-    public async Task AddMarkAsync(Mark mark)
+    public async Task AddRatingAsync(Rating rating)
     {
-        await _context.Marks.AddAsync(mark);
+        await _context.Ratings.AddAsync(rating);
         await _context.SaveChangesAsync();
     }
 
-    public async Task<Mark?> GetMarkByIdWithVotesByUserIdAsync(MarkId markId, UserId userId)
+    public async Task<Rating?> GetRatingByIdWithVotesByUserIdAsync(RatingId ratingId, UserId userId)
     {
-        return await _context.Marks
+        return await _context.Ratings
             .Include(x => x.Votes.Where(a => a.UserId == userId))
-            .SingleOrDefaultAsync(x => x.Id == markId);
+            .SingleOrDefaultAsync(x => x.Id == ratingId);
     }
 
     public async Task SaveChangesAsync()
