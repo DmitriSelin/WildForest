@@ -20,18 +20,23 @@ public sealed class Mark : AggregateRoot<MarkId>
 
     public IEnumerable<Vote> Votes => votes.ToList();
 
-    public void Up(UserId userId)
+    public Vote ChangeRating(UserId userId, VoteResult result)
     {
-        var vote = Vote.Create(userId, VoteResult.Up, Id);
-        Points++;
-        votes.Add(vote);
-    }
+        Vote vote;
 
-    public void Down(UserId userId)
-    {
-        var vote = Vote.Create(userId, VoteResult.Down, Id);
-        Points--;
+        if (result == VoteResult.Up)
+        {
+            vote = Vote.Create(userId, VoteResult.Up, Id);
+            Points++;
+        }
+        else
+        {
+            vote = Vote.Create(userId, VoteResult.Down, Id);
+            Points--;
+        }
+
         votes.Add(vote);
+        return vote;
     }
 
     public static Mark Create(WeatherForecastId weatherForecastId)

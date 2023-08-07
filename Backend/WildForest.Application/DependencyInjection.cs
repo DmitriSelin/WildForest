@@ -7,6 +7,7 @@ using WildForest.Application.Common.Mapping;
 using WildForest.Application.Maps.Commands.AddCountry;
 using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
+using WildForest.Application.Marks.Commands.Votes;
 using WildForest.Application.Weather.Commands.AddWeatherForecasts;
 using WildForest.Application.Weather.Commands.AddWeatherForecasts.Fabrics;
 using WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
@@ -21,6 +22,7 @@ public static class DependencyInjection
         services.AddAuthenticationServices();
         services.AddMapServices();
         services.AddWeatherServices();
+        services.AddMarks();
 
         services.AddMappings();
 
@@ -52,6 +54,13 @@ public static class DependencyInjection
         services.AddScoped<IWeatherForecastFactory, WeatherForecastFactory>();
         services.AddScoped<IWeatherForecastDbService, WeatherForecastDbService>();
         services.AddScoped<IWeatherForecastResponseFactory, WeatherForecastResponseFactory>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddMarks(this IServiceCollection services)
+    {
+        services.AddScoped<IVoteService, VoteService>();
 
         return services;
     }
