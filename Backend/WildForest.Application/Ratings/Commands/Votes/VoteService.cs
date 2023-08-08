@@ -1,21 +1,21 @@
 using ErrorOr;
 using WildForest.Domain.Common.Errors;
-using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Application.Ratings.Common;
 using WildForest.Domain.Ratings.ValueObjects;
 using WildForest.Domain.Ratings;
 using WildForest.Domain.Ratings.Enums;
+using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 
 namespace WildForest.Application.Ratings.Commands.Votes;
 
 public sealed class VoteService : IVoteService
 {
-    private readonly IRatingRepository _ratingRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public VoteService(IRatingRepository ratingRepository)
+    public VoteService(IUnitOfWork unitOfWork)
     {
-        _ratingRepository = ratingRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<ErrorOr<RatingDto>> VoteAsync(VoteCreationCommand command)
@@ -23,7 +23,7 @@ public sealed class VoteService : IVoteService
         var ratingId = RatingId.Create(command.RatingId);
         var userId = UserId.Create(command.UserId);
 
-        Rating? rating = await _ratingRepository.GetRatingByIdWithVotesByUserIdAsync(ratingId, userId);
+        Rating? rating = await _unitOfWork.RatingRepository.GetRatingByIdWithVotesByUserIdAsync(ratingId, userId);
 
         if (rating is null)
             return Errors.Rating.NotFoundById;
@@ -35,7 +35,7 @@ public sealed class VoteService : IVoteService
 
         var vote = rating.ChangeRating(userId, (VoteResult)command.VoteResult);
 
-        await _ratingRepository.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();
 
         return new RatingDto(rating.Id.Value, vote.Id.Value, command.VoteResult, rating.Points);
     }

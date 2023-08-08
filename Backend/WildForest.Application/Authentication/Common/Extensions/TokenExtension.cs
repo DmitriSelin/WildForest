@@ -12,7 +12,7 @@ public static class TokenExtension
     {
         if (replacedByToken == null)
         {
-            token.Update(revokedByIp, reasonRevoked);
+            token.Update(revokedByIp, reasonRevoked);//TODO: remove this
         }
         else
         {

@@ -18,7 +18,6 @@ public sealed class WeatherForecastRepository : IWeatherForecastRepository
     public async Task AddWeatherForecastsAsync(IEnumerable<WeatherForecast> weatherForecasts)
     {
         await _context.WeatherForecasts.AddRangeAsync(weatherForecasts);
-        await _context.SaveChangesAsync();
     }
 
     public async Task<IEnumerable<WeatherForecast>> GetWeatherForecastsWithRatingByDateAsync(DateOnly date, CityId cityId)

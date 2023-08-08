@@ -40,6 +40,11 @@ public sealed class UnitOfWork : IUnitOfWork
     public IWeatherForecastRepository WeatherForecastRepository
         => weatherForecastRepository ??= _serviceProvider.GetService<IWeatherForecastRepository>()!;
 
+    private IThreeHourWeatherForecastRepository? threeHourWeatherForecastRepository;
+
+    public IThreeHourWeatherForecastRepository ThreeHourWeatherForecastRepository
+        => threeHourWeatherForecastRepository ??= _serviceProvider.GetService<IThreeHourWeatherForecastRepository>()!;
+
     public UnitOfWork(WildForestDbContext context, IServiceProvider serviceProvider)
     {
         _context = context;

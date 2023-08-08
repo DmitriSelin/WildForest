@@ -2,7 +2,7 @@ using ErrorOr;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Common.Extensions;
 using WildForest.Application.Common.Interfaces.Authentication;
-using WildForest.Application.Common.Interfaces.Persistence.Repositories;
+using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.Entities;
@@ -12,23 +12,23 @@ namespace WildForest.Application.Authentication.Commands.RefreshTokens;
 
 public sealed class RefreshTokenCommandHandler : IRefreshTokenCommandHandler
 {
-    private readonly IRefreshTokenRepository _refreshTokenRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IRefreshTokenGenerator _refreshTokenGenerator;
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
     public RefreshTokenCommandHandler(
-        IRefreshTokenRepository refreshTokenRepository,
+        IUnitOfWork unitOfWork,
         IRefreshTokenGenerator refreshTokenGenerator,
         IJwtTokenGenerator jwtTokenGenerator)
     {
-        _refreshTokenRepository = refreshTokenRepository;
+        _unitOfWork = unitOfWork;
         _refreshTokenGenerator = refreshTokenGenerator;
         _jwtTokenGenerator = jwtTokenGenerator;
     }
 
     public async Task<ErrorOr<AuthenticationResult>> RefreshTokenAsync(RefreshTokenCommand command)
     {
-        var refreshToken = await _refreshTokenRepository.GetTokenWithUserByValueAsync(command.Token);
+        var refreshToken = await _unitOfWork.RefreshTokenRepository.GetTokenWithUserByValueAsync(command.Token);
 
         if (refreshToken is null)
             return Errors.RefreshToken.NotFound;
@@ -37,7 +37,7 @@ public sealed class RefreshTokenCommandHandler : IRefreshTokenCommandHandler
         {
             await RevokeDescendantRefreshTokens(refreshToken, refreshToken.User, command.IpAddress,
                 $"Attempted reuse of revoked ancestor token: {command.Token}");
-            await _refreshTokenRepository.UpdateRefreshTokenAsync(refreshToken);
+            await _unitOfWork.RefreshTokenRepository.UpdateRefreshTokenAsync(refreshToken);
         }
 
         if (!refreshToken.IsActive)
@@ -45,8 +45,9 @@ public sealed class RefreshTokenCommandHandler : IRefreshTokenCommandHandler
 
         var newRefreshToken = await ReplaceRefreshTokenAsync(refreshToken.UserId, refreshToken, command.IpAddress);
 
-        await _refreshTokenRepository.AddTokenAsync(newRefreshToken, false);
-        await _refreshTokenRepository.RemoveOldRefreshTokensByUserIdAsync(newRefreshToken.UserId);
+        await _unitOfWork.RefreshTokenRepository.AddTokenAsync(newRefreshToken);
+        await _unitOfWork.RefreshTokenRepository.RemoveOldRefreshTokensByUserIdAsync(newRefreshToken.UserId);
+        await _unitOfWork.SaveChangesAsync();
 
         var jwt = _jwtTokenGenerator.GenerateToken(refreshToken.User);
 
@@ -69,7 +70,7 @@ public sealed class RefreshTokenCommandHandler : IRefreshTokenCommandHandler
     {
         if (!string.IsNullOrEmpty(refreshToken?.ReplacedByToken))
         {
-            var childToken = await _refreshTokenRepository.GetRefreshTokenByReplacedTokenAndUserIdAsync(
+            var childToken = await _unitOfWork.RefreshTokenRepository.GetRefreshTokenByReplacedTokenAndUserIdAsync(
                 refreshToken.ReplacedByToken, user.Id);
 
             if (childToken!.IsActive)

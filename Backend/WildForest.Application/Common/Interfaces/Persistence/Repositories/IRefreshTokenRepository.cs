@@ -9,9 +9,9 @@ public interface IRefreshTokenRepository
 
     Task<bool> IsTokenUnique(string token);
 
-    Task AddTokenAsync(RefreshToken refreshToken, bool autoSaveChanges = true);
+    Task AddTokenAsync(RefreshToken refreshToken);
 
-    Task RemoveOldRefreshTokensByUserIdAsync(UserId userId, bool autoSaveChanges = true);
+    Task RemoveOldRefreshTokensByUserIdAsync(UserId userId);
 
     Task<RefreshToken?> GetRefreshTokenByReplacedTokenAndUserIdAsync(string replacedByToken, UserId userId);
 

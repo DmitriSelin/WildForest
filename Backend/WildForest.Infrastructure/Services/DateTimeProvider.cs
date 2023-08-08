@@ -1,9 +1,8 @@
 ﻿using WildForest.Application.Common.Interfaces.Services;
 
-namespace WildForest.Infrastructure.Services
+namespace WildForest.Infrastructure.Services;
+
+public sealed class DateTimeProvider : IDateTimeProvider
 {
-    public sealed class DateTimeProvider : IDateTimeProvider
-    {
-        public DateTime UtcNow => DateTime.UtcNow;
-    }
+    public DateTime UtcNow => DateTime.UtcNow;
 }

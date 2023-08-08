@@ -1,5 +1,5 @@
 ﻿using WildForest.Application.Common.Interfaces.Http;
-using WildForest.Application.Common.Interfaces.Persistence.Repositories;
+using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 using WildForest.Application.Weather.Commands.AddWeatherForecasts.Fabrics;
 using WildForest.Application.Weather.Common.JsonModels;
 using WildForest.Domain.Cities.ValueObjects;
@@ -10,27 +10,21 @@ public sealed class WeatherForecastDbService : IWeatherForecastDbService
 {
     private readonly IWeatherForecastHttpClient _httpClient;
     private readonly IWeatherForecastFactory _weatherForecastFactory;
-    private readonly IWeatherForecastRepository _weatherForecastRepository;
-    private readonly IThreeHourWeatherForecastRepository _threeHourWeatherForecastRepository;
-    private readonly ICityRepository _cityRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
     public WeatherForecastDbService(
-        ICityRepository cityRepository,
         IWeatherForecastHttpClient httpClient,
         IWeatherForecastFactory weatherForecastFactory,
-        IWeatherForecastRepository weatherForecastRepository,
-        IThreeHourWeatherForecastRepository threeHourWeatherForecastRepository)
+        IUnitOfWork unitOfWork)
     {
         _httpClient = httpClient;
         _weatherForecastFactory = weatherForecastFactory;
-        _weatherForecastRepository = weatherForecastRepository;
-        _threeHourWeatherForecastRepository = threeHourWeatherForecastRepository;
-        _cityRepository = cityRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task AddWeatherForecastsInDbAsync(CityId cityId)
     {
-        var city = await _cityRepository.GetCityByIdAsync(cityId);
+        var city = await _unitOfWork.CityRepository.GetCityByIdAsync(cityId);
 
         if (city is null)
             throw new ArgumentNullException(nameof(city));
@@ -42,7 +36,8 @@ public sealed class WeatherForecastDbService : IWeatherForecastDbService
 
         var weatherForecasts = _weatherForecastFactory.Create(forecasts, cityId);
 
-        await _weatherForecastRepository.AddWeatherForecastsAsync(weatherForecasts.Item1);
-        await _threeHourWeatherForecastRepository.AddWeatherForecastsAsync(weatherForecasts.Item2);
+        await _unitOfWork.WeatherForecastRepository.AddWeatherForecastsAsync(weatherForecasts.Item1);
+        await _unitOfWork.ThreeHourWeatherForecastRepository.AddWeatherForecastsAsync(weatherForecasts.Item2);
+        await _unitOfWork.SaveChangesAsync();
     }
 }

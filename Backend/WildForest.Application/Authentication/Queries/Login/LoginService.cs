@@ -1,7 +1,7 @@
 ﻿using ErrorOr;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Common.Interfaces.Authentication;
-using WildForest.Application.Common.Interfaces.Persistence.Repositories;
+using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
@@ -12,19 +12,16 @@ public sealed class LoginService : ILoginService
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IRefreshTokenGenerator _refreshTokenGenerator;
-    private readonly IUserRepository _userRepository;
-    private readonly IRefreshTokenRepository _refreshTokenRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
     public LoginService(
-        IJwtTokenGenerator jwtTokenGenerator, 
+        IJwtTokenGenerator jwtTokenGenerator,
         IRefreshTokenGenerator refreshTokenGenerator,
-        IUserRepository userRepository,
-        IRefreshTokenRepository refreshTokenRepository) 
+        IUnitOfWork unitOfWork)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
         _refreshTokenGenerator = refreshTokenGenerator;
-        _userRepository = userRepository;
-        _refreshTokenRepository = refreshTokenRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<ErrorOr<AuthenticationResult>> LoginAsync(LoginQuery query)
@@ -32,15 +29,16 @@ public sealed class LoginService : ILoginService
         var email = Email.Create(query.Email);
         var password = Password.Create(query.Password);
 
-        User? user = await _userRepository.GetUserByEmailWithCityAsync(email);
+        User? user = await _unitOfWork.UserRepository.GetUserByEmailWithCityAsync(email);
 
         if (user is null || password != user.Password)
             return Errors.Authentication.InvalidCredentials;
 
         var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, query.IpAddress);
-        await _refreshTokenRepository.AddTokenAsync(refreshToken, false);
+        await _unitOfWork.RefreshTokenRepository.AddTokenAsync(refreshToken);
 
-        await _refreshTokenRepository.RemoveOldRefreshTokensByUserIdAsync(user.Id);
+        await _unitOfWork.RefreshTokenRepository.RemoveOldRefreshTokensByUserIdAsync(user.Id);
+        await _unitOfWork.SaveChangesAsync();
 
         var token = _jwtTokenGenerator.GenerateToken(user);
 

@@ -30,15 +30,17 @@ public sealed class RefreshTokenRepository : IRefreshTokenRepository
             .Any(x => x.Token == token);
     }
 
-    public async Task AddTokenAsync(RefreshToken refreshToken, bool autoSaveChanges = true)
+    public async Task AddTokenAsync(RefreshToken refreshToken)
     {
         await _context.RefreshTokens.AddAsync(refreshToken);
-
-        if (autoSaveChanges)
-            await _context.SaveChangesAsync();
     }
 
-    public async Task RemoveOldRefreshTokensByUserIdAsync(UserId userId, bool autoSaveChanges = true)
+    public async Task RemoveOldRefreshTokensByUserIdAsync(UserId userId)
+    {
+        await Task.Run(() => RemoveOldRefreshTokensByUserId(userId));
+    }
+
+    private void RemoveOldRefreshTokensByUserId(UserId userId)
     {
         var utcNow = DateTime.UtcNow;
 
@@ -47,9 +49,6 @@ public sealed class RefreshTokenRepository : IRefreshTokenRepository
                         x.CreationDate.AddDays(2) <= utcNow);
 
         _context.RefreshTokens.RemoveRange(oldRefreshTokens);
-
-        if (autoSaveChanges)
-            await _context.SaveChangesAsync();
     }
 
     public async Task<RefreshToken?> GetRefreshTokenByReplacedTokenAndUserIdAsync(
@@ -61,7 +60,6 @@ public sealed class RefreshTokenRepository : IRefreshTokenRepository
 
     public async Task UpdateRefreshTokenAsync(RefreshToken refreshToken)
     {
-        _context.RefreshTokens.Update(refreshToken);
-        await _context.SaveChangesAsync();
+        await Task.Run(() => _context.RefreshTokens.Update(refreshToken));
     }
 }

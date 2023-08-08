@@ -17,4 +17,6 @@ public interface IUnitOfWork
     public IUserRepository UserRepository { get; }
 
     public IWeatherForecastRepository WeatherForecastRepository { get; }
+
+    public IThreeHourWeatherForecastRepository ThreeHourWeatherForecastRepository { get; }
 }

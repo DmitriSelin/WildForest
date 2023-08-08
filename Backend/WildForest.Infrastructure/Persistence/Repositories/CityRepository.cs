@@ -43,6 +43,5 @@ public sealed class CityRepository : ICityRepository
     public async Task AddCitiesAsync(List<City> cities)
     {
         await _context.Cities.AddRangeAsync(cities);
-        await _context.SaveChangesAsync();
     }
 }

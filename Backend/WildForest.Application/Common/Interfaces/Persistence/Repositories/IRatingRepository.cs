@@ -9,6 +9,4 @@ public interface IRatingRepository
     Task AddRatingAsync(Rating rating);
 
     Task<Rating?> GetRatingByIdWithVotesByUserIdAsync(RatingId ratingId, UserId userId);
-
-    Task SaveChangesAsync();
 }

@@ -2,11 +2,11 @@
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Cities.ValueObjects;
-using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Commands.Registration;
+using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 
 namespace WildForest.Application.Authentication.Commands.RegisterUser;
 
@@ -14,36 +14,30 @@ public sealed class RegistrationService : IRegistrationService
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IRefreshTokenGenerator _refreshTokenGenerator;
-    private readonly IUserRepository _userRepository;
-    private readonly ICityRepository _cityRepository;
-    private readonly IRefreshTokenRepository _refreshTokenRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
     public RegistrationService(
         IJwtTokenGenerator jwtTokenGenerator,
         IRefreshTokenGenerator refreshTokenGenerator,
-        IUserRepository userRepository,
-        ICityRepository cityRepository,
-        IRefreshTokenRepository refreshTokenRepository)
+        IUnitOfWork unitOfWork)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
         _refreshTokenGenerator = refreshTokenGenerator;
-        _userRepository = userRepository;
-        _cityRepository = cityRepository;
-        _refreshTokenRepository = refreshTokenRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<ErrorOr<AuthenticationResult>> RegisterAsync(RegisterCommand command, bool isUserRole = true)
     {
         var email = Email.Create(command.Email);
 
-        User? user = await _userRepository.GetUserByEmailAsync(email);
+        User? user = await _unitOfWork.UserRepository.GetUserByEmailAsync(email);
 
         if (user is not null)
             return Errors.User.DuplicateEmail;
 
         var cityId = CityId.Create(command.CityId);
 
-        var city = await _cityRepository.GetCityByIdAsync(cityId);
+        var city = await _unitOfWork.CityRepository.GetCityByIdAsync(cityId);
 
         if (city is null)
             return Errors.City.NotFoundById;
@@ -53,11 +47,12 @@ public sealed class RegistrationService : IRegistrationService
         else
             user = CreateAdmin(command, email);
 
-        await _userRepository.AddUserAsync(user);
+        await _unitOfWork.UserRepository.AddUserAsync(user);
 
         var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, command.IpAddress);
 
-        await _refreshTokenRepository.AddTokenAsync(refreshToken);
+        await _unitOfWork.RefreshTokenRepository.AddTokenAsync(refreshToken);
+        await _unitOfWork.SaveChangesAsync();
 
         var token = _jwtTokenGenerator.GenerateToken(user);
 

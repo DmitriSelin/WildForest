@@ -1,5 +1,5 @@
 using ErrorOr;
-using WildForest.Application.Common.Interfaces.Persistence.Repositories;
+using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Countries.Entities;
 using WildForest.Domain.Countries.ValueObjects;
@@ -8,18 +8,18 @@ namespace WildForest.Application.Maps.Commands.AddCountry;
 
 public sealed class CountryCommandHandler : ICountryCommandHandler
 {
-    private readonly ICountryRepository _countryRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CountryCommandHandler(ICountryRepository countryRepository)
+    public CountryCommandHandler(IUnitOfWork unitOfWork)
     {
-        _countryRepository = countryRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<ErrorOr<string>> AddCountryAsync(CountryCommand command)
     {
         var countryName = CountryName.Create(command.CountryName);
 
-        var country = await _countryRepository.GetCountryByNameAsync(countryName);
+        var country = await _unitOfWork.CountryRepository.GetCountryByNameAsync(countryName);
 
         if (country is not null)
         {
@@ -28,7 +28,8 @@ public sealed class CountryCommandHandler : ICountryCommandHandler
 
         country = Country.Create(countryName);
 
-        await _countryRepository.AddCountryAsync(country);
+        await _unitOfWork.CountryRepository.AddCountryAsync(country);
+        await _unitOfWork.SaveChangesAsync();
 
         var result = "The country was successfully added";
         return result;

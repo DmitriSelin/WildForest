@@ -19,7 +19,6 @@ public sealed class RatingRepository : IRatingRepository
     public async Task AddRatingAsync(Rating rating)
     {
         await _context.Ratings.AddAsync(rating);
-        await _context.SaveChangesAsync();
     }
 
     public async Task<Rating?> GetRatingByIdWithVotesByUserIdAsync(RatingId ratingId, UserId userId)
@@ -27,10 +26,5 @@ public sealed class RatingRepository : IRatingRepository
         return await _context.Ratings
             .Include(x => x.Votes.Where(a => a.UserId == userId))
             .SingleOrDefaultAsync(x => x.Id == ratingId);
-    }
-
-    public async Task SaveChangesAsync()
-    {
-        await _context.SaveChangesAsync();
     }
 }

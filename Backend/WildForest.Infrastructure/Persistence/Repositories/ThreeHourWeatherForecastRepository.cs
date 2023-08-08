@@ -16,6 +16,5 @@ public sealed class ThreeHourWeatherForecastRepository : IThreeHourWeatherForeca
     public async Task AddWeatherForecastsAsync(IEnumerable<ThreeHourWeatherForecast> weatherForecasts)
     {
         await _context.ThreeHourWeatherForecasts.AddRangeAsync(weatherForecasts);
-        await _context.SaveChangesAsync();
     }
 }
