@@ -33,7 +33,7 @@ public sealed class HomeWeatherForecastService : IHomeWeatherForecastService
             return Errors.User.NotFoundById;
 
         var forecasts = (List<WeatherForecast>?)
-            await _weatherForecastRepository.GetWeatherForecastsWithVoteByDateAsync(query.ForecastDate, user.CityId);
+            await _weatherForecastRepository.GetWeatherForecastsWithRatingByDateAsync(query.ForecastDate, user.CityId);
 
         if (forecasts is null || forecasts.Count == 0)
             return Errors.WeatherForecast.NotFound;

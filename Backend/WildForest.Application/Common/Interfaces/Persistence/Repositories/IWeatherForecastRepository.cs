@@ -7,6 +7,6 @@ public interface IWeatherForecastRepository
 {
     Task AddWeatherForecastsAsync(IEnumerable<WeatherForecast> weatherForecasts);
 
-    Task<IEnumerable<WeatherForecast>> GetWeatherForecastsWithVoteByDateAsync(
+    Task<IEnumerable<WeatherForecast>> GetWeatherForecastsWithRatingByDateAsync(
         DateOnly date, CityId cityId);
 }

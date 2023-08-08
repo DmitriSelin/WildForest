@@ -4,5 +4,5 @@ public sealed record WeatherForecastResponse(
     Guid WeatherForecastId,
     DateOnly Date,
     List<WeatherForecastDto> WeatherForecasts,
-    Guid VoteId,
+    Guid RatingId,
     int Points);

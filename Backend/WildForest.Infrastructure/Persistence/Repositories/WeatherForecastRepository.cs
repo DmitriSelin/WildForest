@@ -21,7 +21,7 @@ public sealed class WeatherForecastRepository : IWeatherForecastRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<WeatherForecast>> GetWeatherForecastsWithVoteByDateAsync(DateOnly date, CityId cityId)
+    public async Task<IEnumerable<WeatherForecast>> GetWeatherForecastsWithRatingByDateAsync(DateOnly date, CityId cityId)
     {
         return await _context.WeatherForecasts
             .Include(x => x.Rating)
