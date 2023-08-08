@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
+using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
+using WildForest.Infrastructure.Persistence.UoW;
 
 namespace WildForest.Infrastructure.Persistence.Repositories;
 
@@ -14,6 +16,8 @@ public static class RepositoryRegistrator
         services.AddScoped<ICountryRepository, CountryRepository>();
         services.AddScoped<IThreeHourWeatherForecastRepository, ThreeHourWeatherForecastRepository>();
         services.AddScoped<IRatingRepository, RatingRepository>();
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }
