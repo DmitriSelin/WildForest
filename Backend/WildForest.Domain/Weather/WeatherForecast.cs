@@ -36,6 +36,7 @@ public class WeatherForecast : AggregateRoot<WeatherForecastId>
     {
         Date = date;
         CityId = cityId;
+        Rating = Rating.Create(Id);
     }
 
 #pragma warning disable IDE0051 // Remove unused private members
