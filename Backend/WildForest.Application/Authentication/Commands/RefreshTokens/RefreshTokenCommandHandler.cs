@@ -1,6 +1,5 @@
 using ErrorOr;
 using WildForest.Application.Authentication.Common;
-using WildForest.Application.Authentication.Common.Extensions;
 using WildForest.Application.Common.Interfaces.Authentication;
 using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 using WildForest.Domain.Common.Errors;
@@ -75,7 +74,7 @@ public sealed class RefreshTokenCommandHandler : IRefreshTokenCommandHandler
 
             if (childToken!.IsActive)
             {
-                childToken.RevokeRefreshToken(createdByIp, reason);
+                childToken.Revoke(createdByIp, reason);
             }
             else
             {

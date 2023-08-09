@@ -72,17 +72,30 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
             null, null, null, null);
     }
 
-    public void Update(string revokedByIp, string reasonRevoked)
+    public void Revoke(string revokedByIp, string reasonRevoked, string? replacedByToken = null)
     {
-        RevokedDate = DateTime.UtcNow;
-        RevokedByIp = revokedByIp;
-        ReasonRevoked = reasonRevoked;
+        if (replacedByToken == null)
+        {
+            Update(revokedByIp, reasonRevoked);
+        }
+        else
+        {
+            Update(revokedByIp, reasonRevoked, replacedByToken);
+        }
     }
 
     public void Update(string revokedByIp, string reasonRevoked, string replacedByToken)
     {
         Update(revokedByIp, reasonRevoked);
         ReplacedByToken = replacedByToken;
+    }
+
+
+    private void Update(string revokedByIp, string reasonRevoked)
+    {
+        RevokedDate = DateTime.UtcNow;
+        RevokedByIp = revokedByIp;
+        ReasonRevoked = reasonRevoked;
     }
 
 #pragma warning disable IDE0051 // Remove unused private members

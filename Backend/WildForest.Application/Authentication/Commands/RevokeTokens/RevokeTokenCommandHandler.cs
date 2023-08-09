@@ -1,5 +1,4 @@
 using ErrorOr;
-using WildForest.Application.Authentication.Common.Extensions;
 using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 using WildForest.Domain.Common.Errors;
 
@@ -28,7 +27,7 @@ public sealed class RevokeTokenCommandHandler : IRevokeTokenCommandHandler
             return Errors.RefreshToken.InvalidToken;
         }
 
-        refreshToken.RevokeRefreshToken(command.IpAddress, "Revoke without replacement");
+        refreshToken.Revoke(command.IpAddress, "Revoke without replacement");
         await _unitOfWork.RefreshTokenRepository.UpdateRefreshTokenAsync(refreshToken);
         await _unitOfWork.SaveChangesAsync();
 
