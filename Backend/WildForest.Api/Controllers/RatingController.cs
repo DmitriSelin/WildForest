@@ -1,4 +1,5 @@
 using ErrorOr;
+using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WildForest.Application.Ratings.Commands.Votes;
@@ -12,10 +13,12 @@ namespace WildForest.Api.Controllers;
 public sealed class RatingController : ApiController
 {
     private readonly IVoteService _voteService;
+    private readonly IMapper _mapper;
 
-    public RatingController(IVoteService voteService)
+    public RatingController(IVoteService voteService, IMapper mapper)
     {
         _voteService = voteService;
+        _mapper = mapper;
     }
 
     [HttpPost("vote/up")]
@@ -40,5 +43,11 @@ public sealed class RatingController : ApiController
         return rating.Match(
             ratingDto => Ok(ratingDto),
             errors => Problem(errors));
+    }
+
+    [HttpPut("vote")]
+    public async Task<IActionResult> UpdateVote(VoteUpdationRequest request)
+    {
+        var command = _mapper.Map<VoteUpdationCommand>(request);
     }
 }

@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.ComTypes;
 using ErrorOr;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Users.ValueObjects;
@@ -33,11 +34,25 @@ public sealed class VoteService : IVoteService
         if (isVoteExists)
             return Errors.Rating.DuplicateVote;
 
-        var vote = rating.ChangeRating(userId, (VoteResult)command.VoteResult);
+        var vote = rating.CreateVote(userId, (VoteResult)command.VoteResult);
 
         await _unitOfWork.SaveChangesAsync();
 
         return new RatingDto(rating.Id.Value, vote.Id.Value, command.VoteResult, rating.Points);
+    }
+
+    public async Task<ErrorOr<RatingDto>> UpdateVoteAsync(VoteUpdationCommand command)
+    {
+        var ratingId = RatingId.Create(command.RatingId);
+        var userId = UserId.Create(command.UserId);
+        var voteId = VoteId.Create(command.VoteId);
+
+        var vote = await _unitOfWork.RatingRepository.GetVoteByIdAndUserIdWithRatingAsync(ratingId, userId, voteId);
+
+        if (vote is null)
+            return Errors.Rating.VoteNotFound;
+
+        
     }
 
     private static bool IsVoteExists(Rating rating)

@@ -20,7 +20,7 @@ public sealed class Rating : AggregateRoot<RatingId>
 
     public IEnumerable<Vote> Votes => votes.ToList();
 
-    public Vote ChangeRating(UserId userId, VoteResult result)
+    public Vote CreateVote(UserId userId, VoteResult result)
     {
         Vote vote;
 
@@ -37,6 +37,20 @@ public sealed class Rating : AggregateRoot<RatingId>
 
         votes.Add(vote);
         return vote;
+    }
+
+    public void ChangeVote(Vote vote)
+    {
+        if (vote.Result == VoteResult.Up)
+        {
+            Points--;
+            vote.Down();
+        }
+        else
+        {
+            Points++;
+            vote.Up();
+        }
     }
 
     public static Rating Create(WeatherForecastId weatherForecastId)
