@@ -39,11 +39,6 @@ public sealed class UnitOfWork : IUnitOfWork
     public IWeatherForecastRepository WeatherForecastRepository
         => weatherForecastRepository ??= new WeatherForecastRepository(_context);
 
-    private IThreeHourWeatherForecastRepository? threeHourWeatherForecastRepository;
-
-    public IThreeHourWeatherForecastRepository ThreeHourWeatherForecastRepository
-        => threeHourWeatherForecastRepository ??= new ThreeHourWeatherForecastRepository(_context);
-
     public UnitOfWork(WildForestDbContext context)
     {
         _context = context;

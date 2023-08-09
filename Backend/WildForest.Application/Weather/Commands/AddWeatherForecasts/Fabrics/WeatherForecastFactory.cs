@@ -8,11 +8,10 @@ namespace WildForest.Application.Weather.Commands.AddWeatherForecasts.Fabrics;
 
 public sealed class WeatherForecastFactory : IWeatherForecastFactory
 {
-    public Tuple<IEnumerable<WeatherForecast>, IEnumerable<ThreeHourWeatherForecast>> Create(
+    public IEnumerable<WeatherForecast> Create(
         List<WeatherForecastVm> forecasts, CityId cityId)
     {
         List<WeatherForecast> weatherForecasts = new();
-        List<ThreeHourWeatherForecast> threeHourWeatherForecasts = new();
 
         var currentDate = forecasts[0].Date.Date;
         var weatherForecast = CreateWeatherForecast(forecasts[0], cityId);
@@ -28,10 +27,10 @@ public sealed class WeatherForecastFactory : IWeatherForecastFactory
             }
 
             var threeHourWeatherForecast = CreateThreeHourWeatherForecast(forecast, weatherForecast.Id);
-            threeHourWeatherForecasts.Add(threeHourWeatherForecast);
+            weatherForecast.AddThreeHourWeatherForecast(threeHourWeatherForecast);
         }
 
-        return new(weatherForecasts, threeHourWeatherForecasts);
+        return weatherForecasts;
     }
 
     private WeatherForecast CreateWeatherForecast(WeatherForecastVm forecast, CityId cityId)

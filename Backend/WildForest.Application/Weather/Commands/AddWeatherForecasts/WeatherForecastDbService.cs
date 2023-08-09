@@ -36,8 +36,7 @@ public sealed class WeatherForecastDbService : IWeatherForecastDbService
 
         var weatherForecasts = _weatherForecastFactory.Create(forecasts, cityId);
 
-        await _unitOfWork.WeatherForecastRepository.AddWeatherForecastsAsync(weatherForecasts.Item1);
-        await _unitOfWork.ThreeHourWeatherForecastRepository.AddWeatherForecastsAsync(weatherForecasts.Item2);
+        await _unitOfWork.WeatherForecastRepository.AddWeatherForecastsAsync(weatherForecasts);
         await _unitOfWork.SaveChangesAsync();
     }
 }

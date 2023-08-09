@@ -21,6 +21,11 @@ public class WeatherForecast : AggregateRoot<WeatherForecastId>
 
     public IReadOnlyList<ThreeHourWeatherForecast> ThreeHourWeatherForecasts => _threeHourWeatherForecasts.AsReadOnly();
 
+    public void AddThreeHourWeatherForecast(ThreeHourWeatherForecast forecast)
+    {
+        _threeHourWeatherForecasts.Add(forecast);
+    }
+
     public static WeatherForecast Create(DateOnly date, CityId cityId)
         => new(WeatherForecastId.Create(), date, cityId);
 
