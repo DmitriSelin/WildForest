@@ -8,13 +8,14 @@ using WildForest.Application.Common.Interfaces.Services;
 using WildForest.Infrastructure.Authentication;
 using WildForest.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
-using WildForest.Infrastructure.Persistence.Repositories;
 using WildForest.Infrastructure.Persistence.Context;
 using WildForest.Application.Common.Interfaces.Http;
 using WildForest.Infrastructure.Http;
 using WildForest.Infrastructure.Http.Builders;
 using WildForest.Infrastructure.Persistence.DataInitialization;
 using System.Text;
+using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
+using WildForest.Infrastructure.Persistence.UoW;
 
 namespace WildForest.Infrastructure;
 
@@ -31,7 +32,7 @@ public static class DependencyInjection
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddScoped<IWeatherForecastBuilder, WeatherForecastBuilder>();
 
-        services.AddRepositories();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddDbContext<WildForestDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")));

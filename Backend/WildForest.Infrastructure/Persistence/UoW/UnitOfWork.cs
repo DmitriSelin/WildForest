@@ -1,54 +1,52 @@
-using Microsoft.Extensions.DependencyInjection;
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 using WildForest.Infrastructure.Persistence.Context;
+using WildForest.Infrastructure.Persistence.Repositories;
 
 namespace WildForest.Infrastructure.Persistence.UoW;
 
 public sealed class UnitOfWork : IUnitOfWork
 {
     private readonly WildForestDbContext _context;
-    private readonly IServiceProvider _serviceProvider;
 
     private ICityRepository? cityRepository;
 
     public ICityRepository CityRepository
-        => cityRepository ??= _serviceProvider.GetService<ICityRepository>()!;
+        => cityRepository ??= new CityRepository(_context);
 
     private ICountryRepository? countryRepository;
 
     public ICountryRepository CountryRepository
-        => countryRepository ??= _serviceProvider.GetService<ICountryRepository>()!;
+        => countryRepository ??= new CountryRepository(_context);
 
     private IRatingRepository? ratingRepository;
 
     public IRatingRepository RatingRepository
-        => ratingRepository ??= _serviceProvider.GetService<IRatingRepository>()!;
+        => ratingRepository ??= new RatingRepository(_context);
 
     private IRefreshTokenRepository? refreshTokenRepository;
 
     public IRefreshTokenRepository RefreshTokenRepository
-        => refreshTokenRepository ??= _serviceProvider.GetService<IRefreshTokenRepository>()!;
+        => refreshTokenRepository ??= new RefreshTokenRepository(_context);
 
     private IUserRepository? userRepository;
 
     public IUserRepository UserRepository
-        => userRepository ??= _serviceProvider.GetService<IUserRepository>()!;
+        => userRepository ??= new UserRepository(_context);
 
     private IWeatherForecastRepository? weatherForecastRepository;
 
     public IWeatherForecastRepository WeatherForecastRepository
-        => weatherForecastRepository ??= _serviceProvider.GetService<IWeatherForecastRepository>()!;
+        => weatherForecastRepository ??= new WeatherForecastRepository(_context);
 
     private IThreeHourWeatherForecastRepository? threeHourWeatherForecastRepository;
 
     public IThreeHourWeatherForecastRepository ThreeHourWeatherForecastRepository
-        => threeHourWeatherForecastRepository ??= _serviceProvider.GetService<IThreeHourWeatherForecastRepository>()!;
+        => threeHourWeatherForecastRepository ??= new ThreeHourWeatherForecastRepository(_context);
 
-    public UnitOfWork(WildForestDbContext context, IServiceProvider serviceProvider)
+    public UnitOfWork(WildForestDbContext context)
     {
         _context = context;
-        _serviceProvider = serviceProvider;
     }
 
     public async Task<int> SaveChangesAsync(CancellationToken token = default)
