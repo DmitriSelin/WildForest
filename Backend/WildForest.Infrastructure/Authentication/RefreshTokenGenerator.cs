@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 using WildForest.Application.Common.Interfaces.Authentication;
-using WildForest.Application.Common.Interfaces.Persistence.Repositories;
+using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.ValueObjects;
 
@@ -8,11 +8,11 @@ namespace WildForest.Infrastructure.Authentication;
 
 public sealed class RefreshTokenGenerator : IRefreshTokenGenerator
 {
-    private readonly IRefreshTokenRepository _refreshTokenRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public RefreshTokenGenerator(IRefreshTokenRepository refreshTokenRepository)
+    public RefreshTokenGenerator(IUnitOfWork unitOfWork)
     {
-        _refreshTokenRepository = refreshTokenRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<RefreshToken> GenerateTokenAsync(UserId personId, string createdByIp)
@@ -27,7 +27,7 @@ public sealed class RefreshTokenGenerator : IRefreshTokenGenerator
     {
         string token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
 
-        bool isTokenUnique = await _refreshTokenRepository.IsTokenUnique(token);
+        bool isTokenUnique = await _unitOfWork.RefreshTokenRepository.IsTokenUnique(token);
 
         if (!isTokenUnique)
         {
