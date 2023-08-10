@@ -18,12 +18,12 @@ public sealed class Vote : Entity<VoteId>
 
     public Rating Rating { get; } = null!;
 
-    public void Up()
+    internal void Up()
     {
         Result = VoteResult.Up;
     }
 
-    public void Down()
+    internal void Down()
     {
         Result = VoteResult.Down;
     }

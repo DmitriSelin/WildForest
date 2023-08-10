@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.ComTypes;
 using ErrorOr;
 using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Users.ValueObjects;
@@ -52,7 +51,13 @@ public sealed class VoteService : IVoteService
         if (vote is null)
             return Errors.Rating.VoteNotFound;
 
-        
+        if (vote.Rating is null)
+            return Errors.Rating.NotFoundById;
+
+        vote.Rating.ChangeVote(vote);
+        await _unitOfWork.SaveChangesAsync();
+
+        return new RatingDto(vote.Rating.Id.Value, vote.Id.Value, (byte)vote.Result, vote.Rating.Points);
     }
 
     private static bool IsVoteExists(Rating rating)

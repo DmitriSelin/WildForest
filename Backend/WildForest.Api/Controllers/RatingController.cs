@@ -28,9 +28,7 @@ public sealed class RatingController : ApiController
 
         ErrorOr<RatingDto> rating = await _voteService.VoteAsync(command);
 
-        return rating.Match(
-            ratingDto => Ok(ratingDto),
-            errors => Problem(errors));
+        return ReturnActionResult(rating);
     }
 
     [HttpPost("vote/down")]
@@ -40,14 +38,23 @@ public sealed class RatingController : ApiController
 
         ErrorOr<RatingDto> rating = await _voteService.VoteAsync(command);
 
-        return rating.Match(
-            ratingDto => Ok(ratingDto),
-            errors => Problem(errors));
+        return ReturnActionResult(rating);
     }
 
     [HttpPut("vote")]
     public async Task<IActionResult> UpdateVote(VoteUpdationRequest request)
     {
         var command = _mapper.Map<VoteUpdationCommand>(request);
+
+        ErrorOr<RatingDto> rating = await _voteService.UpdateVoteAsync(command);
+
+        return ReturnActionResult(rating);
+    }
+
+    private IActionResult ReturnActionResult(ErrorOr<RatingDto> rating)
+    {
+        return rating.Match(
+            ratingDto => Ok(ratingDto),
+            errors => Problem(errors));
     }
 }
