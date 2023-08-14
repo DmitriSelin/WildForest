@@ -1,5 +1,5 @@
 import './styles/tailwind.css';
-import './styles/colors.css';
+import './styles/global.css';
 import router from './router'
 
 import { createApp } from 'vue';
