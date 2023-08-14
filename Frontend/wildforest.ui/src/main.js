@@ -1,6 +1,4 @@
-import './styles/tailwind.css';
-import './styles/global.css';
-import router from './router'
+import router from './router/router'
 
 import { createApp } from 'vue';
 import App from './App.vue';
