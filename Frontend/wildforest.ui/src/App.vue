@@ -1,9 +1,7 @@
 <script setup></script>
 
 <template>
-  <div class="underline bg-red-700">
-    kekich
-  </div>
+  <router-view/>
 </template>
 
 <style scoped>
