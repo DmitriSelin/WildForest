@@ -15,8 +15,9 @@
     --red-hover: #C21111;
 }
 
-
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
