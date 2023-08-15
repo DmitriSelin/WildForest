@@ -1,13 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap');
 
 :root {
-    --blue-color: #5789F5;
-    --white-color: #F6F9FF;
-    --gray-color: #ADB1C2;
-    --blue-gray-color: #2C313D;
-    --black-gray-color: #1C1F24;
-    --light-gray-color: #343B48;
-    --violet-gray-color: #23252F;
+    --blue: #5789F5;
+    --blue-hover: #4072DE;
+    --white: #F6F9FF;
+    --gray: #ADB1C2;
+    --dark-gray: #2C313D;
+    --light-gray: #343B48;
+    --black: #1C1F24;
+    --violet: #23252F;
+    --success: #53BB51;
+    --success-hover: #4AAB48;
+    --red: #E81616;
+    --red-hover: #C21111;
 }
 
 

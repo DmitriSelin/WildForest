@@ -6,7 +6,7 @@ const router = createRouter({
     routes: [
         {
             path: "/",
-            name: "Main",
+            name: "Index",
             component: Index
         }
     ]
