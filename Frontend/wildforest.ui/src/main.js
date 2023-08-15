@@ -1,5 +1,4 @@
 import './styles/global.css';
-import './styles/tailwind.css';
 
 import router from './router/router';
 
