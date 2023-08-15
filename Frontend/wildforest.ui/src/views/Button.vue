@@ -1,10 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
 import Button from "@/components/buttons/WFButton.vue";
-
-function go(){
-    alert("hello!");
-}
 </script>
 
 <template>
