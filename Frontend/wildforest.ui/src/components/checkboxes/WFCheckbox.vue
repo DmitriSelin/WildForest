@@ -55,7 +55,7 @@ const click = (event) => {
       :value="value"
       :checked="checked"
       :disabled="disabled"
-      @input="click"
+      @input="click($event)"
     />
     <label :for="id">{{ label }}</label>
     <label :for="id" class="switch__label" v-if="type === 'switch'"> {{ label }}</label>
