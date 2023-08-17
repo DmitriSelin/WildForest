@@ -26,8 +26,8 @@ const selectedItems = ref(['h1', 'h3'])
     v-model:checked="isChecked"
   />
 
-  <br>
-  <br>
+  <br />
+  <br />
   <h1>Selected products: {{ selectedItems }}</h1>
-  <CheckboxGroup v-model:values="selectedItems" name="myProducts" :options="listOfProducts"/>
+  <CheckboxGroup v-model:values="selectedItems" name="myProducts" :options="listOfProducts" />
 </template>

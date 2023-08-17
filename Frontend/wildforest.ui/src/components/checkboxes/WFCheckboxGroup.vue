@@ -15,24 +15,23 @@ const props = defineProps({
     type: Array,
     required: true,
     validator: (value) => {
-      const hasNameKey = value.every((option) => Object.keys(option).includes('name'));
-      const hasIdKey = value.every((option) => Object.keys(option).includes('id'));
-      return hasNameKey && hasIdKey;
+      const hasNameKey = value.every((option) => Object.keys(option).includes('name'))
+      const hasIdKey = value.every((option) => Object.keys(option).includes('id'))
+      return hasNameKey && hasIdKey
     }
   }
 });
 
 const check = (params) => {
-    let selectedValues = [...props.values];
-    
-    if (params.checked) {
-      selectedValues.push(params.optionId);
-    }
-    else {
-      selectedValues.splice(selectedValues.indexOf(params.optionId), 1);
-    }
+  let selectedValues = [...props.values]
 
-    emit('update:values', selectedValues);
+  if (params.checked) {
+    selectedValues.push(params.optionId);
+  } else {
+    selectedValues.splice(selectedValues.indexOf(params.optionId), 1);
+  }
+
+  emit('update:values', selectedValues);
 }
 </script>
 
