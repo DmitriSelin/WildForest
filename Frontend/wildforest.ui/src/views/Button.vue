@@ -6,6 +6,8 @@ import { ref } from 'vue'
 
 const isChecked = ref(true)
 
+const switchOn = ref(false);
+
 const listOfProducts = ref([
   { name: 'Bread', id: 'h1' },
   { name: 'Milk', id: 'h2' },
@@ -30,4 +32,15 @@ const selectedItems = ref(['h1', 'h3'])
   <br />
   <h1>Selected products: {{ selectedItems }}</h1>
   <CheckboxGroup v-model:values="selectedItems" name="myProducts" :options="listOfProducts" />
+  <br />
+  <br />
+  <h1>Switch: {{ switchOn }}</h1>
+  <Checkbox
+    label="Dark theme"
+    id="switch1"
+    type="switch"
+    name="switch1"
+    value="theme1"
+    v-model:checked="switchOn"
+  />
 </template>

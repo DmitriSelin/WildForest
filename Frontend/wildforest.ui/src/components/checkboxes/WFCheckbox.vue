@@ -1,5 +1,5 @@
 <script setup>
-const emits = defineEmits(['update:checked', 'updateCheckboxGroup']);
+const emits = defineEmits(['update:checked', 'updateCheckboxGroup'])
 
 const props = defineProps({
   name: {
@@ -29,30 +29,37 @@ const props = defineProps({
   group: {
     type: Boolean,
     default: false
+  },
+  type: {
+    type: String,
+    default: 'checkbox'
   }
-});
+})
 
 const click = (event) => {
   if (props.group) {
-    emits('updateCheckboxGroup', { optionId: props.id, checked: event.target.checked });
+    emits('updateCheckboxGroup', { optionId: props.id, checked: event.target.checked })
   } else {
-    emits('update:checked', event.target.checked);
+    emits('update:checked', event.target.checked)
   }
 }
 </script>
 
 <template>
-  <input
-    class="checkbox"
-    type="checkbox"
-    :name="name"
-    :id="id"
-    :value="value"
-    :checked="checked"
-    :disabled="disabled"
-    @input="click"
-  />
-  <label :for="id">{{ label }}</label>
+  <div :class="[{ 'switch-container': type === 'switch' }]">
+    <input
+      :class="[{ checkbox: type === 'checkbox' }, { switch: type === 'switch' }]"
+      type="checkbox"
+      :name="name"
+      :id="id"
+      :value="value"
+      :checked="checked"
+      :disabled="disabled"
+      @input="click"
+    />
+    <label :for="id">{{ label }}</label>
+    <label :for="id" class="switch__label" v-if="type === 'switch'"> {{ label }}</label>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -101,6 +108,59 @@ const click = (event) => {
   &:disabled + label::before {
     background-color: #e9ecef;
     border: 1px solid #ecebed;
+  }
+}
+
+.switch {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  &-container {
+    display: flex;
+    align-items: center;
+  }
+  &__label {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  & + label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 50px;
+    height: 35px;
+    background: var(--white);
+    border: 1px solid var(--gray);
+    display: block;
+    border-radius: 100px;
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      width: 26px;
+      height: 26px;
+      background: var(--accent);
+      border-radius: 90px;
+      transition: 0.3s;
+      transform: translateY(-50%);
+    }
+  }
+  &:checked {
+    & + label {
+      background: var(--accent);
+      &:after {
+        background: var(--white);
+        left: calc(100% - 5px);
+        transform: translateX(-100%) translateY(-50%);
+      }
+      &:active:after {
+        width: 33px;
+      }
+    }
   }
 }
 </style>
