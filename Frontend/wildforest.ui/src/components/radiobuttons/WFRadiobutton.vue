@@ -26,6 +26,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  checkedValue: {
+    type: String,
+    required: true
+  },
   group: {
     type: Boolean,
     default: false

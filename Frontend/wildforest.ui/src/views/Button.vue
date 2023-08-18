@@ -32,7 +32,6 @@ const selectedItem = ref('')
 const disabledRadio = ref(true)
 const isDisabled = ref(true)
 const percentBar = ref(30)
-const percentCircleBar = ref(60)
 
 const addPercentbar = () => {
   if (percentBar.value >= 100) return
@@ -98,18 +97,20 @@ const changeTab = (tabName) => {
       label="Disabled"
       id="Disabled"
       name="Disabled"
-      v-model:checkedValue="isDisabled"
+      v-model:checkedValue="selectedItem"
       :disabled="disabledRadio"
     />
   </div>
-  <WFRadiobutton
+  <div>
+    <WFRadiobutton
     value="Disabled2"
     label="Disabled 2"
     id="Disabled2"
     name="Disabled"
-    v-model:checkedValue="isDisabled"
+    v-model:checkedValue="selectedItem"
     :disabled="disabledRadio"
   />
+  </div>
 
   <br /><br />
   <h2>Progress bar</h2>
