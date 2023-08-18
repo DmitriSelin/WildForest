@@ -5,7 +5,8 @@ import CheckboxGroup from '@/components/checkboxes/WFCheckboxGroup.vue'
 import WFRadiobutton from '@/components/radiobuttons/WFRadiobutton.vue'
 import WFProgressbar from '@/components/progresses/WFProgressbar.vue'
 import WFButton from '@/components/buttons/WFButton.vue'
-import WfCircleProgressbar from '@/components/progresses/WFCircleProgressbar.vue' 
+import WfCircleProgressbar from '@/components/progresses/WFCircleProgressbar.vue'
+import WFTabs from '@/components/tabs/WFTabs.vue'
 import { ref } from 'vue'
 
 const isChecked = ref(true)
@@ -31,13 +32,23 @@ const selectedItem = ref('')
 const disabledRadio = ref(true)
 const isDisabled = ref(true)
 const percentBar = ref(30)
-const percentCircleBar = ref(60);
+const percentCircleBar = ref(60)
 
 const addPercentbar = () => {
-  if (percentBar.value >= 100)
-    return;
+  if (percentBar.value >= 100) return
 
-    percentBar.value += 10;
+  percentBar.value += 10
+}
+
+const tabs = [
+  { name: 'dotnet', label: '.NET' },
+  { name: 'vue', label: 'Vue' },
+  { name: 'postgres', label: 'PostgreSQL' }
+]
+const selectedTab = ref('vue')
+
+const changeTab = (tabName) => {
+  selectedTab.value = tabName
 }
 </script>
 
@@ -102,10 +113,16 @@ const addPercentbar = () => {
 
   <br /><br />
   <h2>Progress bar</h2>
-  <WFProgressbar :percent="percentBar" maxWidth="100%"/>
-  <WFButton label="Add 10%" @click="addPercentbar"/>
+  <WFProgressbar :percent="percentBar" maxWidth="100%" />
+  <WFButton label="Add 10%" @click="addPercentbar" />
 
-  <br><br>
+  <br /><br />
   <h2>Circle progress bar</h2>
-  <WfCircleProgressbar :percent="percentBar"/>
+  <WfCircleProgressbar :percent="percentBar" lineColor="success" />
+  <br /><br />
+  <WFTabs :names="tabs" :selectedTab="selectedTab" @changeTab="changeTab">
+    <div v-if="selectedTab === 'dotnet'">About .NET</div>
+    <div v-if="selectedTab === 'vue'">About Vue</div>
+    <div v-if="selectedTab === 'postgres'">About postgres</div>
+  </WFTabs>
 </template>
