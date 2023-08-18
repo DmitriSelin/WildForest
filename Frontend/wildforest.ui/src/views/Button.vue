@@ -3,11 +3,14 @@
 import Checkbox from '@/components/checkboxes/WFCheckbox.vue'
 import CheckboxGroup from '@/components/checkboxes/WFCheckboxGroup.vue'
 import WFRadiobutton from '@/components/radiobuttons/WFRadiobutton.vue'
+import WFProgressbar from '@/components/progresses/WFProgressbar.vue'
+import WFButton from '@/components/buttons/WFButton.vue'
+import WfCircleProgressbar from '@/components/progresses/WFCircleProgressbar.vue' 
 import { ref } from 'vue'
 
 const isChecked = ref(true)
 
-const switchOn = ref(false);
+const switchOn = ref(false)
 
 const listOfProducts = ref([
   { name: 'Bread', id: 'h1' },
@@ -24,9 +27,18 @@ const listOfProducts2 = ref([
 ])
 
 const selectedItems = ref(['h1', 'h3'])
-const selectedItem = ref('');
-const disabledRadio = ref(true);
-const isDisabled = ref(true);
+const selectedItem = ref('')
+const disabledRadio = ref(true)
+const isDisabled = ref(true)
+const percentBar = ref(30)
+const percentCircleBar = ref(60);
+
+const addPercentbar = () => {
+  if (percentBar.value >= 100)
+    return;
+
+    percentBar.value += 10;
+}
 </script>
 
 <template>
@@ -60,11 +72,40 @@ const isDisabled = ref(true);
   <h1>Radiobuttons</h1>
   <h1>Selected item: {{ selectedItem }}</h1>
   <div v-for="item in listOfProducts2" :key="item.id">
-    <WFRadiobutton :value="item.name" :label="item.name" :id="item.id" name="itemGroup" v-model:checkedValue="selectedItem"/>
+    <WFRadiobutton
+      :value="item.name"
+      :label="item.name"
+      :id="item.id"
+      name="itemGroup"
+      v-model:checkedValue="selectedItem"
+    />
   </div>
+  <br /><br />
+  <div>
+    <WFRadiobutton
+      value="Disabled"
+      label="Disabled"
+      id="Disabled"
+      name="Disabled"
+      v-model:checkedValue="isDisabled"
+      :disabled="disabledRadio"
+    />
+  </div>
+  <WFRadiobutton
+    value="Disabled2"
+    label="Disabled 2"
+    id="Disabled2"
+    name="Disabled"
+    v-model:checkedValue="isDisabled"
+    :disabled="disabledRadio"
+  />
+
+  <br /><br />
+  <h2>Progress bar</h2>
+  <WFProgressbar :percent="percentBar" maxWidth="100%"/>
+  <WFButton label="Add 10%" @click="addPercentbar"/>
+
   <br><br>
-  <div><WFRadiobutton value="Disabled" label="Disabled" id="Disabled" name="Disabled" v-model:checkedValue="isDisabled"
-  :disabled="disabledRadio"/></div>
-  <WFRadiobutton value="Disabled2" label="Disabled 2" id="Disabled2" name="Disabled" v-model:checkedValue="isDisabled"
-  :disabled="disabledRadio"/>
+  <h2>Circle progress bar</h2>
+  <WfCircleProgressbar :percent="percentBar"/>
 </template>
