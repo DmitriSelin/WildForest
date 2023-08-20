@@ -10,7 +10,8 @@ module.exports = {
   ],
   rules: {
     'no-unused-vars': 'off',
-    "semi": ["off"]
+    "semi": ["off"],
+    'vue/no-side-effects-in-computed-properties': 'off'
   },
   overrides: [
     {
