@@ -10,6 +10,7 @@ import WFTabs from '@/components/tabs/WFTabs.vue'
 import WFTable from '@/components/tables/WFTable.vue'
 import WFTableRow from '@/components/tables/WFTableRow.vue'
 import WFTableColumn from '@/components/tables/WFTableColumn.vue'
+import WFInput from '@/components/inputs/WFInput.vue'
 import { ref } from 'vue'
 import { computed } from 'vue'
 
@@ -105,9 +106,21 @@ const setSort = (name) => {
     }
   } else {
     sortField.value = name
-    setSort(name);
+    setSort(name)
   }
 }
+
+const nameField = ref('')
+import useVuelidate from '@vuelidate/core'
+import { minLength, helpers } from '@vuelidate/validators'
+
+const rules = computed(() => ({
+  nameField: {
+    minLength: helpers.withMessage('Not correct name!', minLength(5))
+  }
+}))
+
+const vuelidate = useVuelidate(rules, { nameField })
 </script>
 
 <template>
@@ -213,4 +226,17 @@ const setSort = (name) => {
       </WFTableColumn>
     </WFTableRow>
   </WFTable>
+  <br /><br /><br /><br />
+  <h1>Inputs:</h1>
+  <br /><br />
+  <form>
+    <WFInput
+      label="Your name"
+      name="name"
+      placeholder="Input your name"
+      v-model:value="vuelidate.nameField.$model"
+      :errors="vuelidate.nameField.$errors"
+    />
+  </form>
+  <h2>{{ nameField }}</h2>
 </template>
