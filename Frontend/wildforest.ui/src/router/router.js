@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory} from "vue-router";
-import Index from "@/views/Index.vue";
+import Index from "@/views/WFIndex.vue";
 import Button from "@/views/Button.vue";
 
 const router = createRouter({
