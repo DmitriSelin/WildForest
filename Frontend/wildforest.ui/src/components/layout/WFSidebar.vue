@@ -1,32 +1,51 @@
 <script setup>
+import WFSidebarRadiobutton from '@/components/layout/WFSidebarRadiobutton.vue'
+import { ref } from 'vue'
+
 const props = defineProps({
   links: {
     type: Array,
     required: true
   }
 })
+
+const isClosed = ref(true)
+
+const changeSidebarSize = () => {
+  isClosed.value = !isClosed.value;
+}
 </script>
 
 <template>
-  <nav class="sidebar">
+  <nav class="sidebar" :class="{'close': isClosed}">
     <div class="header">
       <div class="image-text">
         <span class="image">
-          <img src="../../assets/images/logo.ico" alt="logo">
+          <img src="../../assets/images/logo.ico" alt="logo" />
         </span>
-        <div class="text header-text">
+        <div class="header-text" v-if="!isClosed">
           <span class="name">Wild forest</span>
         </div>
       </div>
-      <div class="toggle">
-        <font-awesome-icon icon="fa-solid fa-bars" />
+      <div class="toggle" @click="changeSidebarSize">
+        <font-awesome-icon icon="fa-solid fa-bars" class="icon" />
       </div>
     </div>
     <div class="menu-bar">
       <div class="menu">
         <ul class="menu-links">
-          <li v-for="link in links" :key="link.url">
-            <router-link></router-link>
+          <li v-for="link in links" :key="link.name">
+            <router-link :to="link.href" class="link">
+              <WFSidebarRadiobutton
+                :name="link.name"
+                :id="link.name"
+                :value="link.name"
+                :label="link.name"
+                :checked="link.checked"
+                :icon="link.icon"
+                :isClosed="isClosed"
+              />
+            </router-link>
           </li>
         </ul>
       </div>
@@ -45,7 +64,7 @@ const props = defineProps({
   padding: 10px 14px;
   transition: all 0.5s ease;
   .header {
-    position: relative;
+    margin-left: 4px;
   }
   .image-text img {
     width: 40px;
@@ -54,10 +73,6 @@ const props = defineProps({
     display: flex;
     align-items: center;
   }
-  .text {
-    font-size: 16px;
-    font-weight: 500;
-  }
   .image {
     min-width: 60px;
     display: flex;
@@ -65,19 +80,18 @@ const props = defineProps({
   }
   .header-text .name {
     font-weight: bold;
+    font-size: 16px;
+    transition: all 0.5s ease;
+    white-space: nowrap;
   }
   .header .toggle {
-    position: absolute;
-    margin: 20px auto 10px 3px;
-    height: 35px;
-    width: 35px;
-    display: flex;
-    align-items: center;
-    align-content: center;
+    height: 40px;
+    width: 40px;
+    margin-top: 10px;
     border-radius: 50%;
-    padding: 4px;
+    padding: 6px;
     cursor: pointer;
-    .fa-bars {
+    .icon {
       width: 100%;
       height: 100%;
     }
@@ -88,8 +102,25 @@ const props = defineProps({
   }
   li {
     height: 50px;
-    margin-top: 10px;
+    margin-top: 20px;
     list-style: none;
+    display: flex;
+    align-items: center;
+    transition: all 0.5s ease;
+    .link {
+      width: 100%;
+      height: 100%;
+    }
   }
+  .menu-bar {
+    height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+.close {
+  width: 80px;
 }
 </style>
