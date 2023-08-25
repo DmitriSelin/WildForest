@@ -2,8 +2,8 @@
 import WFSidebar from '@/components/layout/WFSidebar.vue'
 
 const links = [
-  { name: 'Main', href: '/', checked: true, icon: 'house-chimney' },
-  { name: 'Weather', href: '/weather', checked: false, icon: 'cloud-showers-heavy' },
+  { name: 'Main', href: '/', checked: false, icon: 'house-chimney' },
+  { name: 'Weather', href: '/', checked: false, icon: 'cloud-showers-heavy' },
   { name: 'Comments', href: '/comments', checked: false, icon: 'comment' }
 ]
 </script>

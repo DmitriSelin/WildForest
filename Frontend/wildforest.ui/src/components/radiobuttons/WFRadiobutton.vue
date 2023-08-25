@@ -29,10 +29,6 @@ const props = defineProps({
   checkedValue: {
     type: String,
     required: true
-  },
-  group: {
-    type: Boolean,
-    default: false
   }
 })
 
@@ -102,7 +98,6 @@ const click = (event) => {
   }
   $disabledBackColor: #e9ecef;
   $disabledBorder: 1px solid #ecebed;
-  $arrowCursor: default;
   &:disabled:not(:checked) + label::before {
     background-color: $disabledBackColor;
     border: $disabledBorder;

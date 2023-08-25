@@ -10,14 +10,15 @@ const props = defineProps({
 })
 
 const isClosed = ref(true)
+const sidebarValue = ref('')
 
 const changeSidebarSize = () => {
-  isClosed.value = !isClosed.value;
+  isClosed.value = !isClosed.value
 }
 </script>
 
 <template>
-  <nav class="sidebar" :class="{'close': isClosed}">
+  <nav class="sidebar" :class="{ close: isClosed }">
     <div class="header">
       <div class="image-text">
         <span class="image">
@@ -32,23 +33,21 @@ const changeSidebarSize = () => {
       </div>
     </div>
     <div class="menu-bar">
-      <div class="menu">
-        <ul class="menu-links">
-          <li v-for="link in links" :key="link.name">
-            <router-link :to="link.href" class="link">
-              <WFSidebarRadiobutton
-                :name="link.name"
-                :id="link.name"
-                :value="link.name"
-                :label="link.name"
-                :checked="link.checked"
-                :icon="link.icon"
-                :isClosed="isClosed"
-              />
-            </router-link>
-          </li>
-        </ul>
-      </div>
+      <ul>
+        <li v-for="link in links" :key="link.name">
+            <WFSidebarRadiobutton
+              :name="link.name"
+              :id="link.name"
+              :value="link.name"
+              :label="link.name"
+              :checked="link.checked"
+              :icon="link.icon"
+              v-model:checkedValue="sidebarValue"
+              :isClosed="isClosed">
+              <router-link :to="link.href" class="link"></router-link>
+            </WFSidebarRadiobutton>
+        </li>
+      </ul>
     </div>
   </nav>
 </template>
@@ -72,6 +71,7 @@ const changeSidebarSize = () => {
   .header .image-text {
     display: flex;
     align-items: center;
+    transition: all 0.5s ease;
   }
   .image {
     min-width: 60px;
@@ -81,12 +81,12 @@ const changeSidebarSize = () => {
   .header-text .name {
     font-weight: bold;
     font-size: 16px;
-    transition: all 0.5s ease;
     white-space: nowrap;
+    color: var(--white);
   }
   .header .toggle {
-    height: 40px;
-    width: 40px;
+    height: 43px;
+    width: 43px;
     margin-top: 10px;
     border-radius: 50%;
     padding: 6px;
@@ -94,6 +94,7 @@ const changeSidebarSize = () => {
     .icon {
       width: 100%;
       height: 100%;
+      color: var(--white);
     }
     &:hover {
       background-color: var(--light-gray);
@@ -102,8 +103,8 @@ const changeSidebarSize = () => {
   }
   li {
     height: 50px;
-    margin-top: 20px;
     list-style: none;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
     transition: all 0.5s ease;
