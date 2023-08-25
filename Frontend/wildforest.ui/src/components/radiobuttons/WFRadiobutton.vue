@@ -65,6 +65,7 @@ const click = (event) => {
     align-items: center;
     user-select: none;
     cursor: pointer;
+    color: var(--white);
   }
   & + label::before {
     content: '';

@@ -71,6 +71,7 @@ const click = (event) => {
     display: inline-flex;
     align-items: center;
     user-select: none;
+    color: var(--white);
     cursor: pointer;
   }
   & + label::before {
@@ -125,6 +126,7 @@ const click = (event) => {
   &__label {
     margin-left: 10px;
     cursor: pointer;
+    color: var(--white);
   }
   & + label {
     cursor: pointer;

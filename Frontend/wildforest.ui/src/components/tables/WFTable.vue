@@ -37,6 +37,7 @@ const clickOnHead = (name) => {
 <style lang="scss" scoped>
 .table {
   background-color: var(--light-gray);
+  color: var(--white);
   width: 100%;
   margin-bottom: 40px;
   margin-top: 15px;

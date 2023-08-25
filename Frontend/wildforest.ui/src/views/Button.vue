@@ -195,9 +195,9 @@ const vuelidate = useVuelidate(rules, { nameField })
   <br /><br />
   <h1>Tabs</h1>
   <WFTabs :names="tabs" :selectedTab="selectedTab" @changeTab="changeTab">
-    <div v-if="selectedTab === 'dotnet'">About .NET</div>
-    <div v-if="selectedTab === 'vue'">About Vue</div>
-    <div v-if="selectedTab === 'postgres'">About postgres</div>
+    <div v-if="selectedTab === 'dotnet'" class="white">About .NET</div>
+    <div v-if="selectedTab === 'vue'" class="white">About Vue</div>
+    <div v-if="selectedTab === 'postgres'" class="white">About postgres</div>
   </WFTabs>
 
   <br /><br /><br /><br />
@@ -239,15 +239,10 @@ const vuelidate = useVuelidate(rules, { nameField })
     />
   </form>
   <h2>{{ nameField }}</h2>
-  <br><br><br><br><br>
-  <div class="tt">
-    <font-awesome-icon icon="fa-regular fa-heart" style="color: #d32727;" />
-    <WFButton outlined disabled></WFButton>
-  </div>
 </template>
 
 <style scoped lang="scss">
-h1, h2 {
+h1, h2, .white {
   color: var(--white);
 }
 </style>

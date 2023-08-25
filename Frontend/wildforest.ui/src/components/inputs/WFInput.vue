@@ -78,6 +78,7 @@ const updateValue = (e) => {
     }
     border: 1px solid var(--violet);
     background-color: var(--light-gray);
+    color: var(--white);
     padding: 0 10px;
     height: 40px;
     border-radius: 7px;
@@ -86,6 +87,7 @@ const updateValue = (e) => {
     position: relative;
     z-index: 1;
     &:focus {
+      transition: all 0.3s ease;
       & + .input-label {
         z-index: 1;
         opacity: 1;

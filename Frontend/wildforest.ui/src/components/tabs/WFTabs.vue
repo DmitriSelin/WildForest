@@ -39,6 +39,7 @@ const clickOnTab = (tabName) => {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    color: var(--white);
     &__item {
       height: 40px;
       display: flex;
