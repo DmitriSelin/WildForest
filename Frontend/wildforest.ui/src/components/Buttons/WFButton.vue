@@ -28,12 +28,12 @@ const props = defineProps({
     type: String,
     default: 'normal'
   }
-});
+})
 
-const emit = defineEmits(['click']);
+const emit = defineEmits(['click'])
 
 const clickOnButton = () => {
-  emit('click');
+  emit('click')
 }
 </script>
 

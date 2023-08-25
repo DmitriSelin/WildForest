@@ -32,8 +32,8 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="radio-option" :class="{'center': isClosed}">
-    <input type="radio" :name="name" :value="value" :id="id" class="input" />
+  <div class="radio-option" :class="{ center: isClosed }">
+    <input type="radio" :name="name" :value="value" :id="id" class="input" :checked="checked" />
     <label :for="id">
       <font-awesome-icon :icon="`fa-solid fa-${icon}`" class="icon" />
       <span v-if="!isClosed">{{ label }}</span>
@@ -48,26 +48,38 @@ const props = defineProps({
   margin-bottom: 10px;
   cursor: pointer;
   padding: 9px;
-  background-color: green;
   width: 100%;
   height: 100%;
   border-radius: 10px;
   .input {
     display: none;
   }
-}
-label {
-  cursor: pointer;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  .icon {
-    height: 30px;
-    margin-right: 15px;
+  label {
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    .icon {
+      height: 30px;
+      margin-right: 15px;
+    }
+  }
+  &:hover {
+    background-color: var(--white);
+    color: green;
+    label {
+      span {
+        color: var(--second);
+        font-weight: bold;
+      }
+      .icon {
+        color: var(--second);
+      }
+    }
   }
 }
 
 .center {
-  padding: 0 auto
+  padding: 0 auto;
 }
 </style>

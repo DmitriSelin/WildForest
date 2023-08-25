@@ -239,4 +239,15 @@ const vuelidate = useVuelidate(rules, { nameField })
     />
   </form>
   <h2>{{ nameField }}</h2>
+  <br><br><br><br><br>
+  <div class="tt">
+    <font-awesome-icon icon="fa-regular fa-heart" style="color: #d32727;" />
+    <WFButton outlined disabled></WFButton>
+  </div>
 </template>
+
+<style scoped lang="scss">
+h1, h2 {
+  color: var(--white);
+}
+</style>
