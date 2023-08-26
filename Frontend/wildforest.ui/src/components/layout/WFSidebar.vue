@@ -1,16 +1,24 @@
 <script setup>
-import WFSidebarRadiobutton from '@/components/layout/WFSidebarRadiobutton.vue'
 import { ref } from 'vue'
 
 const props = defineProps({
   links: {
     type: Array,
     required: true
+  },
+  selectedBar: {
+    type: String,
+    required: false
   }
 })
 
+const emit = defineEmits(['changeBar'])
+
+const clickOnBar = (label) => {
+  emit('changeBar', label)
+}
+
 const isClosed = ref(true)
-const sidebarValue = ref('')
 
 const changeSidebarSize = () => {
   isClosed.value = !isClosed.value
@@ -34,18 +42,11 @@ const changeSidebarSize = () => {
     </div>
     <div class="menu-bar">
       <ul>
-        <li v-for="link in links" :key="link.name">
-            <WFSidebarRadiobutton
-              :name="link.name"
-              :id="link.name"
-              :value="link.name"
-              :label="link.name"
-              :checked="link.checked"
-              :icon="link.icon"
-              v-model:checkedValue="sidebarValue"
-              :isClosed="isClosed">
-              <router-link :to="link.href" class="link"></router-link>
-            </WFSidebarRadiobutton>
+        <li v-for="link in links" :key="link.id" @click="clickOnBar(link.label)">
+          <router-link :to="link.href" :class="['link', {'selected': link.label === selectedBar}]">
+            <font-awesome-icon :icon="`fa-solid fa-${link.icon}`" class="icon" />
+            <span v-if="!isClosed">{{ link.label }}</span>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -88,6 +89,7 @@ const changeSidebarSize = () => {
     height: 43px;
     width: 43px;
     margin-top: 10px;
+    margin-bottom: 10px;
     border-radius: 50%;
     padding: 6px;
     cursor: pointer;
@@ -111,6 +113,24 @@ const changeSidebarSize = () => {
     .link {
       width: 100%;
       height: 100%;
+      cursor: pointer;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      color: var(--white);
+      display: flex;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      &:hover {
+        background-color: var(--white);
+        color: var(--second);
+      }
+      .icon {
+        height: 30px;
+        margin-right: 20px;
+        margin-left: 8px;
+      }
     }
   }
   .menu-bar {
@@ -123,5 +143,9 @@ const changeSidebarSize = () => {
 
 .close {
   width: 80px;
+}
+
+.selected {
+  background-color: var(--light-gray);
 }
 </style>
