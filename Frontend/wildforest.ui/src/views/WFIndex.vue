@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { sidebarWidth } from '../components/layout/sidebars/state'
 import WFSidebar from '@/components/layout/sidebars/WFSidebar.vue'
 
 const links = [
@@ -16,15 +17,15 @@ const changeBar = (label) => {
 
 <template>
   <WFSidebar />
-  <div class="router">
+  <div class="router" :style="{'margin-left': sidebarWidth}">
     <router-view></router-view>
   </div>
 </template>
 
 <style scoped lang="scss">
 .router {
-  width: 100%;
+  background-color: var(--primary);
+  width: calc(100% - sidebarWidth);
   height: 100%;
-  background-color: gray;
 }
 </style>

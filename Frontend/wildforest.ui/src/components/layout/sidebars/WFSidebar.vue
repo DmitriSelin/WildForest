@@ -1,47 +1,49 @@
-<template>
-  <div class="sidebar">
-    <h1>
-      <span>
-        <div>V</div>
-        <div>S</div>
-      </span>
-      <span>Vue Sidebar</span>
-    </h1>
+<script setup>
+import { collapsed, toggleSidebar, sidebarWidth } from './state';
+import WFSidebarLink from './WFSidebarLink.vue';
+</script>
 
-    <SidebarLink to="/" icon="fas fa-home">Home</SidebarLink>
-    <SidebarLink to="/dashboard" icon="fas fa-columns">Dashboard</SidebarLink>
-    <SidebarLink to="/analytics" icon="fas fa-chart-bar">Analytics</SidebarLink>
-    <SidebarLink to="/friends" icon="fas fa-users">Friends</SidebarLink>
-    <SidebarLink to="/image" icon="fas fa-image">Images</SidebarLink>
-  </div>
+<template>
+  <nav class="sidebar" :style="{ width: sidebarWidth }">
+
+    <WFSidebarLink to="/" icon="fa-solid fa-house-chimney">Home</WFSidebarLink>
+    <WFSidebarLink to="/a" icon="fas fa-cloud-showers-heavy">Weather</WFSidebarLink>
+    <WFSidebarLink to="/aa" icon="fas fa-comment">Comments</WFSidebarLink>
+
+    <span @click="toggleSidebar" class="collapse-icon" :class="{ 'rotate-180': collapsed }">
+      <font-awesome-icon icon="fa-solid fa-angles-left" />
+    </span>
+  </nav>
 </template>
 
 <style lang="scss" scoped>
 .sidebar {
   color: var(--white);
   background-color: var(--second);
-  float: left;
   position: fixed;
+  float: left;
   z-index: 1;
   top: 0;
   left: 0;
   bottom: 0;
-  padding: 0.5em;
+  padding: 60px 5px 5px 5px;
   transition: 0.3s ease;
   display: flex;
-  width: 250px;
   flex-direction: column;
 
-  h1 {
-    height: 2.5em;
+  .collapse-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 15px;
+    color: var(--white);
+    transition: 0.2s linear;
+    cursor: pointer;
   }
 }
 
-.collapse-icon {
-  position: absolute;
-  bottom: 0;
-  padding: 0.75em;
-  color: var(--white);
+.rotate-180 {
+  transform: rotate(180deg);
   transition: 0.2s linear;
 }
 </style>
