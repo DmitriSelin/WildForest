@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import WFSidebar from '@/components/layout/WFSidebar.vue'
+import WFSidebar from '@/components/layout/sidebars/WFSidebar.vue'
 
 const links = [
   { name: 'sidebarLink', label: 'Main', href: '/', checked: false, icon: 'house-chimney' },
@@ -15,7 +15,7 @@ const changeBar = (label) => {
 </script>
 
 <template>
-  <WFSidebar :links="links" :selectedBar="selectedBar" @changeBar="changeBar" />
+  <WFSidebar />
   <div class="router">
     <router-view></router-view>
   </div>
