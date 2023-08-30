@@ -4,21 +4,16 @@ import { sidebarWidth } from '@/components/layout/sidebars/state'
 import WFSidebar from '@/components/layout/sidebars/WFSidebar.vue'
 import WFHeader from '@/components/layout/headers/WFHeader.vue'
 
-const links = [
-  { name: 'sidebarLink', label: 'Main', href: '/', checked: false, icon: 'house-chimney' },
-  { name: 'sidebarLink', label: 'Weather', href: '/', checked: false, icon: 'cloud-showers-heavy' },
-  { name: 'sidebarLink', label: 'Comments', href: '/comments', checked: false, icon: 'comment' }
-]
+const isClosedSidebar = ref(true)
 
-const selectedBar = ref(links[0].label)
-const changeBar = (label) => {
-  selectedBar.value = label
+const clickOnBar = () => {
+  isClosedSidebar.value = !isClosedSidebar.value
 }
 </script>
 
 <template>
-  <WFHeader/>
-  <!-- <WFSidebar /> -->
+  <WFHeader @barClick="clickOnBar" />
+  <WFSidebar :isClosed="isClosedSidebar" />
   <div class="router" :style="{ 'margin-left': sidebarWidth }">
     <router-view></router-view>
   </div>

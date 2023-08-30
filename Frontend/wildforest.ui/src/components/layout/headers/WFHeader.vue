@@ -1,17 +1,23 @@
 <script setup>
 import WFInput from '@/components/inputs/WFInput.vue'
 import WFButton from '@/components/buttons/WFButton.vue'
+
+const emit = defineEmits(['barClick'])
+
+const clickOnBar = () =>  {
+    emit('barClick');
+}
 </script>
 
 <template>
     <header class="header">
         <div class="header-link">
-            <div class="header-bar" @click="toggleSidebar">
+            <div class="header-bar" @click="clickOnBar">
                 <font-awesome-icon icon="fa-solid fa-bars" class="icon" />
             </div>
             <span class="header-image">
                 <img src="../../../assets/images/logo.ico" alt="logo">
-                <h2>Wild forest</h2>
+                <h3>Wild forest</h3>
             </span>
         </div>
         <form action="https://localhost:8080" method="get" class="search">
@@ -20,7 +26,7 @@ import WFButton from '@/components/buttons/WFButton.vue'
         </form>
         <div class="header-profile">
             <img src="../../../assets/images/logo.ico" alt="userImage">
-            <h2>Test User</h2>
+            <h3>Test User</h3>
         </div>
     </header>
 </template>
