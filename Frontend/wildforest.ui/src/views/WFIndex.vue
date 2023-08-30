@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from 'vue'
-import { sidebarWidth } from '../components/layout/sidebars/state'
+import { sidebarWidth } from '@/components/layout/sidebars/state'
 import WFSidebar from '@/components/layout/sidebars/WFSidebar.vue'
+import WFHeader from '@/components/layout/headers/WFHeader.vue'
 
 const links = [
   { name: 'sidebarLink', label: 'Main', href: '/', checked: false, icon: 'house-chimney' },
@@ -16,8 +17,9 @@ const changeBar = (label) => {
 </script>
 
 <template>
-  <WFSidebar />
-  <div class="router" :style="{'margin-left': sidebarWidth}">
+  <WFHeader/>
+  <!-- <WFSidebar /> -->
+  <div class="router" :style="{ 'margin-left': sidebarWidth }">
     <router-view></router-view>
   </div>
 </template>

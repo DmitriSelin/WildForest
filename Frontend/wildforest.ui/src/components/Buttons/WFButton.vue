@@ -51,7 +51,7 @@ const clickOnButton = () => {
     @click="clickOnButton"
   >
     <span v-if="icon">
-      <font-awesome-icon :icon="`fa-regular fa-${icon}`" />
+      <font-awesome-icon :icon="`fa-solid fa-${icon}`" />
     </span>
     <span v-else>{{ label }}</span>
   </button>
@@ -60,7 +60,6 @@ const clickOnButton = () => {
 <style lang="scss" scoped>
 .btn {
   margin-right: 10px;
-  margin-bottom: 10px;
   color: var(--white);
   font-weight: bold;
   cursor: pointer;
@@ -116,11 +115,7 @@ const clickOnButton = () => {
 
   &_outlined {
     background-color: transparent;
-    color: var(--second);
-
-    &:hover {
-      color: var(--white);
-    }
+    color: var(--white);
   }
 
   &_icon {

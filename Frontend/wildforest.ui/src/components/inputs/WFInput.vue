@@ -59,8 +59,8 @@ const updateValue = (e) => {
 <style lang="scss" scoped>
 .form {
   &-input {
-    margin-bottom: 30px;
     position: relative;
+    margin-right: 5px;
   }
   &-error {
     background: var(--danger);
