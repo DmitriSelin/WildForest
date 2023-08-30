@@ -10,7 +10,6 @@ public class ApiController : ControllerBase
     protected IActionResult Problem(List<Error> errors)
     {
         HttpContext.Items[HttpContextItemKeys.Errors] = errors;
-
         Error firstError = errors[0];
 
         var statusCode = firstError.Type switch
