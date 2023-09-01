@@ -12,6 +12,11 @@ public class Country : Entity<CountryId>
 
     public IReadOnlyList<City> Cities => _cities.AsReadOnly();
 
+    public void AddCity(City city)
+    {
+        _cities.Add(city);
+    }
+
     public static Country Create(CountryName name)
         => new(CountryId.Create(), name);
 
