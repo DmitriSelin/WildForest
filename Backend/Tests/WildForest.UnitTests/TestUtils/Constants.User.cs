@@ -12,10 +12,16 @@ public static partial class Constants
 
         public static readonly Password Password = Password.Create("Password");
 
-        public static readonly Email FirstEmail = Email.Create("test1@gmail.com");
+        public static readonly Email FirstEmail = Email.Create("first@gmail.com");
 
-        public static readonly Email SecondEmail = Email.Create("test2@gmail.com");
+        public static readonly Email SecondEmail = Email.Create("second@gmail.com");
 
-        public static readonly Email ThirdEmail = Email.Create("test3@gmail.com");
+        public static readonly Email ThirdEmail = Email.Create("third@gmail.com");
+
+        public static readonly Email UserDuplicateEmail = Email.Create("user@gmail.com");
+
+        public static readonly Email AdminDuplicateEmail = Email.Create("admin@gmail.com");
+
+        public static readonly string IP = "1.0.0.0";
     }
 }

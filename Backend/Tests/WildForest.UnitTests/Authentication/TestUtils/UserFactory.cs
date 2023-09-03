@@ -10,15 +10,15 @@ public sealed class UserFactory
     {
         var users = new List<User>();
 
-        var firstUser = User.CreateUser(Constants.User.FirstName, Constants.User.LastName,
-            Constants.User.FirstEmail, Constants.User.Password, cityId);
+        var user = User.CreateUser(Constants.User.FirstName, Constants.User.LastName,
+            Constants.User.UserDuplicateEmail, Constants.User.Password, cityId);
 
-        users.Add(firstUser);
+        users.Add(user);
 
-        var secondUser = User.CreateUser(Constants.User.FirstName, Constants.User.LastName,
-            Constants.User.SecondEmail, Constants.User.Password, cityId);
+        var admin = User.CreateAdmin(Constants.User.FirstName, Constants.User.LastName,
+            Constants.User.AdminDuplicateEmail, Constants.User.Password, cityId);
 
-        users.Add(secondUser);
+        users.Add(admin);
         return users;
     }
 }
