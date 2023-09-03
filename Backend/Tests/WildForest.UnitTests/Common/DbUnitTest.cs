@@ -1,7 +1,7 @@
 using WildForest.Infrastructure.Persistence.UoW;
 namespace WildForest.UnitTests.Common;
 
-public class DbUnitTest : IDisposable
+public abstract class DbUnitTest : IDisposable
 {
     protected readonly UnitOfWork UnitOfWork;
     
