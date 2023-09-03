@@ -9,6 +9,8 @@ public sealed class UnitOfWork : IUnitOfWork
 {
     private readonly WildForestDbContext _context;
 
+    public WildForestDbContext Context => _context;
+
     private ICityRepository? cityRepository;
 
     public ICityRepository CityRepository

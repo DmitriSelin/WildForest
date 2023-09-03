@@ -1,13 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using WildForest.Infrastructure.Persistence.Context;
+using WildForest.Infrastructure.Persistence.UoW;
 using WildForest.UnitTests.Authentication.TestUtils;
 using WildForest.UnitTests.Maps.TestUtils;
 
 namespace WildForest.UnitTests.Common;
 
-public sealed class DbContextFactoryInMemory
+public sealed class UnitOfWorkFactoryInMemory
 {
-    public static WildForestDbContext Create()
+    public static UnitOfWork Create()
     {
         var options = new DbContextOptionsBuilder<WildForestDbContext>()
             .UseInMemoryDatabase(Guid.NewGuid().ToString())
@@ -22,12 +23,12 @@ public sealed class DbContextFactoryInMemory
         context.Countries.Add(country);
         context.Users.AddRange(users);
         context.SaveChanges();
-        return context;
+        return new(context);
     }
 
-    public static void Destroy(WildForestDbContext context)
+    public static void Destroy(UnitOfWork unitOfWork)
     {
-        context.Database.EnsureDeleted();
-        context.Dispose();
+        unitOfWork.Context.Database.EnsureDeleted();
+        unitOfWork.Context.Dispose();
     }
 }
