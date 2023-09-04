@@ -22,8 +22,12 @@ public sealed class UnitOfWorkFactoryInMemory
 
         context.Countries.Add(country);
         context.Users.AddRange(users);
+        
+        var unitOfWork = new UnitOfWork(context);
+        RefreshTokenHelper.Initialize(users, unitOfWork);
+
         context.SaveChanges();
-        return new(context);
+        return unitOfWork;
     }
 
     public static void Destroy(UnitOfWork unitOfWork)
