@@ -59,7 +59,7 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
     public static RefreshToken Create(
         string token,
         string createdByIp,
-        UserId personId)
+        UserId userId)
     {
         if (string.IsNullOrWhiteSpace(token))
             throw new ArgumentNullException(nameof(token));
@@ -68,7 +68,7 @@ public sealed class RefreshToken : Entity<RefreshTokenId>
 
         return new(
             RefreshTokenId.Create(), token, utcNow.AddDays(7),
-            utcNow, createdByIp, personId,
+            utcNow, createdByIp, userId,
             null, null, null, null);
     }
 

@@ -67,7 +67,7 @@ public sealed class RefreshTokenCommandHandler : IRefreshTokenCommandHandler
         string createdByIp,
         string reason)
     {
-        if (!string.IsNullOrEmpty(refreshToken?.ReplacedByToken))
+        if (!string.IsNullOrEmpty(refreshToken.ReplacedByToken))
         {
             var childToken = await _unitOfWork.RefreshTokenRepository.GetRefreshTokenByReplacedTokenAndUserIdAsync(
                 refreshToken.ReplacedByToken, user.Id);
