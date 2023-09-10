@@ -16,6 +16,7 @@ using WildForest.Infrastructure.Persistence.DataInitialization;
 using System.Text;
 using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 using WildForest.Infrastructure.Persistence.UoW;
+using WildForest.Infrastructure.Common.Extensions;
 
 namespace WildForest.Infrastructure;
 
@@ -35,7 +36,7 @@ public static class DependencyInjection
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddDbContext<WildForestDbContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")));
+            options.UseNpgsql(configuration.GetPostgreSQLConnectionString()));
 
         services.InitializeData();
 

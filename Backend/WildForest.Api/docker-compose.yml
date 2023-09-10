@@ -1,0 +1,36 @@
+version: "3.8"
+networks:
+  wildforest-dev:
+    driver: bridge
+services:
+  app:
+    image: dimitri18/wildforest:latest
+    container_name: wildforest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      - PostgresConnectionString=Host=postgres_db;Port=5432;Database=WildForestDb;Username=postgres;Password=xxx;
+      - ASPNETCORE_URLS=https://+:80
+    networks:
+      - wildforest-dev
+    depends_on:
+      - postgres_db
+  postgres_db:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=7409amId
+      - POSTGRES_DB=WildForestDb
+    ports:
+      - "5432:5432"
+    networks:
+      - wildforest-dev
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+volumes:
+  db_volume:

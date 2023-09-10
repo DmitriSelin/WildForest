@@ -5,10 +5,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["WildForest.Api/WildForest.Api.csproj", "WildForest.Api/"]
-RUN dotnet restore "WildForest.Api/WildForest.Api.csproj"
+COPY ["Backend/WildForest.Api/WildForest.Api.csproj", "Backend/WildForest.Api/"]
+RUN dotnet restore "Backend/WildForest.Api/WildForest.Api.csproj"
 COPY . .
-WORKDIR "/src/WildForest.Api"
+WORKDIR "/src/Backend/WildForest.Api"
 RUN dotnet build "WildForest.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
