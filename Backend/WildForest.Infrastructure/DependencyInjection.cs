@@ -16,7 +16,6 @@ using WildForest.Infrastructure.Persistence.DataInitialization;
 using System.Text;
 using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 using WildForest.Infrastructure.Persistence.UoW;
-using WildForest.Infrastructure.Common.Extensions;
 
 namespace WildForest.Infrastructure;
 
@@ -27,6 +26,7 @@ public static class DependencyInjection
         ConfigurationManager configuration)
     {
         services.AddAuth(configuration);
+        configuration.AddEnvironmentVariables("APP:");
 
         services.AddHttpClient<IWeatherForecastHttpClient, WeatherForecastHttpClient>();
 
@@ -36,7 +36,7 @@ public static class DependencyInjection
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddDbContext<WildForestDbContext>(options =>
-            options.UseNpgsql(configuration.GetPostgreSQLConnectionString()));
+            options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")));
 
         services.InitializeData();
 

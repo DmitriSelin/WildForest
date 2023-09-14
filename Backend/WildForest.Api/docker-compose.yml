@@ -12,8 +12,7 @@ services:
     ports:
       - "8080:80"
     environment:
-      - PostgresConnectionString=Host=postgres_db;Port=5432;Database=WildForestDb;Username=postgres;Password=xxx;
-      - ASPNETCORE_URLS=https://+:80
+      - APP:ConnectionStrings:PostgreSQL=Host=postgres_db;Port=5432;Database=WildForestDb;Username=postgres;Password=xxx;
     networks:
       - wildforest-dev
     depends_on:
@@ -24,7 +23,7 @@ services:
     restart: always
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=7409amId
+      - POSTGRES_PASSWORD=xxx
       - POSTGRES_DB=WildForestDb
     ports:
       - "5432:5432"
