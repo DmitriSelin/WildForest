@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 networks:
   wildforest-dev:
     driver: bridge
@@ -12,7 +12,7 @@ services:
     ports:
       - "8080:80"
     environment:
-      - APP:ConnectionStrings:PostgreSQL=Host=postgres_db;Port=5432;Database=WildForestDb;Username=postgres;Password=xxx;
+      ConnectionStrings__DefaultConnection: ${DB_CONNECTION_STRING}
     networks:
       - wildforest-dev
     depends_on:
@@ -22,9 +22,9 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=xxx
-      - POSTGRES_DB=WildForestDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: WildForestDb
     ports:
       - "5432:5432"
     networks:

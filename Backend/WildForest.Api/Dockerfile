@@ -17,4 +17,5 @@ RUN dotnet publish "WildForest.Api.csproj" -c Release -o /app/publish /p:UseAppH
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY Backend/WildForest.Api/ru.json /app/ru.json
 ENTRYPOINT ["dotnet", "WildForest.Api.dll"]

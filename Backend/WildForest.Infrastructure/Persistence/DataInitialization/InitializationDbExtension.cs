@@ -10,23 +10,23 @@ namespace WildForest.Infrastructure.Persistence.DataInitialization;
 
 public static class InitializationDbExtension
 {
-    public static IServiceCollection InitializeData(this IServiceCollection services)
+    public static IServiceCollection InitializeData(this IServiceCollection services, bool isAppInDocker)
     {
-        using var context = services.BuildServiceProvider().GetService<WildForestDbContext>();
+        using var context = services.BuildServiceProvider().GetRequiredService<WildForestDbContext>();
         
         bool isDataInitialized = context!.Countries.Any();
 
         if (!isDataInitialized)
-            InitializeData(context);
+            InitializeData(context, isAppInDocker);
 
         return services;
     }
 
-    private static void InitializeData(WildForestDbContext context)
+    private static void InitializeData(WildForestDbContext context, bool isAppInDocker)
     {
         var country = InitializeCountry(context);
 
-        InitializeCities(context, country.Id);
+        InitializeCities(context, country.Id, isAppInDocker);
 
         context.SaveChanges();
     }
@@ -40,12 +40,17 @@ public static class InitializationDbExtension
         return country;
     }
 
-    private static void InitializeCities(WildForestDbContext context, CountryId countryId)
+    private static void InitializeCities(WildForestDbContext context, CountryId countryId, bool isAppInDocker)
     {
         var jsonOptions = new JsonSerializerOptions();
         jsonOptions.Converters.Add(new CityConverter(countryId));
 
-        string relativePath = "..\\WildForest.Infrastructure\\Persistence\\DataInitialization\\ru.json";
+        string relativePath = string.Empty;
+
+        if (isAppInDocker)
+            relativePath = "/app/ru.json";
+        else
+            relativePath = "ru.json";
 
         using var fs = new FileStream(relativePath, FileMode.Open);
         var cities = JsonSerializer.Deserialize(fs, typeof(List<City>), jsonOptions) as List<City>;

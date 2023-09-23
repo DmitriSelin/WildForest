@@ -26,7 +26,6 @@ public static class DependencyInjection
         ConfigurationManager configuration)
     {
         services.AddAuth(configuration);
-        configuration.AddEnvironmentVariables("APP:");
 
         services.AddHttpClient<IWeatherForecastHttpClient, WeatherForecastHttpClient>();
 
@@ -35,10 +34,18 @@ public static class DependencyInjection
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        services.AddDbContext<WildForestDbContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")));
+        var isAppInDocker = IsAppInDocker();
+        var connectionString = configuration.GetConnectionString("DefaultConnection")!;
 
-        services.InitializeData();
+        if (!isAppInDocker)
+        {
+            connectionString = connectionString.Replace("postgres_db", "localhost");
+        }
+
+        services.AddDbContext<WildForestDbContext>(options =>
+            options.UseNpgsql(connectionString));
+
+        services.InitializeData(isAppInDocker);
 
         return services;
     }
@@ -69,5 +76,19 @@ public static class DependencyInjection
             });
 
         return services;
+    }
+
+    private static bool IsAppInDocker()
+    {
+        var isRunningInContainer = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER");
+
+        if (!string.IsNullOrEmpty(isRunningInContainer))
+            return true;
+
+        var hostingStartupAssemblies = Environment.GetEnvironmentVariable("ASPNETCORE_HOSTINGSTARTUPASSEMBLIES");
+        if (!string.IsNullOrEmpty(hostingStartupAssemblies))
+            return false;
+
+        return false;
     }
 }
