@@ -14,12 +14,17 @@ import WFButton from '@/components/buttons/WFButton.vue'
 <style lang="scss" scoped>
 .background {
     background-image: url(../assets/images/background.jpg);
+    background-repeat: no-repeat;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 70px;
+    -moz-background-size: 100%;
+    -webkit-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
 
     &-title {
         color: transparent;
@@ -27,5 +32,4 @@ import WFButton from '@/components/buttons/WFButton.vue'
         font-weight: bold;
         -webkit-text-stroke: 1px var(--white);
     }
-}
-</style>
+}</style>
