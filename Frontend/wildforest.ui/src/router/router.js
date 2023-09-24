@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from "vue-router";
 import Index from "@/views/WFIndex.vue";
 import Button from "@/views/Button.vue";
+import Start from "@/views/WFStart.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -14,6 +15,11 @@ const router = createRouter({
             path: "/buttons",
             name: "Button",
             component: Button
+        },
+        {
+            path: "/start",
+            name: "Start",
+            component: Start
         }
     ]
 });
