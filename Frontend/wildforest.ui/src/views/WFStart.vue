@@ -1,13 +1,21 @@
 <script setup>
 import WFButton from '@/components/buttons/WFButton.vue'
+
+const goToLoginView = () => {
+    window.location.href = "http://localhost:5173/buttons";
+}
+
+const goToMainView = () => {
+    window.location.href = "http://localhost:5173";
+}
 </script>
 
 <template>
     <div class="background">
         <img src="../assets/images/appLogo.svg" />
         <h1 class="background-title">Wild forest</h1>
-        <WFButton label="Login" outlined size="large" />
-        <WFButton label="Start without login" outlined size="large" />
+        <WFButton label="Login" outlined size="large" @click="goToLoginView" />
+        <WFButton label="Start without login" outlined size="large" @click="goToMainView" />
     </div>
 </template>
 
@@ -32,4 +40,5 @@ import WFButton from '@/components/buttons/WFButton.vue'
         font-weight: bold;
         -webkit-text-stroke: 1px var(--white);
     }
-}</style>
+}
+</style>
