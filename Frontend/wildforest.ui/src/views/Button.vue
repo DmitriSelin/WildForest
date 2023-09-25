@@ -239,6 +239,8 @@ const vuelidate = useVuelidate(rules, { nameField })
     />
   </form>
   <h2>{{ nameField }}</h2>
+  <br><br>
+  <WFInput type="password" label="Enter password" placeholder="Input password"/>
 </template>
 
 <style scoped lang="scss">

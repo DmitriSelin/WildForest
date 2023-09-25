@@ -1,26 +1,26 @@
 import {createRouter, createWebHistory} from "vue-router";
-import Index from "@/views/WFIndex.vue";
-import Button from "@/views/Button.vue";
 import Start from "@/views/WFStart.vue";
+import Login from "@/views/WFLogin.vue";
+import Button from "@/views/Button.vue";
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
             path: "/",
-            name: "Index",
-            component: Index
+            name: "Start",
+            component: Start
+        },
+        {
+            path: "/auth/login",
+            name: "Login",
+            component: Login
         },
         {
             path: "/buttons",
             name: "Button",
             component: Button
         },
-        {
-            path: "/start",
-            name: "Start",
-            component: Start
-        }
     ]
 });
 

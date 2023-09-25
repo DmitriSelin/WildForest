@@ -6,7 +6,7 @@ import WFButtonLink from '@/components/buttons/WFButtonLink.vue'
     <div class="background">
         <img src="../assets/images/appLogo.svg" />
         <h1 class="background-title">Wild forest</h1>
-        <WFButtonLink label="Login" outlined size="large" to="/buttons" />
+        <WFButtonLink label="Login" outlined size="large" to="/auth/login" />
         <WFButtonLink label="Start without login" outlined size="large" to="/" />
     </div>
 </template>
