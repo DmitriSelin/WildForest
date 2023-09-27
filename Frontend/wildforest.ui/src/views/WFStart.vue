@@ -22,6 +22,7 @@ import WFButtonLink from '@/components/buttons/WFButtonLink.vue'
     justify-content: center;
     align-items: center;
     gap: 70px;
+    overflow-x: auto;
 
     &-title {
         color: transparent;
