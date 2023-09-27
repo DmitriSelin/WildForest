@@ -97,7 +97,8 @@ const props = defineProps({
     &_large {
         height: 48px;
         padding: 0 30px;
-        padding-top: 15px;
+        display: flex;
+        align-items: center;
     }
 }
 </style>

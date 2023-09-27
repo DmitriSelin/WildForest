@@ -20,7 +20,7 @@ const props = defineProps({
         <span class="text">{{ text }}</span>
         <span class="title">
             &nbsp;
-            {{' ' + title }}
+            {{ title }}
         </span>
     </router-link>
 </template>
