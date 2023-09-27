@@ -24,6 +24,10 @@ const props = defineProps({
     type: String,
     required: false
   },
+  iconPackName: {
+    type: String,
+    default: 'solid'
+  },
   size: {
     type: String,
     default: 'normal'
@@ -51,7 +55,7 @@ const clickOnButton = () => {
     @click="clickOnButton"
   >
     <span v-if="icon">
-      <font-awesome-icon :icon="`fa-solid fa-${icon}`" />
+      <font-awesome-icon :icon="`fa-${iconPackName} fa-${icon}`" />
     </span>
     <span v-else>{{ label }}</span>
   </button>

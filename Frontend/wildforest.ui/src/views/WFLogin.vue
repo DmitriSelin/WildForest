@@ -19,7 +19,7 @@ import WFEmptyLink from "@/components/buttons/WFEmptyLink.vue";
                     <WFEmptyLink to="/" text="Have not an account?" title="Register" />
                 </div>
                 <span class="left-block-content-txt">or</span>
-                <WFButton label="Google"/>
+                <WFButton iconPackName="brands" icon="google"/>
             </form>
         </div>
         <div class="right-block">
