@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from "vue-router";
 import Start from "@/views/WFStart.vue";
 import Login from "@/views/WFLogin.vue";
+import Register from "@/views/WFRegister.vue";
 import Button from "@/views/Button.vue";
 
 const router = createRouter({
@@ -15,6 +16,11 @@ const router = createRouter({
             path: "/auth/login",
             name: "Login",
             component: Login
+        },
+        {
+            path: "/auth/register",
+            name: "Registration",
+            component: Register
         },
         {
             path: "/buttons",

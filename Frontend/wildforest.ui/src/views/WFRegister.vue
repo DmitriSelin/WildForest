@@ -9,14 +9,17 @@ import WFEmptyLink from "@/components/buttons/WFEmptyLink.vue";
         <div class="left-block">
             <div class="left-block-name">
                 <img src="../assets/images/heart.svg" alt="heart" class="left-block-name-heart" />
-                <h1>Login</h1>
+                <h1>Registration</h1>
             </div>
             <form action="" method="post" class="left-block-content">
+                <WFInput label="Name" name="name" placeholder="Input your name" />
+                <WFInput label="Surname" name="secondName" placeholder="Input your surname" />
                 <WFInput label="Email" name="email" placeholder="Input your email" />
                 <WFInput label="Password" type="password" name="password" placeholder="Input your password" />
+                <WFInput label="Password" type="password" name="samePassword" placeholder="Input the same password" />
                 <div class="left-block-content-btn">
-                    <WFButton label="Login" size="large" />
-                    <WFEmptyLink to="register" text="Have not an account?" title="Register" />
+                    <WFButton label="Register" size="large" />
+                    <WFEmptyLink to="login" text="Already have an account?" title="Login" />
                 </div>
                 <span class="left-block-content-txt">or</span>
                 <WFButton iconPackName="brands" icon="google" />
