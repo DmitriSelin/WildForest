@@ -11,6 +11,7 @@ import WFTable from '@/components/tables/WFTable.vue'
 import WFTableRow from '@/components/tables/WFTableRow.vue'
 import WFTableColumn from '@/components/tables/WFTableColumn.vue'
 import WFInput from '@/components/inputs/WFInput.vue'
+import Button from "primevue/button"
 import { ref } from 'vue'
 import { computed } from 'vue'
 
@@ -121,9 +122,16 @@ const rules = computed(() => ({
 }))
 
 const vuelidate = useVuelidate(rules, { nameField })
+
+function test()
+{
+  alert("test");
+}
 </script>
 
 <template>
+  <Button label="Ok" class="btn" @click="test"></Button>
+  <br><br><br><br><br>
   <h1>{{ isChecked }}</h1>
   <Checkbox
     label="Go to top"
@@ -241,10 +249,16 @@ const vuelidate = useVuelidate(rules, { nameField })
   <h2>{{ nameField }}</h2>
   <br><br>
   <WFInput type="password" label="Enter password" placeholder="Input password"/>
+  <br><br><br><br><br>
 </template>
 
 <style scoped lang="scss">
 h1, h2, .white {
   color: var(--white);
+}
+
+.btn {
+  margin: 10px;
+  padding: 10px;
 }
 </style>
