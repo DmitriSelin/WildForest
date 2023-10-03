@@ -6,4 +6,5 @@ public sealed record RegisterCommand(
     string Email,
     string Password,
     string IpAddress,
-    Guid CityId);
+    Guid CityId,
+    Guid LanguageId);

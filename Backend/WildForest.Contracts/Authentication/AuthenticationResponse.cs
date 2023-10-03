@@ -8,5 +8,6 @@
         string Password,
         Guid CityId,
         string CityName,
+        Guid LanguageId,
         string Token);
 }

@@ -5,5 +5,6 @@
         string LastName,
         string Email,
         string Password,
-        Guid CityId);
+        Guid CityId,
+        Guid LanguageId);
 }

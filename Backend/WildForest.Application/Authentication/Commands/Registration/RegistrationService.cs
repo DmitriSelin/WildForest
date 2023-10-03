@@ -7,6 +7,7 @@ using WildForest.Domain.Users.ValueObjects;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Commands.Registration;
 using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
+using WildForest.Domain.Languages.ValueObjects;
 
 namespace WildForest.Application.Authentication.Commands.RegisterUser;
 
@@ -68,7 +69,8 @@ public sealed class RegistrationService : IRegistrationService
             lastName: credentials.Item2,
             email: email,
             password: credentials.Item3,
-            cityId: credentials.Item4);
+            cityId: credentials.Item4,
+            languageId: credentials.Item5);
     }
 
     private static User CreateAdmin(RegisterCommand command, Email email)
@@ -80,16 +82,18 @@ public sealed class RegistrationService : IRegistrationService
             lastName: credentials.Item2,
             email: email,
             password: credentials.Item3,
-            cityId: credentials.Item4);
+            cityId: credentials.Item4,
+            languageId: credentials.Item5);
     }
 
-    private static Tuple<FirstName, LastName, Password, CityId> CreateCredentials(RegisterCommand command)
+    private static Tuple<FirstName, LastName, Password, CityId, LanguageId> CreateCredentials(RegisterCommand command)
     {
         var firstName = FirstName.Create(command.FirstName);
         var lastName = LastName.Create(command.LastName);
         var password = Password.Create(command.Password);
         var cityId = CityId.Create(command.CityId);
+        var languageId = LanguageId.Create(command.LanguageId);
 
-        return new(firstName, lastName, password, cityId);
+        return new(firstName, lastName, password, cityId, languageId);
     }
 }
