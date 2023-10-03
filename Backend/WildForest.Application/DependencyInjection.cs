@@ -3,6 +3,7 @@ using WildForest.Application.Authentication.Commands.RefreshTokens;
 using WildForest.Application.Authentication.Commands.RegisterUser;
 using WildForest.Application.Authentication.Commands.RevokeTokens;
 using WildForest.Application.Authentication.Queries.LoginUser;
+using WildForest.Application.Authentication.Queries.Registration;
 using WildForest.Application.Common.Mapping;
 using WildForest.Application.Maps.Commands.AddCountry;
 using WildForest.Application.Maps.Queries.GetCitiesList;
@@ -35,6 +36,7 @@ public static class DependencyInjection
         services.AddScoped<ILoginService, LoginService>();
         services.AddScoped<IRefreshTokenCommandHandler, RefreshTokenCommandHandler>();
         services.AddScoped<IRevokeTokenCommandHandler, RevokeTokenCommandHandler>();
+        services.AddScoped<IAuthCredentialsQueryHandler, AuthCredentialsQueryHandler>();
 
         return services;
     }

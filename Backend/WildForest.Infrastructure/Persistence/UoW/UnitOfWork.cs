@@ -36,6 +36,11 @@ public sealed class UnitOfWork : IUnitOfWork
     public IUserRepository UserRepository
         => userRepository ??= new UserRepository(_context);
 
+    private ILanguageRepository? languageRepository;
+
+    public ILanguageRepository LanguageRepository
+        => languageRepository ??= new LanguageRepository(_context);
+
     private IWeatherForecastRepository? weatherForecastRepository;
 
     public IWeatherForecastRepository WeatherForecastRepository

@@ -7,6 +7,7 @@ using WildForest.Application.Authentication.Commands.RegisterUser;
 using WildForest.Application.Authentication.Commands.Registration;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Queries.LoginUser;
+using WildForest.Application.Authentication.Queries.Registration;
 using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
 using WildForest.Contracts.Authentication;
@@ -24,19 +25,22 @@ public sealed class AuthenticationController : ApiController
     private readonly IMapper _mapper;
     private readonly ICountriesListQueryHandler _countriesListQueryHandler;
     private readonly ICitiesListQueryHandler _citiesListQueryHandler;
+    private readonly IAuthCredentialsQueryHandler _authCredentialsQueryHandler;
 
     public AuthenticationController(
         IRegistrationService registrationService,
         ILoginService loginService,
         IMapper mapper,
         ICountriesListQueryHandler countriesListQueryHandler,
-        ICitiesListQueryHandler citiesListQueryHandler)
+        ICitiesListQueryHandler citiesListQueryHandler,
+        IAuthCredentialsQueryHandler authCredentialsQueryHandler)
     {
         _registrationService = registrationService;
         _loginService = loginService;
         _mapper = mapper;
         _countriesListQueryHandler = countriesListQueryHandler;
         _citiesListQueryHandler = citiesListQueryHandler;
+        _authCredentialsQueryHandler = authCredentialsQueryHandler;
     }
 
     [AllowAnonymous]
@@ -103,14 +107,12 @@ public sealed class AuthenticationController : ApiController
     }
 
     [AllowAnonymous]
-    [HttpGet("countries")]
+    [HttpGet("countries-languages")]
     public async Task<IActionResult> GetCountries()
     {
-        List<CountryQuery> countries = await _countriesListQueryHandler.GetCountriesAsync();
+        var credentialResponse = await _authCredentialsQueryHandler.GetCountriesAndLanguagesAsync();
 
-        var countriesResponse = _mapper.Map<List<CountryResponse>>(countries);
-
-        return Ok(countriesResponse);
+        return Ok(credentialResponse);
     }
 
     [AllowAnonymous]
