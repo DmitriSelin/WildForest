@@ -2,6 +2,8 @@
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Common.Models;
+using WildForest.Domain.Languages.Entities;
+using WildForest.Domain.Languages.ValueObjects;
 using WildForest.Domain.Ratings.Entities;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.ValueObjects;
@@ -24,6 +26,10 @@ public class User : Entity<UserId>
 
     public City City { get; } = null!;
 
+    public LanguageId LanguageId { get; } = null!;
+
+    public Language Language { get; } = null!;
+
     private readonly List<RefreshToken> _refreshTokens = new();
 
     public IReadOnlyList<RefreshToken> RefreshTokens => _refreshTokens.AsReadOnly();
@@ -34,7 +40,8 @@ public class User : Entity<UserId>
 
     private User(
         UserId id, FirstName firstName, LastName lastName,
-        Role role, Email email, Password password, CityId cityId) : base(id)
+        Role role, Email email, Password password,
+        CityId cityId, LanguageId languageId) : base(id)
     {
         FirstName = firstName;
         LastName = lastName;
@@ -42,6 +49,7 @@ public class User : Entity<UserId>
         Email = email;
         Password = password;
         CityId = cityId;
+        LanguageId = languageId;
     }
 
     public static User CreateUser(
@@ -49,10 +57,12 @@ public class User : Entity<UserId>
         LastName lastName,
         Email email,
         Password password,
-        CityId cityId)
+        CityId cityId,
+        LanguageId languageId)
     {
         return new(UserId.Create(), firstName, lastName,
-                    Role.User, email, password, cityId);
+                    Role.User, email, password, cityId,
+                    languageId);
     }
 
     public static User CreateAdmin(
@@ -60,10 +70,12 @@ public class User : Entity<UserId>
         LastName lastName,
         Email email,
         Password password,
-        CityId cityId)
+        CityId cityId,
+        LanguageId languageId)
     {
         return new(UserId.Create(), firstName, lastName,
-                    Role.Admin, email, password, cityId);
+                    Role.Admin, email, password,
+                    cityId, languageId);
     }
 
 #pragma warning disable IDE0051 // Remove unused private members

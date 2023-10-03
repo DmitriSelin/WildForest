@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Countries.Entities;
+using WildForest.Domain.Languages.Entities;
 using WildForest.Domain.Ratings;
 using WildForest.Domain.Ratings.Entities;
 using WildForest.Domain.Tokens.Entities;
@@ -17,6 +18,8 @@ public sealed class WildForestDbContext : DbContext
     public DbSet<City> Cities => Set<City>();
 
     public DbSet<User> Users => Set<User>();
+
+    public DbSet<Language> Languages => Set<Language>();
 
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     

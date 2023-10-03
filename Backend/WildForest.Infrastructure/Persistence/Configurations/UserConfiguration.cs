@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WildForest.Domain.Cities.ValueObjects;
+using WildForest.Domain.Languages.ValueObjects;
 using WildForest.Domain.Users.Entities;
 using WildForest.Domain.Users.ValueObjects;
 
@@ -70,6 +71,17 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .HasConversion(
                 id => id.Value,
                 value => CityId.Create(value));
+
+        builder
+            .HasOne(p => p.Language)
+            .WithMany(x => x.Users)
+            .HasForeignKey(p => p.LanguageId);
+
+        builder
+            .Property(p => p.LanguageId)
+            .HasConversion(
+                id => id.Value,
+                value => LanguageId.Create(value));
 
         builder.Metadata
             .FindNavigation(nameof(User.RefreshTokens))!
