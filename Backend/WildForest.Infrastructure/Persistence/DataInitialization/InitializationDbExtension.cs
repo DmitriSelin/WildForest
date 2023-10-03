@@ -3,6 +3,7 @@ using System.Text.Json;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Countries.Entities;
 using WildForest.Domain.Countries.ValueObjects;
+using WildForest.Domain.Languages.Entities;
 using WildForest.Infrastructure.Persistence.Context;
 using WildForest.Infrastructure.Persistence.DataInitialization.Converters;
 
@@ -25,8 +26,8 @@ public static class InitializationDbExtension
     private static void InitializeData(WildForestDbContext context, bool isAppInDocker)
     {
         var country = InitializeCountry(context);
-
         InitializeCities(context, country.Id, isAppInDocker);
+        InitializeLanguages(context);
 
         context.SaveChanges();
     }
@@ -59,5 +60,13 @@ public static class InitializationDbExtension
             throw new ArgumentNullException(nameof(cities), "Invalid json file");
 
         context.Cities.AddRange(cities);
+    }
+
+    private static void InitializeLanguages(WildForestDbContext context)
+    {
+        var english = Language.Create("English");
+        var russian = Language.Create("Русский");
+        context.Languages.Add(english);
+        context.Languages.Add(russian);
     }
 }

@@ -12,7 +12,7 @@ using WildForest.Infrastructure.Persistence.Context;
 namespace WildForest.Infrastructure.Migrations
 {
     [DbContext(typeof(WildForestDbContext))]
-    [Migration("20231003160911_InitialMigration")]
+    [Migration("20231003162839_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
