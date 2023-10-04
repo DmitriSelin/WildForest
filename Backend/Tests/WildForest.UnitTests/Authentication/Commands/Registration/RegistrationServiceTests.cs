@@ -15,11 +15,13 @@ public sealed class RegistrationServiceTests : DbUnitTest
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IRefreshTokenGenerator _refreshTokenGenerator;
+    private readonly Guid _languageId;
 
     public RegistrationServiceTests()
     {
         _jwtTokenGenerator = Substitute.For<IJwtTokenGenerator>();
         _refreshTokenGenerator = new RefreshTokenGenerator(UnitOfWork);
+        _languageId = UnitOfWork.Context.Languages.First().Id.Value;
     }
 
     [Fact]
@@ -29,7 +31,7 @@ public sealed class RegistrationServiceTests : DbUnitTest
         var registrationService = new RegistrationService(_jwtTokenGenerator, _refreshTokenGenerator, UnitOfWork);
         var city = UnitOfWork.Context.Cities.First();
         var command = new RegisterCommand(Constants.User.FirstName.Value, Constants.User.LastName.Value,
-            Constants.User.FirstEmail.Value, Constants.User.Password.Value, Constants.User.IP, city.Id.Value);
+            Constants.User.FirstEmail.Value, Constants.User.Password.Value, Constants.User.IP, city.Id.Value, _languageId);
 
         //Act
         ErrorOr<AuthenticationResult> authResult = await registrationService.RegisterAsync(command);
@@ -45,7 +47,7 @@ public sealed class RegistrationServiceTests : DbUnitTest
         var registrationService = new RegistrationService(_jwtTokenGenerator, _refreshTokenGenerator, UnitOfWork);
         var city = UnitOfWork.Context.Cities.First();
         var command = new RegisterCommand(Constants.User.FirstName.Value, Constants.User.LastName.Value,
-            Constants.User.UserDuplicateEmail.Value, Constants.User.Password.Value, Constants.User.IP, city.Id.Value);
+            Constants.User.UserDuplicateEmail.Value, Constants.User.Password.Value, Constants.User.IP, city.Id.Value, _languageId);
 
         //Act
         ErrorOr<AuthenticationResult> authResult = await registrationService.RegisterAsync(command);
@@ -61,7 +63,7 @@ public sealed class RegistrationServiceTests : DbUnitTest
         //Arrange
         var registrationService = new RegistrationService(_jwtTokenGenerator, _refreshTokenGenerator, UnitOfWork);
         var command = new RegisterCommand(Constants.User.FirstName.Value, Constants.User.LastName.Value,
-            Constants.User.FirstEmail.Value, Constants.User.Password.Value, Constants.User.IP, Guid.NewGuid());
+            Constants.User.FirstEmail.Value, Constants.User.Password.Value, Constants.User.IP, Guid.NewGuid(), _languageId);
 
         //Act
         ErrorOr<AuthenticationResult> authResult = await registrationService.RegisterAsync(command);

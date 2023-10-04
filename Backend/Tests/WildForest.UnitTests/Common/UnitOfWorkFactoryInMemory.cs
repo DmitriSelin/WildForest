@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WildForest.Domain.Languages.Entities;
 using WildForest.Infrastructure.Persistence.Context;
 using WildForest.Infrastructure.Persistence.UoW;
 using WildForest.UnitTests.Authentication.TestUtils;
@@ -18,9 +19,11 @@ public sealed class UnitOfWorkFactoryInMemory
         context.Database.EnsureCreated();
 
         var country = CountryFactory.Create();
-        var users = UserFactory.Create(country.Cities[0].Id);
+        var language = Language.Create("English");
+        var users = UserFactory.Create(country.Cities[0].Id, language.Id);
 
         context.Countries.Add(country);
+        context.Languages.Add(language);
         context.Users.AddRange(users);
         
         var unitOfWork = new UnitOfWork(context);

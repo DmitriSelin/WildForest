@@ -22,6 +22,6 @@ public static partial class Constants
 
         public static readonly Email AdminDuplicateEmail = Email.Create("admin@gmail.com");
 
-        public static readonly string IP = "1.0.0.0";
+        public const string IP = "1.0.0.0";
     }
 }
