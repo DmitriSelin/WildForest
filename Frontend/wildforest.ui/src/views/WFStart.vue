@@ -1,13 +1,24 @@
 <script setup>
-import WFButtonLink from '@/components/buttons/WFButtonLink.vue'
+import { useRouter } from 'vue-router';
+import WFButton from '@/components/buttons/WFButton.vue'
+
+const router = useRouter();
+
+const goToLoginView = () => {
+    router.push("/auth/login");
+}
+
+const goToMainView = () => {
+    router.push("/");
+}
 </script>
 
 <template>
     <div class="background">
         <img src="../assets/images/appLogo.svg" />
         <h1 class="background-title">Wild forest</h1>
-        <WFButtonLink label="Login" outlined size="large" to="/auth/login" />
-        <WFButtonLink label="Start without login" outlined size="large" to="/" />
+        <WFButton label="Login" outlined size="large" @click="goToLoginView"/>
+        <WFButton label="Start without login" outlined size="large" @click="goToMainView"/>
     </div>
 </template>
 
