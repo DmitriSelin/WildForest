@@ -4,5 +4,5 @@ namespace WildForest.Application.Common.Interfaces.Authentication;
 
 public interface IJwtTokenGenerator
 {
-    string GenerateToken(User person);
+    string GenerateToken(User user);
 }

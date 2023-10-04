@@ -5,5 +5,5 @@ namespace WildForest.Application.Common.Interfaces.Authentication;
 
 public interface IRefreshTokenGenerator
 {
-    Task<RefreshToken> GenerateTokenAsync(UserId personId, string createdByIp);
+    Task<RefreshToken> GenerateTokenAsync(UserId userId, string createdByIp);
 }
