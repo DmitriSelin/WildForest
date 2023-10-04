@@ -6,6 +6,8 @@ internal sealed class ConfigurationSettings
 
     internal const string TimeStampWithoutTimeZone = "timestamp without time zone";
 
+    internal const string TimeStampWithTimeZone = "timestamp with time zone";
+
     internal const string Date = "date";
 
     internal const string TimeWithoutTimeZone = "time without time zone";

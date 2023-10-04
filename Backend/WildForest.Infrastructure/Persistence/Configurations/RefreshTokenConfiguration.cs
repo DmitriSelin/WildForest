@@ -27,13 +27,13 @@ public sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<Refresh
         builder
             .Property(p => p.Expiration)
             .IsRequired()
-            .HasColumnType(ConfigurationSettings.TimeStampWithoutTimeZone)
+            .HasColumnType(ConfigurationSettings.TimeStampWithTimeZone)
             .HasColumnName("Expiration");
 
         builder
             .Property(p => p.CreationDate)
             .IsRequired()
-            .HasColumnType(ConfigurationSettings.TimeStampWithoutTimeZone)
+            .HasColumnType(ConfigurationSettings.TimeStampWithTimeZone)
             .HasColumnName("CreationDate");
 
         builder

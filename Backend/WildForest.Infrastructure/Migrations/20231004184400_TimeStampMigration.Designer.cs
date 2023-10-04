@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WildForest.Infrastructure.Persistence.Context;
@@ -11,9 +12,11 @@ using WildForest.Infrastructure.Persistence.Context;
 namespace WildForest.Infrastructure.Migrations
 {
     [DbContext(typeof(WildForestDbContext))]
-    partial class WildForestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231004184400_TimeStampMigration")]
+    partial class TimeStampMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
