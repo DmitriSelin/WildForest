@@ -15,11 +15,11 @@ public sealed class RefreshTokenGenerator : IRefreshTokenGenerator
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<RefreshToken> GenerateTokenAsync(UserId personId, string createdByIp)
+    public async Task<RefreshToken> GenerateTokenAsync(UserId userId, string createdByIp)
     {
         var token = await GenerateUniqueTokenAsync();
         
-        var refreshToken = RefreshToken.Create(token, createdByIp, personId);
+        var refreshToken = RefreshToken.Create(token, createdByIp, userId);
         return refreshToken;
     }
 
