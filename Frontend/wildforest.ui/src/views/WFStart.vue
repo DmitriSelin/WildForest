@@ -1,24 +1,13 @@
 <script setup>
-import { useRouter } from 'vue-router';
 import WFButton from '@/components/buttons/WFButton.vue'
-
-const router = useRouter();
-
-const goToLoginView = () => {
-    router.push("/auth/login");
-}
-
-const goToMainView = () => {
-    router.push("/");
-}
 </script>
 
 <template>
     <div class="background">
         <img src="../assets/images/appLogo.svg" />
         <h1 class="background-title">Wild forest</h1>
-        <WFButton label="Login" outlined size="large" @click="goToLoginView"/>
-        <WFButton label="Start without login" outlined size="large" @click="goToMainView"/>
+        <WFButton label="Login" outlined size="large" @click="$router.push({ name: 'Login' })" />
+        <WFButton label="Start without login" outlined size="large" @click="$router.push({ name: 'Start' })" />
     </div>
 </template>
 
