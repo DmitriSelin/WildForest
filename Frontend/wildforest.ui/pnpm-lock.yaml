@@ -29,6 +29,9 @@ dependencies:
   '@vueuse/core':
     specifier: ^10.4.1
     version: 10.4.1(vue@3.3.4)
+  pnpm:
+    specifier: ^8.8.0
+    version: 8.8.0
   primevue:
     specifier: ^3.35.0
     version: 3.35.0(vue@3.3.4)
@@ -2714,6 +2717,12 @@ packages:
       mlly: 1.4.2
       pathe: 1.1.1
     dev: true
+
+  /pnpm@8.8.0:
+    resolution: {integrity: sha512-eY5rMiZpzmPI2oVr1irR97bzb036oKwCWvK91wDQndXcqUPlytPtrF0bO668Syw/uA+7hTf5NnM8Mr4ux4BRRA==}
+    engines: {node: '>=16.14'}
+    hasBin: true
+    dev: false
 
   /postcss-selector-parser@6.0.13:
     resolution: {integrity: sha512-EaV1Gl4mUEV4ddhDnv/xtj7sxwrwxdetHdWUGnT4VJQf+4d05v6lHYZr8N573k5Z0BViss7BDhfWtKS3+sfAqQ==}
