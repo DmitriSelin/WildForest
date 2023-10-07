@@ -20,7 +20,6 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
-    "@vueuse/core": "^10.4.1",
     "pinia": "^2.1.6",
     "pnpm": "^8.8.0",
     "primevue": "^3.35.0",
