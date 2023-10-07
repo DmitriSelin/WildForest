@@ -34,7 +34,7 @@ const cities = ref([
 ]);
 
 const register = () => {
-    userStore.register(registerRequest.value, "auth/register");
+    userStore.register(registerRequest.value);
 }
 
 const registerWithGoogle = () => {
