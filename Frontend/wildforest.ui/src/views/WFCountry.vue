@@ -1,8 +1,9 @@
 <script setup>
 import WFButton from "@/components/buttons/WFButton.vue"
-import Dropdown from 'primevue/dropdown';
-
 import { ref } from "vue";
+import { useUserStore } from "@/stores/UserStore";
+
+const userStore = useUserStore();
 
 const selectedCity = ref();
 const cities = ref([
@@ -29,10 +30,10 @@ const cities = ref([
                 <img src="../assets/images/heart.svg" alt="heart" class="left-block-name-heart" />
                 <h1>Registration</h1>
             </div>
-            <form action="" method="post" class="left-block-content">
-                <Dropdown v-model="selectedCity" editable :options="cities" optionLabel="name" placeholder="Select language"
-                    class="combobox" />
-                <Dropdown v-model="selectedCity" editable :options="cities" optionLabel="name" placeholder="Select a City"
+            <form class="left-block-content">
+                <Dropdown v-model="selectedCity" editable :options="userStore.registerCredentials.languages"
+                    optionLabel="name" placeholder="Select language" class="combobox" />
+                <Dropdown v-model="selectedCity" editable :options="userStore.registerCredentials.countries" optionLabel="name" placeholder="Select a City"
                     class="combobox" />
                 <WFButton label="Next" size="large" />
             </form>
