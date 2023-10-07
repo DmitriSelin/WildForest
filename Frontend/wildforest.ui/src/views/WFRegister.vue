@@ -2,7 +2,6 @@
 import WFInput from "@/components/inputs/WFInput.vue"
 import WFButton from "@/components/buttons/WFButton.vue"
 import WFEmptyLink from "@/components/buttons/WFEmptyLink.vue";
-import Dropdown from 'primevue/dropdown';
 
 import { ref } from "vue";
 
@@ -22,6 +21,10 @@ const cities = ref([
     { name: 'Istanbul', code: 'IST' },
     { name: 'Paris', code: 'PRS' }
 ]);
+
+const register = () => {
+
+}
 </script>
 
 <template>
@@ -31,7 +34,7 @@ const cities = ref([
                 <img src="../assets/images/heart.svg" alt="heart" class="left-block-name-heart" />
                 <h1>Registration</h1>
             </div>
-            <form action="" method="post" class="left-block-content">
+            <form class="left-block-content">
                 <WFInput label="Name" name="name" placeholder="Input your name" />
                 <WFInput label="Surname" name="secondName" placeholder="Input your surname" />
                 <WFInput label="Email" name="email" placeholder="Input your email" />
@@ -39,7 +42,7 @@ const cities = ref([
                 <WFInput label="Password" type="password" name="password" placeholder="Input your password" />
                 <WFInput label="Password" type="password" name="samePassword" placeholder="Input the same password" />
                 <div class="left-block-content-btn">
-                    <WFButton label="Register" size="large" />
+                    <WFButton label="Register" size="large" @click="register"/>
                     <WFEmptyLink to="login" text="Already have an account?" title="Login" />
                 </div>
                 <span class="left-block-content-txt">or</span>
