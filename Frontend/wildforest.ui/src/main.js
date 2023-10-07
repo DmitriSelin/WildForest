@@ -3,12 +3,15 @@ import router from './router/router.js';
 import FontAwesomeIcon from './infrastructure/iconImporter.js';
 import { createApp } from 'vue';
 import App from './App.vue';
+import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config';
 import 'primevue/resources/primevue.min.css';
 import 'primevue/resources/themes/bootstrap4-dark-blue/theme.css';
 
+const pinia = createPinia();
 let app = createApp(App);
 app.use(router);
 app.use(PrimeVue);
+app.use(pinia);
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.mount('#app');
