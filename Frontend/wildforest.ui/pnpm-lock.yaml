@@ -26,6 +26,9 @@ dependencies:
   '@vuelidate/validators':
     specifier: ^2.0.4
     version: 2.0.4(vue@3.3.4)
+  ky:
+    specifier: ^1.0.1
+    version: 1.0.1
   pinia:
     specifier: ^2.1.6
     version: 2.1.6(vue@3.3.4)
@@ -2301,6 +2304,11 @@ packages:
     dependencies:
       json-buffer: 3.0.1
     dev: true
+
+  /ky@1.0.1:
+    resolution: {integrity: sha512-UvcwpQO0LOuZwG0Ti3VDo6w57KYt+r4bWEYlNaMt82hgyFtse86QtOGum1RzsZni31FndXQl6NvtDArfunt2JQ==}
+    engines: {node: '>=18'}
+    dev: false
 
   /lazy-ass@1.6.0:
     resolution: {integrity: sha512-cc8oEVoctTvsFZ/Oje/kGnHbpWHYBe8IAJe4C0QNc3t8uM/0Y8+erSz/7Y1ALuXTEZTMvxXwO6YbX1ey3ujiZw==}
