@@ -2,12 +2,17 @@ import { defineStore } from "pinia";
 import { ref } from 'vue';
 import ky from 'ky';
 
-const url = window.location.host;
+const url = window.location.host + "/api/";
 
-export default defineStore("userStore", () => {
+export const useUserStore = defineStore("userStore", () => {
     const registerResponse = ref({});
 
-    const register = async (registerRequest, to) => {
-        registerResponse.value = await ky.post(`${url}${to}`, {json: registerRequest}).json();
+    const register = async (request, to) => {
+        registerResponse.value = await ky.post(`${url}${to}`, {json: request}).json();
     }
+
+    return {
+        registerResponse,
+        register
+    };
 });

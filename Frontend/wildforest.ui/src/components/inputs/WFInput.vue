@@ -25,6 +25,10 @@ const props = defineProps({
     type: String,
     required: true
   },
+  autocomplete: {
+    type: String,
+    default: ''
+  },
   width: {
     type: String,
     default: '300px'
@@ -38,15 +42,8 @@ const updateValue = (e) => {
 
 <template>
   <div class="form-input" :style="{ width: width }">
-    <input
-      class="input-text"
-      :type="type"
-      :name="name"
-      :id="name"
-      :placeholder="placeholder"
-      :value="value"
-      @input="updateValue"
-    />
+    <input :autocomplete="autocomplete" class="input-text" :type="type" :name="name" :id="name"
+      :placeholder="placeholder" :value="value" @input="updateValue" />
     <label :for="name" class="input-label">{{ label }}</label>
     <TransitionGroup>
       <div class="form-error" v-for="element of errors" :key="element.$uid">
@@ -62,6 +59,7 @@ const updateValue = (e) => {
     position: relative;
     margin-right: 5px;
   }
+
   &-error {
     background: var(--danger);
     margin-top: 4px;
@@ -71,11 +69,13 @@ const updateValue = (e) => {
     padding: 5px;
   }
 }
+
 .input {
   &-text {
     &::placeholder {
       color: var(--gray);
     }
+
     border: 1px solid var(--violet);
     background-color: var(--light-gray);
     color: var(--white);
@@ -86,22 +86,26 @@ const updateValue = (e) => {
     width: 100%;
     position: relative;
     z-index: 1;
+
     &:focus {
       transition: all 0.3s ease;
-      & + .input-label {
+
+      &+.input-label {
         z-index: 1;
         opacity: 1;
         top: -20px;
       }
     }
+
     &:not(:placeholder-shown) {
-      & + .input-label {
+      &+.input-label {
         z-index: 1;
         opacity: 1;
         top: -20px;
       }
     }
   }
+
   &-label {
     font-weight: bold;
     display: block;

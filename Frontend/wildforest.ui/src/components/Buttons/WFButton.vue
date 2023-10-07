@@ -4,6 +4,10 @@ const props = defineProps({
     type: String,
     default: 'Button'
   },
+  type: {
+    type: String,
+    default: 'submit'
+  },
   color: {
     type: String,
     default: 'accent'
@@ -42,18 +46,14 @@ const clickOnButton = () => {
 </script>
 
 <template>
-  <button
-    :class="[
-      'btn',
-      `btn_${color}`,
-      { btn_rounded: rounded },
-      { btn_outlined: outlined },
-      { btn_icon: icon },
-      { btn_large: size === 'large' }
-    ]"
-    :disabled="disabled"
-    @click="clickOnButton"
-  >
+  <button :class="[
+    'btn',
+    `btn_${color}`,
+    { btn_rounded: rounded },
+    { btn_outlined: outlined },
+    { btn_icon: icon },
+    { btn_large: size === 'large' }
+  ]" :type="type" :disabled="disabled" @click="clickOnButton">
     <span v-if="icon">
       <font-awesome-icon :icon="`fa-${iconPackName} fa-${icon}`" />
     </span>
