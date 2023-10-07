@@ -2,7 +2,7 @@
 import WFInput from "@/components/inputs/WFInput.vue";
 import WFButton from "@/components/buttons/WFButton.vue";
 import WFEmptyLink from "@/components/buttons/WFEmptyLink.vue";
-import { ref } from "vue";
+import { ref, toRaw } from "vue";
 import { useUserStore } from "@/stores/UserStore"
 
 const registerRequest = ref({
@@ -34,11 +34,16 @@ const cities = ref([
 ]);
 
 const register = () => {
-    userStore.register(registerRequest.value, "");
+    userStore.register(registerRequest.value, "auth/register");
 }
 
 const registerWithGoogle = () => {
-    console.log(selectedCity.value);
+    let o = toRaw(selectedCity.value);
+    if (o)
+        console.log(o);
+    else
+        console.log("no");
+
     alert("This function is still in development");
 }
 </script>
@@ -57,7 +62,7 @@ const registerWithGoogle = () => {
                     v-model:value="registerRequest.lastName" />
                 <WFInput label="Email" name="email" placeholder="Input your email" v-model:value="registerRequest.email" />
                 <Dropdown v-model="selectedCity" editable :options="cities" optionLabel="name" placeholder="Select a City"
-                    class="combobox" />
+                    class="combobox"/>
                 <WFInput label="Password" type="password" name="password" placeholder="Input your password"
                     v-model:value="registerRequest.password" />
                 <WFInput label="Password" type="password" name="samePassword" placeholder="Input the same password"

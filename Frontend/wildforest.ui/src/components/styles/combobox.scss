@@ -3,4 +3,8 @@
     color: var(--white);
     padding: 10px;
     width: 300px;
+
+    &-required {
+        border: var(--danger) 2px;
+    }
 }
