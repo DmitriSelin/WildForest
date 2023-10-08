@@ -53,9 +53,7 @@ public sealed class WeatherForecastHttpClient : IWeatherForecastHttpClient
         var weatherForecasts = await _httpClient.GetFromJsonAsync<List<WeatherForecastVm>>(url, jsonOptions);
 
         if (weatherForecasts is null)
-        {
             throw new ArgumentNullException(nameof(weatherForecasts));
-        }
 
         return weatherForecasts;
     }
