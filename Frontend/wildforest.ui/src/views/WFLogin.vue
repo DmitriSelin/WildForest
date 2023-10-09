@@ -16,7 +16,7 @@ import WFEmptyLink from "@/components/buttons/WFEmptyLink.vue";
                 <WFInput label="Password" type="password" name="password" placeholder="Input your password" />
                 <div class="left-block-content-btn">
                     <WFButton label="Login" size="large" />
-                    <WFEmptyLink to="country" text="Have not an account?" title="Register" />
+                    <WFEmptyLink to="credentials" text="Have not an account?" title="Register" />
                 </div>
                 <span class="left-block-content-txt">or</span>
                 <WFButton iconPackName="brands" icon="google" />
