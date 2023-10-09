@@ -108,7 +108,7 @@ public sealed class AuthenticationController : ApiController
 
     [AllowAnonymous]
     [HttpGet("countries-languages")]
-    public async Task<IActionResult> GetAuthCredentials()
+    public async Task<IActionResult> GetCredentials()
     {
         var credentialResponse = await _authCredentialsQueryHandler.GetCountriesAndLanguagesAsync();
 
