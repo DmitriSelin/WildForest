@@ -62,5 +62,10 @@ namespace WildForest.Api
 
             return services;
         }
+
+        private static IServiceCollection AddDefaultPolicy(this IServiceCollection services)
+        {
+            return services;
+        }
     }
 }
