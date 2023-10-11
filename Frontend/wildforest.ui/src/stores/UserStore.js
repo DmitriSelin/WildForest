@@ -17,8 +17,7 @@ export const useUserStore = defineStore("userStore", () => {
     };
 
     const register = async (request) => {
-        const registerRequest = JSON.stringify(request);
-        registerResponse.value = await ky.post(`${url}auth/register`, { json: registerRequest }).json();
+        registerResponse.value = await ky.post(`${url}auth/register`, { json: request }).json();
     }
 
     return {
