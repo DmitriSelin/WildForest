@@ -6,6 +6,7 @@ import { useUserStore } from "@/stores/UserStore";
 const selectedLanguage = ref();
 const selectedCountry = ref();
 const userStore = useUserStore();
+const comboboxValid = ref(false)
 
 onMounted(async () => {
     await userStore.getAuthCredentials();
@@ -25,7 +26,7 @@ const goToRegisterPage = () => {
             </div>
             <form class="left-block-content small-area" @submit.prevent="goToRegisterPage">
                 <Dropdown v-model="selectedLanguage" :options="userStore.authCredentials.languages" optionLabel="name"
-                    placeholder="Select a language"/>
+                    placeholder="Select a language" id="languageDropdown"/>
                 <Dropdown v-model="selectedCountry" :options="userStore.authCredentials.countries" optionLabel="name"
                     placeholder="Select a country"/>
                 <WFButton label="Next" size="large" @click="goToRegisterPage"/>
