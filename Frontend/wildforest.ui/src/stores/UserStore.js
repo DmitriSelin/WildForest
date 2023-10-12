@@ -4,7 +4,7 @@ import { url } from "@/infrastructure/urls/urlUtility"
 import ky from 'ky';
 
 export const useUserStore = defineStore("userStore", () => {
-    const authCredentials = ref({});
+    const authCredentials = ref({ languages: [], countries: [] });
     const registerResponse = ref({});
 
     const getAuthCredentials = async () => {

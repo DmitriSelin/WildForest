@@ -1,19 +1,24 @@
 <script setup>
 import WFButton from "@/components/buttons/WFButton.vue"
+import WFDropdown from "@/components/inputs/WFDropdown.vue";
 import { ref, onMounted } from "vue";
 import { useUserStore } from "@/stores/UserStore";
 
 const selectedLanguage = ref();
 const selectedCountry = ref();
 const userStore = useUserStore();
-const comboboxValid = ref(false)
+const t = ref(true);
 
 onMounted(async () => {
     await userStore.getAuthCredentials();
 });
 
 const goToRegisterPage = () => {
-    
+    t.value = !t.value;
+}
+
+const selectionChanged1 = (data) => {
+
 }
 </script>
 
@@ -25,11 +30,11 @@ const goToRegisterPage = () => {
                 <h1>Registration</h1>
             </div>
             <form class="left-block-content small-area" @submit.prevent="goToRegisterPage">
-                <Dropdown v-model="selectedLanguage" :options="userStore.authCredentials.languages" optionLabel="name"
-                    placeholder="Select a language" id="languageDropdown"/>
-                <Dropdown v-model="selectedCountry" :options="userStore.authCredentials.countries" optionLabel="name"
-                    placeholder="Select a country"/>
-                <WFButton label="Next" size="large" @click="goToRegisterPage"/>
+                <WFDropdown :options="userStore.authCredentials.languages" placeholder="Select a language"
+                    id="languageDropdown" />
+                <WFDropdown :options="userStore.authCredentials.countries" placeholder="Select a country"
+                    id="countryDropdown" />
+                <WFButton label="Next" size="large" />
             </form>
         </div>
         <div class="right-block">
@@ -41,7 +46,6 @@ const goToRegisterPage = () => {
 
 <style lang="scss" scoped>
 @import "./styles/views.scss";
-@import "../components/styles/combobox.scss";
 
 .small-area {
     gap: 10vh;

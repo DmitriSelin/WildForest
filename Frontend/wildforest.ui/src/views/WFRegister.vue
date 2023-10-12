@@ -84,5 +84,4 @@ const registerWithGoogle = () => {
 
 <style lang="scss" scoped>
 @import "./styles/views.scss";
-@import "../components/styles/combobox.scss";
 </style>
