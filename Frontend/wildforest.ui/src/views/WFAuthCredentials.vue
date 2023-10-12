@@ -32,9 +32,9 @@ const countrySelectionChanged = (country) => {
             </div>
             <form class="left-block-content small-area" @submit.prevent="goToRegisterPage">
                 <WFDropdown :options="userStore.authCredentials.languages" placeholder="Select a language"
-                    id="languageDropdown" @selectionChanged="languageSelectionChanged"/>
+                    id="languageDropdown" @selectionChanged="languageSelectionChanged" error="This field is required" />
                 <WFDropdown :options="userStore.authCredentials.countries" placeholder="Select a country"
-                    id="countryDropdown" @selectionChanged="countrySelectionChanged"/>
+                    id="countryDropdown" @selectionChanged="countrySelectionChanged" error="This field is required" />
                 <WFButton label="Next" size="large" />
             </form>
         </div>
