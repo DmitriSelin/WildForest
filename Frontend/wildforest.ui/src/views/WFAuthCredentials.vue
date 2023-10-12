@@ -4,21 +4,22 @@ import WFDropdown from "@/components/inputs/WFDropdown.vue";
 import { ref, onMounted } from "vue";
 import { useUserStore } from "@/stores/UserStore";
 
-const selectedLanguage = ref();
-const selectedCountry = ref();
+let selectedLanguage;
+let selectedCountryId;
 const userStore = useUserStore();
-const t = ref(true);
 
 onMounted(async () => {
     await userStore.getAuthCredentials();
 });
 
 const goToRegisterPage = () => {
-    t.value = !t.value;
 }
 
-const selectionChanged1 = (data) => {
-
+const languageSelectionChanged = (language) => {
+    selectedLanguage = language;
+}
+const countrySelectionChanged = (country) => {
+    selectedCountryId = country.id;
 }
 </script>
 
@@ -31,9 +32,9 @@ const selectionChanged1 = (data) => {
             </div>
             <form class="left-block-content small-area" @submit.prevent="goToRegisterPage">
                 <WFDropdown :options="userStore.authCredentials.languages" placeholder="Select a language"
-                    id="languageDropdown" />
+                    id="languageDropdown" @selectionChanged="languageSelectionChanged"/>
                 <WFDropdown :options="userStore.authCredentials.countries" placeholder="Select a country"
-                    id="countryDropdown" />
+                    id="countryDropdown" @selectionChanged="countrySelectionChanged"/>
                 <WFButton label="Next" size="large" />
             </form>
         </div>
