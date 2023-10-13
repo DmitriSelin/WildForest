@@ -17,35 +17,12 @@ const registerRequest = ref({
 const samePassword = ref("");
 const userStore = useUserStore();
 
-const selectedCity = ref();
-const cities = ref([
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'London1', code: 'LDN1' },
-    { name: 'London2', code: 'LDN2' },
-    { name: 'London3', code: 'LDN3' },
-    { name: 'London4', code: 'LDN4' },
-    { name: 'London5', code: 'LDN5' },
-    { name: 'London7', code: 'LDN7' },
-    { name: 'London8', code: 'LDN8' },
-    { name: 'London6', code: 'LDN6' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' }
-]);
-
 const register = () => {
     userStore.register(registerRequest.value);
 }
 
 const registerWithGoogle = () => {
-    let o = toRaw(selectedCity.value);
-    if (o)
-        console.log(o);
-    else
-        console.log("no");
-
-    alert("This function is still in development");
+    
 }
 </script>
 
