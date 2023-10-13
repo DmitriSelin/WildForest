@@ -1,5 +1,6 @@
 <script setup>
 import WFInput from "@/components/inputs/WFInput.vue";
+import WFDropdown from "@/components/inputs/WFDropdown.vue";
 import WFButton from "@/components/buttons/WFButton.vue";
 import WFEmptyLink from "@/components/buttons/WFEmptyLink.vue";
 import { ref, toRaw } from "vue";
@@ -61,8 +62,7 @@ const registerWithGoogle = () => {
                 <WFInput label="Lastname" name="lastName" placeholder="Input your lastname"
                     v-model:value="registerRequest.lastName" />
                 <WFInput label="Email" name="email" placeholder="Input your email" v-model:value="registerRequest.email" />
-                <Dropdown v-model="selectedCity" editable :options="cities" optionLabel="name" placeholder="Select a City"
-                    class="combobox"/>
+                <WFDropdown editable :options="cities" placeholder="Select a City"/>
                 <WFInput label="Password" type="password" name="password" placeholder="Input your password"
                     v-model:value="registerRequest.password" />
                 <WFInput label="Password" type="password" name="samePassword" placeholder="Input the same password"
