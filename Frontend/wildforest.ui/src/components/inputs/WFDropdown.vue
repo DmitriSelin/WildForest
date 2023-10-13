@@ -60,7 +60,6 @@ const dataChanged = () => {
 .p-dropdown {
     background-color: var(--light-gray);
     color: var(--white);
-    padding: 10px;
     width: 300px;
 }
 
