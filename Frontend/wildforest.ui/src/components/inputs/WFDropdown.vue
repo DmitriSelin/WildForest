@@ -37,7 +37,7 @@ const dataChanged = () => {
 <template class="dropdown-container">
     <div class="dropdown-container">
         <Dropdown v-model="selectedItem" :options="options" :optionLabel="optionLabel" :placeholder="placeholder" :id="id"
-            @change="dataChanged"/>
+            @change="dataChanged" />
         <Transition v-if="isError">
             <label :for="id" class="label">{{ error }}</label>
         </Transition>
@@ -47,7 +47,6 @@ const dataChanged = () => {
 <style lang="scss" scoped>
 .dropdown-container {
     position: relative;
-    margin-bottom: 20px;
 }
 
 .label {
