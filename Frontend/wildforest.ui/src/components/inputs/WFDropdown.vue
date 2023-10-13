@@ -61,6 +61,7 @@ const dataChanged = () => {
     background-color: var(--light-gray);
     color: var(--white);
     width: 300px;
+    border: 0;
 }
 
 .v-enter-active,
