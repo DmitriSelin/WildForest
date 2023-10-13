@@ -6,6 +6,7 @@ import ky from 'ky';
 export const useUserStore = defineStore("userStore", () => {
     const authCredentials = ref({ languages: [], countries: [] });
     const registerResponse = ref({});
+    const selectedCredentials = ref({selectedCountry: {}, selectedLanguage: {}});
 
     const getAuthCredentials = async () => {
         try {
@@ -16,6 +17,11 @@ export const useUserStore = defineStore("userStore", () => {
         }
     };
 
+    const setAuthCredentials = (country, language) => {
+        selectedCredentials.value.selectedCountry = country;
+        selectedCredentials.value.selectedLanguage = language;
+    };
+
     const register = async (request) => {
         registerResponse.value = await ky.post(`${url}auth/register`, { json: request }).json();
     }
@@ -23,6 +29,7 @@ export const useUserStore = defineStore("userStore", () => {
     return {
         registerResponse,
         authCredentials,
+        setAuthCredentials,
         getAuthCredentials,
         register
     };
