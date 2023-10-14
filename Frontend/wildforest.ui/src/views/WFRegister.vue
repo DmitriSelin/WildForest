@@ -3,8 +3,11 @@ import WFInput from "@/components/inputs/WFInput.vue";
 import WFDropdown from "@/components/inputs/WFDropdown.vue";
 import WFButton from "@/components/buttons/WFButton.vue";
 import WFEmptyLink from "@/components/buttons/WFEmptyLink.vue";
-import { ref, toRaw } from "vue";
+import { ref } from "vue";
 import { useUserStore } from "@/stores/UserStore"
+import { useToast } from "primevue/usetoast";
+
+const toast = useToast();
 
 const registerRequest = ref({
     firstName: "",
@@ -22,7 +25,7 @@ const register = () => {
 }
 
 const registerWithGoogle = () => {
-    
+    toast.add({ severity: 'info', summary: 'Info', detail: 'This function is still in development', life: 3000 });
 }
 </script>
 
@@ -49,6 +52,7 @@ const registerWithGoogle = () => {
                     <WFEmptyLink to="login" text="Already have an account?" title="Login" />
                 </div>
                 <span class="left-block-content-txt">or</span>
+                <Toast/>
                 <WFButton iconPackName="brands" icon="google" @click="registerWithGoogle" type="button" />
             </form>
         </div>
