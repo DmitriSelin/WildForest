@@ -3,7 +3,7 @@ import WFInput from "@/components/inputs/WFInput.vue";
 import WFDropdown from "@/components/inputs/WFDropdown.vue";
 import WFButton from "@/components/buttons/WFButton.vue";
 import WFEmptyLink from "@/components/buttons/WFEmptyLink.vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useUserStore } from "@/stores/UserStore"
 import { useToast } from "primevue/usetoast";
 
@@ -19,6 +19,10 @@ const registerRequest = ref({
 });
 const samePassword = ref("");
 const userStore = useUserStore();
+
+onMounted(async () => {
+    await userStore.getCitiesByCountry();
+});
 
 const register = () => {
     userStore.register(registerRequest.value);
@@ -42,7 +46,8 @@ const registerWithGoogle = () => {
                 <WFInput label="Lastname" name="lastName" placeholder="Input your lastname"
                     v-model:value="registerRequest.lastName" />
                 <WFInput label="Email" name="email" placeholder="Input your email" v-model:value="registerRequest.email" />
-                <WFDropdown editable :options="cities" placeholder="Select a City"/>
+                <WFDropdown :options="userStore.cities" placeholder="Select a City" id="cityDropdown"
+                    error="This field is required" />
                 <WFInput label="Password" type="password" name="password" placeholder="Input your password"
                     v-model:value="registerRequest.password" />
                 <WFInput label="Password" type="password" name="samePassword" placeholder="Input the same password"
@@ -52,7 +57,7 @@ const registerWithGoogle = () => {
                     <WFEmptyLink to="login" text="Already have an account?" title="Login" />
                 </div>
                 <span class="left-block-content-txt">or</span>
-                <Toast/>
+                <Toast />
                 <WFButton iconPackName="brands" icon="google" @click="registerWithGoogle" type="button" />
             </form>
         </div>

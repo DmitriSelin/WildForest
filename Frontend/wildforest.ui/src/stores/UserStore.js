@@ -1,19 +1,18 @@
 import { defineStore } from "pinia";
 import { ref } from 'vue';
-import { url } from "@/infrastructure/urls/urlUtility"
-import ky from 'ky';
+import { get, post } from "../api/api";
 
 export const useUserStore = defineStore("userStore", () => {
     const authCredentials = ref({ languages: [], countries: [] });
     const registerResponse = ref({});
     const selectedCredentials = ref({selectedCountry: {}, selectedLanguage: {}});
+    const cities = ref([]);
 
     const getAuthCredentials = async () => {
-        try {
-            authCredentials.value = await ky.get(`${url}auth/countries-languages`).json();
-        }
-        catch (error) {
-            console.log("Server error");
+        const response = await get("auth/countries-languages");
+
+        if (!response.isError) {
+            authCredentials.value = response.data;
         }
     };
 
@@ -22,14 +21,27 @@ export const useUserStore = defineStore("userStore", () => {
         selectedCredentials.value.selectedLanguage = language;
     };
 
+    const getCitiesByCountry = async () => {
+        const response = await get(`auth/cities/${selectedCredentials.value.selectedCountry.id}`);
+
+        if (!response.isError) {
+            cities.value = response.data;
+        }
+    }
+
     const register = async (request) => {
-        registerResponse.value = await ky.post(`${url}auth/register`, { json: request }).json();
+        const response = await post("auth/register", request);
+        
+        if (!response.isError) {
+            registerResponse.value = response.data;
+        }
     }
 
     return {
         registerResponse,
         authCredentials,
         setAuthCredentials,
+        getCitiesByCountry,
         getAuthCredentials,
         register
     };
