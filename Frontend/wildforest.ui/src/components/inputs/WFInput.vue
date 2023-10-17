@@ -5,6 +5,10 @@ const props = defineProps({
     type: String,
     required: false
   },
+  isError: {
+    type: Boolean,
+    default: false
+  },
   value: {
     type: String,
     default: ''
@@ -57,7 +61,7 @@ const updateValue = (e) => {
     <input :autocomplete="autocomplete" class="input-text" :type="type" :name="name" :id="name" :required="required"
       :maxlength="maxLength" :minlength="minLength" :placeholder="placeholder" :value="value" @input="updateValue" />
     <label :for="name" class="input-label">{{ label }}</label>
-    <TransitionGroup>
+    <TransitionGroup v-if="isError">
       <div class="form-error">
         <div class="form-error__message">{{ error }}</div>
       </div>

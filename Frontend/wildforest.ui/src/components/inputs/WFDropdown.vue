@@ -29,6 +29,10 @@ const props = defineProps({
     isError: {
         type: Boolean,
         default: false
+    },
+    labelOnTop: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -43,7 +47,7 @@ const dataChanged = () => {
         <Dropdown v-model="selectedItem" :options="options" :editable="editable" :optionLabel="optionLabel"
             :placeholder="placeholder" :id="id" @change="dataChanged" />
         <Transition v-if="isError">
-            <label :for="id" class="label">{{ error }}</label>
+            <label :for="id" :class="['label', { 'label-top': labelOnTop === true }]">{{ error }}</label>
         </Transition>
     </div>
 </template>
@@ -58,7 +62,12 @@ const dataChanged = () => {
     color: var(--danger);
     font-size: 13px;
     bottom: -20px;
-    left: 5px;
+    left: -5px;
+
+    &-top {
+        top: -20px;
+        bottom: auto;
+    }
 }
 
 .p-dropdown {
