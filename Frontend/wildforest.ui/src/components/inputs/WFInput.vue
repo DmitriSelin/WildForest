@@ -32,6 +32,14 @@ const props = defineProps({
   width: {
     type: String,
     default: '300px'
+  },
+  maxLength: {
+    type: Number,
+    default: 50
+  },
+  minLength: {
+    type: Number,
+    default: 2
   }
 })
 
@@ -42,8 +50,8 @@ const updateValue = (e) => {
 
 <template>
   <div class="form-input" :style="{ width: width }">
-    <input :autocomplete="autocomplete" class="input-text" :type="type" :name="name" :id="name"
-      :placeholder="placeholder" :value="value" @input="updateValue" />
+    <input :autocomplete="autocomplete" class="input-text" :type="type" :name="name" :id="name" :maxlength="maxLength"
+      :minlength="minLength" :placeholder="placeholder" :value="value" @input="updateValue" />
     <label :for="name" class="input-label">{{ label }}</label>
     <TransitionGroup>
       <div class="form-error" v-for="element of errors" :key="element.$uid">
