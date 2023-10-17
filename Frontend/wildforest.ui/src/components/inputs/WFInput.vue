@@ -38,11 +38,11 @@ const props = defineProps({
     default: true
   },
   maxLength: {
-    type: Number,
+    String: Number,
     default: 50
   },
   minLength: {
-    type: Number,
+    String: Number,
     default: 2
   }
 })
