@@ -1,8 +1,8 @@
 <script setup>
 const emit = defineEmits(['update:value'])
 const props = defineProps({
-  errors: {
-    type: Array,
+  error: {
+    type: String,
     required: false
   },
   value: {
@@ -58,8 +58,8 @@ const updateValue = (e) => {
       :maxlength="maxLength" :minlength="minLength" :placeholder="placeholder" :value="value" @input="updateValue" />
     <label :for="name" class="input-label">{{ label }}</label>
     <TransitionGroup>
-      <div class="form-error" v-for="element of errors" :key="element.$uid">
-        <div class="form-error__message">{{ element.$message }}</div>
+      <div class="form-error">
+        <div class="form-error__message">{{ error }}</div>
       </div>
     </TransitionGroup>
   </div>

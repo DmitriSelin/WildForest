@@ -8,24 +8,21 @@ import { useUserStore } from "@/stores/UserStore"
 import { useToast } from "primevue/usetoast";
 
 const toast = useToast();
-
-const registerRequest = ref({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    cityId: "",
-    languageId: ""
-});
-const samePassword = ref("");
 const userStore = useUserStore();
 
 onMounted(async () => {
     await userStore.getCitiesByCountry();
 });
 
+const firstName = ref("");
+const lastName = ref("");
+const email = ref("");
+let selectedCity;
+const password = ref("");
+const samePassword = ref("");
+
 const register = () => {
-    userStore.register(registerRequest.value);
+    
 }
 
 const registerWithGoogle = () => {
@@ -42,16 +39,17 @@ const registerWithGoogle = () => {
             </div>
             <form @submit.prevent="register" class="left-block-content">
                 <WFInput label="Firstname" name="firstName" placeholder="Input your first name"
-                    v-model:value="registerRequest.firstName" />
+                    v-model:value="firstName" />
                 <WFInput label="Lastname" name="lastName" placeholder="Input your lastname"
-                    v-model:value="registerRequest.lastName" />
-                <WFInput label="Email" name="email" placeholder="Input your email" v-model:value="registerRequest.email" />
+                    v-model:value="lastName" />
+                <WFInput label="Email" type="email" name="email" placeholder="Input your email"
+                    v-model:value="email" />
                 <WFDropdown :options="userStore.cities" placeholder="Select a City" id="cityDropdown"
-                    error="This field is required" optionLabel="cityName" editable/>
+                    error="This field is required" optionLabel="cityName" editable />
                 <WFInput label="Password" type="password" name="password" placeholder="Input your password"
-                    v-model:value="registerRequest.password" />
+                    v-model:value="password" minLength="6" />
                 <WFInput label="Password" type="password" name="samePassword" placeholder="Input the same password"
-                    v-model:value="samePassword" />
+                    v-model:value="samePassword" minLength="6" />
                 <div class="left-block-content-btn">
                     <WFButton label="Register" size="large" />
                     <WFEmptyLink to="login" text="Already have an account?" title="Login" />

@@ -112,16 +112,6 @@ const setSort = (name) => {
 }
 
 const nameField = ref('')
-import useVuelidate from '@vuelidate/core'
-import { minLength, helpers } from '@vuelidate/validators'
-
-const rules = computed(() => ({
-  nameField: {
-    minLength: helpers.withMessage('Not correct name!', minLength(5))
-  }
-}))
-
-const vuelidate = useVuelidate(rules, { nameField })
 
 function test()
 {
@@ -242,8 +232,8 @@ function test()
       label="Your name"
       name="name"
       placeholder="Input your name"
-      v-model:value="vuelidate.nameField.$model"
-      :errors="vuelidate.nameField.$errors"
+      v-model:value="nameField"
+      errors="Test error"
     />
   </form>
   <h2>{{ nameField }}</h2>
