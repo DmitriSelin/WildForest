@@ -23,12 +23,16 @@ const password = ref("");
 const samePassword = ref("");
 const errors = ref([]);
 
-const register = () => {
+const register = async () => {
     let comboboxValidationResult = validateNotEmptyValue(selectedCity);
     let result = validateSameFields(password.value, samePassword.value);
 
     if (result.isValid === true && comboboxValidationResult.isValid === true) {
-        console.log("auth");
+        let response = await userStore.register({
+            firstName: firstName.value, lastName: lastName.value,
+            emai: email.value, password: password.value, cityId: selectedCity.id, languageId: ""
+        });
+        console.log(response);
     }
     else {
         if (comboboxValidationResult.isValid === false) {
@@ -87,6 +91,4 @@ const registerWithGoogle = () => {
     </main>
 </template>
 
-<style lang="scss" scoped>
-@import "./styles/views.scss";
-</style>
+<style lang="scss" scoped>@import "./styles/views.scss";</style>

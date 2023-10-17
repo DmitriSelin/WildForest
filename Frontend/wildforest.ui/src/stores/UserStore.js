@@ -35,7 +35,8 @@ export const useUserStore = defineStore("userStore", () => {
     }
 
     const register = async (request) => {
-        const response = await post("auth/register", request);
+        request.languageId = selectedCredentials.value.selectedLanguage.id;
+        const response = await post("auth/register", {json: request});
 
         if (!response.isError) {
             registerResponse.value = response.data;
