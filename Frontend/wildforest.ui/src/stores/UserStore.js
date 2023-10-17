@@ -1,12 +1,18 @@
 import { defineStore } from "pinia";
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { get, post } from "../api/api";
+import { TRUE } from "sass";
 
 export const useUserStore = defineStore("userStore", () => {
     const authCredentials = ref({ languages: [], countries: [] });
     const registerResponse = ref({});
-    const selectedCredentials = ref({selectedCountry: {}, selectedLanguage: {}});
+    const selectedCredentials = ref({ selectedCountry: {}, selectedLanguage: {} });
     const cities = ref([]);
+
+    const selectedCredentialsInLocalStorage = localStorage.getItem("selectedCredentials");
+    if (selectedCredentialsInLocalStorage) {
+        selectedCredentials.value = JSON.parse(selectedCredentialsInLocalStorage)._value;
+    }
 
     const getAuthCredentials = async () => {
         const response = await get("auth/countries-languages");
@@ -31,11 +37,17 @@ export const useUserStore = defineStore("userStore", () => {
 
     const register = async (request) => {
         const response = await post("auth/register", request);
-        
+
         if (!response.isError) {
             registerResponse.value = response.data;
         }
     }
+
+    watch(() => selectedCredentials, (state) => {
+        localStorage.setItem("selectedCredentials", JSON.stringify(state));
+    },
+        { deep: true }
+    );
 
     return {
         registerResponse,
