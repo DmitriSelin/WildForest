@@ -18,6 +18,10 @@ const props = defineProps({
         type: String,
         required: true
     },
+    editable: {
+        type: Boolean,
+        default: false
+    },
     error: {
         type: String,
         required: false
@@ -36,8 +40,8 @@ const dataChanged = () => {
 
 <template class="dropdown-container">
     <div class="dropdown-container">
-        <Dropdown v-model="selectedItem" :options="options" :optionLabel="optionLabel" :placeholder="placeholder" :id="id"
-            @change="dataChanged" />
+        <Dropdown v-model="selectedItem" :options="options" :editable="editable" :optionLabel="optionLabel"
+            :placeholder="placeholder" :id="id" @change="dataChanged" />
         <Transition v-if="isError">
             <label :for="id" class="label">{{ error }}</label>
         </Transition>
