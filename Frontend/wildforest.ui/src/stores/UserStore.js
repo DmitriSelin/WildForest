@@ -40,6 +40,7 @@ export const useUserStore = defineStore("userStore", () => {
     return {
         registerResponse,
         authCredentials,
+        cities,
         setAuthCredentials,
         getCitiesByCountry,
         getAuthCredentials,

@@ -47,7 +47,7 @@ const registerWithGoogle = () => {
                     v-model:value="registerRequest.lastName" />
                 <WFInput label="Email" name="email" placeholder="Input your email" v-model:value="registerRequest.email" />
                 <WFDropdown :options="userStore.cities" placeholder="Select a City" id="cityDropdown"
-                    error="This field is required" />
+                    error="This field is required" optionLabel="cityName" editable/>
                 <WFInput label="Password" type="password" name="password" placeholder="Input your password"
                     v-model:value="registerRequest.password" />
                 <WFInput label="Password" type="password" name="samePassword" placeholder="Input the same password"
