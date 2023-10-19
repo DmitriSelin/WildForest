@@ -29,16 +29,16 @@ export const useUserStore = defineStore("userStore", () => {
     const getCitiesByCountry = async () => {
         const response = await get(`auth/cities/${selectedCredentials.value.selectedCountry.id}`);
 
-        if (!response.isError) {
+        if (response.isError === false) {
             cities.value = response.data;
         }
     }
 
     const register = async (request) => {
         request.languageId = selectedCredentials.value.selectedLanguage.id;
-        const response = await post("auth/register", {json: request});
+        const response = await post("auth/register", request);
 
-        if (!response.isError) {
+        if (response.isError === false) {
             registerResponse.value = response.data;
         }
     }

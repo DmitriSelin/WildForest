@@ -27,5 +27,5 @@ export function validateNotEmptyValues(values) {
         }
     }
 
-    return {isValid: isValid, errors: errors}
+    return { isValid: isValid, errors: errors }
 }

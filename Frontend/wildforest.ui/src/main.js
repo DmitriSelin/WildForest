@@ -13,6 +13,7 @@ import 'primevue/resources/themes/bootstrap4-dark-blue/theme.css';
 import Dropdown from 'primevue/dropdown';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
+import Message from 'primevue/message';
 
 /* Pinia */
 const pinia = createPinia();
@@ -28,6 +29,7 @@ app.component('font-awesome-icon', FontAwesomeIcon);
 /* PrimeVue components */
 app.component('Dropdown', Dropdown);
 app.component('Toast', Toast);
+app.component('Message', Message);
 /* PrimeVue components */
 
 app.mount('#app');

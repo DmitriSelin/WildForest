@@ -7,9 +7,11 @@ import { validateSameFields, validateNotEmptyValue } from "@/auth/validators/fie
 import { ref, onMounted } from "vue";
 import { useUserStore } from "@/stores/UserStore"
 import { useToast } from "primevue/usetoast";
+import { useRouter } from "vue-router";
 
 const toast = useToast();
 const userStore = useUserStore();
+const router = useRouter();
 
 onMounted(async () => {
     await userStore.getCitiesByCountry();
@@ -22,17 +24,25 @@ let selectedCity;
 const password = ref("");
 const samePassword = ref("");
 const errors = ref([]);
+const messageVisibility = ref(false);
 
 const register = async () => {
     let comboboxValidationResult = validateNotEmptyValue(selectedCity);
     let result = validateSameFields(password.value, samePassword.value);
 
     if (result.isValid === true && comboboxValidationResult.isValid === true) {
-        let response = await userStore.register({
+        await userStore.register({
             firstName: firstName.value, lastName: lastName.value,
-            emai: email.value, password: password.value, cityId: selectedCity.id, languageId: ""
+            email: email.value, password: password.value, cityId: selectedCity.cityId, languageId: ""
         });
-        console.log(response);
+
+        if (userStore.registerResponse) {
+            router.push({ name: 'Weather' });
+            messageVisibility.value = false;
+        }
+        else {
+            messageVisibility.value = true;
+        }
     }
     else {
         if (comboboxValidationResult.isValid === false) {
@@ -64,6 +74,7 @@ const registerWithGoogle = () => {
                 <h1>Registration</h1>
             </div>
             <form @submit.prevent="register" class="left-block-content">
+                <Message severity="error" v-if="messageVisibility">Error Message Content</Message>
                 <WFInput label="Firstname" name="firstName" placeholder="Input your first name" v-model:value="firstName" />
                 <WFInput label="Lastname" name="lastName" placeholder="Input your lastname" v-model:value="lastName" />
                 <WFInput label="Email" type="email" name="email" placeholder="Input your email" v-model:value="email" />
@@ -91,4 +102,6 @@ const registerWithGoogle = () => {
     </main>
 </template>
 
-<style lang="scss" scoped>@import "./styles/views.scss";</style>
+<style lang="scss" scoped>
+@import "./styles/views.scss";
+</style>
