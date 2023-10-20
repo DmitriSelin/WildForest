@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
 import { ref, watch } from 'vue';
-import { get, post } from "../api/api";
+import { get } from "../api/api";
+import { registerUser } from "@/auth/requests/authRequests";
 
 export const useUserStore = defineStore("userStore", () => {
     const authCredentials = ref({ languages: [], countries: [] });
     const registerResponse = ref({});
     const selectedCredentials = ref({ selectedCountry: {}, selectedLanguage: {} });
     const cities = ref([]);
+    const errorMessage = ref("");
 
     const selectedCredentialsInLocalStorage = localStorage.getItem("selectedCredentials");
     if (selectedCredentialsInLocalStorage) {
@@ -36,10 +38,15 @@ export const useUserStore = defineStore("userStore", () => {
 
     const register = async (request) => {
         request.languageId = selectedCredentials.value.selectedLanguage.id;
-        const response = await post("auth/register", request);
+        const response = await registerUser(request);
 
         if (response.isError === false) {
             registerResponse.value = response.data;
+            return true;
+        }
+        else {
+            errorMessage.value = response.data;
+            return false;
         }
     }
 
@@ -53,6 +60,7 @@ export const useUserStore = defineStore("userStore", () => {
         registerResponse,
         authCredentials,
         cities,
+        errorMessage,
         setAuthCredentials,
         getCitiesByCountry,
         getAuthCredentials,

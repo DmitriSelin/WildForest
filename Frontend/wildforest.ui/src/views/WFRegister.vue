@@ -24,24 +24,22 @@ let selectedCity;
 const password = ref("");
 const samePassword = ref("");
 const errors = ref([]);
-const messageVisibility = ref(false);
 
 const register = async () => {
     let comboboxValidationResult = validateNotEmptyValue(selectedCity);
     let result = validateSameFields(password.value, samePassword.value);
 
     if (result.isValid === true && comboboxValidationResult.isValid === true) {
-        await userStore.register({
+        const result = await userStore.register({
             firstName: firstName.value, lastName: lastName.value,
             email: email.value, password: password.value, cityId: selectedCity.cityId, languageId: ""
         });
 
-        if (userStore.registerResponse) {
+        if (result === true) {
             router.push({ name: 'Weather' });
-            messageVisibility.value = false;
         }
-        else {
-            messageVisibility.value = true;
+        else if (result === false) {
+            toast.add({ severity: 'error', summary: 'Error', detail: userStore.errorMessage, life: 10000 });
         }
     }
     else {
@@ -74,7 +72,6 @@ const registerWithGoogle = () => {
                 <h1>Registration</h1>
             </div>
             <form @submit.prevent="register" class="left-block-content">
-                <Message severity="error" v-if="messageVisibility">Error Message Content</Message>
                 <WFInput label="Firstname" name="firstName" placeholder="Input your first name" v-model:value="firstName" />
                 <WFInput label="Lastname" name="lastName" placeholder="Input your lastname" v-model:value="lastName" />
                 <WFInput label="Email" type="email" name="email" placeholder="Input your email" v-model:value="email" />
