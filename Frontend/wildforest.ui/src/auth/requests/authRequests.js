@@ -19,3 +19,19 @@ export async function registerUser(request) {
         return { data: "Internal server error", isError: true };
     }
 }
+
+export async function loginUser(request) {
+    try {
+        const response = await ky.post(`${url}auth/login`, { json: request }).json();
+        return { data: response, isError: false };
+    }
+    catch (err) {
+        const status = err.response.status;
+
+        if (status === 401) {
+            return { data: "User with these credentials does not exist", isError: true };
+        }
+
+        return { data: "Internal server error", isError: true };
+    }
+}

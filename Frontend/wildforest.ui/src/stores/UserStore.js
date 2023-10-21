@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, watch } from 'vue';
 import { get } from "../api/api";
-import { registerUser } from "@/auth/requests/authRequests";
+import { registerUser, loginUser } from "@/auth/requests/authRequests";
 
 export const useUserStore = defineStore("userStore", () => {
     const authCredentials = ref({ languages: [], countries: [] });
@@ -50,6 +50,19 @@ export const useUserStore = defineStore("userStore", () => {
         }
     }
 
+    const login = async(request) => {
+        const response = await loginUser(request);
+
+        if (response.isError === false) {
+            registerResponse.value = response.data;
+            return true;
+        }
+        else {
+            errorMessage.value = response.data;
+            return false;
+        }
+    }
+
     watch(() => selectedCredentials, (state) => {
         localStorage.setItem("selectedCredentials", JSON.stringify(state));
     },
@@ -64,6 +77,7 @@ export const useUserStore = defineStore("userStore", () => {
         setAuthCredentials,
         getCitiesByCountry,
         getAuthCredentials,
-        register
+        register,
+        login
     };
 });
