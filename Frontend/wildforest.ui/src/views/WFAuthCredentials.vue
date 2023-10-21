@@ -38,7 +38,7 @@ const countrySelectionChanged = (country) => {
 
 <template>
     <main class="main">
-        <div class="left-block small-area">
+        <div class="left-block small-gap">
             <div class="left-block-name">
                 <img src="../assets/images/heart.svg" alt="heart" class="left-block-name-heart" />
                 <h1>Registration</h1>
@@ -65,5 +65,13 @@ const countrySelectionChanged = (country) => {
 
 .small-area {
     gap: 10vh;
+}
+
+.small-gap {
+    gap: 10vh;
+
+    @media screen and (max-width: 600px) {
+        gap: 3vh;
+    }
 }
 </style>

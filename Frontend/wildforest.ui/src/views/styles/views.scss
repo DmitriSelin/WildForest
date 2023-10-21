@@ -2,13 +2,11 @@
     height: 100%;
     display: flex;
     flex-direction: row;
-    overflow-y: auto;
     padding-bottom: 10px;
 
     @media screen and (max-width: 600px) {
         flex-direction: column-reverse;
         align-items: start;
-        gap: 20px;
     }
 }
 
@@ -22,7 +20,7 @@
 
     @media screen and (max-width: 600px) {
         width: 100%;
-        height: 80%;
+        height: 70vh;
         justify-content: start;
     }
 
@@ -50,10 +48,14 @@
         gap: 40px;
         align-items: center;
 
+        @media screen and (max-width: 600px) {
+            padding-bottom: 20px;
+        }
+
         &-btn {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
             align-items: center;
         }
 
@@ -66,7 +68,7 @@
 
 .right-block {
     width: 40%;
-    height: 100%;
+    height: 100vh;
     background-color: var(--light-gray);
     display: flex;
     flex-direction: column;
@@ -78,7 +80,8 @@
         height: 30vh;
 
         @media screen and (max-width: 600px) {
-            height: 20vh;
+            height: 25vh;
+            margin-top: 30px;
         }
     }
 
@@ -89,6 +92,7 @@
     @media screen and (max-width: 600px) {
         width: 100%;
         background-color: var(--primary);
-        height: 30%;
+        gap: 0;
+        height: 30vh;
     }
 }
