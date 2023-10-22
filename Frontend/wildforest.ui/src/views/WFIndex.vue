@@ -4,17 +4,17 @@ import { sidebarWidth } from '@/components/layout/sidebars/state'
 import WFSidebar from '@/components/layout/sidebars/WFSidebar.vue'
 import WFHeader from '@/components/layout/headers/WFHeader.vue'
 
-const isClosedSidebar = ref(true)
+const isOpenedSidebar = ref(true)
 
 const clickOnBar = () => {
-  isClosedSidebar.value = !isClosedSidebar.value
+  isOpenedSidebar.value = !isOpenedSidebar.value
 }
 </script>
 
 <template>
   <WFHeader @barClick="clickOnBar" />
-  <WFSidebar :isClosed="isClosedSidebar" />
-  <div class="router" :style="{ 'margin-left': sidebarWidth }">
+  <WFSidebar :isOpen="isOpenedSidebar" />
+  <div class="router" :style="{ 'margin-left': isOpenedSidebar ? sidebarWidth : 0 }">
     <router-view></router-view>
   </div>
 </template>

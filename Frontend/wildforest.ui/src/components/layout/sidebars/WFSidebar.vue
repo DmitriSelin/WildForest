@@ -3,7 +3,7 @@ import { collapsed, toggleSidebar, sidebarWidth } from './state';
 import WFSidebarLink from './WFSidebarLink.vue';
 
 const props = defineProps({
-  isClosed: {
+  isOpen: {
     type: Boolean,
     default: false
   }
@@ -12,7 +12,7 @@ const props = defineProps({
 
 <template>
   <Transition name="fade">
-    <nav class="sidebar" :style="{ width: sidebarWidth }" v-if="isClosed">
+    <nav class="sidebar" :style="{ width: sidebarWidth }" v-if="isOpen">
 
       <WFSidebarLink to="/weather" icon="fa-solid fa-house-chimney">Home</WFSidebarLink>
       <WFSidebarLink to="/weather/forecast" icon="fas fa-cloud-showers-heavy">Weather</WFSidebarLink>
