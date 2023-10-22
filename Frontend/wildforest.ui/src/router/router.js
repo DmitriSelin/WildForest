@@ -4,6 +4,7 @@ import Login from "@/views/WFLogin.vue";
 import AuthCredentials from "@/views/WFAuthCredentials.vue";
 import Register from "@/views/WFRegister.vue";
 import WFIndex from "@/views/WFIndex.vue";
+import NotFound from "@/views/WFNotFound.vue";
 import Button from "@/views/Button.vue";
 
 const router = createRouter({
@@ -33,6 +34,11 @@ const router = createRouter({
             path: "/weather",
             name: "Weather",
             component: WFIndex
+        },
+        {
+            path: "/:pathMatch(.*)*",
+            name: "NotFound",
+            component: NotFound
         },
         {
             path: "/buttons",
