@@ -23,7 +23,7 @@ const clickOnBar = () => {
 .router {
   background-color: var(--primary);
   width: calc(100% - sidebarWidth);
-  height: 100%;
+  height: calc(100% - 77px);
   margin-top: 77px;
 }
 </style>
