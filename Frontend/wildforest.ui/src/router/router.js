@@ -3,7 +3,10 @@ import Start from "@/views/WFStart.vue";
 import Login from "@/views/WFLogin.vue";
 import AuthCredentials from "@/views/WFAuthCredentials.vue";
 import Register from "@/views/WFRegister.vue";
-import WFIndex from "@/views/WFIndex.vue";
+import Index from "@/views/WFIndex.vue";
+import Home from "@/views/WFHome.vue";
+import Forecast from "@/views/WFForecast.vue";
+import Comments from "@/views/WFComments.vue";
 import NotFound from "@/views/WFNotFound.vue";
 import Button from "@/views/Button.vue";
 
@@ -33,7 +36,21 @@ const router = createRouter({
         {
             path: "/weather",
             name: "Weather",
-            component: WFIndex
+            component: Index,
+            children: [
+                {
+                    path: "",
+                    component: Home
+                },
+                {
+                    path: "forecast",
+                    component: Forecast
+                },
+                {
+                    path: "comments",
+                    component: Comments
+                }
+            ]
         },
         {
             path: "/:pathMatch(.*)*",

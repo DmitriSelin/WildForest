@@ -14,9 +14,9 @@ const props = defineProps({
   <Transition name="fade">
     <nav class="sidebar" :style="{ width: sidebarWidth }" v-if="isClosed">
 
-      <WFSidebarLink to="/" icon="fa-solid fa-house-chimney">Home</WFSidebarLink>
-      <WFSidebarLink to="/a" icon="fas fa-cloud-showers-heavy">Weather</WFSidebarLink>
-      <WFSidebarLink to="/aa" icon="fas fa-comment">Comments</WFSidebarLink>
+      <WFSidebarLink to="/weather" icon="fa-solid fa-house-chimney">Home</WFSidebarLink>
+      <WFSidebarLink to="/weather/forecast" icon="fas fa-cloud-showers-heavy">Weather</WFSidebarLink>
+      <WFSidebarLink to="/weather/comments" icon="fas fa-comment">Comments</WFSidebarLink>
 
       <span @click="toggleSidebar" class="collapse-icon" :class="{ 'rotate-180': collapsed }">
         <font-awesome-icon icon="fa-solid fa-angles-left" />

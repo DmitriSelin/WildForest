@@ -24,5 +24,6 @@ const clickOnBar = () => {
   background-color: var(--primary);
   width: calc(100% - sidebarWidth);
   height: 100%;
+  margin-top: 77px;
 }
 </style>
