@@ -12,10 +12,10 @@
         </div>
         <div class="main-weather-data">
             <div class="main-weather-data-wind">
-
+                
             </div>
             <div class="main-weather-data-one">
-
+                
             </div>
             <div class="main-weather-data-one">
 
