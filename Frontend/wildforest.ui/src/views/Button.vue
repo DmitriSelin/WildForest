@@ -12,6 +12,7 @@ import WFTableRow from '@/components/tables/WFTableRow.vue'
 import WFTableColumn from '@/components/tables/WFTableColumn.vue'
 import WFInput from '@/components/inputs/WFInput.vue'
 import Button from "primevue/button"
+import WFWeatherTabs from '../components/tabs/WFWeatherTabs.vue'
 import { ref } from 'vue'
 import { computed } from 'vue'
 
@@ -239,6 +240,8 @@ function test()
   <h2>{{ nameField }}</h2>
   <br><br>
   <WFInput type="password" label="Enter password" placeholder="Input password"/>
+  <br><br><br><br><br>
+  <WFWeatherTabs :tabs="['', '', '', '']"/>
   <br><br><br><br><br>
 </template>
 
