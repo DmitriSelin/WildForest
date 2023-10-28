@@ -29,7 +29,6 @@ const props = defineProps({
     display: flex;
     align-items: center;
     color: var(--white);
-    gap: 15px;
 
     &__item {
         color: var(--white);
@@ -39,6 +38,7 @@ const props = defineProps({
         align-items: center;
         justify-content: center;
         background-color: var(--violet);
+        margin: 15px;
         height: 130px;
         width: 130px;
         gap: 10px;

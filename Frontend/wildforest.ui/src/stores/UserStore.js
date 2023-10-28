@@ -4,22 +4,31 @@ import { get } from "../api/api";
 import { registerUser, loginUser } from "@/auth/requests/authRequests";
 
 export const useUserStore = defineStore("userStore", () => {
+    // State
     const authCredentials = ref({ languages: [], countries: [] });
     const authResponse = ref({});
     const selectedCredentials = ref({ selectedCountry: {}, selectedLanguage: {} });
     const cities = ref([]);
     const errorMessage = ref("");
+    // State
 
+    // Actions
     const selectedCredentialsInLocalStorage = localStorage.getItem("selectedCredentials");
     if (selectedCredentialsInLocalStorage) {
         selectedCredentials.value = JSON.parse(selectedCredentialsInLocalStorage)._value;
     }
 
+    watch(() => selectedCredentials, (state) => {
+        localStorage.setItem("selectedCredentials", JSON.stringify(state));
+    },
+        { deep: true }
+    );
+
     const authResponseInLocalStorage = localStorage.getItem("authResponse");
     if (authResponseInLocalStorage) {
         authResponse.value = JSON.parse(authResponseInLocalStorage)._value;
     }
-    
+
     watch(() => authResponse, (state) => {
         localStorage.setItem("authResponse", JSON.stringify(state));
     },
@@ -61,7 +70,7 @@ export const useUserStore = defineStore("userStore", () => {
         }
     }
 
-    const login = async(request) => {
+    const login = async (request) => {
         const response = await loginUser(request);
 
         if (response.isError === false) {
@@ -73,12 +82,7 @@ export const useUserStore = defineStore("userStore", () => {
             return false;
         }
     }
-
-    watch(() => selectedCredentials, (state) => {
-        localStorage.setItem("selectedCredentials", JSON.stringify(state));
-    },
-        { deep: true }
-    );
+    // Actions
 
     return {
         authResponse,

@@ -14,9 +14,19 @@ export const get = async (path) => {
 export const post = async (path, request) => {
     try {
         const result = await ky.post(`${url}${path}`, { json: request }).json();
-        return { data: result, isError: false }
+        return { data: result, isError: false };
     }
     catch (err) {
         return { data: err, isError: true };
+    }
+}
+
+export const refreshToken = async () => {
+    try {
+        const result = await ky.post(`${url}tokens/refreshToken`).json();
+        return { data: result, isError: false };
+    }
+    catch (err) {
+        return { data: err.response, isError: true };
     }
 }
