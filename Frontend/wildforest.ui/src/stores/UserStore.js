@@ -5,7 +5,7 @@ import { registerUser, loginUser } from "@/auth/requests/authRequests";
 
 export const useUserStore = defineStore("userStore", () => {
     const authCredentials = ref({ languages: [], countries: [] });
-    const registerResponse = ref({});
+    const authResponse = ref({});
     const selectedCredentials = ref({ selectedCountry: {}, selectedLanguage: {} });
     const cities = ref([]);
     const errorMessage = ref("");
@@ -14,6 +14,17 @@ export const useUserStore = defineStore("userStore", () => {
     if (selectedCredentialsInLocalStorage) {
         selectedCredentials.value = JSON.parse(selectedCredentialsInLocalStorage)._value;
     }
+
+    const authResponseInLocalStorage = localStorage.getItem("authResponse");
+    if (authResponseInLocalStorage) {
+        authResponse.value = JSON.parse(authResponseInLocalStorage)._value;
+    }
+    
+    watch(() => authResponse, (state) => {
+        localStorage.setItem("authResponse", JSON.stringify(state));
+    },
+        { deep: true }
+    );
 
     const getAuthCredentials = async () => {
         const response = await get("auth/countries-languages");
@@ -41,7 +52,7 @@ export const useUserStore = defineStore("userStore", () => {
         const response = await registerUser(request);
 
         if (response.isError === false) {
-            registerResponse.value = response.data;
+            authResponse.value = response.data;
             return true;
         }
         else {
@@ -54,7 +65,7 @@ export const useUserStore = defineStore("userStore", () => {
         const response = await loginUser(request);
 
         if (response.isError === false) {
-            registerResponse.value = response.data;
+            authResponse.value = response.data;
             return true;
         }
         else {
@@ -70,7 +81,7 @@ export const useUserStore = defineStore("userStore", () => {
     );
 
     return {
-        registerResponse,
+        authResponse,
         authCredentials,
         cities,
         errorMessage,
