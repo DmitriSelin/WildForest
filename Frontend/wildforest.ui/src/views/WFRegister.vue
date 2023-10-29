@@ -36,7 +36,7 @@ const register = async () => {
         });
 
         if (result === true) {
-            router.push({ name: 'Weather' });
+            router.push({ name: 'Home' });
         }
         else if (result === false) {
             toast.add({ severity: 'error', summary: 'Error', detail: userStore.errorMessage, life: 10000 });

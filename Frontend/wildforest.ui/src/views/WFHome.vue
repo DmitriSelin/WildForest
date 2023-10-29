@@ -1,8 +1,12 @@
 <script setup>
 import { ref, onMounted } from 'vue';
+import { getHomeWeatherForecast } from '../weather/requests/weatherRequests';
 
-onMounted(() => {
-    
+const weatherForecast = ref({});
+
+onMounted(async () => {
+    weatherForecast.value = await getHomeWeatherForecast();
+    console.log(weatherForecast.value);
 });
 </script>
 
@@ -16,10 +20,10 @@ onMounted(() => {
         </div>
         <div class="main-weather-data">
             <div class="main-weather-data-wind">
-                
+
             </div>
             <div class="main-weather-data-one">
-                
+
             </div>
             <div class="main-weather-data-one">
 
@@ -33,12 +37,10 @@ onMounted(() => {
 
             </div>
             <div class="main-weather-data-one">
-                
+
             </div>
         </div>
     </main>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref, watch } from 'vue';
-import { get } from "../api/api";
+import { get, refreshToken } from "../api/api";
 import { registerUser, loginUser } from "@/auth/requests/authRequests";
 
 export const useUserStore = defineStore("userStore", () => {
@@ -82,6 +82,17 @@ export const useUserStore = defineStore("userStore", () => {
             return false;
         }
     }
+
+    const refresh = async () => {
+        const response = await refreshToken();
+
+        if (response.isError === false) {
+            authResponse.value = response.data;
+            return true;
+        }
+        
+        return false;
+    }
     // Actions
 
     return {
@@ -93,6 +104,7 @@ export const useUserStore = defineStore("userStore", () => {
         getCitiesByCountry,
         getAuthCredentials,
         register,
-        login
+        login,
+        refresh
     };
 });
