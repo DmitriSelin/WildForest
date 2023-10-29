@@ -45,14 +45,4 @@ public sealed class MapsController : ApiController
 
         return Ok(result.Value);
     }
-
-    [HttpGet("countries")]
-    public async Task<IActionResult> GetCountries()
-    {
-        List<CountryQuery> countries = await _countriesListQueryHandler.GetCountriesAsync();
-
-        var countriesResponse = _mapper.Map<List<CountryResponse>>(countries);
-
-        return Ok(countriesResponse);
-    }
 }
