@@ -46,6 +46,7 @@ public sealed class AdminController : ApiController
         return Ok(result.Value);
     }
 
+    [AllowAnonymous]
     [HttpPost("forecast")]
     public async Task<IActionResult> AddWeatherForecasts()
     {

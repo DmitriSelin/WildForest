@@ -11,7 +11,7 @@ export async function getHomeWeatherForecast() {
         const headers = {
             Authorization: `Bearer ${token}`
         };
-        const result = await ky.get(`${url}weather/forecasts/homeCity/${currentDate}`, { headers });
+        const result = await ky.get(`${url}weather/forecasts/homeCity/${currentDate}`, { headers }).json();
 
         return { data: result, isError: false }
     }
