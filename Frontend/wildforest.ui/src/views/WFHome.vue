@@ -1,22 +1,18 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { getHomeWeatherForecast } from '../weather/requests/weatherRequests';
 import { useToast } from "primevue/usetoast";
+import { useWeatherStore } from "@/stores/WeatherStore";
 
 const weatherForecasts = ref({});
 const toast = useToast();
-let isPageLoaded = ref(false);
+const weatherStore = useWeatherStore();
 
 onMounted(async () => {
-    if (isPageLoaded.value)
-        return;
-
-    const result = await getHomeWeatherForecast();
+    const result = await weatherStore.getHomeWeather();
 
     if (result.isError === false) {
         weatherForecasts.value = result.data;
         weatherForecasts.value.sort((a, b) => new Date(a.date) - new Date(b.date));
-        isPageLoaded.value = true;
     }
     else {
         toast.add({ severity: 'error', summary: 'Error', detail: result.data, life: 10000 });
