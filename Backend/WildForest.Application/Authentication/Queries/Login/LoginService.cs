@@ -31,7 +31,7 @@ public sealed class LoginService : ILoginService
 
         User? user = await _unitOfWork.UserRepository.GetUserByEmailWithCityAsync(email);
 
-        if (user is null || password != user.Password)
+        if (user is null || !user.Password.IsEqual(password))
             return Errors.Authentication.InvalidCredentials;
 
         var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, query.IpAddress);

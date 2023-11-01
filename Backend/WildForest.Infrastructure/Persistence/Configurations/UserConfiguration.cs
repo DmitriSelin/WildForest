@@ -57,8 +57,12 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
             sa =>
             {
                 sa.Property(p => p.Value)
-                .HasMaxLength(ConfigurationSettings.MaxStringLength)
+                .IsRequired()
                 .HasColumnName("Password");
+
+                sa.Property("_salt")
+                .IsRequired()
+                .HasColumnName("Salt");
             });
 
         builder
