@@ -31,7 +31,7 @@ public sealed class RegistrationServiceTests : DbUnitTest
         var registrationService = new RegistrationService(_jwtTokenGenerator, _refreshTokenGenerator, UnitOfWork);
         var city = UnitOfWork.Context.Cities.First();
         var command = new RegisterCommand(Constants.User.FirstName.Value, Constants.User.LastName.Value,
-            Constants.User.FirstEmail.Value, Constants.User.Password.Value, Constants.User.IP, city.Id.Value, _languageId);
+            Constants.User.FirstEmail.Value, Constants.User.Password, Constants.User.IP, city.Id.Value, _languageId);
 
         //Act
         ErrorOr<AuthenticationResult> authResult = await registrationService.RegisterAsync(command);
@@ -47,7 +47,7 @@ public sealed class RegistrationServiceTests : DbUnitTest
         var registrationService = new RegistrationService(_jwtTokenGenerator, _refreshTokenGenerator, UnitOfWork);
         var city = UnitOfWork.Context.Cities.First();
         var command = new RegisterCommand(Constants.User.FirstName.Value, Constants.User.LastName.Value,
-            Constants.User.UserDuplicateEmail.Value, Constants.User.Password.Value, Constants.User.IP, city.Id.Value, _languageId);
+            Constants.User.UserDuplicateEmail.Value, Constants.User.Password, Constants.User.IP, city.Id.Value, _languageId);
 
         //Act
         ErrorOr<AuthenticationResult> authResult = await registrationService.RegisterAsync(command);
@@ -63,7 +63,7 @@ public sealed class RegistrationServiceTests : DbUnitTest
         //Arrange
         var registrationService = new RegistrationService(_jwtTokenGenerator, _refreshTokenGenerator, UnitOfWork);
         var command = new RegisterCommand(Constants.User.FirstName.Value, Constants.User.LastName.Value,
-            Constants.User.FirstEmail.Value, Constants.User.Password.Value, Constants.User.IP, Guid.NewGuid(), _languageId);
+            Constants.User.FirstEmail.Value, Constants.User.Password, Constants.User.IP, Guid.NewGuid(), _languageId);
 
         //Act
         ErrorOr<AuthenticationResult> authResult = await registrationService.RegisterAsync(command);

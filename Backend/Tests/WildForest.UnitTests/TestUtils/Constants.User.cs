@@ -10,7 +10,7 @@ public static partial class Constants
 
         public static readonly LastName LastName = LastName.Create("LastName");
 
-        public static readonly Password Password = Password.Create("Password");
+        public static readonly string Password = "Password";
 
         public static readonly Email FirstEmail = Email.Create("first@gmail.com");
 
