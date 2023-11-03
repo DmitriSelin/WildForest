@@ -27,11 +27,10 @@ public sealed class LoginService : ILoginService
     public async Task<ErrorOr<AuthenticationResult>> LoginAsync(LoginQuery query)
     {
         var email = Email.Create(query.Email);
-        var password = Password.Create(query.Password);
 
         User? user = await _unitOfWork.UserRepository.GetUserByEmailWithCityAsync(email);
 
-        if (user is null || !user.Password.IsEqual(password))
+        if (user is null || !user.Password.IsEqual(query.Password))
             return Errors.Authentication.InvalidCredentials;
 
         var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, query.IpAddress);

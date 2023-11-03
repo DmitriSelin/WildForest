@@ -23,21 +23,15 @@ public sealed class Password : ValueObject
 
     public static Password Create(string value)
     {
-        if (string.IsNullOrWhiteSpace(value))
-            throw new ArgumentNullException(nameof(value));
-
-        var password = value.Trim();
-
-        if (password.Length < 6 || password.Length > 50)
-            throw new ValidationException("Invalid Password");
+        string password = Validate(value);
 
         return new(password);
     }
 
-    public bool IsEqual(Password password)
+    public bool IsEqual(string password)
     {
-        var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(password.Value, _salt, iterations, _hashAlgorithmName, keySize);
-
+        password = Validate(password);
+        var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(password, _salt, iterations, _hashAlgorithmName, keySize);
         return CryptographicOperations.FixedTimeEquals(hashToCompare, Convert.FromBase64String(Value));
     }
 
@@ -59,5 +53,18 @@ public sealed class Password : ValueObject
             outputLength: keySize);
 
         return Convert.ToBase64String(hash);
+    }
+
+    private static string Validate(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            throw new ArgumentNullException(nameof(value));
+
+        var password = value.Trim();
+
+        if (password.Length < 6 || password.Length > 50)
+            throw new ValidationException("Invalid Password");
+
+        return password;
     }
 }
