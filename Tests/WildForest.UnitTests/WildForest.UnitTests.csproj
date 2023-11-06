@@ -29,9 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\WildForest.Application\WildForest.Application.csproj" />
-    <ProjectReference Include="..\..\WildForest.Domain\WildForest.Domain.csproj" />
-    <ProjectReference Include="..\..\WildForest.Infrastructure\WildForest.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\WildForest.Application\WildForest.Application.csproj" />
+    <ProjectReference Include="..\..\src\WildForest.Domain\WildForest.Domain.csproj" />
+    <ProjectReference Include="..\..\src\WildForest.Infrastructure\WildForest.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
