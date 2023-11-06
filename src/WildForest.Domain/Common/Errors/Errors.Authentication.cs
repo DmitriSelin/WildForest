@@ -6,7 +6,7 @@ namespace WildForest.Domain.Common.Errors
     {
         public static class Authentication
         {
-            public static Error InvalidCredentials => Error.Validation(
+            public static Error InvalidCredentials => Error.NotFound(
                 code: "Authentication.InvalidCredentials",
                 description: "User with such an email or password does not exist");
 
