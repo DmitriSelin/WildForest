@@ -13,6 +13,8 @@ import WFTableColumn from '@/components/tables/WFTableColumn.vue'
 import WFInput from '@/components/inputs/WFInput.vue'
 import Button from "primevue/button"
 import WFWeatherTabs from '../components/tabs/WFWeatherTabs.vue'
+import TabView from 'primevue/tabview';
+import TabPanel from 'primevue/tabpanel';
 import { ref } from 'vue'
 import { computed } from 'vue'
 
@@ -114,8 +116,7 @@ const setSort = (name) => {
 
 const nameField = ref('')
 
-function test()
-{
+function test() {
   alert("test");
 }
 </script>
@@ -124,13 +125,7 @@ function test()
   <Button label="Ok" class="btn" @click="test"></Button>
   <br><br><br><br><br>
   <h1>{{ isChecked }}</h1>
-  <Checkbox
-    label="Go to top"
-    id="checkboxActive"
-    name="checkboxActive"
-    value="like"
-    v-model:checked="isChecked"
-  />
+  <Checkbox label="Go to top" id="checkboxActive" name="checkboxActive" value="like" v-model:checked="isChecked" />
 
   <br />
   <br />
@@ -139,48 +134,24 @@ function test()
   <br />
   <br />
   <h1>Switch: {{ switchOn }}</h1>
-  <Checkbox
-    label="Dark theme"
-    id="switch1"
-    type="switch"
-    name="switch1"
-    value="theme1"
-    v-model:checked="switchOn"
-  />
+  <Checkbox label="Dark theme" id="switch1" type="switch" name="switch1" value="theme1" v-model:checked="switchOn" />
 
   <br />
   <br />
   <h1>Radiobuttons</h1>
   <h1>Selected item: {{ selectedItem }}</h1>
   <div v-for="item in listOfProducts2" :key="item.id">
-    <WFRadiobutton
-      :value="item.name"
-      :label="item.name"
-      :id="item.id"
-      name="itemGroup"
-      v-model:checkedValue="selectedItem"
-    />
+    <WFRadiobutton :value="item.name" :label="item.name" :id="item.id" name="itemGroup"
+      v-model:checkedValue="selectedItem" />
   </div>
   <br /><br />
   <div>
-    <WFRadiobutton
-      value="Disabled"
-      label="Disabled"
-      id="Disabled"
-      name="Disabled"
-      v-model:checkedValue="selectedItem"
-      :disabled="disabledRadio"
-    />
+    <WFRadiobutton value="Disabled" label="Disabled" id="Disabled" name="Disabled" v-model:checkedValue="selectedItem"
+      :disabled="disabledRadio" />
   </div>
   <div>
-    <WFRadiobutton
-      value="Disabled2"
-      label="Disabled 2"
-      id="Disabled2"
-      name="Disabled"
-      v-model:checkedValue="selectedItem"
-      :disabled="disabledRadio"
-    />
+    <WFRadiobutton value="Disabled2" label="Disabled 2" id="Disabled2" name="Disabled" v-model:checkedValue="selectedItem"
+      :disabled="disabledRadio" />
   </div>
 
   <br /><br />
@@ -204,12 +175,7 @@ function test()
   <h2>Sort field: {{ sortField }}</h2>
   <br />
   <WFTable :head="tableHeads" :columnTemplates="tableSizeColumns" @sorting="setSort">
-    <WFTableRow
-      v-for="book in booksSorting"
-      :key="book.id"
-      :columnTemplates="tableSizeColumns"
-      :bgRow="book.bg"
-    >
+    <WFTableRow v-for="book in booksSorting" :key="book.id" :columnTemplates="tableSizeColumns" :bgRow="book.bg">
       <WFTableColumn :columnTitle="tableHeads[0]">
         {{ book.id }}
       </WFTableColumn>
@@ -229,29 +195,69 @@ function test()
   <h1>Inputs:</h1>
   <br /><br />
   <form>
-    <WFInput
-      label="Your name"
-      name="name"
-      placeholder="Input your name"
-      v-model:value="nameField"
-      errors="Test error"
-    />
+    <WFInput label="Your name" name="name" placeholder="Input your name" v-model:value="nameField" errors="Test error" />
   </form>
   <h2>{{ nameField }}</h2>
   <br><br>
-  <WFInput type="password" label="Enter password" placeholder="Input password"/>
+  <WFInput type="password" label="Enter password" placeholder="Input password" />
   <br><br><br><br><br>
-  <WFWeatherTabs :tabs="['', '', '', '']"/>
+  <WFWeatherTabs :tabs="['', '', '', '']" />
   <br><br><br><br><br>
+
+  <TabView class="tabview-custom">
+    <TabPanel :pt="{
+      header: 'panel'
+    }">
+      <template #header>
+        <div class="cust">
+          <img src="../assets/images/logo.ico" alt="logo">
+          <span class="font-bold white-space-nowrap">My firstName</span>
+        </div>
+      </template>
+      <p style="{margin: 0;}">
+        First content.
+      </p>
+    </TabPanel>
+    <TabPanel>
+      <template #header>
+        <div class="cust">
+          <img src="../assets/images/logo.ico" alt="logo">
+          <span class="font-bold white-space-nowrap">My secondName</span>
+        </div>
+      </template>
+      <p style="{margin: 0;}">
+        Second content.
+      </p>
+    </TabPanel>
+  </TabView>
 </template>
 
 <style scoped lang="scss">
-h1, h2, .white {
+h1,
+h2,
+.white {
   color: var(--white);
 }
 
 .btn {
   margin: 10px;
   padding: 10px;
+}
+
+.cust {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: white;
+}
+
+.p-tabview {
+  border: 3px solid white;
+}
+
+.panel {
+  background-color: red;
+  color: goldenrod;
+  border: 2px solid limegreen;
 }
 </style>

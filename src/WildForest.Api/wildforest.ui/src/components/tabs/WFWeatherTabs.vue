@@ -6,14 +6,14 @@ const props = defineProps({
     },
     selectedTab: {
         type: String,
-        required: false
+        required: true
     }
 })
 </script>
 
 <template>
     <div class="tab-nav">
-        <div v-for="tab in tabs" :key="tab.id" class="tab-nav__item">
+        <div v-for="tab in tabs" :key="tab.id" :class="['tab-nav__item', { 'selected': selectedTab === tab.time }]">
             <h3 class="tab-nav__item-h">{{ tab.time }}</h3>
             <font-awesome-icon icon="fa-solid fa-cloud-rain" class="tab-nav__item-img" />
             <h3 class="tab-nav__item-h">{{ tab.temperature }}</h3>
