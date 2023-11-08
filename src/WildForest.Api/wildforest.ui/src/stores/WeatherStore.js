@@ -4,17 +4,31 @@ import { getHomeWeatherForecast } from '@/weather/requests/weatherRequests';
 
 export const useWeatherStore = defineStore("weatherStore", () => {
     //State
-    const weatherForecasts = ref({});
+    const weatherForecasts = ref({ data: [], errorMessage: null });
 
     //Actions
     const getHomeWeather = async () => {
-        if (weatherForecasts.value !== undefined) {
-            return true;
+        const result = sessionStorage.getItem("weatherForecasts");
+
+        if (result === null) {
+            getWeatherFromApi();
         }
         else {
-            const result = await getHomeWeatherForecast();
+            weatherForecasts.value = result;
+            weatherForecasts.value.errorMessage = null;
+        }
+    }
 
-            return false;
+    async function getWeatherFromApi() {
+        const result = await getHomeWeatherForecast();
+
+        if (result.isError === false) {
+            weatherForecasts.value.data = result.data;
+            weatherForecasts.value.errorMessage = null;
+            sessionStorage.setItem("weatherForecasts", result.data);
+        }
+        else {
+            weatherForecasts.value.errorMessage = result.data;
         }
     }
 

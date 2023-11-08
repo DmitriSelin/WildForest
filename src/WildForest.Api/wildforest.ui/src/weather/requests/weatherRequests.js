@@ -1,16 +1,14 @@
 import ky from "ky";
 import { url } from "@/infrastructure/urls/urlUtility";
 import { useUserStore } from "@/stores/UserStore"
+import { getAuthHeader } from "@/api/api";
 
 export async function getHomeWeatherForecast() {
     const userStore = useUserStore();
     const currentDate = new Date().toJSON().slice(0, 10);
 
     try {
-        const token = userStore.authResponse.token;
-        const headers = {
-            Authorization: `Bearer ${token}`
-        };
+        const headers = getAuthHeader(userStore.authResponse.token);
         const result = await ky.get(`${url}weather/forecasts/homeCity/${currentDate}`, { headers }).json();
 
         return { data: result, isError: false }

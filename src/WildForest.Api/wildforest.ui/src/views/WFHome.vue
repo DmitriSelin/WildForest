@@ -6,32 +6,29 @@ import { useWeatherStore } from "@/stores/WeatherStore";
 import { isFirstLoaded } from '@/infrastructure/storageUtils';
 import { getTodayWeatherForecast, getClosestTime } from '@/infrastructure/dateTimeProvider';
 
-const weatherForecasts = ref({});
 const toast = useToast();
 const weatherStore = useWeatherStore();
 const currentForecast = ref({});
+const currentTime = ref("");
 
 onMounted(async () => {
     if (isFirstLoaded("homePage") === false)
         return;
 
-    const result = await weatherStore.getHomeWeather();
+    await weatherStore.getHomeWeather();
 
-    if (result.isError === false) {
-        weatherForecasts.value = result.data;
-        weatherForecasts.value.sort((a, b) => new Date(a.date) - new Date(b.date));
-        const todayForecasts = getTodayWeatherForecast(weatherForecasts.value);
-        currentForecast.value = getClosestTime(todayForecasts);
+    if (weatherStore.weatherForecasts.errorMessage !== null) {
+        currentForecast.value = getTodayWeatherForecast(weatherStore.weatherForecasts);
     }
     else {
-        toast.add({ severity: 'error', summary: 'Error', detail: result.data, life: 10_000 });
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Message Content', life: 10_000 });
     }
 });
 </script>
 
 <template>
     <main class="main">
-        <WFWeatherTabs :tabs="weatherForecasts" />
+        <WFWeatherTabs :tabs="weatherForecasts" selectedTab="15:00"/>
         <div class="main-weather-temperature">
             <h1>CityName</h1>
             <h2>Date</h2>
