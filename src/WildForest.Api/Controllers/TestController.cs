@@ -6,6 +6,5 @@ namespace WildForest.Api.Controllers
     [Route("test")]
     public class TestController : ControllerBase
     {
-        
     }
 }

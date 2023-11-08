@@ -15,17 +15,27 @@ public sealed class Password : ValueObject
 
     private readonly byte[] _salt;
 
-    private Password(string value)
+    private Password(byte[] salt, string value)
     {
-        _salt = RandomNumberGenerator.GetBytes(keySize);
-        Value = HashPassword(value);
+        _salt = salt;
+        Value = value;
     }
 
     public static Password Create(string value)
     {
         string password = Validate(value);
+        var salt = RandomNumberGenerator.GetBytes(keySize);
 
-        return new(password);
+        var hash = Rfc2898DeriveBytes.Pbkdf2(
+            password: Encoding.UTF8.GetBytes(password),
+            salt: salt,
+            iterations: iterations,
+            hashAlgorithm: _hashAlgorithmName,
+            outputLength: keySize);
+
+        var hashedPassword = Convert.ToBase64String(hash);
+
+        return new(salt, hashedPassword);
     }
 
     public bool IsEqual(string password)
@@ -41,18 +51,6 @@ public sealed class Password : ValueObject
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
-    }
-
-    private string HashPassword(string password)
-    {
-        var hash = Rfc2898DeriveBytes.Pbkdf2(
-            password: Encoding.UTF8.GetBytes(password),
-            salt: _salt,
-            iterations: iterations,
-            hashAlgorithm: _hashAlgorithmName,
-            outputLength: keySize);
-
-        return Convert.ToBase64String(hash);
     }
 
     private static string Validate(string value)
