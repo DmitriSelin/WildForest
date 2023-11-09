@@ -2,15 +2,15 @@ const currentHour = () => {
     return new Date().getHours();
 }
 
-export function getClosestTime(times) {
-    let closestTime = times[0];
+export function getClosestTime(forecasts) {
+    let closestTime = forecasts[0].time;
     let timeDiff = Math.abs(currentHour() - parseInt(closestTime));
 
-    for (let i = 0; i < times.length; i++) {
-        const diff = Math.abs(currentHour() - parseInt(times[i]));
+    for (let i = 0; i < forecasts.length; i++) {
+        const diff = Math.abs(currentHour() - parseInt(forecasts[i].time));
 
         if (diff < timeDiff) {
-            closestTime = times[i];
+            closestTime = forecasts[i].time;
             timeDiff = diff;
         }
     }
@@ -20,7 +20,6 @@ export function getClosestTime(times) {
 
 export function getTodayWeatherForecast(forecasts) {
     const currentDate = new Date().toJSON().slice(0, 10);
-
     const currentForecast = forecasts.find(x => x.date === currentDate);
     return currentForecast;
 }

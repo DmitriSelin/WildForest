@@ -16,7 +16,7 @@ const props = defineProps({
         <div v-for="tab in tabs" :key="tab.id" :class="['tab-nav__item', { 'selected': selectedTab === tab.time }]">
             <h3 class="tab-nav__item-h">{{ tab.time }}</h3>
             <font-awesome-icon icon="fa-solid fa-cloud-rain" class="tab-nav__item-img" />
-            <h3 class="tab-nav__item-h">{{ tab.temperature }}</h3>
+            <h3 class="tab-nav__item-h">{{ tab.temperature.value }}&nbsp;°C</h3>
         </div>
     </div>
     <div class="tab-content">
