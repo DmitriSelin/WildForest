@@ -22,7 +22,7 @@ const clickOnBar = () =>  {
         </div>
         <form action="https://localhost:8080" method="get" class="search">
             <WFInput label="City" name="cityName" placeholder="Input your city" />
-            <WFButton icon="magnifying-glass" outlined />
+            <WFButton icon="magnifying-glass" outlined disabled/>
         </form>
         <div class="header-profile">
             <img src="../../../assets/images/logo.ico" alt="userImage">
