@@ -8,13 +8,13 @@ export const useWeatherStore = defineStore("weatherStore", () => {
 
     //Actions
     const getHomeWeather = async () => {
-        const result = sessionStorage.getItem("weatherForecasts");
+        const result = JSON.parse(sessionStorage.getItem("weatherForecasts"));
 
         if (result === null) {
-            getWeatherFromApi();
+            await getWeatherFromApi();
         }
         else {
-            weatherForecasts.value = result;
+            weatherForecasts.value.data = result;
             weatherForecasts.value.errorMessage = null;
         }
     }
@@ -25,7 +25,7 @@ export const useWeatherStore = defineStore("weatherStore", () => {
         if (result.isError === false) {
             weatherForecasts.value.data = result.data;
             weatherForecasts.value.errorMessage = null;
-            sessionStorage.setItem("weatherForecasts", result.data);
+            sessionStorage.setItem("weatherForecasts", JSON.stringify(result.data));
         }
         else {
             weatherForecasts.value.errorMessage = result.data;
