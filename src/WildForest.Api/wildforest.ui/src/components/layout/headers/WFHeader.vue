@@ -15,12 +15,12 @@ const clickOnBar = () =>  {
             <div class="header-bar" @click="clickOnBar">
                 <font-awesome-icon icon="fa-solid fa-bars" class="icon" />
             </div>
-            <span class="header-image">
+            <span class="header-image" @click="$router.push({name: 'Home'})">
                 <img src="../../../assets/images/logo.ico" alt="logo">
                 <h3>Wild forest</h3>
             </span>
         </div>
-        <form action="https://localhost:8080" method="get" class="search">
+        <form class="search">
             <WFInput label="City" name="cityName" placeholder="Input your city" />
             <WFButton icon="magnifying-glass" outlined disabled/>
         </form>
@@ -72,6 +72,7 @@ const clickOnBar = () =>  {
         align-items: center;
         color: var(--white);
         margin: 0 25px 0 15px;
+        cursor: pointer;
 
         img {
             margin-right: 10px;
