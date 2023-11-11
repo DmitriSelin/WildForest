@@ -1,4 +1,5 @@
 <script setup>
+import WFRating from '../components/radiobuttons/WFRating.vue';
 import { ref, onMounted } from 'vue';
 import WFWeatherTabs from '../components/tabs/WFWeatherTabs.vue'
 import { useToast } from "primevue/usetoast";
@@ -28,15 +29,55 @@ onMounted(async () => {
 
 <template>
     <main class="main">
-        <WFWeatherTabs :tabs="currentForecast.weatherForecasts" :selectedTab="currentTime" />
-        <div class="main-weather-temperature">
-            <h1>CityName</h1>
-            <h2>Date</h2>
-            <img src="../assets/images/logo.ico" alt="weather icon">
-            <h2>Sunny</h2>
+        <div class="weather">
+            <div class="weather-content">
+                <h2 style="margin: 1vh 0 1vh 0;">New-York</h2>
+                <h3 style="color: gray;">10-11-2023, Monday 12:00</h3>
+                <div class="weather-content-data">
+                    <font-awesome-icon icon="fa-solid fa-cloud-rain" class="weather-content-data-img" />
+                    <h1>20 °C</h1>
+                </div>
+                <h2>Rain</h2>
+                <WFRating rating="7.8" views="400"/>
+            </div>
+            <WFWeatherTabs :tabs="currentForecast.weatherForecasts" :selectedTab="currentTime" style="margin-top: 2vh;"/>
         </div>
         <Toast />
     </main>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.weather {
+    margin: 3vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--violet);
+        border-radius: 20px;
+        padding: 10px 20px;
+        margin-top: 20px;
+
+        &-data {
+            display: flex;
+            gap: 30px;
+            margin: 3vh 0;
+
+            &-img {
+                height: 100px;
+            }
+        }
+    }
+}
+
+h2,
+h3 {
+    margin: 0;
+}
+</style>

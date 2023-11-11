@@ -29,6 +29,10 @@ const props = defineProps({
   checkedValue: {
     type: String,
     required: true
+  },
+  icon: {
+    type: String,
+    default: ''
   }
 })
 
@@ -38,32 +42,29 @@ const click = (event) => {
 </script>
 
 <template>
-  <input
-    class="radiobutton"
-    type="radio"
-    :name="name"
-    :id="id"
-    :value="value"
-    :checked="checked"
-    :disabled="disabled"
-    @input="click($event)"
-  />
+  <input :class="[{ 'radiobutton': icon === '' }, { 'radiobutton__vote': icon !== '' }]" class="radio" type="radio"
+    :name="name" :id="id" :value="value" :checked="checked" :disabled="disabled" @input="click($event)" />
   <label :for="id">{{ label }}</label>
 </template>
 
 <style lang="scss" scoped>
-.radiobutton {
+.radio {
   position: absolute;
-  z-index: -1;
   opacity: 0;
-  & + label {
+  z-index: -1;
+}
+
+.radiobutton {
+
+  &+label {
     display: inline-flex;
     align-items: center;
     user-select: none;
     cursor: pointer;
     color: var(--white);
   }
-  & + label::before {
+
+  &+label::before {
     content: '';
     display: inline-block;
     width: 24px;
@@ -78,34 +79,74 @@ const click = (event) => {
     background-size: 50% 50%;
     border-radius: 50%;
   }
-  &:checked + label::before {
+
+  &:checked+label::before {
     border-color: var(--accent);
     background-color: var(--accent-hover);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
   }
-  &:not(:disabled):not(:checked) + label:hover::before {
+
+  &:not(:disabled):not(:checked)+label:hover::before {
     border-color: var(--accent-hover);
   }
-  &:not(:disabled):active + label::before {
+
+  &:not(:disabled):active+label::before {
     background-color: var(--accent);
     border: 1px solid var(--white);
   }
-  &:focus + label::before {
+
+  &:focus+label::before {
     box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.07);
   }
-  &:focus:not(:checked) + label::before {
+
+  &:focus:not(:checked)+label::before {
     border-color: var(--accent);
   }
+
   $disabledBackColor: #e9ecef;
   $disabledBorder: 1px solid #ecebed;
-  &:disabled:not(:checked) + label::before {
+
+  &:disabled:not(:checked)+label::before {
     background-color: $disabledBackColor;
     border: $disabledBorder;
   }
-  &:disabled:is(:checked) + label::before {
+
+  &:disabled:is(:checked)+label::before {
     background-color: $disabledBackColor;
     border: $disabledBorder;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
   }
+}
+
+.radiobutton__vote {
+  &+label {
+    position: relative;
+    cursor: pointer;
+    padding-left: 25px;
+  }
+
+  &+label:before {
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+input#up+label:before {
+  content: url("../../assets/icons/arrows/black_up.svg");
+}
+
+input#down+label:before {
+  content: url("../../assets/icons/arrows/black_down.svg");
+}
+
+input#up:checked+label:before {
+  content: url("../../assets/icons/arrows/blue_up.svg");
+}
+
+input#down:checked+label:before {
+  content: url("../../assets/icons/arrows/blue_down.svg");
 }
 </style>

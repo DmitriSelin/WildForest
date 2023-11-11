@@ -19,9 +19,6 @@ const props = defineProps({
             <h3 class="tab-nav__item-h">{{ tab.temperature.value }}&nbsp;°C</h3>
         </div>
     </div>
-    <div class="tab-content">
-        <slot></slot>
-    </div>
 </template>
 
 <style lang="scss" scoped>
@@ -63,9 +60,5 @@ const props = defineProps({
             height: 50px;
         }
     }
-}
-
-.tab-content {
-    height: 100vh;
 }
 </style>

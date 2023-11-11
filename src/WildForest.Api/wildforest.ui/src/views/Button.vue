@@ -11,16 +11,15 @@ import WFTable from '@/components/tables/WFTable.vue'
 import WFTableRow from '@/components/tables/WFTableRow.vue'
 import WFTableColumn from '@/components/tables/WFTableColumn.vue'
 import WFInput from '@/components/inputs/WFInput.vue'
-import Button from "primevue/button"
-import WFWeatherTabs from '../components/tabs/WFWeatherTabs.vue'
-import TabView from 'primevue/tabview';
-import TabPanel from 'primevue/tabpanel';
-import { ref } from 'vue'
-import { computed } from 'vue'
+import Button from "primevue/button";
+import WFRating from '@/components/radiobuttons/WFRating.vue';
+import { ref } from 'vue';
+import { computed } from 'vue';
 
 const isChecked = ref(true)
 
 const switchOn = ref(false)
+const test1 = ref('')
 
 const listOfProducts = ref([
   { name: 'Bread', id: 'h1' },
@@ -197,39 +196,6 @@ function test() {
   <form>
     <WFInput label="Your name" name="name" placeholder="Input your name" v-model:value="nameField" errors="Test error" />
   </form>
-  <h2>{{ nameField }}</h2>
-  <br><br>
-  <WFInput type="password" label="Enter password" placeholder="Input password" />
-  <br><br><br><br><br>
-  <WFWeatherTabs :tabs="['', '', '', '']" />
-  <br><br><br><br><br>
-
-  <TabView class="tabview-custom">
-    <TabPanel :pt="{
-      header: 'panel'
-    }">
-      <template #header>
-        <div class="cust">
-          <img src="../assets/images/logo.ico" alt="logo">
-          <span class="font-bold white-space-nowrap">My firstName</span>
-        </div>
-      </template>
-      <p style="{margin: 0;}">
-        First content.
-      </p>
-    </TabPanel>
-    <TabPanel>
-      <template #header>
-        <div class="cust">
-          <img src="../assets/images/logo.ico" alt="logo">
-          <span class="font-bold white-space-nowrap">My secondName</span>
-        </div>
-      </template>
-      <p style="{margin: 0;}">
-        Second content.
-      </p>
-    </TabPanel>
-  </TabView>
 </template>
 
 <style scoped lang="scss">
@@ -242,22 +208,5 @@ h2,
 .btn {
   margin: 10px;
   padding: 10px;
-}
-
-.cust {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  color: white;
-}
-
-.p-tabview {
-  border: 3px solid white;
-}
-
-.panel {
-  background-color: red;
-  color: goldenrod;
-  border: 2px solid limegreen;
 }
 </style>
