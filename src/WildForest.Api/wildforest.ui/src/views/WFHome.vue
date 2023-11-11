@@ -31,16 +31,18 @@ onMounted(async () => {
     <main class="main">
         <div class="weather">
             <div class="weather-content">
-                <h2 style="margin: 1vh 0 1vh 0;">New-York</h2>
-                <h3 style="color: gray;">10-11-2023, Monday 12:00</h3>
-                <div class="weather-content-data">
-                    <font-awesome-icon icon="fa-solid fa-cloud-rain" class="weather-content-data-img" />
-                    <h1>20 °C</h1>
+                <div class="weather-content-info">
+                    <h2 style="margin: 1vh 0 1vh 0;">New-York</h2>
+                    <h3 style="color: gray;">10-11-2023, Monday 12:00</h3>
+                    <div class="weather-content-info-data">
+                        <font-awesome-icon icon="fa-solid fa-cloud-rain" class="weather-content-info-data-img" />
+                        <h1>20 °C</h1>
+                    </div>
+                    <h2>Rain</h2>
                 </div>
-                <h2>Rain</h2>
-                <WFRating rating="7.8" views="400"/>
+                <WFRating rating="7.8" />
             </div>
-            <WFWeatherTabs :tabs="currentForecast.weatherForecasts" :selectedTab="currentTime" style="margin-top: 2vh;"/>
+            <WFWeatherTabs :tabs="currentForecast.weatherForecasts" :selectedTab="currentTime" style="margin-top: 2vh;" />
         </div>
         <Toast />
     </main>
@@ -56,21 +58,29 @@ onMounted(async () => {
 
     &-content {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
         background-color: var(--violet);
         border-radius: 20px;
-        padding: 10px 20px;
-        margin-top: 20px;
+        gap: 10vh;
+        padding: 40px;
+        margin-top: 4vh;
 
-        &-data {
+        &-info {
             display: flex;
-            gap: 30px;
-            margin: 3vh 0;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 
-            &-img {
-                height: 100px;
+            &-data {
+                display: flex;
+                gap: 30px;
+                margin: 3vh 0;
+
+                &-img {
+                    height: 100px;
+                }
             }
         }
     }

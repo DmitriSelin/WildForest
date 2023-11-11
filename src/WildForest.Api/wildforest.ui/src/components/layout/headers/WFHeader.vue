@@ -1,6 +1,15 @@
 <script setup>
 import WFInput from '@/components/inputs/WFInput.vue'
 import WFButton from '@/components/buttons/WFButton.vue'
+import { useUserStore } from "@/stores/UserStore";
+import { ref, onMounted } from 'vue';
+
+const userStore = useUserStore();
+const fullName = ref("Unknown user");
+
+onMounted(() => {
+    fullName.value = userStore.authResponse.lastName + ' ' + userStore.authResponse.firstName;
+});
 
 const emit = defineEmits(['barClick'])
 
@@ -26,7 +35,7 @@ const clickOnBar = () =>  {
         </form>
         <div class="header-profile">
             <img src="../../../assets/images/logo.ico" alt="userImage">
-            <h3>Test User</h3>
+            <h3>{{ fullName }}</h3>
         </div>
     </header>
 </template>
