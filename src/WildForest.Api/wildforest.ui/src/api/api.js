@@ -2,8 +2,6 @@ import { url } from "@/infrastructure/urls/urlUtility";
 import { useRouter } from "vue-router";
 import ky from 'ky';
 
-const router = useRouter();
-
 export const get = async (path) => {
     try {
         const result = await ky.get(`${url}${path}`).json();
@@ -43,5 +41,6 @@ export const getAuthHeader = (token) => {
 }
 
 export const goTo = (routeName) => {
+    const router = useRouter();
     router.push({ name: routeName });
 }
