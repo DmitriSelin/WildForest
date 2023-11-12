@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using WildForest.Application.Authentication.Commands.Profile;
 using WildForest.Application.Authentication.Commands.RefreshTokens;
 using WildForest.Application.Authentication.Commands.RegisterUser;
 using WildForest.Application.Authentication.Commands.RevokeTokens;
@@ -37,6 +38,7 @@ public static class DependencyInjection
         services.AddScoped<IRefreshTokenCommandHandler, RefreshTokenCommandHandler>();
         services.AddScoped<IRevokeTokenCommandHandler, RevokeTokenCommandHandler>();
         services.AddScoped<IAuthCredentialsQueryHandler, AuthCredentialsQueryHandler>();
+        services.AddScoped<IProfileService, ProfileService>();
 
         return services;
     }

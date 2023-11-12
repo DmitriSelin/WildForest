@@ -12,21 +12,21 @@ namespace WildForest.Domain.Users.Entities;
 
 public class User : Entity<UserId>
 {
-    public FirstName FirstName { get; } = null!;
+    public FirstName FirstName { get; private set; } = null!;
 
-    public LastName LastName { get; } = null!;
+    public LastName LastName { get; private set; } = null!;
 
-    public Role Role { get; }
+    public Role Role { get; private set; }
 
-    public Email Email { get; } = null!;
+    public Email Email { get; private set; } = null!;
 
-    public Password Password { get; } = null!;
+    public Password Password { get; private set; } = null!;
 
-    public CityId CityId { get; } = null!;
+    public CityId CityId { get; private set; } = null!;
 
     public City City { get; } = null!;
 
-    public LanguageId LanguageId { get; } = null!;
+    public LanguageId LanguageId { get; private set; } = null!;
 
     public Language Language { get; } = null!;
 
@@ -76,6 +76,16 @@ public class User : Entity<UserId>
         return new(UserId.Create(), firstName, lastName,
                     Role.Admin, email, password,
                     cityId, languageId);
+    }
+
+    public void Update(User newUserCredentials)
+    {
+        FirstName = newUserCredentials.FirstName;
+        LastName = newUserCredentials.LastName;
+        Email = newUserCredentials.Email;
+        Password = newUserCredentials.Password;
+        CityId = newUserCredentials.CityId;
+        LanguageId = newUserCredentials.LanguageId;
     }
 
 #pragma warning disable IDE0051 // Remove unused private members

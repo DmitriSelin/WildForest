@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using WildForest.Application.Authentication.Commands.Profile;
 using WildForest.Application.Authentication.Commands.Registration;
 using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Queries.LoginUser;
@@ -14,6 +15,16 @@ public sealed class AuthenticationMappingConfig : IRegister
             .Map(dest => dest.Email, source => source.Item1.Email)
             .Map(dest => dest.Password, source => source.Item1.Password)
             .Map(dest => dest.IpAddress, source => source.IpAddress);
+
+        config.NewConfig<(RegisterRequest, string, Guid), UpdateProfileCommand>()
+            .Map(dest => dest.Id, source => source.Item3)
+            .Map(dest => dest.FirstName, source => source.Item1.FirstName)
+            .Map(dest => dest.LastName, source => source.Item1.LastName)
+            .Map(dest => dest.Email, source => source.Item1.Email)
+            .Map(dest => dest.Password, source => source.Item1.Password)
+            .Map(dest => dest.IpAddress, source => source.Item2)
+            .Map(dest => dest.CityId, source => source.Item1.CityId)
+            .Map(dest => dest.LanguageId, source => source.Item1.LanguageId);
 
         config.NewConfig<(RegisterRequest, string iPAddress), RegisterCommand>()
             .Map(dest => dest.FirstName, source => source.Item1.FirstName)
