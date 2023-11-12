@@ -19,4 +19,6 @@ public interface IUnitOfWork
     public ILanguageRepository LanguageRepository { get; }
 
     public IWeatherForecastRepository WeatherForecastRepository { get; }
+
+    public ICommentRepository CommentRepository { get; }
 }

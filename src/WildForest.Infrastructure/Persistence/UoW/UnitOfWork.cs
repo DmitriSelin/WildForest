@@ -46,6 +46,11 @@ public sealed class UnitOfWork : IUnitOfWork
     public IWeatherForecastRepository WeatherForecastRepository
         => weatherForecastRepository ??= new WeatherForecastRepository(_context);
 
+    private ICommentRepository? commentRepository;
+
+    public ICommentRepository CommentRepository
+        => commentRepository ??= new CommentRepository(_context);
+
     public UnitOfWork(WildForestDbContext context)
     {
         _context = context;
