@@ -5,6 +5,7 @@ using WildForest.Application.Authentication.Commands.RegisterUser;
 using WildForest.Application.Authentication.Commands.RevokeTokens;
 using WildForest.Application.Authentication.Queries.LoginUser;
 using WildForest.Application.Authentication.Queries.Registration;
+using WildForest.Application.Comments.Queries.GetComments;
 using WildForest.Application.Common.Mapping;
 using WildForest.Application.Maps.Commands.AddCountry;
 using WildForest.Application.Maps.Queries.GetCitiesList;
@@ -65,6 +66,7 @@ public static class DependencyInjection
     private static IServiceCollection AddRatings(this IServiceCollection services)
     {
         services.AddScoped<IVoteService, VoteService>();
+        services.AddScoped<ICommentQueryHandler, CommentQueryHandler>();
 
         return services;
     }
