@@ -1,5 +1,6 @@
 ﻿using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Cities.ValueObjects;
+using WildForest.Domain.Comments.Entities;
 using WildForest.Domain.Common.Models;
 using WildForest.Domain.Ratings;
 using WildForest.Domain.Weather.Entities;
@@ -20,6 +21,10 @@ public class WeatherForecast : AggregateRoot<WeatherForecastId>
     private readonly List<ThreeHourWeatherForecast> _threeHourWeatherForecasts = new();
 
     public IReadOnlyList<ThreeHourWeatherForecast> ThreeHourWeatherForecasts => _threeHourWeatherForecasts.AsReadOnly();
+
+    private readonly List<Comment> _comments = new();
+
+    public IReadOnlyList<Comment> Comments => _comments.AsReadOnly();
 
     public void AddThreeHourWeatherForecast(ThreeHourWeatherForecast forecast)
     {

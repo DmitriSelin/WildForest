@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WildForest.Domain.Cities.Entities;
+using WildForest.Domain.Comments.Entities;
 using WildForest.Domain.Countries.Entities;
 using WildForest.Domain.Languages.Entities;
 using WildForest.Domain.Ratings;
@@ -30,6 +31,8 @@ public sealed class WildForestDbContext : DbContext
     public DbSet<Rating> Ratings => Set<Rating>();
 
     public DbSet<Vote> Votes => Set<Vote>();
+
+    public DbSet<Comment> Comments => Set<Comment>();
 
     public WildForestDbContext(DbContextOptions<WildForestDbContext> options) : base(options) { }
 

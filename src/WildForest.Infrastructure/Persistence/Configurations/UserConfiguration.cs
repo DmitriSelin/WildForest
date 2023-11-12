@@ -94,5 +94,9 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Metadata
             .FindNavigation(nameof(User.Votes))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
+
+        builder.Metadata
+            .FindNavigation(nameof(User.Comments))!
+            .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

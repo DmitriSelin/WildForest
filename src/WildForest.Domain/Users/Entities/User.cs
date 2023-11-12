@@ -1,5 +1,6 @@
 ﻿using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Cities.ValueObjects;
+using WildForest.Domain.Comments.Entities;
 using WildForest.Domain.Common.Enums;
 using WildForest.Domain.Common.Models;
 using WildForest.Domain.Languages.Entities;
@@ -37,6 +38,10 @@ public class User : Entity<UserId>
     private readonly List<Vote> _votes = new();
 
     public IReadOnlyList<Vote> Votes => _votes.AsReadOnly();
+
+    private readonly List<Comment> _comments = new();
+
+    public IReadOnlyList<Comment> Comments => _comments.AsReadOnly();
 
     private User(
         UserId id, FirstName firstName, LastName lastName,

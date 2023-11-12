@@ -167,5 +167,9 @@ public sealed class WeatherForecastConfiguration : IEntityTypeConfiguration<Weat
         builder.Metadata
             .FindNavigation(nameof(WeatherForecast.ThreeHourWeatherForecasts))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
+
+        builder.Metadata
+            .FindNavigation(nameof(WeatherForecast.Comments))!
+            .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }
