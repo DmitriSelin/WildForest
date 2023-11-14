@@ -12,7 +12,7 @@ import WFTableRow from '@/components/tables/WFTableRow.vue'
 import WFTableColumn from '@/components/tables/WFTableColumn.vue'
 import WFInput from '@/components/inputs/WFInput.vue'
 import Button from "primevue/button";
-import WFRating from '@/components/radiobuttons/WFRating.vue';
+import WFWeatherCard from '../components/weather/WFWeatherCard.vue'
 import { ref } from 'vue';
 import { computed } from 'vue';
 
@@ -122,6 +122,8 @@ function test() {
 
 <template>
   <Button label="Ok" class="btn" @click="test"></Button>
+  <WFWeatherCard value="Hello" title="Mr. Fridman" icon="ok"/>
+  <WFWeatherCard value="Hello" icon="temperature-half" title="Mr. Volume"/>
   <br><br><br><br><br>
   <h1>{{ isChecked }}</h1>
   <Checkbox label="Go to top" id="checkboxActive" name="checkboxActive" value="like" v-model:checked="isChecked" />
