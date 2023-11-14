@@ -2,6 +2,7 @@
 using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Weather;
+using WildForest.Domain.Weather.ValueObjects;
 using WildForest.Infrastructure.Persistence.Context;
 
 namespace WildForest.Infrastructure.Persistence.Repositories;
@@ -18,6 +19,12 @@ public sealed class WeatherForecastRepository : IWeatherForecastRepository
     public async Task AddWeatherForecastsAsync(IEnumerable<WeatherForecast> weatherForecasts)
     {
         await _context.WeatherForecasts.AddRangeAsync(weatherForecasts);
+    }
+
+    public async Task<WeatherForecast?> GetWeatherForecastByIdAsync(WeatherForecastId weatherForecastId)
+    {
+        return await _context.WeatherForecasts
+            .FirstOrDefaultAsync(x => x.Id == weatherForecastId);
     }
 
     public async Task<IEnumerable<WeatherForecast>> GetWeatherForecastsWithRatingByDateAsync(DateOnly date, CityId cityId)

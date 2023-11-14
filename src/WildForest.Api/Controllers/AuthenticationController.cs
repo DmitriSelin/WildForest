@@ -23,7 +23,6 @@ public sealed class AuthenticationController : ApiController
     private readonly IRegistrationService _registrationService;
     private readonly ILoginService _loginService;
     private readonly IMapper _mapper;
-    private readonly ICountriesListQueryHandler _countriesListQueryHandler;
     private readonly ICitiesListQueryHandler _citiesListQueryHandler;
     private readonly IAuthCredentialsQueryHandler _authCredentialsQueryHandler;
 
@@ -31,14 +30,12 @@ public sealed class AuthenticationController : ApiController
         IRegistrationService registrationService,
         ILoginService loginService,
         IMapper mapper,
-        ICountriesListQueryHandler countriesListQueryHandler,
         ICitiesListQueryHandler citiesListQueryHandler,
         IAuthCredentialsQueryHandler authCredentialsQueryHandler)
     {
         _registrationService = registrationService;
         _loginService = loginService;
         _mapper = mapper;
-        _countriesListQueryHandler = countriesListQueryHandler;
         _citiesListQueryHandler = citiesListQueryHandler;
         _authCredentialsQueryHandler = authCredentialsQueryHandler;
     }

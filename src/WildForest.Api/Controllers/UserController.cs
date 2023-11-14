@@ -3,7 +3,6 @@ using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WildForest.Api.Common.Extensions;
-using WildForest.Api.Services.Http.Jwt;
 using WildForest.Application.Authentication.Commands.Profile;
 using WildForest.Contracts.Authentication;
 
@@ -13,16 +12,13 @@ namespace WildForest.Api.Controllers;
 [Route("api/users")]
 public sealed class UserController : ApiController
 {
-    private readonly IJwtTokenDecoder _jwtTokenDecoder;
     private readonly IMapper _mapper;
     private readonly IProfileService _profileService;
 
     public UserController(
-        IJwtTokenDecoder jwtTokenDecoder,
         IMapper mapper,
         IProfileService profileService)
     {
-        _jwtTokenDecoder = jwtTokenDecoder;
         _mapper = mapper;
         _profileService = profileService;
     }
@@ -30,8 +26,7 @@ public sealed class UserController : ApiController
     [HttpPut("profile")]
     public async Task<IActionResult> UpdateProfile(RegisterRequest request)
     {
-        var bearer = HttpContext.GetJwtTokenFromAuthHeader();
-        ErrorOr<Guid> userId = _jwtTokenDecoder.GetUserIdFromToken(bearer);
+        ErrorOr<Guid> userId = HttpContext.GetUserIdFromAuthHeader();
 
         if (userId.IsError)
             return Problem(userId.Errors);

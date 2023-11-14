@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WildForest.Api.Common.Extensions;
-using WildForest.Api.Services.Http.Jwt;
 using WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
 namespace WildForest.Api.Controllers;
@@ -11,23 +10,18 @@ namespace WildForest.Api.Controllers;
 [Route("api/weather/forecasts")]
 public sealed class WeatherForecastController : ApiController
 {
-    private readonly IJwtTokenDecoder _jwtTokenDecoder;
     private readonly IHomeWeatherForecastService _homeWeatherForecastService;
 
     public WeatherForecastController(
-        IJwtTokenDecoder jwtTokenDecoder,
         IHomeWeatherForecastService homeWeatherForecastService)
     {
-        _jwtTokenDecoder = jwtTokenDecoder;
         _homeWeatherForecastService = homeWeatherForecastService;
     }
 
     [HttpGet("homeCity/{date}")]
     public async Task<IActionResult> GetHomeWeatherForecasts(string date)
     {
-        var bearer = HttpContext.GetJwtTokenFromAuthHeader();
-
-        ErrorOr<Guid> userId = _jwtTokenDecoder.GetUserIdFromToken(bearer);
+        ErrorOr<Guid> userId = HttpContext.GetUserIdFromAuthHeader();
 
         if (userId.IsError)
             return Problem(userId.Errors);

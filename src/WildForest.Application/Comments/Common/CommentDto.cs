@@ -1,4 +1,4 @@
-﻿namespace WildForest.Application.Comments.Queries.GetComments;
+﻿namespace WildForest.Application.Comments.Common;
 
 public sealed record CommentDto(
     Guid Id,
