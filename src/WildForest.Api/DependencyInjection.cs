@@ -5,7 +5,6 @@ using Swashbuckle.AspNetCore.Filters;
 using WildForest.Api.BackgroundServices;
 using WildForest.Api.Common.Errors;
 using WildForest.Api.Common.Mapping;
-using WildForest.Api.Services.Http.Jwt;
 
 namespace WildForest.Api
 {
@@ -21,7 +20,6 @@ namespace WildForest.Api
 
             services.AddSingleton<ProblemDetailsFactory, WildForestProblemDetailsFactory>();
             services.AddMappings();
-            services.AddTransient<IJwtTokenDecoder, JwtTokenDecoder>();
 
             return services;
         }
