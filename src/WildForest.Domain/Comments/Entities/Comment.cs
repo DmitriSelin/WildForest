@@ -11,7 +11,7 @@ public sealed class Comment : Entity<CommentId>
 {
     public string Text { get; private set; } = null!;
 
-    public DateTime Date { get; }
+    public DateTime Date { get; private set; }
 
     public UserId UserId { get; } = null!;
 
@@ -28,6 +28,13 @@ public sealed class Comment : Entity<CommentId>
         return new(
             CommentId.Create(), text, DateTime.UtcNow,
             userId, weatherForecastId);
+    }
+
+    public void Update(string text)
+    {
+        string newText = ValidateText(text);
+        Text = newText;
+        Date = DateTime.UtcNow;//TODO: make changed status
     }
 
     private static string ValidateText(string value)
