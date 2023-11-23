@@ -8,6 +8,10 @@ public static partial class Errors
     {
         public static Error NotFoundByWeatherForecastId => Error.NotFound(
             code: "Comment.NotFoundByWeatherForecastId",
-            description: "Country with this name is already exists");
+            description: "Comments with this weatherForecastId do not exist");
+
+        public static Error NotFound => Error.NotFound(
+            code: "Comment.NotFound",
+            description: "Comment not found");
     }
 }
