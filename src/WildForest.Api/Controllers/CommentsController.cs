@@ -53,4 +53,22 @@ public sealed class CommentsController : ApiController
 
         return Ok(commentResult.Value);
     }
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateComment(CommentRequestForUpdate request)
+    {
+        var userId = HttpContext.GetUserIdFromAuthHeader();
+
+        if (userId.IsError)
+            return Problem(userId.Errors);
+
+        var command = new CommentCommandForUpdate(request.Id, request.WeatherForecastId, userId.Value, request.NewText);
+
+        ErrorOr<CommentDto> commentResult = await _commentService.UpdateCommentAsync(command);
+
+        if (commentResult.IsError)
+            return Problem(commentResult.Errors);
+
+        return Ok(commentResult.Value);
+    }
 }
