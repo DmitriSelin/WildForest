@@ -4,6 +4,7 @@ using WildForest.Infrastructure.Persistence.Context;
 using WildForest.Infrastructure.Persistence.UoW;
 using WildForest.UnitTests.Authentication.TestUtils;
 using WildForest.UnitTests.Maps.TestUtils;
+using WildForest.UnitTests.Weather.TestUtils;
 
 namespace WildForest.UnitTests.Common;
 
@@ -21,10 +22,12 @@ public sealed class UnitOfWorkFactoryInMemory
         var country = CountryFactory.Create();
         var language = Language.Create("English");
         var users = UserFactory.Create(country.Cities[0].Id, language.Id);
+        var weatherForecast = WeatherFabric.Create(country.Cities[0].Id);
 
         context.Countries.Add(country);
         context.Languages.Add(language);
         context.Users.AddRange(users);
+        context.WeatherForecasts.Add(weatherForecast);
         
         var unitOfWork = new UnitOfWork(context);
         RefreshTokenHelper.Initialize(users, unitOfWork);
