@@ -9,7 +9,6 @@ using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Queries.LoginUser;
 using WildForest.Application.Authentication.Queries.Registration;
 using WildForest.Application.Maps.Queries.GetCitiesList;
-using WildForest.Application.Maps.Queries.GetCountriesList;
 using WildForest.Contracts.Authentication;
 using WildForest.Contracts.Maps;
 using WildForest.Domain.Common.Errors;
