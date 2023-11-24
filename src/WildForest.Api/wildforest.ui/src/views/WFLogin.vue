@@ -5,18 +5,17 @@ import WFEmptyLink from "@/components/buttons/WFEmptyLink.vue";
 import { ref } from "vue";
 import { useUserStore } from "@/stores/UserStore"
 import { useToast } from "primevue/usetoast";
-import { useRouter } from "vue-router";
+import { getLoginFormData } from "@/infrastructure/formProvider";
+import { goTo } from "@/api/api";
 
 const userStore = useUserStore();
-const router = useRouter();
-const email = ref("");
-const password = ref("");
+const formData = ref(getLoginFormData());
 
 const login = async () => {
-    const result = await userStore.login({ email: email.value, password: password.value });
+    const result = await userStore.login({ email: formData.value.email, password: formData.value.password });
 
     if (result === true) {
-        router.push({ name: "Home" });
+        goTo("Home");
     }
     else if (result === false) {
         toast.add({ severity: 'error', summary: 'Error', detail: userStore.errorMessage, life: 10000 });
@@ -37,9 +36,9 @@ const loginWithGoogle = () => {
                 <h1>Login</h1>
             </div>
             <form @submit.prevent="login" class="left-block-content">
-                <WFInput label="Email" type="Email" name="email" placeholder="Input your email" v-model:value="email" />
+                <WFInput label="Email" type="Email" name="email" placeholder="Input your email" v-model:value="formData.email" />
                 <WFInput label="Password" type="password" minLength="6" name="password" placeholder="Input your password"
-                    v-model:value="password" />
+                    v-model:value="formData.password" />
                 <div class="left-block-content-btn">
                     <WFButton label="Login" size="large" />
                     <WFEmptyLink to="credentials" text="Have not an account?" title="Register" />
