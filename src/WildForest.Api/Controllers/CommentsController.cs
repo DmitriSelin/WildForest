@@ -62,7 +62,7 @@ public sealed class CommentsController : ApiController
         if (userId.IsError)
             return Problem(userId.Errors);
 
-        var command = new CommentCommandForUpdate(request.Id, request.WeatherForecastId, userId.Value, request.NewText);
+        var command = new CommentCommandForUpdate(request.Id, request.WeatherForecastId, userId.Value, request.Text);
 
         ErrorOr<CommentDto> commentResult = await _commentService.UpdateCommentAsync(command);
 
