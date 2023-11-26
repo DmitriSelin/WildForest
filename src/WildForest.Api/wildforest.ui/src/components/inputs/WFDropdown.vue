@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-const emit = defineEmits(['selectionChanged']);
+const emit = defineEmits(['update:value']);
 const props = defineProps({
     options: {
         type: Array,
@@ -16,6 +16,10 @@ const props = defineProps({
     },
     id: {
         type: String,
+        required: true
+    },
+    value: {
+        type: Object,
         required: true
     },
     editable: {
@@ -37,15 +41,15 @@ const props = defineProps({
 })
 
 const selectedItem = ref();
-const dataChanged = () => {
-    emit('selectionChanged', selectedItem.value);
+const updateValue = () => {
+    emit('update:value', selectedItem.value);
 }
 </script>
 
-<template class="dropdown-container">
+<template>
     <div class="dropdown-container">
         <Dropdown v-model="selectedItem" :options="options" :editable="editable" :optionLabel="optionLabel"
-            :placeholder="placeholder" :id="id" @change="dataChanged" />
+            :placeholder="placeholder" :id="id" @change="updateValue" />
         <Transition v-if="isError">
             <label :for="id" :class="['label', { 'label-top': labelOnTop === true }]">{{ error }}</label>
         </Transition>

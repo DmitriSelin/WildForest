@@ -2,14 +2,13 @@
 import WFButton from "@/components/buttons/WFButton.vue"
 import WFDropdown from "@/components/inputs/WFDropdown.vue";
 import { ref, onMounted } from "vue";
-import { validateNotEmptyValues } from "../auth/validators/fieldValidator";
+import { validateNotEmptyValues } from "@/auth/validators/fieldValidator";
 import { useUserStore } from "@/stores/UserStore";
-import { useRouter } from "vue-router";
+import { getAuthCredentialsFormData } from "@/infrastructure/formProvider";
+import { goTo } from "@/api/api";
 
-let selectedLanguage;
-let selectedCountry;
+const formData = ref(getAuthCredentialsFormData());
 const userStore = useUserStore();
-const router = useRouter();
 const errors = ref([]);
 
 onMounted(async () => {
@@ -17,22 +16,15 @@ onMounted(async () => {
 });
 
 const goToRegisterPage = () => {
-    const validationResult = validateNotEmptyValues([selectedLanguage, selectedCountry]);
+    const validationResult = validateNotEmptyValues([formData.value.selectedLanguage, formData.value.selectedCountry]);
 
     if (validationResult.isValid) {
-        userStore.setAuthCredentials(selectedCountry, selectedLanguage);
-        router.push({ name: 'Registration' });
+        userStore.setAuthCredentials(formData.value.selectedLanguage, formData.value.selectedCountry);
+        goTo("Registration");
     }
     else {
         errors.value = validationResult.errors;
     }
-}
-
-const languageSelectionChanged = (language) => {
-    selectedLanguage = language;
-}
-const countrySelectionChanged = (country) => {
-    selectedCountry = country;
 }
 </script>
 
@@ -45,10 +37,10 @@ const countrySelectionChanged = (country) => {
             </div>
             <form class="left-block-content small-area" @submit.prevent="goToRegisterPage">
                 <WFDropdown :options="userStore.authCredentials.languages" placeholder="Select a language"
-                    id="languageDropdown" @selectionChanged="languageSelectionChanged" error="This field is required"
+                    id="languageDropdown" error="This field is required" v-model:value="formData.selectedLanguage"
                     :isError="errors[0] === true" />
                 <WFDropdown :options="userStore.authCredentials.countries" placeholder="Select a country"
-                    id="countryDropdown" @selectionChanged="countrySelectionChanged" error="This field is required"
+                    id="countryDropdown" error="This field is required" v-model:value="formData.selectedCountry"
                     :isError="errors[1] === true" />
                 <WFButton label="Next" size="large" />
             </form>

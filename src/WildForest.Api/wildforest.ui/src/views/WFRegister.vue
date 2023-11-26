@@ -7,36 +7,31 @@ import { validateSameFields, validateNotEmptyValue } from "@/auth/validators/fie
 import { ref, onMounted } from "vue";
 import { useUserStore } from "@/stores/UserStore"
 import { useToast } from "primevue/usetoast";
-import { useRouter } from "vue-router";
+import { getRegisterFormData } from "@/infrastructure/formProvider";
+import { goTo } from "@/api/api";
 
 const toast = useToast();
 const userStore = useUserStore();
-const router = useRouter();
 
 onMounted(async () => {
     await userStore.getCitiesByCountry();
 });
 
-const firstName = ref("");
-const lastName = ref("");
-const email = ref("");
-let selectedCity;
-const password = ref("");
-const samePassword = ref("");
+const formData = ref(getRegisterFormData());
 const errors = ref([]);
 
 const register = async () => {
-    let comboboxValidationResult = validateNotEmptyValue(selectedCity);
-    let result = validateSameFields(password.value, samePassword.value);
+    let comboboxValidationResult = validateNotEmptyValue(formData.value.selectedCity);
+    let result = validateSameFields(formData.value.password, formData.value.samePassword);
 
     if (result.isValid === true && comboboxValidationResult.isValid === true) {
         const result = await userStore.register({
-            firstName: firstName.value, lastName: lastName.value,
-            email: email.value, password: password.value, cityId: selectedCity.cityId, languageId: ""
+            firstName: formData.value.firstName, lastName: formData.value.lastName,
+            email: formData.value.email, password: formData.value.password, cityId: formData.value.selectedCity.cityId, languageId: ""
         });
 
         if (result === true) {
-            router.push({ name: 'Home' });
+            goTo("Home");
         }
         else if (result === false) {
             toast.add({ severity: 'error', summary: 'Error', detail: userStore.errorMessage, life: 10000 });
@@ -55,10 +50,6 @@ const register = async () => {
     }
 }
 
-const citySelectionChanged = (city) => {
-    selectedCity = city;
-}
-
 const registerWithGoogle = () => {
     toast.add({ severity: 'info', summary: 'Info', detail: 'This function is still in development', life: 3000 });
 }
@@ -72,16 +63,16 @@ const registerWithGoogle = () => {
                 <h1>Registration</h1>
             </div>
             <form @submit.prevent="register" class="left-block-content">
-                <WFInput label="Firstname" name="firstName" placeholder="Input your first name" v-model:value="firstName" />
-                <WFInput label="Lastname" name="lastName" placeholder="Input your lastname" v-model:value="lastName" />
-                <WFInput label="Email" type="email" name="email" placeholder="Input your email" v-model:value="email" />
+                <WFInput label="Firstname" name="firstName" placeholder="Input your first name" v-model:value="formData.firstName" />
+                <WFInput label="Lastname" name="lastName" placeholder="Input your lastname" v-model:value="formData.lastName" />
+                <WFInput label="Email" type="email" name="email" placeholder="Input your email" v-model:value="formData.email" />
                 <WFDropdown :options="userStore.cities" placeholder="Select a City" id="cityDropdown"
                     error="This field is required" :isError="errors[0] === true" optionLabel="cityName" editable
-                    @selectionChanged="citySelectionChanged" :labelOnTop="true" />
+                    v-model:value="formData.selectedCity" :labelOnTop="true" />
                 <WFInput label="Password" type="password" name="password" placeholder="Input your password"
-                    v-model:value="password" minLength="6" error="Input the same passwords" :isError="errors[1] === true" />
+                    v-model:value="formData.password" minLength="6" error="Input the same passwords" :isError="errors[1] === true" />
                 <WFInput label="Password" type="password" name="samePassword" placeholder="Input the same password"
-                    v-model:value="samePassword" minLength="6" error="Input the same passwords"
+                    v-model:value="formData.samePassword" minLength="6" error="Input the same passwords"
                     :isError="errors[1] === true" />
                 <div class="left-block-content-btn">
                     <WFButton label="Register" size="large" />
