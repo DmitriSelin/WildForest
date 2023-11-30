@@ -56,7 +56,6 @@ public sealed class AuthenticationController : ApiController
         var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
 
         return Ok(response);
-        //ok
     }
 
     [AllowAnonymous]
