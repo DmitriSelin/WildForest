@@ -50,8 +50,8 @@ const updateValue = () => {
     <div class="dropdown-container">
         <Dropdown v-model="selectedItem" :options="options" :editable="editable" :optionLabel="optionLabel"
             :placeholder="placeholder" :id="id" @change="updateValue" />
-        <Transition v-if="isError">
-            <label :for="id" :class="['label', { 'label-top': labelOnTop === true }]">{{ error }}</label>
+        <Transition>
+            <label :for="id" :class="['label', { 'label-top': labelOnTop === true }]" v-if="isError">{{ error }}</label>
         </Transition>
     </div>
 </template>
@@ -66,7 +66,7 @@ const updateValue = () => {
     color: var(--danger);
     font-size: 13px;
     bottom: -20px;
-    left: -5px;
+    left: 0;
 
     &-top {
         top: -20px;
@@ -83,7 +83,7 @@ const updateValue = () => {
 
 .v-enter-active,
 .v-leave-active {
-    transition: opacity 0.5s ease;
+    transition: opacity 0.2s;
 }
 
 .v-enter-from,

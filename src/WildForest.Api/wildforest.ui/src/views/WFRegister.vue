@@ -21,7 +21,7 @@ const formData = ref(getRegisterFormData());
 const errors = ref([]);
 
 const register = async () => {
-    let comboboxValidationResult = validateNotEmptyValue(formData.value.selectedCity);
+    let comboboxValidationResult = validateNotEmptyValue(formData.value.selectedCity.cityName);
     let result = validateSameFields(formData.value.password, formData.value.samePassword);
 
     if (result.isValid === true && comboboxValidationResult.isValid === true) {

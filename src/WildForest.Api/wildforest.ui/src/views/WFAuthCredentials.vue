@@ -1,5 +1,5 @@
 <script setup>
-import WFButton from "@/components/buttons/WFButton.vue"
+import WFButton from "@/components/buttons/WFButton.vue";
 import WFDropdown from "@/components/inputs/WFDropdown.vue";
 import { ref, onMounted } from "vue";
 import { validateNotEmptyValues } from "@/auth/validators/fieldValidator";
@@ -16,10 +16,10 @@ onMounted(async () => {
 });
 
 const goToRegisterPage = () => {
-    const validationResult = validateNotEmptyValues([formData.value.selectedLanguage, formData.value.selectedCountry]);
+    const validationResult = validateNotEmptyValues([formData.value.selectedLanguage.name, formData.value.selectedCountry.name]);
 
     if (validationResult.isValid) {
-        userStore.setAuthCredentials(formData.value.selectedLanguage, formData.value.selectedCountry);
+        userStore.setAuthCredentials(formData.value.selectedCountry, formData.value.selectedLanguage);
         goTo("Registration");
     }
     else {
