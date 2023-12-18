@@ -1,5 +1,5 @@
 import { url } from "@/infrastructure/urls/urlUtility";
-import { useRouter } from "vue-router";
+import router from "@/router/router";
 import ky from 'ky';
 
 export const get = async (path) => {
@@ -40,7 +40,6 @@ export const getAuthHeader = (token) => {
     return headers;
 }
 
-export const goTo = (routeName) => {
-    const router = useRouter();
+export function goTo(routeName) {
     router.push({ name: routeName });
 }
