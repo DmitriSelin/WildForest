@@ -24,7 +24,7 @@ namespace WildForest.Application.Maps.Queries.GetCitiesList
 
             var cities = (List<City>?) await _unitOfWork.CityRepository.GetCitiesByCountryIdAsync(id);
 
-            if (cities is null)
+            if (cities is null || !cities.Any())
             {
                 return Errors.City.NotFoundCitiesByCountry;
             }
