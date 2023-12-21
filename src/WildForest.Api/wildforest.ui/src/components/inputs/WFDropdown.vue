@@ -42,7 +42,18 @@ const props = defineProps({
 
 const selectedItem = ref();
 const updateValue = () => {
-    emit('update:value', selectedItem.value);
+    if (props.editable === true) {
+        emitIfObjectType();
+    }
+    else {
+        emit('update:value', selectedItem.value);
+    }
+}
+
+function emitIfObjectType() {
+    if (typeof selectedItem.value === 'object') {
+        emit('update:value', selectedItem.value);
+    }
 }
 </script>
 
