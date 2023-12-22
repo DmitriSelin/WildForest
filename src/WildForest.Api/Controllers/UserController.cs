@@ -39,7 +39,7 @@ public sealed class UserController : ApiController
         if (authenticationResult.IsError)
             return Problem(authenticationResult.Errors);
 
-        HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
+        HttpContext.SetTokenCookie(authenticationResult.Value.RefreshToken);
 
         var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
 

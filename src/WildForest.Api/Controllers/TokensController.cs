@@ -50,7 +50,7 @@ public sealed class TokenController : ApiController
             return Problem(authenticationResult.Errors);
         }
 
-        HttpContext.Response.Cookies.SetTokenCookie(authenticationResult.Value.RefreshToken);
+        HttpContext.SetTokenCookie(authenticationResult.Value.RefreshToken);
 
         var authenticationResponse = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
         return Ok(authenticationResponse);

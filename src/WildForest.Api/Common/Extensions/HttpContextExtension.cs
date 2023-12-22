@@ -35,4 +35,15 @@ public static class HttpContextExtension
 
         return userId;
     }
+
+    public static void SetTokenCookie(this HttpContext context, string refreshToken)
+    {
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true,
+            Expires = DateTime.UtcNow.AddDays(7)
+        };
+
+        context.Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
+    }
 }
