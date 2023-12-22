@@ -1,9 +1,10 @@
 import { defineStore } from "pinia";
 import { ref, watch } from 'vue';
-import { get, refreshToken } from "../api/api";
-import { registerUser, loginUser } from "@/auth/requests/authRequests";
+import { Api } from "@/api/api";
+import { SUCCESS, ERROR, GET, POST, PUT } from "@/api/apiConstants";
 
 export const useUserStore = defineStore("userStore", () => {
+    const api = new Api();
     // State
     const authCredentials = ref({ languages: [], countries: [] });
     const authResponse = ref({});
@@ -36,10 +37,10 @@ export const useUserStore = defineStore("userStore", () => {
     );
 
     const getAuthCredentials = async () => {
-        const response = await get("auth/countries-languages");
+        const requestResult = await api.request("auth/countries-languages", GET);
 
-        if (!response.isError) {
-            authCredentials.value = response.data;
+        if (requestResult.result === SUCCESS) {
+            authCredentials.value = requestResult.data;
         }
     };
 
@@ -49,36 +50,38 @@ export const useUserStore = defineStore("userStore", () => {
     };
 
     const getCitiesByCountry = async () => {
-        const response = await get(`auth/cities/${selectedCredentials.value.selectedCountry.id}`);
+        const requestResult = await api.request(`auth/cities/${selectedCredentials.value.selectedCountry.id}`, GET);
 
-        if (response.isError === false) {
-            cities.value = response.data;
+        if (requestResult.result === SUCCESS) {
+            cities.value = requestResult.data;
         }
     }
 
     const register = async (request) => {
         request.languageId = selectedCredentials.value.selectedLanguage.id;
-        const response = await registerUser(request);
+        const requestResult = await api.request('auth/register', POST, request);
 
-        if (response.isError === false) {
-            authResponse.value = response.data;
+        if (requestResult.result === SUCCESS) {
+            authResponse.value = requestResult.data;
             return true;
         }
-        else {
-            errorMessage.value = response.data;
+        else if (requestResult.result === ERROR) {
+            const message = await requestResult.data.json();
+            errorMessage.value = message.title;
             return false;
         }
     }
 
     const login = async (request) => {
-        const response = await loginUser(request);
+        const requestResult = await api.request(`auth/login`, POST, request);
 
-        if (response.isError === false) {
-            authResponse.value = response.data;
+        if (requestResult.result === SUCCESS) {
+            authResponse.value = requestResult.data;
             return true;
         }
-        else {
-            errorMessage.value = response.data;
+        else if (requestResult.result === ERROR) {
+            const message = await requestResult.data.json();
+            errorMessage.value = message.title;
             return false;
         }
     }

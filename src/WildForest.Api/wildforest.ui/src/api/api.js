@@ -11,25 +11,21 @@ export class Api {
         this.client = client;
     }
 
-    goTo(routeName) {
-        router.push({ name: routeName });
-    }
-
     async request(path, method, requestData = null, headers = null) {
         switch (method) {
             case GET:
-                return await this.get(path, requestData, headers);
+                return await this.#get(path, requestData, headers);
             case POST:
             case PUT:
             case DELETE:
-                return await this.requestWithBody(path, method, requestData, headers);
+                return await this.#requestWithBody(path, method, requestData, headers);
             default:
                 throw new Error("Invalid http method");
         }
     }
 
     async requestWithPayload(path, method, requestData = null) {
-        let headers = this.getAuthHeader();
+        let headers = this.#getAuthHeader();
         const response = await this.request(path, method, requestData, headers);
 
         if (response.result === SUCCESS)
@@ -42,16 +38,16 @@ export class Api {
             const authResponse = await this.client.post(`${url}tokens/refreshToken`).json();
             const userStore = useUserStore();
             userStore.updateAuthResponse(authResponse);
-            headers = this.getAuthHeader();
+            headers = this.#getAuthHeader();
 
             return await this.request(path, method, requestData, headers);
         }
         catch (err) {
-            return new RequestResult(ERROR, err);
+            return new RequestResult(ERROR, err.response);
         }
     }
 
-    getAuthHeader() {
+    #getAuthHeader() {
         const token = getItemFromLocalStorage("authResponse").token;
 
         const headers = {
@@ -61,7 +57,7 @@ export class Api {
         return headers;
     }
 
-    async get(path, requestData, headers) {
+    async #get(path, requestData, headers) {
         let requestParameters = '';
 
         if (requestData !== null && requestData !== undefined)
@@ -72,21 +68,21 @@ export class Api {
             return new RequestResult(SUCCESS, response);
         }
         catch (err) {
-            return new RequestResult(ERROR, err);
+            return new RequestResult(ERROR, err.response);
         }
     }
 
-    async requestWithBody(path, method, requestData, headers) {
+    async #requestWithBody(path, method, requestData, headers) {
         try {
-            const response = await this.requestWithKy(path, method, requestData, headers);
+            const response = await this.#requestWithKy(path, method, requestData, headers);
             return new RequestResult(SUCCESS, response);
         }
         catch (err) {
-            return new RequestResult(ERROR, err);
+            return new RequestResult(ERROR, err.response);
         }
     }
 
-    async requestWithKy(path, method, requestData, headers) {
+    async #requestWithKy(path, method, requestData, headers) {
         switch (method) {
             case POST:
                 return await this.client.post(`${url}${path}`, { headers: headers, json: requestData }).json();
@@ -96,4 +92,8 @@ export class Api {
                 return await this.client.post(`${url}${path}`, { headers: headers, json: requestData }).json();
         }
     }
+}
+
+export function goTo(routeName) {
+    router.push({ name: routeName });
 }
