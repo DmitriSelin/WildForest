@@ -83,15 +83,8 @@ export const useUserStore = defineStore("userStore", () => {
         }
     }
 
-    const refresh = async () => {
-        const response = await refreshToken();
-
-        if (response.isError === false) {
-            authResponse.value = response.data;
-            return true;
-        }
-        
-        return false;
+    const updateAuthResponse = (newAuthResponse) => {
+        authResponse.value = newAuthResponse;
     }
     // Actions
 
@@ -105,6 +98,6 @@ export const useUserStore = defineStore("userStore", () => {
         getAuthCredentials,
         register,
         login,
-        refresh
+        updateAuthResponse
     };
 });
