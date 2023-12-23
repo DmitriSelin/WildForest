@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { getHomeWeatherForecast } from '@/weather/requests/weatherRequests';
 
 export const useWeatherStore = defineStore("weatherStore", () => {
