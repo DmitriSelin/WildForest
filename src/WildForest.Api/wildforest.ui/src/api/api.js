@@ -11,7 +11,7 @@ export class Api {
         this.client = client;
     }
 
-    async request(path, method, requestData = null, headers = null) {
+    async request(path, method, requestData = null, headers = {}) {
         switch (method) {
             case GET:
                 return await this.#get(path, requestData, headers);
