@@ -48,7 +48,7 @@ export class Api {
     }
 
     #getAuthHeader() {
-        const token = getItemFromLocalStorage("authResponse").token;
+        const token = getItemFromLocalStorage("authResponse")._value.token;
 
         const headers = {
             Authorization: `Bearer ${token}`
