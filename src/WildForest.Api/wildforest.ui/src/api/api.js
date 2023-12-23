@@ -89,7 +89,7 @@ export class Api {
             case PUT:
                 return await this.client.put(`${url}${path}`, { headers: headers, json: requestData }).json();
             case DELETE:
-                return await this.client.post(`${url}${path}`, { headers: headers, json: requestData }).json();
+                return await this.client.delete(`${url}${path}`, { headers: headers, json: requestData }).json();
         }
     }
 }
