@@ -18,6 +18,7 @@ namespace WildForest.Api
             services.AddQuartzToDI();
             services.AddSingleton<ProblemDetailsFactory, WildForestProblemDetailsFactory>();
             services.AddMappings();
+            services.AddReverseProxy();
 
             return services;
         }

@@ -18,6 +18,7 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
+    app.MapForwarder("/{**all}", "http://localhost:5173/");
     app.UseExceptionHandler("/error");
     app.UseHttpsRedirection();
     app.UseAuthentication();
