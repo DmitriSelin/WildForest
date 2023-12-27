@@ -5,7 +5,7 @@ export class WeatherRequests {
         this.api = api;
     }
 
-    getHomeWeatherForecasts() {
+    async getHomeWeatherForecasts() {
         
     }
 }

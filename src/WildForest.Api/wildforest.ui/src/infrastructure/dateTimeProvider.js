@@ -19,7 +19,11 @@ export function getClosestTime(forecasts) {
 }
 
 export function getTodayWeatherForecast(forecasts) {
-    const currentDate = new Date().toJSON().slice(0, 10);
+    const currentDate = getTodayDate();
     const currentForecast = forecasts.find(x => x.date === currentDate);
     return currentForecast;
+}
+
+export function getTodayDate() {
+    return new Date().toJSON().slice(0, 10);
 }

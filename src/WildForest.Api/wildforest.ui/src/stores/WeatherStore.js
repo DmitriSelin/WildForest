@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
 import { ref } from 'vue';
-import { getHomeWeatherForecast } from '@/weather/requests/weatherRequests';
+import { WeatherRequests } from "@/weather/weatherRequests";
 
 export const useWeatherStore = defineStore("weatherStore", () => {
     //State
     const weatherForecasts = ref({ data: [], errorMessage: null });
+    const weatherRequests = new WeatherRequests();
 
     //Actions
     const getHomeWeather = async () => {
@@ -20,7 +21,7 @@ export const useWeatherStore = defineStore("weatherStore", () => {
     }
 
     async function getWeatherFromApi() {
-        const result = await getHomeWeatherForecast();
+        const result = await weatherRequests.getHomeWeatherForecast();
 
         if (result.isError === false) {
             weatherForecasts.value.data = result.data;
