@@ -16,10 +16,6 @@ var app = builder.Build();
     {
         app.UseSwagger();
         app.UseSwaggerUI();
-        app.UseSpa(builder =>
-        {
-            builder.UseProxyToSpaDevelopmentServer("http://localhost:5173/");
-        });
     }
 
     app.UseExceptionHandler("/error");
