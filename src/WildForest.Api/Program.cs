@@ -12,10 +12,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 {
-    if (app.Environment.IsDevelopment()) 
+    if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
         app.UseSwaggerUI();
+        app.UseSpa(builder =>
+        {
+            builder.UseProxyToSpaDevelopmentServer("http://localhost:5173/");
+        });
     }
 
     app.UseExceptionHandler("/error");
@@ -23,11 +27,6 @@ var app = builder.Build();
     app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
-    app.UseCors(builder =>
-    {
-        builder.WithOrigins("http://localhost:5173")
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
+
     app.Run();
 }

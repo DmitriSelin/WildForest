@@ -16,8 +16,6 @@ namespace WildForest.Api
             services.AddEndpointsApiExplorer();
             services.AddSwagger();
             services.AddQuartzToDI();
-            services.AddDefaultPolicy();
-
             services.AddSingleton<ProblemDetailsFactory, WildForestProblemDetailsFactory>();
             services.AddMappings();
 
@@ -58,21 +56,6 @@ namespace WildForest.Api
             });
 
             services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
-
-            return services;
-        }
-
-        private static IServiceCollection AddDefaultPolicy(this IServiceCollection services)
-        {
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(builder =>
-                {
-                    builder.WithOrigins("http://localhost:5173")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
-                });
-            });
 
             return services;
         }
