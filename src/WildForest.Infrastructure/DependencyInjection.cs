@@ -16,6 +16,7 @@ using WildForest.Infrastructure.Persistence.DataInitialization;
 using System.Text;
 using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 using WildForest.Infrastructure.Persistence.UoW;
+using WildForest.Infrastructure.Common.Extensions;
 
 namespace WildForest.Infrastructure;
 
@@ -34,18 +35,12 @@ public static class DependencyInjection
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        var isAppInDocker = IsAppInDocker();
-        var connectionString = configuration.GetConnectionString("DefaultConnection")!;
-
-        if (!isAppInDocker)
-        {
-            connectionString = connectionString.Replace("postgres_db", "localhost");
-        }
+        var connectionString = configuration.GetConnectionStringFromEnvironment();
 
         services.AddDbContext<WildForestDbContext>(options =>
             options.UseNpgsql(connectionString));
 
-        services.InitializeData(isAppInDocker);
+        services.InitializeData();
 
         return services;
     }
@@ -76,19 +71,5 @@ public static class DependencyInjection
             });
 
         return services;
-    }
-
-    private static bool IsAppInDocker()
-    {
-        var isRunningInContainer = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER");
-
-        if (!string.IsNullOrEmpty(isRunningInContainer))
-            return true;
-
-        var hostingStartupAssemblies = Environment.GetEnvironmentVariable("ASPNETCORE_HOSTINGSTARTUPASSEMBLIES");
-        if (!string.IsNullOrEmpty(hostingStartupAssemblies))
-            return false;
-
-        return false;
     }
 }

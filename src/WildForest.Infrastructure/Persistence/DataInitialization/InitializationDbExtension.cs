@@ -4,6 +4,7 @@ using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Countries.Entities;
 using WildForest.Domain.Countries.ValueObjects;
 using WildForest.Domain.Languages.Entities;
+using WildForest.Infrastructure.Common.Extensions;
 using WildForest.Infrastructure.Persistence.Context;
 using WildForest.Infrastructure.Persistence.DataInitialization.Converters;
 
@@ -11,9 +12,10 @@ namespace WildForest.Infrastructure.Persistence.DataInitialization;
 
 public static class InitializationDbExtension
 {
-    public static IServiceCollection InitializeData(this IServiceCollection services, bool isAppInDocker)
+    public static IServiceCollection InitializeData(this IServiceCollection services)
     {
         using var context = services.BuildServiceProvider().GetRequiredService<WildForestDbContext>();
+        bool isAppInDocker = DockerExtensions.IsAppInDocker();
         
         bool isDataInitialized = context!.Countries.Any();
 
