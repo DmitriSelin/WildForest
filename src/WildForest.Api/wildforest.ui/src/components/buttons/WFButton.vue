@@ -131,7 +131,7 @@ const clickOnButton = () => {
 
   &_large {
     height: 48px;
-    padding: 0 30px;
+    padding: 10px 30px;
   }
 }
 </style>
