@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Backend/WildForest.Api/WildForest.Api.csproj",
+                "${workspaceFolder}/WildForest.Api/WildForest.Api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Backend/WildForest.Api/WildForest.Api.csproj",
+                "${workspaceFolder}/WildForest.Api/WildForest.Api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/Backend/WildForest.Api/WildForest.Api.csproj"
+                "${workspaceFolder}/WildForest.Api/WildForest.Api.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
