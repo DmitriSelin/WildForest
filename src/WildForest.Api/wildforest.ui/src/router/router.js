@@ -7,6 +7,7 @@ import Index from "@/views/WFIndex.vue";
 import Home from "@/views/WFHome.vue";
 import Forecast from "@/views/WFForecast.vue";
 import Comments from "@/views/WFComments.vue";
+import Profile from "@/views/WFProfile.vue"
 import NotFound from "@/views/WFNotFound.vue";
 import Button from "@/views/Button.vue";
 
@@ -50,6 +51,10 @@ const router = createRouter({
                 {
                     path: "comments",
                     component: Comments
+                },
+                {
+                    path: "profile",
+                    component: Profile
                 }
             ]
         },

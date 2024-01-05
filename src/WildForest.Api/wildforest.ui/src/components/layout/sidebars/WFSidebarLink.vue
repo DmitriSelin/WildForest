@@ -49,7 +49,6 @@ const isActive = computed(() => route.path == props.to)
     color: var(--white);
     border-radius: 0.25em;
     height: 45px;
-    padding: 0 0 0 8px;
     margin: 5px;
     font-weight: bold;
 
@@ -71,6 +70,7 @@ const isActive = computed(() => route.path == props.to)
         flex-shrink: 0;
         height: 25px;
         margin-right: 15px;
+        margin-left: 8.5px;
     }
 }
 </style>

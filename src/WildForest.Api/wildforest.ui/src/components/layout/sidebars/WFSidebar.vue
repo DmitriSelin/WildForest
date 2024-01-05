@@ -14,10 +14,10 @@ const props = defineProps({
   <Transition name="fade">
     <nav class="sidebar" :style="{ width: sidebarWidth }" v-if="isOpen">
 
-      <WFSidebarLink to="/weather" icon="fa-solid fa-house-chimney">Home</WFSidebarLink>
-      <WFSidebarLink to="/weather/forecast" icon="fas fa-cloud-showers-heavy">Weather</WFSidebarLink>
-      <WFSidebarLink to="/weather/comments" icon="fas fa-comment">Comments</WFSidebarLink>
-
+      <WFSidebarLink to="/weather" icon="house-chimney">Home</WFSidebarLink>
+      <WFSidebarLink to="/weather/forecast" icon="cloud-showers-heavy">Weather</WFSidebarLink>
+      <WFSidebarLink to="/weather/comments" icon="comment">Comments</WFSidebarLink>
+      <WFSidebarLink to="/weather/profile" icon="user">Profile</WFSidebarLink>
       <span @click="toggleSidebar" class="collapse-icon" :class="{ 'rotate-180': collapsed }">
         <font-awesome-icon icon="fa-solid fa-angles-left" />
       </span>
