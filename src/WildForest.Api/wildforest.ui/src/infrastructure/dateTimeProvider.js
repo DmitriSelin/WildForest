@@ -18,12 +18,18 @@ export function getClosestTime(forecasts) {
     return closestTime;
 }
 
-export function getTodayWeatherForecast(forecasts) {
-    const currentDate = getTodayDate();
-    const currentForecast = forecasts.find(x => x.date === currentDate);
-    return currentForecast;
-}
-
 export function getTodayDate() {
     return new Date().toJSON().slice(0, 10);
+}
+
+export function getCurrentDateInfo() {
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1;
+    const year = currentDate.getFullYear();
+    const dayOfWeek = currentDate.toLocaleString('en', { weekday: 'long' });
+    const hours = currentDate.getHours();
+    const minutes = currentDate.getMinutes();
+
+    return `${day}-${month}-${year}, ${dayOfWeek} ${hours}:${minutes}`;
 }
