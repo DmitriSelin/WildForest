@@ -1,5 +1,5 @@
-export function getItemFromLocalStorage(name) {
-    const jsonItem = localStorage.getItem(name);
+export function getItemFromLocalStorage(key) {
+    const jsonItem = localStorage.getItem(key);
 
     if (jsonItem === null)
         throw new Error("No object with the same name was found in localStorage");
@@ -15,8 +15,8 @@ export function setItemInLocalStorage(key, item) {
     localStorage.setItem(key, JSON.stringify(item));
 }
 
-export function getItemFromSessionStorage(name) {
-    const jsonItem = sessionStorage.getItem(name);
+export function getItemFromSessionStorage(key) {
+    const jsonItem = sessionStorage.getItem(key);
 
     if (jsonItem === null)
         throw new Error("No object with the same name was found in sessionStorage");
