@@ -2,7 +2,7 @@ import { Api } from "@/api/api";
 import { WEATHER_STORAGE_NAME } from "./weatherConstants";
 import { getItemFromSessionStorage, setItemInSessionStorage } from "@/infrastructure/storage/storageUtils";
 import { SUCCESS, ERROR, GET } from "@/api/apiConstants";
-import { getTodayDate } from "@/infrastructure/dateTimeProvider";
+import { getTodayDate, getClosestTime } from "@/infrastructure/dateTimeProvider";
 import { RequestResult } from "@/api/requestResult";
 
 export class WeatherService {
@@ -13,36 +13,41 @@ export class WeatherService {
     async getHomeWeatherForecasts() {
         try {
             const weatherResult = getItemFromSessionStorage(WEATHER_STORAGE_NAME);
-            const currentForecast = this.#getTodayWeatherForecast(weatherResult.data);
-            this.#formatTimeToHoursAndMinutes(currentForecast.weatherForecasts);
-            currentForecast.weatherForecasts.sort((a, b) => a.time.localeCompare(b.time));
-            return currentForecast;
+            return this.#createWeatherForecast(weatherResult);
         }
         catch (err) {
             const api = new Api();
             const todayDate = getTodayDate();
             const weatherResult = await api.requestWithPayload(`weather/forecasts/homeCity/${todayDate}`, GET);
 
-            if (weatherResult.result === SUCCESS)
-            {
+            if (weatherResult.result === SUCCESS) {
                 setItemInSessionStorage(WEATHER_STORAGE_NAME, weatherResult);
-                const currentForecast = this.#getTodayWeatherForecast(weatherResult.data);
-                this.#formatTimeToHoursAndMinutes(currentForecast.weatherForecasts);
-                currentForecast.weatherForecasts.sort((a, b) => a.time.localeCompare(b.time));
-                return currentForecast;
+                return this.#createWeatherForecast(weatherResult);
             }
-            else if (weatherResult.result === ERROR)
-            {
+            else if (weatherResult.result === ERROR) {
                 const badResponse = await weatherResult.data.json();
                 return new RequestResult(ERROR, badResponse);
             }
         }
     }
 
+    getCurrentForecast(todayForecast) {
+        const currentTime = getClosestTime(todayForecast.weatherForecasts);
+        const currentForecast = todayForecast.weatherForecasts.find(x => x.time === currentTime);
+        return currentForecast;
+    }
+
+    #createWeatherForecast(weatherResult) {
+        const todayForecast = this.#getTodayWeatherForecast(weatherResult.data);
+        this.#formatTimeToHoursAndMinutes(todayForecast.weatherForecasts);
+        todayForecast.weatherForecasts.sort((a, b) => a.time.localeCompare(b.time));
+        return new RequestResult(SUCCESS, todayForecast);
+    }
+
     #getTodayWeatherForecast(forecasts) {
         const currentDate = getTodayDate();
-        const currentForecast = forecasts.find(x => x.date === currentDate);
-        return currentForecast;
+        const todayForecast = forecasts.find(x => x.date === currentDate);
+        return todayForecast;
     }
 
     #formatTimeToHoursAndMinutes(forecasts) {

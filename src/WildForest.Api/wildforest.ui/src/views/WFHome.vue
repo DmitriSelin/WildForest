@@ -3,16 +3,15 @@ import WFRating from '@/components/radiobuttons/WFRating.vue';
 import { ref, onMounted } from 'vue';
 import WFWeatherTabs from '@/components/tabs/WFWeatherTabs.vue'
 import { WeatherService } from '@/weather/weatherService';
-import { getClosestTime, getCurrentDateInfo } from '@/infrastructure/dateTimeProvider';
+import { getCurrentDateInfo } from '@/infrastructure/dateTimeProvider';
 import { SUCCESS } from "@/api/apiConstants";
 import { ERROR_SEVERITY, STANDARD_LIFE } from "@/infrastructure/components/toasts/toastConstants";
 import { useToast } from "primevue/usetoast";
 import { useUserStore } from "@/stores/UserStore";
 
 const weatherService = new WeatherService();
+const todayForecast = ref({});
 const currentForecast = ref({});
-const currentTime = ref("");
-const currentDateInfo = ref(getCurrentDateInfo());
 const userStore = useUserStore();
 const toast = useToast();
 
@@ -20,8 +19,8 @@ onMounted(async () => {
     const requestResult = await weatherService.getHomeWeatherForecasts();
 
     if (requestResult.result === SUCCESS) {
-        currentForecast.value = requestResult.data;
-        currentTime.value = getClosestTime(currentForecast.value.weatherForecasts);
+        todayForecast.value = requestResult.data;
+        currentForecast.value = weatherService.getCurrentForecast(todayForecast.value);
     }
     else {
         toast.add({ severity: ERROR_SEVERITY, summary: 'Error', detail: requestResult.data.title, life: STANDARD_LIFE });
@@ -35,16 +34,17 @@ onMounted(async () => {
             <div class="weather-content">
                 <div class="weather-content-info">
                     <h2 style="margin: 1vh 0 1vh 0;">{{ userStore.authResponse.cityName }}</h2>
-                    <h3 style="color: gray;">{{ currentDateInfo }}</h3>
+                    <h3 style="color: gray;">{{ getCurrentDateInfo() }}</h3>
                     <div class="weather-content-info-data">
                         <font-awesome-icon icon="fa-solid fa-cloud-rain" class="weather-content-info-data-img" />
-                        <h1>20 °C</h1>
+                        <h1>{{ currentForecast.temperature.value }}&nbsp;°C</h1>
                     </div>
                     <h2>Rain</h2>
                 </div>
                 <WFRating rating="7.8" />
             </div>
-            <WFWeatherTabs :tabs="currentForecast.weatherForecasts" :selectedTab="currentTime" style="margin-top: 2vh;" />
+            <WFWeatherTabs :tabs="todayForecast.weatherForecasts" :selectedTab="currentForecast.time"
+                style="margin-top: 2vh;" />
         </div>
         <Toast />
     </main>

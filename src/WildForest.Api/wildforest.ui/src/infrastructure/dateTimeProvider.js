@@ -19,7 +19,7 @@ export function getClosestTime(forecasts) {
 }
 
 export function getTodayDate() {
-    return new Date().toJSON().slice(0, 10);
+    return new Date().toLocaleDateString('en-CA');
 }
 
 export function getCurrentDateInfo() {
