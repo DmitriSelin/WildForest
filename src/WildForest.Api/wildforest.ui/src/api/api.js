@@ -31,7 +31,7 @@ export class Api {
         if (response.result === SUCCESS)
             return response;
 
-        if (response.data.response.status !== UNAUTHORIZED)
+        if (response.data.status !== UNAUTHORIZED)
             return response;
 
         try {
