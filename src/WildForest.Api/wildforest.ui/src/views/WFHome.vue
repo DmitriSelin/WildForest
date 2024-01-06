@@ -1,28 +1,30 @@
 <script setup>
-import WFRating from '../components/radiobuttons/WFRating.vue';
+import WFRating from '@/components/radiobuttons/WFRating.vue';
 import { ref, onMounted } from 'vue';
-import WFWeatherTabs from '../components/tabs/WFWeatherTabs.vue'
+import WFWeatherTabs from '@/components/tabs/WFWeatherTabs.vue'
+import { WeatherService } from '@/weather/weatherService';
+import { getClosestTime, getCurrentDateInfo } from '@/infrastructure/dateTimeProvider';
+import { SUCCESS } from "@/api/apiConstants";
+import { ERROR_SEVERITY, STANDARD_LIFE } from "@/infrastructure/components/toasts/toastConstants";
 import { useToast } from "primevue/usetoast";
-import { useWeatherStore } from "@/stores/WeatherStore";
-import { getTodayWeatherForecast, getClosestTime } from '@/infrastructure/dateTimeProvider';
-import { formatTime } from "@/weather/weatherUtils";
+import { useUserStore } from "@/stores/UserStore";
 
-const toast = useToast();
-const weatherStore = useWeatherStore();
+const weatherService = new WeatherService();
 const currentForecast = ref({});
 const currentTime = ref("");
+const currentDateInfo = ref(getCurrentDateInfo());
+const userStore = useUserStore();
+const toast = useToast();
 
 onMounted(async () => {
-    await weatherStore.getHomeWeather();
+    const requestResult = await weatherService.getHomeWeatherForecasts();
 
-    if (weatherStore.weatherForecasts.errorMessage === null) {
-        currentForecast.value = getTodayWeatherForecast(weatherStore.weatherForecasts.data);
+    if (requestResult.result === SUCCESS) {
+        currentForecast.value = requestResult.data;
         currentTime.value = getClosestTime(currentForecast.value.weatherForecasts);
-        currentForecast.value.weatherForecasts.sort((a, b) => a.time.localeCompare(b.time));
-        formatTime(currentForecast.value.weatherForecasts);
     }
     else {
-        toast.add({ severity: 'error', summary: 'Error', detail: 'Message Content', life: 10_000 });
+        toast.add({ severity: ERROR_SEVERITY, summary: 'Error', detail: requestResult.data.title, life: STANDARD_LIFE });
     }
 });
 </script>
@@ -32,8 +34,8 @@ onMounted(async () => {
         <div class="weather">
             <div class="weather-content">
                 <div class="weather-content-info">
-                    <h2 style="margin: 1vh 0 1vh 0;">New-York</h2>
-                    <h3 style="color: gray;">10-11-2023, Monday 12:00</h3>
+                    <h2 style="margin: 1vh 0 1vh 0;">{{ userStore.authResponse.cityName }}</h2>
+                    <h3 style="color: gray;">{{ currentDateInfo }}</h3>
                     <div class="weather-content-info-data">
                         <font-awesome-icon icon="fa-solid fa-cloud-rain" class="weather-content-info-data-img" />
                         <h1>20 °C</h1>
