@@ -55,7 +55,7 @@ public sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<Refresh
         builder
             .Property(p => p.RevokedDate)
             .IsRequired(false)
-            .HasColumnType(ConfigurationSettings.TimeStampWithoutTimeZone)
+            .HasColumnType(ConfigurationSettings.TimeStampWithTimeZone)
             .HasColumnName("RevokedDate");
 
         builder
