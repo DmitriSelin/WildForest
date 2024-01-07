@@ -10,8 +10,8 @@ import { useToast } from "primevue/usetoast";
 import { useUserStore } from "@/stores/UserStore";
 
 const weatherService = new WeatherService();
-const todayForecast = ref({});
-const currentForecast = ref({});
+const todayForecast = ref({ weatherForecasts: [] });
+const currentForecast = ref({ time: "" });
 const userStore = useUserStore();
 const toast = useToast();
 
@@ -37,9 +37,9 @@ onMounted(async () => {
                     <h3 style="color: gray;">{{ getCurrentDateInfo() }}</h3>
                     <div class="weather-content-info-data">
                         <font-awesome-icon icon="fa-solid fa-cloud-rain" class="weather-content-info-data-img" />
-                        <h1>{{ currentForecast.temperature.value }}&nbsp;°C</h1>
+                        <h1>{{ currentForecast.temperature?.value }}&nbsp;°C</h1>
                     </div>
-                    <h2>Rain</h2>
+                    <h2>{{ currentForecast.description?.description }}</h2>
                 </div>
                 <WFRating rating="7.8" />
             </div>

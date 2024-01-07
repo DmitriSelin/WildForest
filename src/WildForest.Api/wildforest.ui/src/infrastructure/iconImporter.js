@@ -4,8 +4,12 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import {
     faBars, faHouseChimney, faCloudShowersHeavy,
     faComment, faAnglesLeft, faMagnifyingGlass, faCloudRain,
-    faTemperatureHalf, faUser
+    faTemperatureHalf, faUser, faCloudBolt, faSnowflake,
+    faSun, faCloud, faSmog
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faBars, faHouseChimney, faCloudShowersHeavy, faComment, faAnglesLeft, faMagnifyingGlass, faGoogle, faCloudRain, faTemperatureHalf, faUser);
+library.add(faBars, faHouseChimney, faCloudShowersHeavy,
+    faComment, faAnglesLeft, faMagnifyingGlass, faGoogle,
+    faCloudRain, faTemperatureHalf, faUser, faCloudBolt,
+    faSnowflake, faSun, faCloud, faSmog);
 export default FontAwesomeIcon;

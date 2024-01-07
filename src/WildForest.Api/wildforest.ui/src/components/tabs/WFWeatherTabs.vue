@@ -1,4 +1,6 @@
 <script setup>
+import weatherMap from './weatherMapInitializer';
+
 const props = defineProps({
     tabs: {
         type: Array,
@@ -9,13 +11,23 @@ const props = defineProps({
         required: true
     }
 })
+
+const getIconFromTab = (tab) => {
+    const weatherKey = tab.description.name;
+    const iconName = weatherMap.get(weatherKey);
+
+    if (iconName === undefined)
+        return '';
+
+    return iconName;
+}
 </script>
 
 <template>
     <div class="tab-nav">
         <div v-for="tab in tabs" :key="tab.id" :class="['tab-nav__item', { 'selected': selectedTab === tab.time }]">
             <h3 class="tab-nav__item-h">{{ tab.time }}</h3>
-            <font-awesome-icon icon="fa-solid fa-cloud-rain" class="tab-nav__item-img" />
+            <font-awesome-icon :icon="`fa-solid fa-${getIconFromTab(tab)}`" class="tab-nav__item-img" />
             <h3 class="tab-nav__item-h">{{ tab.temperature.value }}&nbsp;°C</h3>
         </div>
     </div>
