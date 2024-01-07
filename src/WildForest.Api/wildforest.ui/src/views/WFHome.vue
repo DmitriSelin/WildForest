@@ -8,10 +8,12 @@ import { SUCCESS } from "@/api/apiConstants";
 import { ERROR_SEVERITY, STANDARD_LIFE } from "@/infrastructure/components/toasts/toastConstants";
 import { useToast } from "primevue/usetoast";
 import { useUserStore } from "@/stores/UserStore";
+import getIconFromWeatherName from "@/components/tabs/weatherIconUtils";
 
 const weatherService = new WeatherService();
 const todayForecast = ref({ weatherForecasts: [] });
 const currentForecast = ref({ time: "" });
+const weatherIcon = ref('');
 const userStore = useUserStore();
 const toast = useToast();
 
@@ -21,6 +23,7 @@ onMounted(async () => {
     if (requestResult.result === SUCCESS) {
         todayForecast.value = requestResult.data;
         currentForecast.value = weatherService.getCurrentForecast(todayForecast.value);
+        weatherIcon.value = getIconFromWeatherName(currentForecast.value);
     }
     else {
         toast.add({ severity: ERROR_SEVERITY, summary: 'Error', detail: requestResult.data.title, life: STANDARD_LIFE });
@@ -36,7 +39,8 @@ onMounted(async () => {
                     <h2 style="margin: 1vh 0 1vh 0;">{{ userStore.authResponse.cityName }}</h2>
                     <h3 style="color: gray;">{{ getCurrentDateInfo() }}</h3>
                     <div class="weather-content-info-data">
-                        <font-awesome-icon icon="fa-solid fa-cloud-rain" class="weather-content-info-data-img" />
+                        <font-awesome-icon :icon="`fa-solid fa-${weatherIcon}`"
+                            class="weather-content-info-data-img" />
                         <h1>{{ currentForecast.temperature?.value }}&nbsp;°C</h1>
                     </div>
                     <h2>{{ currentForecast.description?.description }}</h2>
@@ -81,7 +85,7 @@ onMounted(async () => {
                 margin: 3vh 0;
 
                 &-img {
-                    height: 100px;
+                    height: 70px;
                 }
             }
         }
