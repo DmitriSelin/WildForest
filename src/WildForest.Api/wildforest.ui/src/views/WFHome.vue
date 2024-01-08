@@ -1,7 +1,8 @@
 <script setup>
 import WFRating from '@/components/radiobuttons/WFRating.vue';
-import { ref, onMounted } from 'vue';
+import WFWeatherCard from '@/components/weather/WFWeatherCard.vue';
 import WFWeatherTabs from '@/components/tabs/WFWeatherTabs.vue'
+import { ref, onMounted } from 'vue';
 import { WeatherService } from '@/weather/weatherService';
 import { getCurrentDateInfo } from '@/infrastructure/dateTimeProvider';
 import { SUCCESS } from "@/api/apiConstants";
@@ -12,10 +13,14 @@ import getIconFromWeatherName from "@/components/tabs/weatherIconUtils";
 
 const weatherService = new WeatherService();
 const todayForecast = ref({ weatherForecasts: [] });
-const currentForecast = ref({ time: "" });
 const weatherIcon = ref('');
 const userStore = useUserStore();
 const toast = useToast();
+const currentForecast = ref({
+    time: "", pressure: 0, humidity: 0, cloudiness: 0, visibility: 0,
+    precipitationProbability: 0, precipitationVolume: 0,
+    wind: { speed: 0, direction: 0, gust: 0 }
+});
 
 onMounted(async () => {
     const requestResult = await weatherService.getHomeWeatherForecasts();
@@ -39,8 +44,7 @@ onMounted(async () => {
                     <h2 style="margin: 1vh 0 1vh 0;">{{ userStore.authResponse.cityName }}</h2>
                     <h3 style="color: gray;">{{ getCurrentDateInfo() }}</h3>
                     <div class="weather-content-info-data">
-                        <font-awesome-icon :icon="`fa-solid fa-${weatherIcon}`"
-                            class="weather-content-info-data-img" />
+                        <font-awesome-icon :icon="`fa-solid fa-${weatherIcon}`" class="weather-content-info-data-img" />
                         <h1>{{ currentForecast.temperature?.value }}&nbsp;°C</h1>
                     </div>
                     <h2>{{ currentForecast.description?.description }}</h2>
@@ -49,6 +53,27 @@ onMounted(async () => {
             </div>
             <WFWeatherTabs :tabs="todayForecast.weatherForecasts" :selectedTab="currentForecast.time"
                 style="margin-top: 2vh;" />
+            <div class="weather-content-data">
+                <div class="container">
+                    <WFWeatherCard :value="currentForecast.pressure" title="Pressure" icon="temperature-half"
+                        valueType="mmHg" />
+                    <WFWeatherCard :value="currentForecast.humidity" title="Humidity" icon="droplet" />
+                    <WFWeatherCard :value="currentForecast.cloudiness" title="Cloudiness" icon="cloud" />
+                </div>
+                <div class="container">
+                    <WFWeatherCard :value="currentForecast?.wind.speed" title="Wind speed" icon="wind" valueType="m/s" />
+                    <WFWeatherCard :value="currentForecast?.wind.direction" title="Wind direction" icon="compass"
+                        valueType="°" />
+                    <WFWeatherCard :value="currentForecast?.wind.gust" title="Wind gust" icon="wind" valueType="m/s" />
+                </div>
+                <div class="container">
+                    <WFWeatherCard :value="currentForecast.visibility" title="Visibility" icon="binoculars" valueType="m" />
+                    <WFWeatherCard :value="currentForecast.precipitationProbability" title="Precipitation probability"
+                        icon="cloud-rain" />
+                    <WFWeatherCard :value="currentForecast.precipitationVolume" title="Precipitation volume" icon="percent"
+                        valueType="mm" />
+                </div>
+            </div>
         </div>
         <Toast />
     </main>
@@ -87,6 +112,15 @@ onMounted(async () => {
                 &-img {
                     height: 70px;
                 }
+            }
+        }
+
+        &-data {
+            display: flex;
+            flex-direction: column;
+
+            .container {
+                display: flex;
             }
         }
     }
