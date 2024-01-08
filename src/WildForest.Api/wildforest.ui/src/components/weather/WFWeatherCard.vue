@@ -5,8 +5,12 @@ const props = defineProps({
         required: true
     },
     value: {
-        type: String,
+        type: Number,
         required: true
+    },
+    valueType: {
+        type: String,
+        default: '%'
     },
     icon: {
         type: String,
@@ -17,10 +21,10 @@ const props = defineProps({
 
 <template>
     <div class="content">
-        <font-awesome-icon :icon="`fa-solid fa-${icon}`" class="content-icon"/>
+        <font-awesome-icon :icon="`fa-solid fa-${icon}`" class="icon" />
         <div class="data">
-            <span class="text">{{ title }}</span>
-            <span class="text">{{ value }}</span>
+            <h3 class="text">{{ title }}</h3>
+            <h3 class="text">{{ value }}&nbsp;{{ valueType }}</h3>
         </div>
     </div>
 </template>
@@ -29,11 +33,12 @@ const props = defineProps({
 .content {
     background-color: var(--violet);
     border-radius: 5px;
-    width: 180px;
-    height: 70px;
+    width: 190px;
+    height: 80px;
     margin: 1vh;
     padding: 5px 15px;
     display: flex;
+    gap: 20px;
     justify-content: space-between;
     align-items: center;
 
@@ -43,8 +48,13 @@ const props = defineProps({
         box-shadow: 0px 0px 8px var(--white);
     }
 
-    &-icon {
-        height: 50px;
+    .icon {
+        height: 40px;
+    }
+
+    h3 {
+        margin: 0;
+        text-wrap: wrap;
     }
 }
 </style>
