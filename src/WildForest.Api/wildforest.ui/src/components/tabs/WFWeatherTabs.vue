@@ -27,7 +27,9 @@ const props = defineProps({
 .tab-nav {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     color: var(--white);
+    width: 34vw;
 
     &__item {
         color: var(--white);
