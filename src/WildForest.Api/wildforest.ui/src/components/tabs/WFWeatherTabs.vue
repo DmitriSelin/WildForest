@@ -27,9 +27,16 @@ const props = defineProps({
 .tab-nav {
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     color: var(--white);
     width: 34vw;
+    gap: 15px;
+    margin: 15px 0;
+
+    @media screen and (max-width: 600px) {
+        width: 90vw;
+    }
 
     &__item {
         color: var(--white);
@@ -39,12 +46,17 @@ const props = defineProps({
         align-items: center;
         justify-content: center;
         background-color: var(--violet);
-        margin: 15px;
+        padding: 2px;
         height: 130px;
         width: 130px;
         gap: 10px;
         border-radius: 15px;
         cursor: pointer;
+
+        @media screen and (max-width: 600px) {
+            height: 85px;
+            width: 85px;
+        }
 
         &:hover {
             transform: scale(1.1);
@@ -58,10 +70,17 @@ const props = defineProps({
 
         &-h {
             margin: 0;
+            @media screen and (max-width: 600px) {
+                font-size: 12px;
+            }
         }
 
         &-img {
             height: 50px;
+
+            @media screen and (max-width: 600px) {
+                height: 30px;
+            }
         }
     }
 }

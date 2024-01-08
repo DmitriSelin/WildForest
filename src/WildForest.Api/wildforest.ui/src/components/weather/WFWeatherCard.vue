@@ -42,6 +42,14 @@ const props = defineProps({
     justify-content: space-between;
     align-items: center;
 
+    @media screen and (max-width: 600px) {
+        width: 100px;
+        height: 50px;
+        padding: 3px;
+        gap: 8px;
+        justify-content: space-around;
+    }
+
     &:hover {
         transform: scale(1.1);
         transition: 0.1s ease;
@@ -50,11 +58,19 @@ const props = defineProps({
 
     .icon {
         height: 40px;
+
+        @media screen and (max-width: 600px) {
+            height: 20px;
+        }
     }
 
     h3 {
         margin: 0;
         text-wrap: wrap;
+
+        @media screen and (max-width: 600px) {
+            font-size: 12px;
+        }
     }
 }
 </style>
