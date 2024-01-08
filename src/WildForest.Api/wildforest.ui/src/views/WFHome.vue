@@ -98,19 +98,33 @@ onMounted(async () => {
         padding: 40px;
         margin-top: 4vh;
 
+        @media screen and (max-width: 600px) {
+            flex-direction: column;
+            gap: 2vh;
+        }
+
         &-info {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
 
+            @media screen and (max-width: 600px) {
+                margin-bottom: 15px;
+            }
+
             &-data {
                 display: flex;
                 gap: 30px;
                 margin: 3vh 0;
+                align-items: center;
 
                 &-img {
                     height: 70px;
+
+                    @media screen and (max-width: 600px) {
+                        height: 40px;
+                    }
                 }
             }
         }
