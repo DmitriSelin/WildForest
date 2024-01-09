@@ -3,6 +3,7 @@ using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Countries.ValueObjects;
+using WildForest.Domain.Users.ValueObjects;
 using WildForest.Infrastructure.Persistence.Context;
 
 namespace WildForest.Infrastructure.Persistence.Repositories;
@@ -43,5 +44,18 @@ public sealed class CityRepository : ICityRepository
     public async Task AddCitiesAsync(List<City> cities)
     {
         await _context.Cities.AddRangeAsync(cities);
+    }
+
+    public async Task<IEnumerable<City>> GetCitiesByUserIdAsync(UserId userId)
+    {
+        return await _context.Cities.FromSqlRaw($"""
+                SELECT c."Id", c."Name", c."Latitude", c."Longitude", c."CountryId"
+                FROM "Cities" c
+                INNER JOIN "Countries" co ON c."CountryId" = co."Id"
+                WHERE c."CountryId" IN (SELECT "CountryId" FROM "Cities"
+                WHERE "Id" IN
+                (SELECT "CityId" FROM "Users"
+                WHERE "Id" = '{userId.Value}'));
+                """).ToListAsync();
     }
 }
