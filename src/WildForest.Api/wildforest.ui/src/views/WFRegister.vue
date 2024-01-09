@@ -63,14 +63,18 @@ const registerWithGoogle = () => {
                 <h1>Registration</h1>
             </div>
             <form @submit.prevent="register" class="left-block-content">
-                <WFInput label="Firstname" name="firstName" placeholder="Input your first name" v-model:value="formData.firstName" />
-                <WFInput label="Lastname" name="lastName" placeholder="Input your lastname" v-model:value="formData.lastName" />
-                <WFInput label="Email" type="email" name="email" placeholder="Input your email" v-model:value="formData.email" />
+                <WFInput label="Firstname" name="firstName" placeholder="Input your firstname"
+                    v-model:value="formData.firstName" />
+                <WFInput label="Lastname" name="lastName" placeholder="Input your lastname"
+                    v-model:value="formData.lastName" />
+                <WFInput label="Email" type="email" name="email" placeholder="Input your email"
+                    v-model:value="formData.email" />
                 <WFDropdown :options="userStore.cities" placeholder="Select a City" id="cityDropdown"
                     error="This field is required" :isError="errors[0] === true" optionLabel="cityName" editable
                     v-model:value="formData.selectedCity" :labelOnTop="true" />
                 <WFInput label="Password" type="password" name="password" placeholder="Input your password"
-                    v-model:value="formData.password" minLength="6" error="Input the same passwords" :isError="errors[1] === true" />
+                    v-model:value="formData.password" minLength="6" error="Input the same passwords"
+                    :isError="errors[1] === true" />
                 <WFInput label="Password" type="password" name="samePassword" placeholder="Input the same password"
                     v-model:value="formData.samePassword" minLength="6" error="Input the same passwords"
                     :isError="errors[1] === true" />
@@ -90,6 +94,4 @@ const registerWithGoogle = () => {
     </main>
 </template>
 
-<style lang="scss" scoped>
-@import "./styles/views.scss";
-</style>
+<style lang="scss" scoped>@import "./styles/views.scss";</style>

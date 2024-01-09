@@ -16,9 +16,8 @@ export class WeatherService {
             return this.#createWeatherForecast(weatherResult);
         }
         catch (err) {
-            const api = new Api();
             const todayDate = getTodayDate();
-            const weatherResult = await api.requestWithPayload(`weather/forecasts/homeCity/${todayDate}`, GET);
+            const weatherResult = await this.api.requestWithPayload(`weather/forecasts/homeCity/${todayDate}`, GET);
 
             if (weatherResult.result === SUCCESS) {
                 setItemInSessionStorage(WEATHER_STORAGE_NAME, weatherResult);
