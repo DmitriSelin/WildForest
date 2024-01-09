@@ -16,12 +16,13 @@ public sealed class AuthenticationMappingConfig : IRegister
             .Map(dest => dest.Password, source => source.Item1.Password)
             .Map(dest => dest.IpAddress, source => source.IpAddress);
 
-        config.NewConfig<(RegisterRequest, string, Guid), UpdateProfileCommand>()
+        config.NewConfig<(UpdateProfileRequest, string, Guid), UpdateProfileCommand>()
             .Map(dest => dest.Id, source => source.Item3)
             .Map(dest => dest.FirstName, source => source.Item1.FirstName)
             .Map(dest => dest.LastName, source => source.Item1.LastName)
             .Map(dest => dest.Email, source => source.Item1.Email)
             .Map(dest => dest.Password, source => source.Item1.Password)
+            .Map(dest => dest.NewPassword, source => source.Item1.NewPassword)
             .Map(dest => dest.IpAddress, source => source.Item2)
             .Map(dest => dest.CityId, source => source.Item1.CityId)
             .Map(dest => dest.LanguageId, source => source.Item1.LanguageId);
