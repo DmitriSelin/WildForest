@@ -19,7 +19,7 @@ public class User : Entity<UserId>
 
     public Role Role { get; private set; }
 
-    public Email Email { get; private set; } = null!;
+    public Email Email { get; } = null!;
 
     public Password Password { get; private set; } = null!;
 
@@ -87,7 +87,6 @@ public class User : Entity<UserId>
     {
         FirstName = newUserCredentials.FirstName;
         LastName = newUserCredentials.LastName;
-        Email = newUserCredentials.Email;
         Password = newUserCredentials.Password;
         CityId = newUserCredentials.CityId;
         LanguageId = newUserCredentials.LanguageId;
