@@ -29,9 +29,10 @@ public sealed class ProfileService : IProfileService
     public async Task<ErrorOr<AuthenticationResult>> UpdateAsync(UpdateProfileCommand command)
     {
         var userId = UserId.Create(command.Id);
-        var user = await _unitOfWork.UserRepository.GetUserByIdAsync(userId);
+        var email = Email.Create(command.Email);
+        var user = await _unitOfWork.UserRepository.GetUserByEmailAsync(email);
 
-        if (user is null || user.Id != userId)
+        if (user is null || user.Id != userId || !user.Password.IsEqual(command.Password))
             return Errors.User.NotFoundById;
 
         var newUserCredentials = CreateUser(command);
@@ -53,7 +54,7 @@ public sealed class ProfileService : IProfileService
         var firstName = FirstName.Create(command.FirstName);
         var lastName = LastName.Create(command.LastName);
         var email = Email.Create(command.Email);
-        var password = Password.Create(command.Password);
+        var password = Password.Create(command.NewPassword);
         var cityId = CityId.Create(command.CityId);
         var languageId = LanguageId.Create(command.LanguageId);
 

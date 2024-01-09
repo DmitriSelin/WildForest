@@ -6,6 +6,7 @@ public sealed record UpdateProfileCommand(
     string LastName,
     string Email,
     string Password,
+    string NewPassword,
     string IpAddress,
     Guid CityId,
     Guid LanguageId);
