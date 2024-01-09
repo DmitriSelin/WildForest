@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WildForest.Api.Common.Extensions;
 using WildForest.Application.Authentication.Commands.Profile;
+using WildForest.Application.Maps.Queries.GetCitiesList;
+using WildForest.Application.Maps.Queries.GetCitiesList.Dto;
 using WildForest.Contracts.Authentication;
 
 namespace WildForest.Api.Controllers;
@@ -14,17 +16,20 @@ public sealed class UserController : ApiController
 {
     private readonly IMapper _mapper;
     private readonly IProfileService _profileService;
+    private readonly ICitiesListQueryHandler _citiesListQueryHandler;
 
     public UserController(
         IMapper mapper,
-        IProfileService profileService)
+        IProfileService profileService,
+        ICitiesListQueryHandler citiesListQueryHandler)
     {
         _mapper = mapper;
         _profileService = profileService;
+        _citiesListQueryHandler = citiesListQueryHandler;
     }
 
     [HttpPut("profile")]
-    public async Task<IActionResult> UpdateProfile(RegisterRequest request)
+    public async Task<IActionResult> UpdateProfile(UpdateProfileRequest request)
     {
         ErrorOr<Guid> userId = HttpContext.GetUserIdFromAuthHeader();
 
@@ -44,5 +49,17 @@ public sealed class UserController : ApiController
         var response = _mapper.Map<AuthenticationResponse>(authenticationResult.Value);
 
         return Ok(response);
+    }
+
+    [HttpGet("languages-cities")]
+    public async Task<IActionResult> GetLanguagesAndCities()
+    {
+        ErrorOr<Guid> userId = HttpContext.GetUserIdFromAuthHeader();
+
+        if (userId.IsError)
+            return Problem(userId.Errors);
+
+        ProfileCredentials credentials = await _citiesListQueryHandler.GetCitiesAndLanguagesAsync(userId.Value);
+        return Ok(credentials);
     }
 }
