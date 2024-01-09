@@ -4,6 +4,9 @@ using WildForest.Domain.Common.Errors;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Countries.ValueObjects;
 using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
+using WildForest.Application.Maps.Queries.GetCitiesList.Dto;
+using WildForest.Domain.Users.ValueObjects;
+using WildForest.Application.Common.Models;
 
 namespace WildForest.Application.Maps.Queries.GetCitiesList
 {
@@ -16,6 +19,19 @@ namespace WildForest.Application.Maps.Queries.GetCitiesList
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+        }
+
+        public async Task<ProfileCredentials> GetCitiesAndLanguagesAsync(Guid userId)
+        {
+            var id = UserId.Create(userId);
+            var languages = await _unitOfWork.LanguageRepository.GetAllLanguagesAsync();
+            var cities = await _unitOfWork.CityRepository.GetCitiesByUserIdAsync(id);
+
+            var citiesDto = cities.Select(x => new NamedDto(x.Id.Value, x.Name.Value));
+            var languagesDto = languages.Select(x => new NamedDto(x.Id.Value, x.Name));
+
+            var profileCredentials = new ProfileCredentials(citiesDto, languagesDto);
+            return profileCredentials;
         }
 
         public async Task<ErrorOr<List<CityQuery>>> GetCitiesByCountryIdAsync(Guid countryId)
