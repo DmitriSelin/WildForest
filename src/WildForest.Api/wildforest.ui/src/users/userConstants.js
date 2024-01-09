@@ -1,0 +1,1 @@
+export const PROFILE_CREDENTIALS_STORAGE_NAME = "profileCredentials";
