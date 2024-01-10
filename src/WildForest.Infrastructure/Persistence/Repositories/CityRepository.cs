@@ -57,9 +57,11 @@ public sealed class CityRepository : ICityRepository
                     WHERE "Id" IN
                         (SELECT "CityId" FROM "Users"
                         WHERE "Id" = '{userId.Value}'))
-                ORDER BY c."Name"
                 """;
 
-        return await _context.Cities.FromSqlRaw(sqlQuery).ToListAsync();
+        return await _context.Cities
+            .FromSqlRaw(sqlQuery)
+            .OrderBy(x => x.Name.Value)
+            .ToListAsync();
     }
 }

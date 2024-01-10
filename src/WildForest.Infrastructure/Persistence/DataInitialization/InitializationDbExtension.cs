@@ -36,7 +36,7 @@ public static class InitializationDbExtension
 
     private static Country InitializeCountry(WildForestDbContext context)
     {
-        var countryName = CountryName.Create("Russia");
+        var countryName = CountryName.Create("Россия");
         var country = Country.Create(countryName);
         context.Countries.Add(country);
 
