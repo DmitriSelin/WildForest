@@ -35,8 +35,15 @@ export function getAuthCredentialsFormData() {
 export function getProfileFormData() {
     const userStore = useUserStore();
     const selectedCredentials = getItemFromLocalStorage("selectedCredentials")._value;
-    const languageName = selectedCredentials.selectedLanguage.name;
-    const formData = {...userStore.authResponse, languageName: languageName, newPassword: ""};
-    formData.password = "";
+    const formData = {
+        firstName: userStore.authResponse.firstName,
+        lastName: userStore.authResponse.lastName,
+        email: userStore.authResponse.email,
+        selectedCity: { id: userStore.authResponse.cityId, name: userStore.authResponse.cityName },
+        selectedLanguage: selectedCredentials.selectedLanguage,
+        password: "",
+        newPassword: ""
+    };
+    
     return formData;
 }
