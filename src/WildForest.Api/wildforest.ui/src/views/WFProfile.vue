@@ -56,9 +56,9 @@ const clearForm = () => {
             <WFInput label="Email" type="email" name="email" placeholder="Input your email" :disabled="true"
                 v-model:value="formData.email" />
             <WFDropdown :options="profileCredentials.cities" placeholder="Select a city" id="cityDropdown"
-                v-model:value="formData.selectedCity" />
+                v-model:value="formData.selectedCity" :disabled="formDisabled" :editable="true"/>
             <WFDropdown :options="profileCredentials.languages" placeholder="Select a language" id="languageDropdown"
-                v-model:value="formData.selectedLanguage" />
+                v-model:value="formData.selectedLanguage" :disabled="formDisabled"/>
             <WFInput label="Old password" type="password" name="oldPassword" placeholder="Input your old password"
                 :disabled="formDisabled" minLength="6" v-model:value="formData.password" />
             <WFInput label="New password (optional)" type="password" name="newPassword"
