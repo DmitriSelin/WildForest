@@ -37,6 +37,10 @@ const props = defineProps({
     labelOnTop: {
         type: Boolean,
         default: false
+    },
+    disabled: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -60,7 +64,7 @@ function emitIfObjectType() {
 <template>
     <div class="dropdown-container">
         <Dropdown v-model="selectedItem" :options="options" :editable="editable" :optionLabel="optionLabel"
-            :placeholder="placeholder" :id="id" @change="updateValue" />
+            :placeholder="placeholder" :disabled="disabled" :id="id" @change="updateValue" />
         <Transition>
             <label :for="id" :class="['label', { 'label-top': labelOnTop === true }]" v-if="isError">{{ error }}</label>
         </Transition>
