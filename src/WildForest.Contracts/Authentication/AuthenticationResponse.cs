@@ -9,5 +9,6 @@
         Guid CityId,
         string CityName,
         Guid LanguageId,
+        string Language,
         string Token);
 }

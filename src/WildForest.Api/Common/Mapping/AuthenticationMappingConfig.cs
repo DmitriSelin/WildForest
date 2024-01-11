@@ -45,6 +45,7 @@ public sealed class AuthenticationMappingConfig : IRegister
             .Map(dest => dest.Password, src => src.User.Password.ToString())
             .Map(dest => dest.CityId, src => src.User.CityId.Value)
             .Map(dest => dest.CityName, src => src.User.City.Name.Value)
-            .Map(dest => dest.LanguageId, src => src.User.LanguageId.Value);
+            .Map(dest => dest.LanguageId, src => src.User.LanguageId.Value)
+            .Map(dest => dest.Language, src => src.User.Language.Name);
     }
 }
