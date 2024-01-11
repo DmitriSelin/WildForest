@@ -82,6 +82,10 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .HasForeignKey(p => p.LanguageId);
 
         builder
+            .Navigation(x => x.Language)
+            .AutoInclude();
+
+        builder
             .Property(p => p.LanguageId)
             .HasConversion(
                 id => id.Value,
