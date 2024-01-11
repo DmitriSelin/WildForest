@@ -45,6 +45,11 @@ const props = defineProps({
 })
 
 const selectedItem = ref();
+const valueId = Object.values(props.value)[0];
+
+if (valueId !== undefined)
+    selectedItem.value = props.value;
+
 const updateValue = () => {
     if (props.editable === true) {
         emitIfObjectType();
