@@ -41,7 +41,7 @@ export function getProfileFormData() {
         selectedCity: { id: userStore.authResponse.cityId, name: userStore.authResponse.cityName },
         selectedLanguage: { id: userStore.authResponse.languageId, name: userStore.authResponse.language },
         password: "",
-        newPassword: ""
+        newPassword: null
     };
 
     return formData;
