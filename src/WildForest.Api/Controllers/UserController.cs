@@ -37,7 +37,7 @@ public sealed class UserController : ApiController
             return Problem(userId.Errors);
 
         string iPAddress = HttpContext.GetIpAddress();
-        var command = _mapper.Map<UpdateProfileCommand>((request, iPAddress, userId));
+        var command = _mapper.Map<UpdateProfileCommand>((request, iPAddress, userId.Value));
 
         var authenticationResult = await _profileService.UpdateAsync(command);
 
