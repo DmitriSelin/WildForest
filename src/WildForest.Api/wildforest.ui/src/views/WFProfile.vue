@@ -5,7 +5,7 @@ import WFDropdown from "@/components/inputs/WFDropdown.vue";
 import { getProfileFormData } from "@/infrastructure/formProvider";
 import { UserService } from "@/users/userService";
 import { SUCCESS, ERROR } from "@/api/apiConstants";
-import { ERROR_SEVERITY, STANDARD_LIFE } from "@/infrastructure/components/toasts/toastConstants";
+import { ERROR_SEVERITY, SUCCESS_SEVERITY, STANDARD_LIFE } from "@/infrastructure/components/toasts/toastConstants";
 import { useToast } from "primevue/usetoast";
 import { ref, computed, onMounted } from 'vue';
 
@@ -32,8 +32,17 @@ onMounted(async () => {
     }
 });
 
-const saveChanges = () => {
-    
+const saveChanges = async () => {
+    const request = getRequestData(formData.value);
+    const requestResult = await userService.updateProfile(request);
+
+    if (requestResult.result === SUCCESS) {
+        buttonType.value = "button";
+        toast.add({ severity: SUCCESS_SEVERITY, summary: 'Success', detail: 'The profile has been updated', life: STANDARD_LIFE });
+    }
+    else if (requestResult.result === ERROR) {
+        toast.add({ severity: ERROR_SEVERITY, summary: 'Error', detail: requestResult.data.title, life: STANDARD_LIFE });
+    }
 }
 
 const edit = () => {
@@ -45,6 +54,20 @@ const clearForm = () => {
     buttonType.value = "button";
     formData.value.password = "";
     formData.value.newPassword = "";
+}
+
+function getRequestData(formData) {
+    const request = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+        newPassword: formData.newPassword,
+        cityId: formData.selectedCity.id,
+        languageId: formData.selectedLanguage.id
+    };
+
+    return request;
 }
 </script>
 
