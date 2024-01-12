@@ -54,7 +54,13 @@ public sealed class ProfileService : IProfileService
         var firstName = FirstName.Create(command.FirstName);
         var lastName = LastName.Create(command.LastName);
         var email = Email.Create(command.Email);
-        var password = Password.Create(command.NewPassword);
+        Password password;
+
+        if (command.NewPassword is null)
+            password = Password.Create(command.Password);
+        else
+            password = Password.Create(command.NewPassword);
+
         var cityId = CityId.Create(command.CityId);
         var languageId = LanguageId.Create(command.LanguageId);
 
