@@ -13,5 +13,9 @@ public static partial class Errors
         public static Error NotFoundById => Error.NotFound(
             code: "User.NotFoundById",
             description: "User with this id does not exist");
+
+        public static Error NotFound => Error.NotFound(
+            code: "User.NotFound",
+            description: "User does not exist");
     }
 }

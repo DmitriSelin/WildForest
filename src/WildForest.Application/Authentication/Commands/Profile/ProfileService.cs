@@ -33,7 +33,7 @@ public sealed class ProfileService : IProfileService
         var user = await _unitOfWork.UserRepository.GetUserByEmailAsync(email);
 
         if (user is null || user.Id != userId || !user.Password.IsEqual(command.Password))
-            return Errors.User.NotFoundById;
+            return Errors.User.NotFound;
 
         var newUserCredentials = CreateUser(command);
         user.Update(newUserCredentials);
