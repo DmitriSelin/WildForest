@@ -38,6 +38,8 @@ const saveChanges = async () => {
 
     if (requestResult.result === SUCCESS) {
         buttonType.value = "button";
+        formData.value.password = "";
+        formData.value.newPassword = "";
         toast.add({ severity: SUCCESS_SEVERITY, summary: 'Success', detail: 'The profile has been updated', life: STANDARD_LIFE });
     }
     else if (requestResult.result === ERROR) {
