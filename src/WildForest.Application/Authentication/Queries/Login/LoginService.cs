@@ -28,7 +28,7 @@ public sealed class LoginService : ILoginService
     {
         var email = Email.Create(query.Email);
 
-        User? user = await _unitOfWork.UserRepository.GetUserByEmailWithCityAsync(email);
+        User? user = await _unitOfWork.UserRepository.GetUserByEmailAsync(email);
 
         if (user is null || !user.Password.IsEqual(query.Password))
             return Errors.Authentication.InvalidCredentials;
