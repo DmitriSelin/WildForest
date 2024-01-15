@@ -26,23 +26,9 @@ public sealed class UserRepository : IUserRepository
             .FirstOrDefaultAsync(x => x.Email.Value == email.Value);
     }
 
-    public async Task<User?> GetUserByEmailWithCityAsync(Email email)
-    {
-        return await _context.Users
-            .Include(x => x.City)
-            .FirstOrDefaultAsync(x => x.Email.Value == email.Value);
-    }
-
     public async Task<User?> GetUserByIdAsync(UserId userId)
     {
         return await _context.Users
             .FirstOrDefaultAsync(x => x.Id == userId);
-    }
-
-    public async Task<User?> GetUserWithCityByIdAsync(UserId userId)
-    {
-        return await _context.Users
-            .Include(p => p.City)
-            .FirstOrDefaultAsync(p => p.Id == userId);
     }
 }
