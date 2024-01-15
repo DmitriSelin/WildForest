@@ -25,11 +25,11 @@ public class User : Entity<UserId>
 
     public CityId CityId { get; private set; } = null!;
 
-    public City City { get; } = null!;
+    public City City { get; private set; } = null!;
 
     public LanguageId LanguageId { get; private set; } = null!;
 
-    public Language Language { get; } = null!;
+    public Language Language { get; private set; } = null!;
 
     private readonly List<RefreshToken> _refreshTokens = new();
 
@@ -83,13 +83,17 @@ public class User : Entity<UserId>
                     cityId, languageId);
     }
 
-    public void Update(User newUserCredentials)
+    public void Update(User newUserCredentials, City? city, Language? language)
     {
         FirstName = newUserCredentials.FirstName;
         LastName = newUserCredentials.LastName;
         Password = newUserCredentials.Password;
-        CityId = newUserCredentials.CityId;
-        LanguageId = newUserCredentials.LanguageId;
+        
+        if (city is not null)
+            City = city;
+
+        if (language is not null)
+            Language = language;
     }
 
 #pragma warning disable IDE0051 // Remove unused private members
