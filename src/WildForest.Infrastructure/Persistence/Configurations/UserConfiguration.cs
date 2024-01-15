@@ -71,6 +71,10 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .HasForeignKey(p => p.CityId);
 
         builder
+            .Navigation(x => x.City)
+            .AutoInclude();
+
+        builder
             .Property(p => p.CityId)
             .HasConversion(
                 id => id.Value,
