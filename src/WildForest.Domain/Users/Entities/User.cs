@@ -96,6 +96,9 @@ public class User : Entity<UserId>
             Language = language;
     }
 
+    public void SetLanguage(Language language)
+        => Language = language;
+
 #pragma warning disable IDE0051 // Remove unused private members
     private User(UserId id) : base(id) { }
 #pragma warning restore IDE0051 // Remove unused private members

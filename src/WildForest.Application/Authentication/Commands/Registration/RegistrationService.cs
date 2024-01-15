@@ -50,6 +50,12 @@ public sealed class RegistrationService : IRegistrationService
 
         await _unitOfWork.UserRepository.AddUserAsync(user);
 
+        if (user.Language is null)
+        {
+            var language = await _unitOfWork.LanguageRepository.GetLanguageByIdAsync(user.LanguageId);
+            user.SetLanguage(language!);
+        }
+
         var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, command.IpAddress);
 
         await _unitOfWork.RefreshTokenRepository.AddTokenAsync(refreshToken);
