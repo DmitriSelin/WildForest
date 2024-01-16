@@ -88,16 +88,13 @@ public class User : Entity<UserId>
         FirstName = newUserCredentials.FirstName;
         LastName = newUserCredentials.LastName;
         Password = newUserCredentials.Password;
-        
+
         if (city is not null)
             City = city;
 
         if (language is not null)
             Language = language;
     }
-
-    public void SetLanguage(Language language)
-        => Language = language;
 
 #pragma warning disable IDE0051 // Remove unused private members
     private User(UserId id) : base(id) { }
