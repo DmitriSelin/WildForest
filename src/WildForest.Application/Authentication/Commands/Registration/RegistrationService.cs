@@ -8,6 +8,7 @@ using WildForest.Application.Authentication.Common;
 using WildForest.Application.Authentication.Commands.Registration;
 using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 using WildForest.Domain.Languages.ValueObjects;
+using WildForest.Domain.Tokens.Entities;
 
 namespace WildForest.Application.Authentication.Commands.RegisterUser;
 
@@ -30,40 +31,46 @@ public sealed class RegistrationService : IRegistrationService
     public async Task<ErrorOr<AuthenticationResult>> RegisterAsync(RegisterCommand command, bool isUserRole = true)
     {
         var email = Email.Create(command.Email);
-
         User? user = await _unitOfWork.UserRepository.GetUserByEmailAsync(email);
 
         if (user is not null)
             return Errors.User.DuplicateEmail;
 
         var cityId = CityId.Create(command.CityId);
-
         var city = await _unitOfWork.CityRepository.GetCityByIdAsync(cityId);
 
         if (city is null)
             return Errors.City.NotFoundById;
 
-        if (isUserRole)
-            user = CreateUser(command, email);
-        else
-            user = CreateAdmin(command, email);
+        var languageId = LanguageId.Create(command.LanguageId);
+        var language = await _unitOfWork.LanguageRepository.GetLanguageByIdAsync(languageId);
+
+        if (language is null)
+            return Errors.Language.NotFound;
+
+        user = CreateUserByRole(command, email, isUserRole);
 
         await _unitOfWork.UserRepository.AddUserAsync(user);
-
-        if (user.Language is null)
-        {
-            var language = await _unitOfWork.LanguageRepository.GetLanguageByIdAsync(user.LanguageId);
-            user.SetLanguage(language!);
-        }
-
-        var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, command.IpAddress);
-
-        await _unitOfWork.RefreshTokenRepository.AddTokenAsync(refreshToken);
+        RefreshToken refreshToken = await GetRefreshTokenAsync(user, command.IpAddress);
         await _unitOfWork.SaveChangesAsync();
 
-        var token = _jwtTokenGenerator.GenerateToken(user);
+        var accessToken = _jwtTokenGenerator.GenerateToken(user);
+        return new AuthenticationResult(user, accessToken, refreshToken.Token);
+    }
 
-        return new AuthenticationResult(user, token, refreshToken.Token);
+    private static User CreateUserByRole(RegisterCommand command, Email email, bool isUserRole)
+    {
+        if (isUserRole)
+            return CreateUser(command, email);
+
+        return CreateAdmin(command, email);
+    }
+
+    private async Task<RefreshToken> GetRefreshTokenAsync(User user, string ipAddress)
+    {
+        RefreshToken token = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, ipAddress);
+        await _unitOfWork.RefreshTokenRepository.AddTokenAsync(token);
+        return token;
     }
 
     private static User CreateUser(RegisterCommand command, Email email)
