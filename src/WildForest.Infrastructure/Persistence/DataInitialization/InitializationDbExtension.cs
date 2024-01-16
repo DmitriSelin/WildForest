@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
+using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
+using WildForest.Application.Weather.Commands.AddWeatherForecasts;
 using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Countries.Entities;
 using WildForest.Domain.Countries.ValueObjects;
@@ -16,11 +18,13 @@ public static class InitializationDbExtension
     {
         using var context = services.BuildServiceProvider().GetRequiredService<WildForestDbContext>();
         bool isAppInDocker = DockerExtensions.IsAppInDocker();
-        
+
         bool isDataInitialized = context!.Countries.Any();
 
         if (!isDataInitialized)
             InitializeData(context, isAppInDocker);
+
+        InitializeWeatherForecasts(context, services);
 
         return services;
     }
@@ -32,6 +36,25 @@ public static class InitializationDbExtension
         InitializeLanguages(context);
 
         context.SaveChanges();
+    }
+
+    private static void InitializeWeatherForecasts(WildForestDbContext context, IServiceCollection services)
+    {
+        bool weatherForecastsExistInDb = context.WeatherForecasts.Any();
+
+        if (weatherForecastsExistInDb)
+            return;
+
+        var serviceProvider = services.BuildServiceProvider();
+        var unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
+        var weatherForecastDbService = serviceProvider.GetRequiredService<IWeatherForecastDbService>();
+
+        var cities = (List<City>) unitOfWork.CityRepository.GetDistinctCitiesFromUsersAsync().GetAwaiter().GetResult();
+
+        foreach (var city in cities)
+        {
+            weatherForecastDbService.AddWeatherForecastsInDbAsync(city.Id).GetAwaiter().GetResult();
+        }
     }
 
     private static Country InitializeCountry(WildForestDbContext context)
