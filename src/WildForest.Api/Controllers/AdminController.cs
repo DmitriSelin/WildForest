@@ -4,7 +4,6 @@ using WildForest.Application.Maps.Commands.AddCountry;
 using ErrorOr;
 using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 using WildForest.Application.Weather.Commands.AddWeatherForecasts;
-using WildForest.Domain.Cities.Entities;
 
 namespace WildForest.Api.Controllers;
 
@@ -44,19 +43,5 @@ public sealed class AdminController : ApiController
             return Problem(result.Errors);
 
         return Ok(result.Value);
-    }
-
-    [AllowAnonymous]
-    [HttpPost("forecast")]
-    public async Task<IActionResult> AddWeatherForecasts()
-    {
-        var cities = (List<City>) await _unitOfWork.CityRepository.GetDistinctCitiesFromUsersAsync();
-
-        foreach (var city in cities)
-        {
-            await _weatherForecastDbService.AddWeatherForecastsInDbAsync(city.Id);
-        }
-
-        return Ok("Cities have been added to the db");
     }
 }
