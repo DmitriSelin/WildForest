@@ -64,7 +64,7 @@ const updateValue = (e) => {
   <div class="form-input" :style="{ width: width }">
     <input :autocomplete="autocomplete" class="input-text" :type="type" :name="name" :id="name" :required="required"
       :maxlength="maxLength" :minlength="minLength" :placeholder="placeholder" :value="value" @input="updateValue"
-      :disabled="disabled"/>
+      :disabled="disabled" />
     <label :for="name" class="input-label">{{ label }}</label>
     <TransitionGroup v-if="isError">
       <div class="form-error">
