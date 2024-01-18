@@ -37,9 +37,9 @@ const loginWithGoogle = () => {
             </div>
             <form @submit.prevent="login" class="left-block-content">
                 <WFInput label="Email" type="Email" name="email" placeholder="Input your email"
-                    v-model:value="formData.email" />
+                    v-model:value="formData.email" autocomplete="email" />
                 <WFInput label="Password" type="password" minLength="6" name="password" placeholder="Input your password"
-                    v-model:value="formData.password" />
+                    v-model:value="formData.password" autocomplete="current-password" />
                 <div class="left-block-content-btn">
                     <WFButton label="Login" size="large" />
                     <WFEmptyLink to="credentials" text="Have not an account?" title="Register" />

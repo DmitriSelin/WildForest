@@ -77,20 +77,20 @@ function getRequestData(formData) {
     <main class="main">
         <form class="form" @submit.prevent="saveChanges">
             <WFInput label="Firstname" name="firstName" placeholder="Input your firstname" :disabled="formDisabled"
-                v-model:value="formData.firstName" />
+                v-model:value="formData.firstName" autocomplete="given-name"/>
             <WFInput label="Lastname" name="lastName" placeholder="Input your lastname" :disabled="formDisabled"
-                v-model:value="formData.lastName" />
+                v-model:value="formData.lastName" autocomplete="family-name"/>
             <WFInput label="Email" type="email" name="email" placeholder="Input your email" :disabled="true"
-                v-model:value="formData.email" />
+                v-model:value="formData.email" autocomplete="email"/>
             <WFDropdown :options="profileCredentials.cities" placeholder="Select a city" id="cityDropdown"
                 v-model:value="formData.selectedCity" :disabled="formDisabled" :editable="true" />
             <WFDropdown :options="profileCredentials.languages" placeholder="Select a language" id="languageDropdown"
                 v-model:value="formData.selectedLanguage" :disabled="formDisabled" />
             <WFInput label="Old password" type="password" name="oldPassword" placeholder="Input your old password"
-                :disabled="formDisabled" minLength="6" v-model:value="formData.password" />
+                :disabled="formDisabled" minLength="6" v-model:value="formData.password" autocomplete="current-password"/>
             <WFInput label="New password (optional)" type="password" name="newPassword"
                 placeholder="Input your new password" :disabled="formDisabled" minLength="6" :required="false"
-                v-model:value="formData.newPassword" />
+                v-model:value="formData.newPassword" autocomplete="new-password"/>
             <div class="buttons">
                 <WFButton label="Cancel" type="reset" :disabled="formDisabled" @click="clearForm" />
                 <WFButton :label="buttonLabel" color="success" :type="buttonType" @click="edit" />

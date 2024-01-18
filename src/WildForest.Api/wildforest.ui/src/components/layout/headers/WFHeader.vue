@@ -13,7 +13,7 @@ onMounted(() => {
 
 const emit = defineEmits(['barClick'])
 
-const clickOnBar = () =>  {
+const clickOnBar = () => {
     emit('barClick');
 }
 </script>
@@ -24,14 +24,14 @@ const clickOnBar = () =>  {
             <div class="header-bar" @click="clickOnBar">
                 <font-awesome-icon icon="fa-solid fa-bars" class="icon" />
             </div>
-            <span class="header-image" @click="$router.push({name: 'Home'})">
+            <span class="header-image" @click="$router.push({ name: 'Home' })">
                 <img src="../../../assets/images/logo.ico" alt="logo">
                 <h3>Wild forest</h3>
             </span>
         </div>
         <form class="search">
-            <WFInput label="City" name="cityName" placeholder="Input your city" />
-            <WFButton icon="magnifying-glass" outlined disabled/>
+            <WFInput label="City" name="cityName" placeholder="Input your city" autocomplete="street-address" />
+            <WFButton icon="magnifying-glass" outlined disabled />
         </form>
         <div class="header-profile">
             <img src="../../../assets/images/logo.ico" alt="userImage">

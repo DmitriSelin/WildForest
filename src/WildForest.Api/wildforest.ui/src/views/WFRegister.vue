@@ -64,20 +64,20 @@ const registerWithGoogle = () => {
             </div>
             <form @submit.prevent="register" class="left-block-content">
                 <WFInput label="Firstname" name="firstName" placeholder="Input your firstname"
-                    v-model:value="formData.firstName" />
+                    v-model:value="formData.firstName" autocomplete="given-name"/>
                 <WFInput label="Lastname" name="lastName" placeholder="Input your lastname"
-                    v-model:value="formData.lastName" />
+                    v-model:value="formData.lastName" autocomplete="family-name"/>
                 <WFInput label="Email" type="email" name="email" placeholder="Input your email"
-                    v-model:value="formData.email" />
+                    v-model:value="formData.email" autocomplete="email"/>
                 <WFDropdown :options="userStore.cities" placeholder="Select a City" id="cityDropdown"
                     error="This field is required" :isError="errors[0] === true" optionLabel="cityName" editable
                     v-model:value="formData.selectedCity" :labelOnTop="true" />
                 <WFInput label="Password" type="password" name="password" placeholder="Input your password"
                     v-model:value="formData.password" minLength="6" error="Input the same passwords"
-                    :isError="errors[1] === true" />
+                    :isError="errors[1] === true" autocomplete="new-password"/>
                 <WFInput label="Password" type="password" name="samePassword" placeholder="Input the same password"
                     v-model:value="formData.samePassword" minLength="6" error="Input the same passwords"
-                    :isError="errors[1] === true" />
+                    :isError="errors[1] === true" autocomplete="new-password"/>
                 <div class="left-block-content-btn">
                     <WFButton label="Register" size="large" />
                     <WFEmptyLink to="login" text="Already have an account?" title="Login" />
