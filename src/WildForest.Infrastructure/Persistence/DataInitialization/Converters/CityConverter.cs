@@ -41,12 +41,12 @@ public sealed class CityConverter : JsonConverter<List<City>>
 
                     case "lat" when reader.TokenType == JsonTokenType.String:
 
-                        latitude = double.Parse(reader.GetString()!.ReplacePeriodByComma());
+                        latitude = double.Parse(reader.GetString()!.Replace(".", ","));
                         break;
 
                     case "lng" when reader.TokenType == JsonTokenType.String:
 
-                        longitude = double.Parse(reader.GetString()!.ReplacePeriodByComma());
+                        longitude = double.Parse(reader.GetString()!.Replace(".", ","));
                         isFilled = true;
                         break;
 
