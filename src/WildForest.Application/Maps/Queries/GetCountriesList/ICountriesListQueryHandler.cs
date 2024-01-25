@@ -1,7 +1,6 @@
-﻿namespace WildForest.Application.Maps.Queries.GetCountriesList
+﻿namespace WildForest.Application.Maps.Queries.GetCountriesList;
+
+public interface ICountriesListQueryHandler
 {
-    public interface ICountriesListQueryHandler
-    {
-        Task<List<CountryQuery>> GetCountriesAsync();
-    }
+    Task<List<CountryQuery>> GetCountriesAsync();
 }
