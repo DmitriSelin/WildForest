@@ -33,17 +33,17 @@ public sealed class CityConverter : JsonConverter<List<City>>
 
                 switch (propertyName)
                 {
-                    case "city" when reader.TokenType == JsonTokenType.String:
+                    case "name" when reader.TokenType == JsonTokenType.String:
 
                         cityName = reader.GetString()!;
                         break;
 
-                    case "lat" when reader.TokenType == JsonTokenType.String:
+                    case "latitude" when reader.TokenType == JsonTokenType.String:
 
                         latitude = double.Parse(reader.GetString()!.Replace(".", ","));
                         break;
 
-                    case "lng" when reader.TokenType == JsonTokenType.String:
+                    case "longitude" when reader.TokenType == JsonTokenType.String:
 
                         longitude = double.Parse(reader.GetString()!.Replace(".", ","));
                         isFilled = true;
