@@ -1,14 +1,9 @@
 namespace WildForest.Application.Common.Models;
 
-public class NamedDto
+public class NamedDto : Dto
 {
-    public Guid Id { get; init; }
-
     public string Name { get; init; }
 
-    public NamedDto(Guid id, string name)
-    {
-        Id = id;
-        Name = name;
-    }
+    public NamedDto(Guid id, string name) : base(id)
+        => Name = name;
 }
