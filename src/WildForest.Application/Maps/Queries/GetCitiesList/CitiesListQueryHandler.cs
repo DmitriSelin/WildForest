@@ -6,7 +6,7 @@ using WildForest.Domain.Countries.ValueObjects;
 using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
 using WildForest.Application.Maps.Queries.GetCitiesList.Dto;
 using WildForest.Domain.Users.ValueObjects;
-using WildForest.Application.Common.Models;
+using WildForest.Dto.Models;
 
 namespace WildForest.Application.Maps.Queries.GetCitiesList
 {

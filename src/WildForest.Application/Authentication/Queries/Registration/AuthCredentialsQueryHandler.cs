@@ -1,5 +1,5 @@
 using WildForest.Application.Common.Interfaces.Persistence.UnitOfWork;
-using WildForest.Application.Common.Models;
+using WildForest.Dto.Models;
 
 namespace WildForest.Application.Authentication.Queries.Registration;
 

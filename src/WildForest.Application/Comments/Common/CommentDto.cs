@@ -1,8 +1,8 @@
-﻿using WildForest.Application.Common.Models;
+﻿using WildForest.Dto.Models;
 
 namespace WildForest.Application.Comments.Common;
 
-public sealed class CommentDto : Dto
+public sealed class CommentDto : BaseDto
 {
     public string Text { get; init; }
 

@@ -1,4 +1,4 @@
-﻿using WildForest.Application.Common.Models;
+﻿using WildForest.Dto.Models;
 
 namespace WildForest.Application.Authentication.Commands.Profile;
 

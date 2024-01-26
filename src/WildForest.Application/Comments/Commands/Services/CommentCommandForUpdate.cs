@@ -1,8 +1,8 @@
-using WildForest.Application.Common.Models;
+using WildForest.Dto.Models;
 
 namespace WildForest.Application.Comments.Commands.Services;
 
-public sealed class CommentCommandForUpdate : Dto
+public sealed class CommentCommandForUpdate : BaseDto
 {
     public Guid WeatherForecastId { get; init; }
 
