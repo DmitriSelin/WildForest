@@ -1,6 +1,6 @@
-namespace WildForest.Application.Common.Models;
+namespace WildForest.Dto.Models;
 
-public abstract class UserDto : Dto
+public abstract class UserDto : BaseDto
 {
     public string FirstName { get; init; }
 

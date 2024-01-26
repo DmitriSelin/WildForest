@@ -1,6 +1,6 @@
-namespace WildForest.Application.Common.Models;
+namespace WildForest.Dto.Models;
 
-public class NamedDto : Dto
+public class NamedDto : BaseDto
 {
     public string Name { get; init; }
 

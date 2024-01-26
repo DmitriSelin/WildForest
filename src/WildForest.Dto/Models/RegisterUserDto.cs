@@ -1,4 +1,4 @@
-namespace WildForest.Application.Common.Models;
+namespace WildForest.Dto.Models;
 
 public abstract class RegisterUserDto : UserDto
 {
