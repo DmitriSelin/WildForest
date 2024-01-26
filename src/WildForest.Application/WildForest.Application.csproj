@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WildForest.Domain\WildForest.Domain.csproj" />
+    <ProjectReference Include="..\WildForest.Dto\WildForest.Dto.csproj" />
   </ItemGroup>
 
 </Project>
