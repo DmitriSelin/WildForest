@@ -1,14 +1,24 @@
-﻿namespace WildForest.Contracts.Authentication
+﻿using WildForest.Dto.Models;
+
+namespace WildForest.Contracts.Authentication;
+
+public sealed class AuthenticationResponse : RegisterUserDto
 {
-    public sealed record AuthenticationResponse(
-        Guid Id,
-        string FirstName,
-        string LastName,
-        string Email,
-        string Password,
-        Guid CityId,
-        string CityName,
-        Guid LanguageId,
-        string Language,
-        string Token);
+    public string CityName { get; init; }
+
+    public string Language { get; init; }
+
+    public string Token { get; init; }
+
+    public AuthenticationResponse(
+        Guid id, string firstName,
+        string lastName, string email,
+        string password, Guid cityId,
+        string cityName, Guid languageId,
+        string language, string token) : base(id, firstName, lastName, email, password, cityId, languageId)
+    {
+        CityName = cityName;
+        Language = language;
+        Token = token;
+    }
 }

@@ -1,4 +1,8 @@
-﻿namespace WildForest.Application.Maps.Queries.GetCitiesList
+﻿using WildForest.Dto.Models;
+
+namespace WildForest.Application.Maps.Queries.GetCitiesList;
+
+public sealed class CityQuery : NamedDto
 {
-    public sealed record CityQuery(Guid CityId, string CityName);
+    public CityQuery(Guid id, string name) : base(id, name) {}
 }

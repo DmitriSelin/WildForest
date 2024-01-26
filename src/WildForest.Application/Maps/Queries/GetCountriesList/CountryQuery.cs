@@ -1,4 +1,8 @@
-﻿namespace WildForest.Application.Maps.Queries.GetCountriesList
+﻿using WildForest.Dto.Models;
+
+namespace WildForest.Application.Maps.Queries.GetCountriesList;
+
+public sealed class CountryQuery : NamedDto
 {
-    public sealed record CountryQuery(Guid CountryId, string CountryName);
+    public CountryQuery(Guid id, string name) : base(id, name) {}
 }

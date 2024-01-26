@@ -44,7 +44,7 @@ public sealed class VoteService : IVoteService
     {
         var ratingId = RatingId.Create(command.RatingId);
         var userId = UserId.Create(command.UserId);
-        var voteId = VoteId.Create(command.VoteId);
+        var voteId = VoteId.Create(command.Id);
 
         var vote = await _unitOfWork.RatingRepository.GetVoteByIdAndUserIdWithRatingAsync(ratingId, userId, voteId);
 
