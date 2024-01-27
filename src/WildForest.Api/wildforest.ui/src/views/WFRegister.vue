@@ -21,13 +21,13 @@ const formData = ref(getRegisterFormData());
 const errors = ref([]);
 
 const register = async () => {
-    let comboboxValidationResult = validateNotEmptyValue(formData.value.selectedCity.cityName);
+    let comboboxValidationResult = validateNotEmptyValue(formData.value.selectedCity.name);
     let result = validateSameFields(formData.value.password, formData.value.samePassword);
 
     if (result.isValid === true && comboboxValidationResult.isValid === true) {
         const result = await userStore.register({
             firstName: formData.value.firstName, lastName: formData.value.lastName,
-            email: formData.value.email, password: formData.value.password, cityId: formData.value.selectedCity.cityId, languageId: ""
+            email: formData.value.email, password: formData.value.password, cityId: formData.value.selectedCity.id, languageId: ""
         });
 
         if (result === true) {
@@ -70,7 +70,7 @@ const registerWithGoogle = () => {
                 <WFInput label="Email" type="email" name="email" placeholder="Input your email"
                     v-model:value="formData.email" autocomplete="email"/>
                 <WFDropdown :options="userStore.cities" placeholder="Select a City" id="cityDropdown"
-                    error="This field is required" :isError="errors[0] === true" optionLabel="cityName" editable
+                    error="This field is required" :isError="errors[0] === true" editable
                     v-model:value="formData.selectedCity" :labelOnTop="true" />
                 <WFInput label="Password" type="password" name="password" placeholder="Input your password"
                     v-model:value="formData.password" minLength="6" error="Input the same passwords"
