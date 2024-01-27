@@ -1,9 +1,11 @@
 <script setup>
-
+import WFWeatherTabs from '@/components/tabs/WFWeatherTabs.vue'
 </script>
 
 <template>
-    <h1>Forecast</h1>
+    <main class="main">
+        <WFWeatherTabs/>
+    </main>
 </template>
 
 <style lang="scss" scoped>

@@ -36,6 +36,17 @@ export class WeatherService {
         return currentForecast;
     }
 
+    getFiveDaysWeatherForecasts() {
+        try {
+            const weatherForecasts = getItemFromSessionStorage(WEATHER_STORAGE_NAME)._value;
+            const fiveDayWeatherForecasts = this.#getFiveDaysWeatherForecasts(weatherForecasts);
+            return new RequestResult(SUCCESS, fiveDayWeatherForecasts);
+        }
+        catch(err) {
+            return new RequestResult(ERROR, { title: "Weather forecasts were not found" });
+        }
+    }
+
     #createWeatherForecast(weatherResult) {
         const todayForecast = this.#getTodayWeatherForecast(weatherResult.data);
         this.#formatTimeToHoursAndMinutes(todayForecast.weatherForecasts);
@@ -52,6 +63,22 @@ export class WeatherService {
     #formatTimeToHoursAndMinutes(forecasts) {
         for (let i = 0; i < forecasts.length; i++) {
             forecasts[i].time = forecasts[i].time.split(':').slice(0, 2).join(':');
+        }
+    }
+
+    #getFiveDaysWeatherForecasts (weatherForecasts) {
+        const dailyWeatherForecast = [];
+
+        for (let i = 0; i < weatherForecasts.length; i++) {
+            const currentForecast = weatherForecasts[i];
+            let temperatureSum = 0;
+
+            for (let j = 0; j < currentForecast.length; j++) {
+                temperatureSum += currentForecast[j].temperature.value;
+            }
+
+            const avgTemperature = temperatureSum / currentForecast.weatherForecasts.length;
+            dailyWeatherForecast.push({});
         }
     }
 }
