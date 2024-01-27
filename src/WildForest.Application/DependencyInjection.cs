@@ -7,7 +7,6 @@ using WildForest.Application.Authentication.Queries.LoginUser;
 using WildForest.Application.Authentication.Queries.Registration;
 using WildForest.Application.Comments.Commands.Services;
 using WildForest.Application.Comments.Queries.GetComments;
-using WildForest.Application.Common.Mapping;
 using WildForest.Application.Maps.Commands.AddCountry;
 using WildForest.Application.Maps.Queries.GetCitiesList;
 using WildForest.Application.Maps.Queries.GetCountriesList;
@@ -27,8 +26,6 @@ public static class DependencyInjection
         services.AddMapServices();
         services.AddWeatherServices();
         services.AddRatings();
-
-        services.AddMappings();
 
         return services;
     }
