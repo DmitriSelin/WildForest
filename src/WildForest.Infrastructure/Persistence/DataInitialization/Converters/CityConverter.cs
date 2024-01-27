@@ -38,14 +38,14 @@ public sealed class CityConverter : JsonConverter<List<City>>
                         cityName = reader.GetString()!;
                         break;
 
-                    case "latitude" when reader.TokenType == JsonTokenType.String:
+                    case "latitude" when reader.TokenType == JsonTokenType.Number:
 
-                        latitude = double.Parse(reader.GetString()!.Replace(".", ","));
+                        latitude = reader.GetDouble();
                         break;
 
-                    case "longitude" when reader.TokenType == JsonTokenType.String:
+                    case "longitude" when reader.TokenType == JsonTokenType.Number:
 
-                        longitude = double.Parse(reader.GetString()!.Replace(".", ","));
+                        longitude = reader.GetDouble();
                         isFilled = true;
                         break;
 
