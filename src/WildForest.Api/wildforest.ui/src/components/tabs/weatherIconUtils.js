@@ -15,8 +15,7 @@ weatherMap.set('Ash', 'smog');
 weatherMap.set('Squall', 'smog');
 weatherMap.set('Tornado', 'smog');
 
-const getIconFromWeatherName = (weatherForecast) => {
-    const weatherKey = weatherForecast.description.name;
+export const getIconFromWeatherName = (weatherKey) => {
     const iconName = weatherMap.get(weatherKey);
 
     if (iconName === undefined)
@@ -24,5 +23,3 @@ const getIconFromWeatherName = (weatherForecast) => {
 
     return iconName;
 }
-
-export default getIconFromWeatherName;

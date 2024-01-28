@@ -9,7 +9,7 @@ import { SUCCESS } from "@/api/apiConstants";
 import { ERROR_SEVERITY, STANDARD_LIFE } from "@/infrastructure/components/toasts/toastConstants";
 import { useToast } from "primevue/usetoast";
 import { useUserStore } from "@/stores/UserStore";
-import getIconFromWeatherName from "@/components/tabs/weatherIconUtils";
+import { getIconFromWeatherName } from "@/components/tabs/weatherIconUtils";
 
 const weatherService = new WeatherService();
 const todayForecast = ref({ weatherForecasts: [] });
@@ -28,7 +28,7 @@ onMounted(async () => {
     if (requestResult.result === SUCCESS) {
         todayForecast.value = requestResult.data;
         currentForecast.value = weatherService.getCurrentForecast(todayForecast.value);
-        weatherIcon.value = getIconFromWeatherName(currentForecast.value);
+        weatherIcon.value = getIconFromWeatherName(currentForecast.value.description.name);
     }
     else {
         toast.add({ severity: ERROR_SEVERITY, summary: 'Error', detail: requestResult.data.title, life: STANDARD_LIFE });

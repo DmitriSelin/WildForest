@@ -1,5 +1,5 @@
 <script setup>
-import getIconFromWeatherName from "./weatherIconUtils";
+import { getIconFromWeatherName } from "./weatherIconUtils";
 
 const props = defineProps({
     tabs: {
@@ -17,7 +17,8 @@ const props = defineProps({
     <div class="tab-nav">
         <div v-for="tab in tabs" :key="tab.id" :class="['tab-nav__item', { 'selected': selectedTab === tab.time }]">
             <h3 class="tab-nav__item-h">{{ tab.time }}</h3>
-            <font-awesome-icon :icon="`fa-solid fa-${getIconFromWeatherName(tab)}`" class="tab-nav__item-img" />
+            <font-awesome-icon :icon="`fa-solid fa-${getIconFromWeatherName(tab.description.name)}`"
+                class="tab-nav__item-img" />
             <h3 class="tab-nav__item-h">{{ tab.temperature.value }}&nbsp;°C</h3>
         </div>
     </div>
@@ -70,6 +71,7 @@ const props = defineProps({
 
         &-h {
             margin: 0;
+
             @media screen and (max-width: 600px) {
                 font-size: 12px;
             }
