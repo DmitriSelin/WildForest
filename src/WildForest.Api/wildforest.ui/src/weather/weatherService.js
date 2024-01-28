@@ -4,6 +4,7 @@ import { getItemFromSessionStorage, setItemInSessionStorage } from "@/infrastruc
 import { SUCCESS, ERROR, GET } from "@/api/apiConstants";
 import { getTodayDate, getClosestTime } from "@/infrastructure/dateTimeProvider";
 import { RequestResult } from "@/api/requestResult";
+import { getIconNameWithTopPriority } from "@/components/tabs/weatherIconUtils";
 
 export class WeatherService {
     constructor(api = new Api()) {
@@ -38,11 +39,15 @@ export class WeatherService {
 
     getFiveDaysWeatherForecasts() {
         try {
-            const weatherForecasts = getItemFromSessionStorage(WEATHER_STORAGE_NAME)._value;
-            const fiveDayWeatherForecasts = this.#getFiveDaysWeatherForecasts(weatherForecasts);
+            const weatherForecasts = getItemFromSessionStorage(WEATHER_STORAGE_NAME);
+
+            if (weatherForecasts.result === ERROR)
+                throw new Error("Weather forecasts were not found");
+
+            const fiveDayWeatherForecasts = this.#getFiveDaysWeatherForecasts(weatherForecasts.data);
             return new RequestResult(SUCCESS, fiveDayWeatherForecasts);
         }
-        catch(err) {
+        catch (err) {
             return new RequestResult(ERROR, { title: "Weather forecasts were not found" });
         }
     }
@@ -66,19 +71,29 @@ export class WeatherService {
         }
     }
 
-    #getFiveDaysWeatherForecasts (weatherForecasts) {
+    #getFiveDaysWeatherForecasts(weatherForecasts) {
         const dailyWeatherForecast = [];
 
         for (let i = 0; i < weatherForecasts.length; i++) {
             const currentForecast = weatherForecasts[i];
             let temperatureSum = 0;
 
-            for (let j = 0; j < currentForecast.length; j++) {
-                temperatureSum += currentForecast[j].temperature.value;
+            for (let j = 0; j < currentForecast.weatherForecasts.length; j++) {
+                temperatureSum += currentForecast.weatherForecasts[j].temperature.value;
             }
 
             const avgTemperature = temperatureSum / currentForecast.weatherForecasts.length;
-            dailyWeatherForecast.push({});
+            const roundedAvgTemperature = Math.round(avgTemperature * 100) / 100;
+
+            const iconName = getIconNameWithTopPriority(currentForecast.weatherForecasts);
+
+            dailyWeatherForecast.push({
+                id: currentForecast.weatherForecastId, time: currentForecast.date,
+                temperature: { value: roundedAvgTemperature }, description: { name: iconName }
+            });
         }
+
+        dailyWeatherForecast.sort((a, b) => a.time.localeCompare(b.time));
+        return dailyWeatherForecast;
     }
 }
