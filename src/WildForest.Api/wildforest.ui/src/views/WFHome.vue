@@ -12,7 +12,7 @@ import { useUserStore } from "@/stores/UserStore";
 import { getIconFromWeatherName } from "@/components/tabs/weatherIconUtils";
 
 const weatherService = new WeatherService();
-const todayForecast = ref({ weatherForecasts: [] });
+const todayForecast = ref({ weatherForecasts: [], points: 0 });
 const weatherIcon = ref('');
 const userStore = useUserStore();
 const toast = useToast();
@@ -34,6 +34,14 @@ onMounted(async () => {
         toast.add({ severity: ERROR_SEVERITY, summary: 'Error', detail: requestResult.data.title, life: STANDARD_LIFE });
     }
 });
+
+const upVote = () => {
+    alert("Up");
+}
+
+const downVote = () => {
+    alert('down');
+}
 </script>
 
 <template>
@@ -49,7 +57,7 @@ onMounted(async () => {
                     </div>
                     <h2>{{ currentForecast.description?.description }}</h2>
                 </div>
-                <WFRating rating="7.8" />
+                <WFRating :rating="todayForecast.points" @up="upVote" @down="downVote"/>
             </div>
             <WFWeatherTabs :tabs="todayForecast.weatherForecasts" :selectedTab="currentForecast.time"
                 style="margin-top: 2vh;" />
