@@ -14,6 +14,8 @@ namespace WildForest.Infrastructure.Persistence.DataInitialization;
 
 public static class InitializationDbExtension
 {
+    private const int weekLength = 7;
+
     public static IServiceCollection InitializeData(this IServiceCollection services)
     {
         using var context = services.BuildServiceProvider().GetRequiredService<WildForestDbContext>();
@@ -49,11 +51,24 @@ public static class InitializationDbExtension
         var unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
         var weatherForecastDbService = serviceProvider.GetRequiredService<IWeatherForecastDbService>();
 
-        var cities = (List<City>) unitOfWork.CityRepository.GetDistinctCitiesFromUsersAsync().GetAwaiter().GetResult();
+        var cities = (List<City>)unitOfWork.CityRepository.GetDistinctCitiesFromUsersAsync().GetAwaiter().GetResult();
 
         foreach (var city in cities)
         {
             weatherForecastDbService.AddWeatherForecastsInDbAsync(city.Id).GetAwaiter().GetResult();
+        }
+
+        DeleteOldWeatherData(context);
+    }
+
+    private static void DeleteOldWeatherData(WildForestDbContext context)
+    {
+        var oldWeatherData = context.WeatherForecasts.Where(x => x.Date < DateOnly.FromDateTime(DateTime.Now.AddDays(-weekLength))).ToList();
+
+        if (oldWeatherData is not null && oldWeatherData.Count > 0)
+        {
+            context.WeatherForecasts.RemoveRange(oldWeatherData);
+            context.SaveChanges();
         }
     }
 
@@ -79,7 +94,7 @@ public static class InitializationDbExtension
             relativePath = "ru.json";
 
         using var fs = new FileStream(relativePath, FileMode.Open);
-        var cities = JsonSerializer.Deserialize(fs, typeof(List<City>), jsonOptions) as List<City>;
+        List<City>? cities = JsonSerializer.Deserialize(fs, typeof(List<City>), jsonOptions) as List<City>;
 
         if (cities is null)
             throw new ArgumentNullException(nameof(cities), "Invalid json file");
