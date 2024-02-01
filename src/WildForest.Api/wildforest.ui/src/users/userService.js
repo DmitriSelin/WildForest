@@ -66,7 +66,7 @@ export class UserService {
         else if (voteResult === DOWN) {
             requestResult = await this.api.requestWithPayload("weather/rating/vote/down", POST, request);
         }
-        
+
         if (requestResult.result === SUCCESS) {
             return requestResult;
         }
@@ -74,5 +74,27 @@ export class UserService {
             const badResponse = await requestResult.data.json();
             return new RequestResult(ERROR, badResponse);
         }
+    }
+
+    async getVote(ratingId) {
+        const request = { ratingId: ratingId, userId: this.userStore.authResponse.id }
+
+        const requestResult = await this.api.requestWithPayload("weather/rating/vote", GET, request);
+
+        if (requestResult.request === SUCCESS) {
+            return requestResult;
+        }
+        else if (requestResult.result === ERROR) {
+            const badResponse = await requestResult.data.json();
+            return new RequestResult(ERROR, badResponse);
+        }
+    }
+
+    #returnRequest() {
+
+    }
+
+    #returnBadRequest() {
+        
     }
 }
