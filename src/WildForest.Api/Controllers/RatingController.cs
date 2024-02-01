@@ -21,7 +21,7 @@ public sealed class RatingController : ApiController
         _mapper = mapper;
     }
 
-    [HttpGet("vote")]
+    [HttpPost("vote")]
     public async Task<IActionResult> GetVote(VoteCreationRequest request)
     {
         ErrorOr<VoteDto> vote = await _voteService.GetVoteAsync(request.RatingId, request.UserId);
