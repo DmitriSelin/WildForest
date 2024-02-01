@@ -10,11 +10,15 @@ import { ERROR_SEVERITY, STANDARD_LIFE } from "@/infrastructure/components/toast
 import { useToast } from "primevue/usetoast";
 import { useUserStore } from "@/stores/UserStore";
 import { getIconFromWeatherName } from "@/components/tabs/weatherIconUtils";
+import { UserService } from "@/users/userService";
+import { UP, DOWN } from "@/users/userConstants";
 
 const weatherService = new WeatherService();
 const todayForecast = ref({ weatherForecasts: [], points: 0 });
 const weatherIcon = ref('');
 const userStore = useUserStore();
+const userService = new UserService();
+const rating = ref({});
 const toast = useToast();
 const currentForecast = ref({
     time: "", pressure: 0, humidity: 0, cloudiness: 0, visibility: 0,
@@ -29,18 +33,36 @@ onMounted(async () => {
         todayForecast.value = requestResult.data;
         currentForecast.value = weatherService.getCurrentForecast(todayForecast.value);
         weatherIcon.value = getIconFromWeatherName(currentForecast.value.description.name);
+
+        await loadVotes();
     }
     else {
         toast.add({ severity: ERROR_SEVERITY, summary: 'Error', detail: requestResult.data.title, life: STANDARD_LIFE });
     }
 });
 
-const upVote = () => {
-    alert("Up");
+const upVote = async () => {
+    const requestResult = await userService.vote(UP, todayForecast.value.ratingId, rating.value.voteId);
+    setRating(requestResult);
 }
 
-const downVote = () => {
-    alert('down');
+const downVote = async () => {
+    const requestResult = await userService.vote(DOWN, todayForecast.value.ratingId, rating.value.voteId);
+    setRating(requestResult);
+}
+
+function setRating(requestResult) {
+    if (requestResult.result === SUCCESS) {
+        rating.value = requestResult.data;
+        todayForecast.value.points = rating.value.points;
+    }
+    else {
+        toast.add({ severity: ERROR_SEVERITY, summary: 'Error', detail: requestResult.data.title, life: STANDARD_LIFE });
+    }
+}
+
+async function loadVotes() {
+    const requestResult = await userService
 }
 </script>
 
@@ -57,7 +79,7 @@ const downVote = () => {
                     </div>
                     <h2>{{ currentForecast.description?.description }}</h2>
                 </div>
-                <WFRating :rating="todayForecast.points" @up="upVote" @down="downVote"/>
+                <WFRating :rating="todayForecast.points" @up="upVote" @down="downVote" />
             </div>
             <WFWeatherTabs :tabs="todayForecast.weatherForecasts" :selectedTab="currentForecast.time"
                 style="margin-top: 2vh;" />
