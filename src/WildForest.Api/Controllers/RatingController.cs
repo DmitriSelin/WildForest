@@ -21,10 +21,20 @@ public sealed class RatingController : ApiController
         _mapper = mapper;
     }
 
+    [HttpGet("vote")]
+    public async Task<IActionResult> GetVote(VoteCreationRequest request)
+    {
+        ErrorOr<VoteDto> vote = await _voteService.GetVoteAsync(request.RatingId, request.UserId);
+
+        return vote.Match(
+            voteDto => Ok(voteDto),
+            errors => Problem(errors));
+    }
+
     [HttpPost("vote/up")]
     public async Task<IActionResult> UpVote(VoteCreationRequest request)
     {
-        var command = VoteCreationCommand.CreateUpVote(request.RatingId, request.UserId);
+        var command = new VoteCreationCommand(request.RatingId, request.UserId, VoteConstants.Up);
 
         ErrorOr<RatingDto> rating = await _voteService.VoteAsync(command);
 
@@ -34,7 +44,7 @@ public sealed class RatingController : ApiController
     [HttpPost("vote/down")]
     public async Task<IActionResult> DownVote(VoteCreationRequest request)
     {
-        var command = VoteCreationCommand.CreateDownVote(request.RatingId, request.UserId);
+        var command = new VoteCreationCommand(request.RatingId, request.UserId, VoteConstants.Down);
 
         ErrorOr<RatingDto> rating = await _voteService.VoteAsync(command);
 
