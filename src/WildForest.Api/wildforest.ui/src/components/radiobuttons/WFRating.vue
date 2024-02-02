@@ -1,15 +1,19 @@
 <script setup>
-import WFRadiobutton from './WFRadiobutton.vue';
+import WFRadiobutton from "./WFRadiobutton.vue";
 import { getItemFromSessionStorage, setItemInSessionStorage } from "@/infrastructure/storage/storageUtils";
 import { ref, onMounted, watch } from 'vue';
 
 const up = '1';
 const down = '2';
-const upButtonCheckedStorageName = '';
+const upButtonCheckedStorageName = 'upBtn';
 
 const props = defineProps({
     rating: {
         type: Number,
+        required: true
+    },
+    upBtnChecked: {
+        type: Boolean,
         required: true
     },
     views: {
@@ -45,10 +49,10 @@ watch(() => vote.value, (state) => {
 <template>
     <div class="container">
         <WFRadiobutton name="vote" id="up" value="1" v-model:checkedValue="vote" icon="up"
-            :checked="upButtonChecked === true" />
+            :checked="upButtonChecked === true || upBtnChecked === true" />
         <span class="count">{{ rating }}</span>
         <WFRadiobutton name="vote" id="down" value="2" v-model:checkedValue="vote" icon="down"
-            :checked="!upButtonChecked === false" />
+            :checked="upButtonChecked === false || upBtnChecked === false" />
     </div>
 </template>
 

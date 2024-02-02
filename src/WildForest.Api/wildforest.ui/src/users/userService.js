@@ -19,8 +19,7 @@ export class UserService {
             return requestResult;
         }
         else if (requestResult.result === ERROR) {
-            const badResponse = await requestResult.data.json();
-            return new RequestResult(ERROR, badResponse);
+            return await this.#returnBadRequest(requestResult);
         }
     }
 
@@ -37,8 +36,7 @@ export class UserService {
                 return requestResult;
             }
             else if (requestResult.result === ERROR) {
-                const badResponse = await requestResult.data.json();
-                return new RequestResult(ERROR, badResponse);
+                return await this.#returnBadRequest(requestResult);
             }
         }
     }
@@ -51,13 +49,7 @@ export class UserService {
             const updationRequest = { ...request, id: voteId }
             requestResult = await this.api.requestWithPayload("weather/rating/vote", PUT, updationRequest);
 
-            if (requestResult.result === SUCCESS) {
-                return requestResult;
-            }
-            else if (requestResult.result === ERROR) {
-                const badResponse = await requestResult.data.json();
-                return new RequestResult(ERROR, badResponse);
-            }
+            return await this.#returnRequest(requestResult);
         }
 
         if (voteResult === UP) {
@@ -67,34 +59,27 @@ export class UserService {
             requestResult = await this.api.requestWithPayload("weather/rating/vote/down", POST, request);
         }
 
-        if (requestResult.result === SUCCESS) {
-            return requestResult;
-        }
-        else if (requestResult.result === ERROR) {
-            const badResponse = await requestResult.data.json();
-            return new RequestResult(ERROR, badResponse);
-        }
+        return await this.#returnRequest(requestResult);
     }
 
     async getVote(ratingId) {
         const request = { ratingId: ratingId, userId: this.userStore.authResponse.id }
 
-        const requestResult = await this.api.requestWithPayload("weather/rating/vote", GET, request);
+        const requestResult = await this.api.requestWithPayload("weather/rating/vote", POST, request);
+        return await this.#returnRequest(requestResult);
+    }
 
-        if (requestResult.request === SUCCESS) {
+    async #returnRequest(requestResult) {
+        if (requestResult.result === SUCCESS) {
             return requestResult;
         }
         else if (requestResult.result === ERROR) {
-            const badResponse = await requestResult.data.json();
-            return new RequestResult(ERROR, badResponse);
+            return await this.#returnBadRequest(requestResult);
         }
     }
 
-    #returnRequest() {
-
-    }
-
-    #returnBadRequest() {
-        
+    async #returnBadRequest(requestResult) {
+        const badResponse = await requestResult.data.json();
+        return new RequestResult(ERROR, badResponse);
     }
 }

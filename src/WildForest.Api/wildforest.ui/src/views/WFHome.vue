@@ -2,7 +2,7 @@
 import WFRating from '@/components/radiobuttons/WFRating.vue';
 import WFWeatherCard from '@/components/weather/WFWeatherCard.vue';
 import WFWeatherTabs from '@/components/tabs/WFWeatherTabs.vue'
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { WeatherService } from '@/weather/weatherService';
 import { getCurrentDateInfo } from '@/infrastructure/dateTimeProvider';
 import { SUCCESS } from "@/api/apiConstants";
@@ -19,6 +19,7 @@ const weatherIcon = ref('');
 const userStore = useUserStore();
 const userService = new UserService();
 const rating = ref({});
+const vote = ref({});
 const toast = useToast();
 const currentForecast = ref({
     time: "", pressure: 0, humidity: 0, cloudiness: 0, visibility: 0,
@@ -41,13 +42,20 @@ onMounted(async () => {
     }
 });
 
+const upBtnChecked = computed(() => {
+    if (vote.value.voteResult === UP)
+        return true;
+    else
+        return false;
+});
+
 const upVote = async () => {
-    const requestResult = await userService.vote(UP, todayForecast.value.ratingId, rating.value.voteId);
+    const requestResult = await userService.vote(UP, todayForecast.value.ratingId, vote.value.id);
     setRating(requestResult);
 }
 
 const downVote = async () => {
-    const requestResult = await userService.vote(DOWN, todayForecast.value.ratingId, rating.value.voteId);
+    const requestResult = await userService.vote(DOWN, todayForecast.value.ratingId, vote.value.id);
     setRating(requestResult);
 }
 
@@ -62,7 +70,11 @@ function setRating(requestResult) {
 }
 
 async function loadVotes() {
-    const requestResult = await userService
+    const requestResult = await userService.getVote(todayForecast.value.ratingId);
+
+    if (requestResult.result === SUCCESS) {
+        vote.value = requestResult.data;
+    }
 }
 </script>
 
@@ -79,7 +91,7 @@ async function loadVotes() {
                     </div>
                     <h2>{{ currentForecast.description?.description }}</h2>
                 </div>
-                <WFRating :rating="todayForecast.points" @up="upVote" @down="downVote" />
+                <WFRating :rating="todayForecast.points" @up="upVote" @down="downVote" :upBtnChecked="upBtnChecked"/>
             </div>
             <WFWeatherTabs :tabs="todayForecast.weatherForecasts" :selectedTab="currentForecast.time"
                 style="margin-top: 2vh;" />
