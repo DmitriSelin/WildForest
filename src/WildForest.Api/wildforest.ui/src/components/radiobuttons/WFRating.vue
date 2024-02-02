@@ -12,8 +12,8 @@ const props = defineProps({
         type: Number,
         required: true
     },
-    upBtnChecked: {
-        type: Boolean,
+    selectedValue: {
+        type: Number,
         required: true
     },
     views: {
@@ -22,7 +22,7 @@ const props = defineProps({
     }
 });
 
-const upButtonChecked = ref(false);
+const upButtonChecked = ref(null);
 
 onMounted(() => {
     try {
@@ -49,10 +49,10 @@ watch(() => vote.value, (state) => {
 <template>
     <div class="container">
         <WFRadiobutton name="vote" id="up" value="1" v-model:checkedValue="vote" icon="up"
-            :checked="upButtonChecked === true || upBtnChecked === true" />
+            :checked="upButtonChecked === true || selectedValue === 1" />
         <span class="count">{{ rating }}</span>
         <WFRadiobutton name="vote" id="down" value="2" v-model:checkedValue="vote" icon="down"
-            :checked="upButtonChecked === false || upBtnChecked === false" />
+            :checked="upButtonChecked === false || selectedValue === 2" />
     </div>
 </template>
 
