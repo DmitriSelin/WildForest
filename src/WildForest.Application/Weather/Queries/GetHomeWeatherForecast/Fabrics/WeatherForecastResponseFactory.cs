@@ -32,6 +32,6 @@ public sealed class WeatherForecastResponseFactory : IWeatherForecastResponseFac
     {
         return new(
             forecast.Id.Value, forecast.Date, weatherForecasts,
-            forecast.Rating.Id.Value, forecast.Rating.Points);
+            forecast.Rating.Id.Value);
     }
 }

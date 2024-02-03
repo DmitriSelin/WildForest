@@ -60,9 +60,9 @@ public sealed class VoteService : IVoteService
         return new RatingDto(vote.Rating.Id.Value, vote.Id.Value, (byte)vote.Result, vote.Rating.Points);
     }
 
-    public async Task<ErrorOr<VoteDto>> GetVoteAsync(Guid ratingId, Guid userId)
+    public async Task<ErrorOr<RatingDto>> GetVoteAsync(Guid ratingId, Guid userId)
     {
-        var rating = await 
+        var rating = await
             _unitOfWork.RatingRepository.GetRatingByIdWithVotesByUserIdAsync(RatingId.Create(ratingId), UserId.Create(userId));
 
         if (rating is null)
@@ -71,10 +71,10 @@ public sealed class VoteService : IVoteService
         bool isVoteExists = IsVoteExists(rating);
 
         if (!isVoteExists)
-            return Errors.Rating.VoteNotFound;
+            return new RatingDto(rating.Id.Value, null!, 0, rating.Points);
 
         var voteDto = rating.Votes
-            .Select(x => new VoteDto(x.Id.Value, (byte)x.Result))
+            .Select(x => new RatingDto(rating.Id.Value, x.Id.Value, (byte)x.Result, rating.Points))
             .SingleOrDefault();
 
         return voteDto!;

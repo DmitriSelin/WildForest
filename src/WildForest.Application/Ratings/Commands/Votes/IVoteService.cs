@@ -9,5 +9,5 @@ public interface IVoteService
 
     Task<ErrorOr<RatingDto>> UpdateVoteAsync(VoteUpdationCommand command);
 
-    Task<ErrorOr<VoteDto>> GetVoteAsync(Guid ratingId, Guid userId);
+    Task<ErrorOr<RatingDto>> GetVoteAsync(Guid ratingId, Guid userId);
 }
