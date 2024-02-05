@@ -6,12 +6,12 @@ import {
     faComment, faAnglesLeft, faMagnifyingGlass, faCloudRain,
     faTemperatureHalf, faUser, faCloudBolt, faSnowflake,
     faSun, faCloud, faSmog, faDroplet, faWind, faCompass,
-    faBinoculars, faPercent
+    faBinoculars, faPercent, faPaperPlane
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faBars, faHouseChimney, faCloudShowersHeavy,
     faComment, faAnglesLeft, faMagnifyingGlass, faGoogle,
     faCloudRain, faTemperatureHalf, faUser, faCloudBolt,
     faSnowflake, faSun, faCloud, faSmog, faDroplet, faWind,
-    faCompass, faBinoculars, faPercent);
+    faCompass, faBinoculars, faPercent, faPaperPlane);
 export default FontAwesomeIcon;
