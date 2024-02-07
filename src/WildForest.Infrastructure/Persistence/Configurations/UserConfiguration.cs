@@ -52,6 +52,10 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
                 .HasColumnName("Email");
             });
 
+        builder
+            .HasIndex(p => p.Email)
+            .IsUnique();
+
         builder.OwnsOne(
             x => x.Password,
             sa =>
