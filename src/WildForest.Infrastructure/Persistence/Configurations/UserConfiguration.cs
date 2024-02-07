@@ -53,8 +53,7 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
             });
 
         builder
-            .HasIndex(p => p.Email)
-            .IsUnique();
+            .HasAlternateKey(x => x.Email);
 
         builder.OwnsOne(
             x => x.Password,
