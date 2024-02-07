@@ -32,6 +32,7 @@ public sealed class AuthenticationMappingConfig : IRegister
             .Map(dest => dest.LastName, source => source.Item1.LastName)
             .Map(dest => dest.Email, source => source.Item1.Email)
             .Map(dest => dest.Password, source => source.Item1.Password)
+            .Map(dest => dest.Image, source => source.Item1.Image)
             .Map(dest => dest.IpAddress, source => source.iPAddress)
             .Map(dest => dest.CityId, source => source.Item1.CityId)
             .Map(dest => dest.LanguageId, source => source.Item1.LanguageId);

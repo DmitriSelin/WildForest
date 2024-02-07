@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WildForest.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitializationMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -67,6 +67,7 @@ namespace WildForest.Infrastructure.Migrations
                     Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
                     Salt = table.Column<byte[]>(type: "bytea", nullable: false),
+                    Image = table.Column<byte[]>(type: "bytea", nullable: true),
                     CityId = table.Column<Guid>(type: "uuid", nullable: false),
                     LanguageId = table.Column<Guid>(type: "uuid", nullable: false)
                 },

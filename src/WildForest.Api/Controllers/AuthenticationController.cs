@@ -43,8 +43,8 @@ public sealed class AuthenticationController : ApiController
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
-        string iPAddress = HttpContext.GetIpAddress();
-        var command = _mapper.Map<RegisterCommand>((request, iPAddress));
+        string ipAddress = HttpContext.GetIpAddress();
+        var command = _mapper.Map<RegisterCommand>((request, ipAddress));
 
         ErrorOr<AuthenticationResult> authenticationResult = await _registrationService.RegisterAsync(command);
 

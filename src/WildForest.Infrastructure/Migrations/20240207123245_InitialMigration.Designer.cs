@@ -12,8 +12,8 @@ using WildForest.Infrastructure.Persistence.Context;
 namespace WildForest.Infrastructure.Migrations
 {
     [DbContext(typeof(WildForestDbContext))]
-    [Migration("20240119204528_InitializationMigration")]
-    partial class InitializationMigration
+    [Migration("20240207123245_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -196,6 +196,10 @@ namespace WildForest.Infrastructure.Migrations
 
                     b.Property<Guid>("CityId")
                         .HasColumnType("uuid");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("bytea")
+                        .HasColumnName("Image");
 
                     b.Property<Guid>("LanguageId")
                         .HasColumnType("uuid");

@@ -52,9 +52,6 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
                 .HasColumnName("Email");
             });
 
-        builder
-            .HasAlternateKey(x => x.Email);
-
         builder.OwnsOne(
             x => x.Password,
             sa =>
@@ -67,6 +64,10 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
                 .IsRequired()
                 .HasColumnName("Salt");
             });
+
+        builder
+            .Property(x => x.Image)
+            .HasColumnName("Image");
 
         builder
             .HasOne(p => p.City)

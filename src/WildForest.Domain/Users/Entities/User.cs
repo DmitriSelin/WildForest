@@ -1,4 +1,5 @@
-﻿using WildForest.Domain.Cities.Entities;
+﻿using System.Net.Mime;
+using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Comments.Entities;
 using WildForest.Domain.Common.Enums;
@@ -23,6 +24,8 @@ public class User : Entity<UserId>
 
     public Password Password { get; private set; } = null!;
 
+    public byte[]? Image { get; private set; }
+
     public CityId CityId { get; private set; } = null!;
 
     public City City { get; private set; } = null!;
@@ -45,7 +48,7 @@ public class User : Entity<UserId>
 
     private User(
         UserId id, FirstName firstName, LastName lastName,
-        Role role, Email email, Password password,
+        Role role, Email email, Password password, byte[]? image,
         CityId cityId, LanguageId languageId) : base(id)
     {
         FirstName = firstName;
@@ -53,6 +56,7 @@ public class User : Entity<UserId>
         Role = role;
         Email = email;
         Password = password;
+        Image = image;
         CityId = cityId;
         LanguageId = languageId;
     }
@@ -63,11 +67,12 @@ public class User : Entity<UserId>
         Email email,
         Password password,
         CityId cityId,
-        LanguageId languageId)
+        LanguageId languageId,
+        byte[]? image = null)
     {
         return new(UserId.Create(), firstName, lastName,
-                    Role.User, email, password, cityId,
-                    languageId);
+                    Role.User, email, password, image,
+                    cityId, languageId);
     }
 
     public static User CreateAdmin(
@@ -76,10 +81,11 @@ public class User : Entity<UserId>
         Email email,
         Password password,
         CityId cityId,
-        LanguageId languageId)
+        LanguageId languageId,
+        byte[]? image = null)
     {
         return new(UserId.Create(), firstName, lastName,
-                    Role.Admin, email, password,
+                    Role.Admin, email, password, image,
                     cityId, languageId);
     }
 

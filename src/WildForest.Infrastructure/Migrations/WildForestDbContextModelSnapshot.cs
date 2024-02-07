@@ -194,6 +194,10 @@ namespace WildForest.Infrastructure.Migrations
                     b.Property<Guid>("CityId")
                         .HasColumnType("uuid");
 
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("bytea")
+                        .HasColumnName("Image");
+
                     b.Property<Guid>("LanguageId")
                         .HasColumnType("uuid");
 
