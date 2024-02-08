@@ -13,12 +13,12 @@ public sealed class UserFactory
         var users = new List<User>();
 
         var user = User.CreateUser(Constants.User.FirstName, Constants.User.LastName,
-            Constants.User.UserDuplicateEmail, Password.Create(Constants.User.Password), cityId, languageId);
+            Constants.User.UserDuplicateEmail, Password.Create(Constants.User.Password), cityId, languageId, null);
 
         users.Add(user);
 
         var admin = User.CreateAdmin(Constants.User.FirstName, Constants.User.LastName,
-            Constants.User.AdminDuplicateEmail, Password.Create(Constants.User.Password), cityId, languageId);
+            Constants.User.AdminDuplicateEmail, Password.Create(Constants.User.Password), cityId, languageId, null);
 
         users.Add(admin);
         return users;

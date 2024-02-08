@@ -15,7 +15,8 @@ public sealed class AuthenticationResponse : RegisterUserDto
         string lastName, string email,
         string password, Guid cityId,
         string cityName, Guid languageId,
-        string language, string token) : base(id, firstName, lastName, email, password, cityId, languageId)
+        string language, string token,
+        byte[]? image) : base(id, firstName, lastName, email, password, cityId, languageId, image)
     {
         CityName = cityName;
         Language = language;

@@ -12,9 +12,10 @@ public sealed class UpdateProfileCommand : RegisterUserDto
         Guid id, string firstName, string lastName,
         string email, string password, Guid cityId,
         Guid languageId, string? newPassword,
-        string ipAddress) : base(id, firstName, lastName, email, password, cityId, languageId)
+        string ipAddress, byte[]? image) : base(id, firstName, lastName, email, password, cityId, languageId, image)
     {
-        NewPassword= newPassword;
-        IpAddress= ipAddress;
+        NewPassword = newPassword;
+        IpAddress = ipAddress;
+        Image = image;
     }
 }

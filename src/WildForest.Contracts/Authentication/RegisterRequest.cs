@@ -10,7 +10,7 @@ public class RegisterRequest
 
     public string Password { get; init; }
 
-    public byte[]? Image { get; init; }
+    public string? Image { get; init; }
 
     public Guid CityId { get; init; }
 
@@ -18,7 +18,7 @@ public class RegisterRequest
 
     public RegisterRequest(
         string firstName, string lastName, string email,
-        string password, byte[]? image, Guid cityId, Guid languageId)
+        string password, string? image, Guid cityId, Guid languageId)
     {
         FirstName = firstName;
         LastName = lastName;
