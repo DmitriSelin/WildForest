@@ -9,6 +9,7 @@ import { useUserStore } from "@/stores/UserStore"
 import { useToast } from "primevue/usetoast";
 import { getRegisterFormData } from "@/infrastructure/formProvider";
 import { goTo } from "@/api/api";
+import FileUpload from "primevue/fileupload";
 
 const toast = useToast();
 const userStore = useUserStore();
@@ -27,7 +28,8 @@ const register = async () => {
     if (result.isValid === true && comboboxValidationResult.isValid === true) {
         const result = await userStore.register({
             firstName: formData.value.firstName, lastName: formData.value.lastName,
-            email: formData.value.email, password: formData.value.password, cityId: formData.value.selectedCity.id, languageId: ""
+            email: formData.value.email, password: formData.value.password,
+            image: formData.value.image, cityId: formData.value.selectedCity.id, languageId: ""
         });
 
         if (result === true) {
@@ -50,6 +52,18 @@ const register = async () => {
     }
 }
 
+const onImageSelect = async (event) => {
+    const file = event.files[0];
+    let blob = await fetch(file.objectURL).then((r) => r.blob());
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+
+    reader.onloadend = function () {
+        const base64DataImage = reader.result;
+        formData.value.image = base64DataImage;
+    }
+}
+
 const registerWithGoogle = () => {
     toast.add({ severity: 'info', summary: 'Info', detail: 'This function is still in development', life: 3000 });
 }
@@ -62,22 +76,26 @@ const registerWithGoogle = () => {
                 <img src="../assets/images/heart.svg" alt="heart" class="left-block-name-heart" />
                 <h1>Registration</h1>
             </div>
-            <form @submit.prevent="register" class="left-block-content">
+            <form @submit.prevent="register" class="left-block-content" enctype="multipart/form-data">
                 <WFInput label="Firstname" name="firstName" placeholder="Input your firstname"
-                    v-model:value="formData.firstName" autocomplete="given-name"/>
+                    v-model:value="formData.firstName" autocomplete="given-name" />
                 <WFInput label="Lastname" name="lastName" placeholder="Input your lastname"
-                    v-model:value="formData.lastName" autocomplete="family-name"/>
+                    v-model:value="formData.lastName" autocomplete="family-name" />
                 <WFInput label="Email" type="email" name="email" placeholder="Input your email"
-                    v-model:value="formData.email" autocomplete="email"/>
+                    v-model:value="formData.email" autocomplete="email" />
                 <WFDropdown :options="userStore.cities" placeholder="Select a City" id="cityDropdown"
                     error="This field is required" :isError="errors[0] === true" editable
                     v-model:value="formData.selectedCity" :labelOnTop="true" />
                 <WFInput label="Password" type="password" name="password" placeholder="Input your password"
                     v-model:value="formData.password" minLength="6" error="Input the same passwords"
-                    :isError="errors[1] === true" autocomplete="new-password"/>
+                    :isError="errors[1] === true" autocomplete="new-password" />
                 <WFInput label="Password" type="password" name="samePassword" placeholder="Input the same password"
                     v-model:value="formData.samePassword" minLength="6" error="Input the same passwords"
-                    :isError="errors[1] === true" autocomplete="new-password"/>
+                    :isError="errors[1] === true" autocomplete="new-password" />
+                <FileUpload mode="basic" accept="image/*" :maxFileSize="1000000" @select="onImageSelect"
+                    class="fileUpload" />
+                <!-- <WFInput label="Your image" name="image" type="file" placeholder="Input your image"
+                    v-model:value="formData.image"/> -->
                 <div class="left-block-content-btn">
                     <WFButton label="Register" size="large" />
                     <WFEmptyLink to="login" text="Already have an account?" title="Login" />
@@ -94,4 +112,6 @@ const registerWithGoogle = () => {
     </main>
 </template>
 
-<style lang="scss" scoped>@import "./styles/views.scss";</style>
+<style lang="scss" scoped>
+@import "./styles/views.scss";
+</style>

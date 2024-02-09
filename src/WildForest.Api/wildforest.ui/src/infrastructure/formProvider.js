@@ -1,5 +1,4 @@
 import { useUserStore } from "@/stores/UserStore";
-import { getItemFromLocalStorage } from "@/infrastructure/storage/storageUtils";
 
 export function getLoginFormData() {
     const formData = {
@@ -16,6 +15,7 @@ export function getRegisterFormData() {
         lastName: "",
         email: "",
         selectedCity: {},
+        image: null,
         password: "",
         samePassword: ""
     }
