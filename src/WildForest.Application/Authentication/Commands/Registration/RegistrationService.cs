@@ -83,7 +83,8 @@ public sealed class RegistrationService : IRegistrationService
             email: email,
             password: credentials.Item3,
             cityId: credentials.Item4,
-            languageId: credentials.Item5);
+            languageId: credentials.Item5,
+            image: credentials.Item6);
     }
 
     private static User CreateAdmin(RegisterCommand command, Email email)
@@ -96,10 +97,11 @@ public sealed class RegistrationService : IRegistrationService
             email: email,
             password: credentials.Item3,
             cityId: credentials.Item4,
-            languageId: credentials.Item5);
+            languageId: credentials.Item5,
+            image: credentials.Item6);
     }
 
-    private static Tuple<FirstName, LastName, Password, CityId, LanguageId> CreateCredentials(RegisterCommand command)
+    private static Tuple<FirstName, LastName, Password, CityId, LanguageId, byte[]?> CreateCredentials(RegisterCommand command)
     {
         var firstName = FirstName.Create(command.FirstName);
         var lastName = LastName.Create(command.LastName);
@@ -107,6 +109,6 @@ public sealed class RegistrationService : IRegistrationService
         var cityId = CityId.Create(command.CityId);
         var languageId = LanguageId.Create(command.LanguageId);
 
-        return new(firstName, lastName, password, cityId, languageId);
+        return new(firstName, lastName, password, cityId, languageId, command.Image);
     }
 }

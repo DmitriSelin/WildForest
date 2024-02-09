@@ -75,7 +75,7 @@ public sealed class ProfileService : IProfileService
         var cityId = CityId.Create(command.CityId);
         var languageId = LanguageId.Create(command.LanguageId);
 
-        var user = User.CreateUser(firstName, lastName, email, password, cityId, languageId);
+        var user = User.CreateUser(firstName, lastName, email, password, cityId, languageId, command.Image);
         return user;
     }
 

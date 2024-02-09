@@ -68,7 +68,7 @@ public class User : Entity<UserId>
         Password password,
         CityId cityId,
         LanguageId languageId,
-        byte[]? image = null)
+        byte[]? image)
     {
         return new(UserId.Create(), firstName, lastName,
                     Role.User, email, password, image,
@@ -82,7 +82,7 @@ public class User : Entity<UserId>
         Password password,
         CityId cityId,
         LanguageId languageId,
-        byte[]? image = null)
+        byte[]? image)
     {
         return new(UserId.Create(), firstName, lastName,
                     Role.Admin, email, password, image,
