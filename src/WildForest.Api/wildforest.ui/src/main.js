@@ -14,6 +14,8 @@ import Dropdown from 'primevue/dropdown';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 import Message from 'primevue/message';
+import FileUpload from 'primevue/fileupload';
+import Avatar from 'primevue/avatar';
 
 /* Pinia */
 const pinia = createPinia();
@@ -30,6 +32,8 @@ app.component('font-awesome-icon', FontAwesomeIcon);
 app.component('Dropdown', Dropdown);
 app.component('Toast', Toast);
 app.component('Message', Message);
+app.component('FileUpload', FileUpload);
+app.component('Avatar', Avatar);
 /* PrimeVue components */
 
 app.mount('#app');

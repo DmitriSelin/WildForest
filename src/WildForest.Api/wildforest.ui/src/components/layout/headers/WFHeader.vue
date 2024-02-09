@@ -6,9 +6,14 @@ import { ref, onMounted } from 'vue';
 
 const userStore = useUserStore();
 const fullName = ref("Unknown user");
+const imageData = ref("");
 
 onMounted(() => {
     fullName.value = userStore.authResponse.lastName + ' ' + userStore.authResponse.firstName;
+
+    if (userStore.authResponse.image) {
+        imageData.value = 'data:image;base64,' + userStore.authResponse.image;
+    }
 });
 
 const emit = defineEmits(['barClick'])
@@ -34,7 +39,7 @@ const clickOnBar = () => {
             <WFButton icon="magnifying-glass" outlined disabled />
         </form>
         <div class="header-profile">
-            <img src="../../../assets/images/logo.ico" alt="userImage">
+            <Avatar :image="imageData" size="large" shape="circle"/>
             <h3>{{ fullName }}</h3>
         </div>
     </header>
@@ -107,10 +112,6 @@ const clickOnBar = () => {
 
         @media screen and (max-width: 768px) {
             display: none;
-        }
-
-        img {
-            margin-right: 10px;
         }
     }
 }
