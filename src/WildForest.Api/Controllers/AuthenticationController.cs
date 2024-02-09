@@ -44,7 +44,8 @@ public sealed class AuthenticationController : ApiController
     public async Task<IActionResult> Register(RegisterRequest request)
     {
         string ipAddress = HttpContext.GetIpAddress();
-        var command = _mapper.Map<RegisterCommand>((request, ipAddress));
+        byte[]? image = GetByteArrayFromBase64String(request.Image);
+        var command = _mapper.Map<RegisterCommand>((request, image, ipAddress));
 
         ErrorOr<AuthenticationResult> authenticationResult = await _registrationService.RegisterAsync(command);
 
@@ -120,5 +121,18 @@ public sealed class AuthenticationController : ApiController
         return cities.Match(
             citiesResponse => Ok(_mapper.Map<List<CityResponse>>(citiesResponse)),
             errors => Problem(errors));
+    }
+
+    private static byte[]? GetByteArrayFromBase64String(string? imageDataBase64)
+    {
+        if (string.IsNullOrWhiteSpace(imageDataBase64))
+        {
+            return null;
+        }
+        else
+        {
+            string imageData = imageDataBase64.Split(',')[1];   //split image data and file info
+            return Convert.FromBase64String(imageData);
+        }
     }
 }

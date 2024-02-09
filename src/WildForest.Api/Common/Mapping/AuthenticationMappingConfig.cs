@@ -27,12 +27,12 @@ public sealed class AuthenticationMappingConfig : IRegister
             .Map(dest => dest.CityId, source => source.Item1.CityId)
             .Map(dest => dest.LanguageId, source => source.Item1.LanguageId);
 
-        config.NewConfig<(RegisterRequest, string iPAddress), RegisterCommand>()
+        config.NewConfig<(RegisterRequest, byte[]? image, string iPAddress), RegisterCommand>()
             .Map(dest => dest.FirstName, source => source.Item1.FirstName)
             .Map(dest => dest.LastName, source => source.Item1.LastName)
             .Map(dest => dest.Email, source => source.Item1.Email)
             .Map(dest => dest.Password, source => source.Item1.Password)
-            .Map(dest => dest.Image, source => source.Item1.Image)
+            .Map(dest => dest.Image, source => source.image)
             .Map(dest => dest.IpAddress, source => source.iPAddress)
             .Map(dest => dest.CityId, source => source.Item1.CityId)
             .Map(dest => dest.LanguageId, source => source.Item1.LanguageId);
@@ -47,6 +47,7 @@ public sealed class AuthenticationMappingConfig : IRegister
             .Map(dest => dest.CityId, src => src.User.CityId.Value)
             .Map(dest => dest.CityName, src => src.User.City.Name.Value)
             .Map(dest => dest.LanguageId, src => src.User.LanguageId.Value)
-            .Map(dest => dest.Language, src => src.User.Language.Name);
+            .Map(dest => dest.Language, src => src.User.Language.Name)
+            .Map(dest => dest.Image, src => src.User.Image);
     }
 }
