@@ -2,7 +2,8 @@
 const props = defineProps({
     image: {
         type: String,
-        default: "../../../assets/images/logo.ico"
+        required: true,
+        nullable: true
     },
     size: {
         type: String,
@@ -20,5 +21,6 @@ const props = defineProps({
 </script>
 
 <template>
-    <h1></h1>
+    <Avatar v-if="image !== null" :image="'data:image;base64,' + image" :size="size" :shape="shape" :ariaLabel="alt" />
+    <img v-else src="../../../assets/images/logo.ico" :alt="alt" />
 </template>

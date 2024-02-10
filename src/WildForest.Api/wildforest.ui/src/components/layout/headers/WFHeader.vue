@@ -1,18 +1,19 @@
 <script setup>
 import WFInput from '@/components/inputs/WFInput.vue'
 import WFButton from '@/components/buttons/WFButton.vue'
+import WFAvatar from '@/components/bl/avatar/WFAvatar.vue';
 import { useUserStore } from "@/stores/UserStore";
 import { ref, onMounted } from 'vue';
 
 const userStore = useUserStore();
 const fullName = ref("Unknown user");
-const imageData = ref("");
+const imageData = ref("null");
 
 onMounted(() => {
     fullName.value = userStore.authResponse.lastName + ' ' + userStore.authResponse.firstName;
 
     if (userStore.authResponse.image) {
-        imageData.value = 'data:image;base64,' + userStore.authResponse.image;
+        imageData.value = userStore.authResponse.image;
     }
 });
 
@@ -39,7 +40,7 @@ const clickOnBar = () => {
             <WFButton icon="magnifying-glass" outlined disabled />
         </form>
         <div class="header-profile">
-            <Avatar :image="imageData" size="large" shape="circle"/>
+            <WFAvatar :image="imageData" />
             <h3>{{ fullName }}</h3>
         </div>
     </header>
@@ -109,6 +110,7 @@ const clickOnBar = () => {
         align-items: center;
         color: var(--white);
         margin-right: 20px;
+        gap: 1vh;
 
         @media screen and (max-width: 768px) {
             display: none;
