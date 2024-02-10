@@ -7,7 +7,7 @@ import ky from 'ky';
 import { useUserStore } from "@/stores/UserStore";
 
 export class Api {
-    constructor(client = ky) {
+    constructor(client = ky.create({ prefixUrl: url })) {
         this.client = client;
     }
 
@@ -35,7 +35,7 @@ export class Api {
             return response;
 
         try {
-            const authResponse = await this.client.post(`${url}tokens/refreshToken`).json();
+            const authResponse = await this.client.post('tokens/refreshToken').json();
             const userStore = useUserStore();
             userStore.updateAuthResponse(authResponse);
             headers = this.#getAuthHeader();
@@ -64,7 +64,7 @@ export class Api {
             requestParameters = `?${Object.keys(requestData).map(key => `${key}=${requestData[key]}`).join('&')}`;
 
         try {
-            const response = await this.client.get(`${url}${path}${requestParameters}`, { headers: headers }).json();
+            const response = await this.client.get(`${path}${requestParameters}`, { headers: headers }).json();
             return new RequestResult(SUCCESS, response);
         }
         catch (err) {
@@ -85,11 +85,11 @@ export class Api {
     async #requestWithKy(path, method, requestData, headers) {
         switch (method) {
             case POST:
-                return await this.client.post(`${url}${path}`, { headers: headers, json: requestData }).json();
+                return await this.client.post(path, { headers: headers, json: requestData }).json();
             case PUT:
-                return await this.client.put(`${url}${path}`, { headers: headers, json: requestData }).json();
+                return await this.client.put(path, { headers: headers, json: requestData }).json();
             case DELETE:
-                return await this.client.delete(`${url}${path}`, { headers: headers, json: requestData }).json();
+                return await this.client.delete(path, { headers: headers, json: requestData }).json();
         }
     }
 }
