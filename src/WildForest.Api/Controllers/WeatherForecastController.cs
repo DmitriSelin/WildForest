@@ -1,7 +1,10 @@
 ﻿using ErrorOr;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using WildForest.Api.Common.Extensions;
+using WildForest.Api.SignalR.Hubs;
+using WildForest.Application.Weather.Common.Models;
 using WildForest.Application.Weather.Queries.GetHomeWeatherForecast;
 
 namespace WildForest.Api.Controllers;
@@ -11,11 +14,14 @@ namespace WildForest.Api.Controllers;
 public sealed class WeatherForecastController : ApiController
 {
     private readonly IHomeWeatherForecastService _homeWeatherForecastService;
+    private readonly IHubContext<ChatHub> _chatHub;
 
     public WeatherForecastController(
-        IHomeWeatherForecastService homeWeatherForecastService)
+        IHomeWeatherForecastService homeWeatherForecastService,
+        IHubContext<ChatHub> chatHub)
     {
         _homeWeatherForecastService = homeWeatherForecastService;
+        _chatHub = chatHub;
     }
 
     [HttpGet("homeCity/{date}")]
@@ -35,6 +41,14 @@ public sealed class WeatherForecastController : ApiController
         if (forecasts.IsError)
             return Problem(forecasts.Errors);
 
+        await AddToGroupAsync(forecasts.Value, currentDate);
+
         return Ok(forecasts.Value);
+    }
+
+    private async Task AddToGroupAsync(List<WeatherForecastResponse> weatherForecasts, DateOnly currentDate)
+    {
+        var weatherForecast = weatherForecasts.Single(x => x.Date == currentDate);
+        await _chatHub.Groups.AddToGroupAsync(HttpContext.Connection.Id, weatherForecast.WeatherForecastId.ToString());
     }
 }

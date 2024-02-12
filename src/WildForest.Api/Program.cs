@@ -1,4 +1,5 @@
 using WildForest.Api;
+using WildForest.Api.SignalR.Hubs;
 using WildForest.Application;
 using WildForest.Infrastructure;
 
@@ -20,6 +21,7 @@ var app = builder.Build();
 
     app.MapForwarder("/{**all}", "http://localhost:5173/");
     app.UseExceptionHandler("/error");
+    app.MapHub<ChatHub>("/chatHub");
     app.UseHttpsRedirection();
     app.UseAuthentication();
     app.UseAuthorization();

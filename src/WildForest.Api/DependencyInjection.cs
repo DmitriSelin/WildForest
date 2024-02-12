@@ -13,6 +13,7 @@ namespace WildForest.Api
         public static IServiceCollection AddPresentation(this IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSignalR();
             services.AddEndpointsApiExplorer();
             services.AddSwagger();
             services.AddQuartzToDI();
