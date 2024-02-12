@@ -18,6 +18,20 @@ public sealed class CommentService : ICommentService
         _unitOfWork = unitOfWork;
     }
 
+    public async Task<IEnumerable<CommentDto>> GetCommentsAsync(WeatherForecastId weatherForecastId)
+    {
+        var comments = await _unitOfWork.CommentRepository.GetCommentsByWeatherForecastIdWithUsersAsync(weatherForecastId);
+
+        if (comments is null || !comments.Any())
+            return Array.Empty<CommentDto>();
+
+        var commentsDto = comments
+            .Select(x => new CommentDto(x.Id.Value, x.Text, x.Date, x.User.FirstName.Value, x.User.LastName.Value, x.User.Image))
+            .ToArray();
+
+        return commentsDto;
+    }
+
     public async Task<ErrorOr<CommentDto>> AddCommentAsync(CommentCommand command)
     {
         var userId = UserId.Create(command.UserId);
@@ -36,7 +50,7 @@ public sealed class CommentService : ICommentService
         await _unitOfWork.CommentRepository.AddCommentAsync(comment);
         await _unitOfWork.SaveChangesAsync();
 
-        return new CommentDto(comment.Id.Value, comment.Text, comment.Date, $"{user.LastName} {user.FirstName}");
+        return new CommentDto(comment.Id.Value, comment.Text, comment.Date, user.FirstName.Value, user.LastName.Value, user.Image);
     }
 
     public async Task<ErrorOr<CommentDto>> UpdateCommentAsync(CommentCommandForUpdate command)
@@ -49,7 +63,7 @@ public sealed class CommentService : ICommentService
 
         var commentId = CommentId.Create(command.Id);
         var weatherForecastId = WeatherForecastId.Create(command.WeatherForecastId);
-        
+
         var comment = await _unitOfWork.CommentRepository.GetCommentByIdAndUserIdAndWeatherForecastIdAsync(commentId, user.Id, weatherForecastId);
 
         if (comment is null)
@@ -59,6 +73,7 @@ public sealed class CommentService : ICommentService
 
         await _unitOfWork.SaveChangesAsync();
 
-        return new CommentDto(comment.Id.Value, comment.Text, comment.Date, $"{user.LastName} {user.FirstName}");
+        return new CommentDto(comment.Id.Value, comment.Text, comment.Date,
+            user.FirstName.Value, user.LastName.Value, user.Image);
     }
 }

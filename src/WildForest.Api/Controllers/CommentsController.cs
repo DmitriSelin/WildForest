@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using WildForest.Api.Common.Extensions;
 using WildForest.Application.Comments.Commands.Services;
 using WildForest.Application.Comments.Common;
-using WildForest.Application.Comments.Queries.GetComments;
 using WildForest.Contracts.Comments;
 using WildForest.Domain.Weather.ValueObjects;
 
@@ -14,12 +13,10 @@ namespace WildForest.Api.Controllers;
 [Route("api/weather/comments")]
 public sealed class CommentsController : ApiController
 {
-    private readonly ICommentQueryHandler _commentQueryHandler;
     private readonly ICommentService _commentService;
 
-    public CommentsController(ICommentQueryHandler commentQueryHandler, ICommentService commentService)
+    public CommentsController(ICommentService commentService)
     {
-        _commentQueryHandler = commentQueryHandler;
         _commentService = commentService;
     }
 
@@ -28,12 +25,9 @@ public sealed class CommentsController : ApiController
     {
         var weatherForecastId = WeatherForecastId.Create(weatherId);
 
-        ErrorOr<IEnumerable<CommentDto>> commentsResult = await _commentQueryHandler.GetCommentsAsync(weatherForecastId);
+        IEnumerable<CommentDto> comments = await _commentService.GetCommentsAsync(weatherForecastId);
 
-        if (commentsResult.IsError)
-            return Problem(commentsResult.Errors);
-
-        return Ok(commentsResult.Value);
+        return Ok(comments);
     }
 
     [HttpPost]

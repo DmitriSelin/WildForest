@@ -8,12 +8,19 @@ public sealed class CommentDto : BaseDto
 
     public DateTime Date { get; init; }
 
-    public string FullUserName { get; init; }
+    public string FirstName { get; init; }
 
-    public CommentDto(Guid id, string text, DateTime date, string fullUserName) : base(id)
+    public string LastName { get; init; }
+
+    public byte[]? Image { get; init; }
+
+    public CommentDto(Guid id, string text, DateTime date,
+        string firstName, string lastName, byte[]? image) : base(id)
     {
         Text = text;
         Date = date;
-        FullUserName = fullUserName;
+        FirstName = firstName;
+        LastName = lastName;
+        Image = image;
     }
 }
