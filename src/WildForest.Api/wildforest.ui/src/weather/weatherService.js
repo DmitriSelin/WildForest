@@ -53,13 +53,13 @@ export class WeatherService {
     }
 
     #createWeatherForecast(weatherResult) {
-        const todayForecast = this.#getTodayWeatherForecast(weatherResult.data);
+        const todayForecast = this.getTodayWeatherForecast(weatherResult.data);
         this.#formatTimeToHoursAndMinutes(todayForecast.weatherForecasts);
         todayForecast.weatherForecasts.sort((a, b) => a.time.localeCompare(b.time));
         return new RequestResult(SUCCESS, todayForecast);
     }
 
-    #getTodayWeatherForecast(forecasts) {
+    getTodayWeatherForecast(forecasts) {
         const currentDate = getTodayDate();
         const todayForecast = forecasts.find(x => x.date === currentDate);
         return todayForecast;
