@@ -69,6 +69,17 @@ export class UserService {
         return await this.#returnRequest(requestResult);
     }
 
+    async getAuthCredentials() {
+        const requestResult = await this.api.request("auth/countries-languages", GET);
+        return await this.#returnRequest(requestResult);
+    }
+
+    async getCitiesByCountry() {
+        const selectedCountryId = this.userStore.selectedCredentials.selectedCountry.id;
+        const requestResult = await this.api.request(`auth/cities/${selectedCountryId}`, GET);
+        return await this.#returnRequest(requestResult);
+    }
+
     async #returnRequest(requestResult) {
         if (requestResult.result === SUCCESS) {
             return requestResult;
