@@ -3,26 +3,29 @@ import WFInput from "@/components/inputs/WFInput.vue"
 import WFButton from "@/components/buttons/WFButton.vue"
 import WFEmptyLink from "@/components/buttons/WFEmptyLink.vue";
 import { ref } from "vue";
-import { useUserStore } from "@/stores/UserStore"
 import { useToast } from "primevue/usetoast";
 import { getLoginFormData } from "@/infrastructure/formProvider";
 import { goTo } from "@/api/api";
+import { SUCCESS, ERROR } from "@/api/apiConstants";
+import { ERROR_SEVERITY, STANDARD_LIFE } from "@/infrastructure/components/toasts/toastConstants";
+import { UserService } from "@/users/userService";
 
-const userStore = useUserStore();
+const userService = new UserService
 const formData = ref(getLoginFormData());
 
 const login = async () => {
-    const result = await userStore.login({ email: formData.value.email, password: formData.value.password });
+    const requestResult = await userService.login({ email: formData.value.email, password: formData.value.password });
 
-    if (result === true) {
+    if (requestResult.result === SUCCESS) {
         goTo("Home");
     }
-    else if (result === false) {
-        toast.add({ severity: 'error', summary: 'Error', detail: userStore.errorMessage, life: 10000 });
+    else if (requestResult.result === ERROR) {
+        toast.add({ severity: ERROR_SEVERITY, summary: 'Error', detail: "Comments cannot be uploaded", life: STANDARD_LIFE });
     }
 }
 
 const toast = useToast();
+
 const loginWithGoogle = () => {
     toast.add({ severity: 'info', summary: 'Info', detail: 'This function is still in development', life: 3000 });
 }

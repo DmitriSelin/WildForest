@@ -5,38 +5,41 @@ import WFButton from "@/components/buttons/WFButton.vue";
 import WFEmptyLink from "@/components/buttons/WFEmptyLink.vue";
 import { validateSameFields, validateNotEmptyValue } from "@/auth/validators/fieldValidator";
 import { ref, onMounted } from "vue";
-import { useUserStore } from "@/stores/UserStore"
+import { UserService } from "@/users/userService";
 import { useToast } from "primevue/usetoast";
+import { SUCCESS, ERROR } from "@/api/apiConstants";
+import { ERROR_SEVERITY, STANDARD_LIFE } from "@/infrastructure/components/toasts/toastConstants";
 import { getRegisterFormData } from "@/infrastructure/formProvider";
 import { goTo } from "@/api/api";
-import FileUpload from "primevue/fileupload";
 
 const toast = useToast();
-const userStore = useUserStore();
-
-onMounted(async () => {
-    await userStore.getCitiesByCountry();
-});
-
+const userService = new UserService();
+const cities = ref([]);
 const formData = ref(getRegisterFormData());
 const errors = ref([]);
 
+onMounted(async () => {
+    const requestResult = await userService.getCitiesByCountry();
+
+    if (requestResult.result === SUCCESS)
+        cities.value = requestResult.data;
+    else if (requestResult.result === ERROR)
+        toast.add({ severity: ERROR_SEVERITY, summary: 'Error', detail: requestResult.data.title, life: STANDARD_LIFE });
+});
+
 const register = async () => {
     let comboboxValidationResult = validateNotEmptyValue(formData.value.selectedCity.name);
-    let result = validateSameFields(formData.value.password, formData.value.samePassword);
+    let validationResult = validateSameFields(formData.value.password, formData.value.samePassword);
 
-    if (result.isValid === true && comboboxValidationResult.isValid === true) {
-        const result = await userStore.register({
-            firstName: formData.value.firstName, lastName: formData.value.lastName,
-            email: formData.value.email, password: formData.value.password,
-            image: formData.value.image, cityId: formData.value.selectedCity.id, languageId: ""
-        });
+    if (validationResult.isValid === true && comboboxValidationResult.isValid === true) {
+        const request = createRequest();
+        const requestResult = await userService.register(request);
 
-        if (result === true) {
+        if (requestResult.result === SUCCESS) {
             goTo("Home");
         }
-        else if (result === false) {
-            toast.add({ severity: 'error', summary: 'Error', detail: userStore.errorMessage, life: 10000 });
+        else if (requestResult.result === ERROR) {
+            toast.add({ severity: ERROR_SEVERITY, summary: 'Error', detail: requestResult.data.title, life: STANDARD_LIFE });
         }
     }
     else {
@@ -44,12 +47,22 @@ const register = async () => {
             errors.value[0] = true;
             return;
         }
-        else if (result.isValid === false) {
+        else if (validationResult.isValid === false) {
             errors.value[0] = false;
             errors.value[1] = true;
             return;
         }
     }
+}
+
+function createRequest() {
+    const request = {
+        firstName: formData.value.firstName, lastName: formData.value.lastName,
+        email: formData.value.email, password: formData.value.password,
+        image: formData.value.image, cityId: formData.value.selectedCity.id, languageId: ""
+    }
+
+    return request;
 }
 
 const onImageSelect = async (event) => {
@@ -83,9 +96,8 @@ const registerWithGoogle = () => {
                     v-model:value="formData.lastName" autocomplete="family-name" />
                 <WFInput label="Email" type="email" name="email" placeholder="Input your email"
                     v-model:value="formData.email" autocomplete="email" />
-                <WFDropdown :options="userStore.cities" placeholder="Select a City" id="cityDropdown"
-                    error="This field is required" :isError="errors[0] === true" editable
-                    v-model:value="formData.selectedCity" :labelOnTop="true" />
+                <WFDropdown :options="cities" placeholder="Select a City" id="cityDropdown" error="This field is required"
+                    :isError="errors[0] === true" editable v-model:value="formData.selectedCity" :labelOnTop="true" />
                 <WFInput label="Password" type="password" name="password" placeholder="Input your password"
                     v-model:value="formData.password" minLength="6" error="Input the same passwords"
                     :isError="errors[1] === true" autocomplete="new-password" />
@@ -94,8 +106,6 @@ const registerWithGoogle = () => {
                     :isError="errors[1] === true" autocomplete="new-password" />
                 <FileUpload mode="basic" accept="image/*" :maxFileSize="1000000" @select="onImageSelect"
                     class="fileUpload" />
-                <!-- <WFInput label="Your image" name="image" type="file" placeholder="Input your image"
-                    v-model:value="formData.image"/> -->
                 <div class="left-block-content-btn">
                     <WFButton label="Register" size="large" />
                     <WFEmptyLink to="login" text="Already have an account?" title="Login" />
