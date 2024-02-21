@@ -1,4 +1,4 @@
-import { useUserStore } from "@/stores/UserStore";
+import { useUserStore } from "@/stores/userStore";
 
 export function getLoginFormData() {
     const formData = {

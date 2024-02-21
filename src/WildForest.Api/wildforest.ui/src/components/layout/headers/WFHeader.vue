@@ -2,7 +2,7 @@
 import WFInput from '@/components/inputs/WFInput.vue'
 import WFButton from '@/components/buttons/WFButton.vue'
 import WFAvatar from '@/components/bl/avatar/WFAvatar.vue';
-import { useUserStore } from "@/stores/UserStore";
+import { useUserStore } from "@/stores/userStore";
 import { ref, onMounted } from 'vue';
 
 const userStore = useUserStore();

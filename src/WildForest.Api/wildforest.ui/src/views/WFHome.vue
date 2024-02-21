@@ -8,7 +8,7 @@ import { getCurrentDateInfo } from "@/infrastructure/dateTimeProvider";
 import { SUCCESS } from "@/api/apiConstants";
 import { ERROR_SEVERITY, STANDARD_LIFE } from "@/infrastructure/components/toasts/toastConstants";
 import { useToast } from "primevue/usetoast";
-import { useUserStore } from "@/stores/UserStore";
+import { useUserStore } from "@/stores/userStore";
 import { getIconFromWeatherName } from "@/components/tabs/weatherIconUtils";
 import { UserService } from "@/users/userService";
 import { UP, DOWN } from "@/users/userConstants";

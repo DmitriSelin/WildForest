@@ -4,7 +4,7 @@ import { RequestResult } from "./requestResult";
 import { getItemFromLocalStorage } from "@/infrastructure/storage/storageUtils";
 import router from "@/router/router";
 import ky from 'ky';
-import { useUserStore } from "@/stores/UserStore";
+import { useUserStore } from "@/stores/userStore";
 
 export class Api {
     constructor(client = ky.create({ prefixUrl: url })) {

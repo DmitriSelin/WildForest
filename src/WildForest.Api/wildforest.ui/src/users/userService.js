@@ -1,5 +1,5 @@
 import { Api } from "@/api/api";
-import { useUserStore } from "@/stores/UserStore";
+import { useUserStore } from "@/stores/userStore";
 import { SUCCESS, ERROR, GET, PUT, POST } from "@/api/apiConstants";
 import { RequestResult } from "@/api/requestResult";
 import { getItemFromSessionStorage, setItemInSessionStorage } from "@/infrastructure/storage/storageUtils";
