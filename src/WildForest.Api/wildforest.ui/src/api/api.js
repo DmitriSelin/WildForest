@@ -37,7 +37,7 @@ export class Api {
         try {
             const authResponse = await this.client.post('tokens/refreshToken').json();
             const userStore = useUserStore();
-            userStore.updateAuthResponse(authResponse);
+            userStore.setAuthResponse(authResponse);
             headers = this.#getAuthHeader();
 
             return await this.request(path, method, requestData, headers);
