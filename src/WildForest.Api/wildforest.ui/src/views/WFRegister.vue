@@ -32,26 +32,22 @@ const register = async () => {
     let validationResult = validateSameFields(formData.value.password, formData.value.samePassword);
 
     if (validationResult.isValid === true && comboboxValidationResult.isValid === true) {
-        const request = createRequest();
-        const requestResult = await userService.register(request);
-
-        if (requestResult.result === SUCCESS) {
-            goTo("Home");
-        }
-        else if (requestResult.result === ERROR) {
-            toast.add({ severity: ERROR_SEVERITY, summary: 'Error', detail: requestResult.data.title, life: STANDARD_LIFE });
-        }
+        await sendRequest();
     }
     else {
-        if (comboboxValidationResult.isValid === false) {
-            errors.value[0] = true;
-            return;
-        }
-        else if (validationResult.isValid === false) {
-            errors.value[0] = false;
-            errors.value[1] = true;
-            return;
-        }
+        displayValidationErrors(comboboxValidationResult, validationResult);
+    }
+}
+
+async function sendRequest() {
+    const request = createRequest();
+    const requestResult = await userService.register(request);
+
+    if (requestResult.result === SUCCESS) {
+        goTo("Home");
+    }
+    else if (requestResult.result === ERROR) {
+        toast.add({ severity: ERROR_SEVERITY, summary: 'Error', detail: requestResult.data.title, life: STANDARD_LIFE });
     }
 }
 
@@ -63,6 +59,16 @@ function createRequest() {
     }
 
     return request;
+}
+
+function displayValidationErrors(comboboxValidationResult, validationResult) {
+    if (comboboxValidationResult.isValid === false) {
+        errors.value[0] = true;
+    }
+    else if (validationResult.isValid === false) {
+        errors.value[0] = false;
+        errors.value[1] = true;
+    }
 }
 
 const onImageSelect = async (event) => {
