@@ -15,7 +15,7 @@ export class UserService {
         const requestResult = await this.api.requestWithPayload("users/profile", PUT, updateProfileRequest);
 
         if (requestResult.result === SUCCESS) {
-            this.userStore.updateAuthResponse(requestResult.data);
+            this.userStore.setAuthResponse(requestResult.data);
             return requestResult;
         }
         else if (requestResult.result === ERROR) {
@@ -78,6 +78,31 @@ export class UserService {
         const selectedCountryId = this.userStore.selectedCredentials.selectedCountry.id;
         const requestResult = await this.api.request(`auth/cities/${selectedCountryId}`, GET);
         return await this.#returnRequest(requestResult);
+    }
+
+    async register(request) {
+        request.languageId = this.userStore.selectedCredentials.selectedLanguage.id;
+        const requestResult = await this.api.request('auth/register', POST, request);
+
+        if (requestResult.result === SUCCESS) {
+            this.userStore.setAuthResponse(requestResult.data);
+            return requestResult;
+        }
+        else if (requestResult.result === ERROR) {
+            return await this.#returnBadRequest(requestResult);
+        }
+    }
+
+    async login(request) {
+        const requestResult = await this.api.request(`auth/login`, POST, request);
+
+        if (requestResult.result === SUCCESS) {
+            this.userStore.setAuthResponse(requestResult.data);
+            return requestResult;
+        }
+        else if (requestResult.result === ERROR) {
+            return await this.#returnBadRequest(requestResult);
+        }
     }
 
     async #returnRequest(requestResult) {
