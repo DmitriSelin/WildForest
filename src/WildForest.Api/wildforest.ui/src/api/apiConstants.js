@@ -10,3 +10,6 @@ export const PATCH = "PATCH";
 export const DELETE = "DELETE";
 /*HTTP response status codes*/
 export const UNAUTHORIZED = 401;
+/*SignalR constants*/
+export const GET_COMMENTS = "GetComments";
+export const GET_COMMENTS_ASYNC = "GetCommentsAsync";
