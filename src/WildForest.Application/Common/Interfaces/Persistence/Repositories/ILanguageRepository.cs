@@ -1,9 +1,10 @@
+using WildForest.Application.Common.Interfaces.Persistence.Base;
 using WildForest.Domain.Languages.Entities;
 using WildForest.Domain.Languages.ValueObjects;
 
 namespace WildForest.Application.Common.Interfaces.Persistence.Repositories;
 
-public interface ILanguageRepository
+public interface ILanguageRepository : IRepository<Language>
 {
     Task<IEnumerable<Language>> GetAllLanguagesAsync();
 

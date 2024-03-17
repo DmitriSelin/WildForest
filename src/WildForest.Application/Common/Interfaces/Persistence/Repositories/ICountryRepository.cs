@@ -1,16 +1,14 @@
-﻿using WildForest.Domain.Countries.Entities;
+﻿using WildForest.Application.Common.Interfaces.Persistence.Base;
+using WildForest.Domain.Countries.Entities;
 using WildForest.Domain.Countries.ValueObjects;
 
-namespace WildForest.Application.Common.Interfaces.Persistence.Repositories
+namespace WildForest.Application.Common.Interfaces.Persistence.Repositories;
+
+public interface ICountryRepository : IRepository<Country>
 {
-    public interface ICountryRepository
-    {
-        Task<IEnumerable<Country>> GetAllCountriesAsync();
+    Task<IEnumerable<Country>> GetAllCountriesAsync();
 
-        Task AddCountryAsync(Country country);
+    Task<Country?> GetCountryByNameAsync(CountryName countryName);
 
-        Task<Country?> GetCountryByNameAsync(CountryName countryName);
-
-        Task<Country?> GetCountryByIdAsync(CountryId countryId);
-    }
+    Task<Country?> GetCountryByIdAsync(CountryId countryId);
 }

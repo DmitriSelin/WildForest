@@ -1,11 +1,12 @@
-﻿using WildForest.Domain.Cities.Entities;
+﻿using WildForest.Application.Common.Interfaces.Persistence.Base;
+using WildForest.Domain.Cities.Entities;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Countries.ValueObjects;
 using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Application.Common.Interfaces.Persistence.Repositories;
 
-public interface ICityRepository
+public interface ICityRepository : IRepository<City>
 {
     Task<City?> GetCityByIdAsync(CityId cityId);
 

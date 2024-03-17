@@ -1,9 +1,10 @@
+using WildForest.Application.Common.Interfaces.Persistence.Base;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.ValueObjects;
 
 namespace WildForest.Application.Common.Interfaces.Persistence.Repositories;
 
-public interface IRefreshTokenRepository
+public interface IRefreshTokenRepository : IRepository<RefreshToken>
 {
     Task<RefreshToken?> GetTokenWithUserByValueAsync(string token);
 
