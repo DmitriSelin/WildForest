@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Москва",
+    "latitude": 55.7558,
+    "longitude": 37.6176
+  },
+  {
+    "name": "Санкт-Петербург",
+    "latitude": 59.9343,
+    "longitude": 30.3351
+  },
+  {
+    "name": "Новосибирск",
+    "latitude": 55.0084,
+    "longitude": 82.9357
+  },
+  {
+    "name": "Екатеринбург",
+    "latitude": 56.8389,
+    "longitude": 60.6057
+  },
+  {
+    "name": "Краснодар",
+    "latitude": 45.0360,
+    "longitude": 38.9746
+  },
+  {
+    "name": "Нижний Новгород",
+    "latitude": 56.3287,
+    "longitude": 44.002
+  },
+  {
+    "name": "Казань",
+    "latitude": 55.8304,
+    "longitude": 49.0661
+  },
+  {
+    "name": "Челябинск",
+    "latitude": 55.1604,
+    "longitude": 61.4008
+  },
+  {
+    "name": "Омск",
+    "latitude": 54.9881,
+    "longitude": 73.3686
+  },
+  {
+    "name": "Ростов-на-Дону",
+    "latitude": 47.2357,
+    "longitude": 39.7015
+  },
+  {
+    "name": "Уфа",
+    "latitude": 54.737,
+    "longitude": 55.9679
+  }
+]
