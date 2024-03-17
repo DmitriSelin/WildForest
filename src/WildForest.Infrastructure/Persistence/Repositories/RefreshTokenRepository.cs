@@ -3,21 +3,17 @@ using WildForest.Application.Common.Interfaces.Persistence.Repositories;
 using WildForest.Domain.Tokens.Entities;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Infrastructure.Persistence.Context;
+using WildForest.Infrastructure.Persistence.Repositories.Base;
 
 namespace WildForest.Infrastructure.Persistence.Repositories;
 
-public sealed class RefreshTokenRepository : IRefreshTokenRepository
+public sealed class RefreshTokenRepository : Repository<RefreshToken>, IRefreshTokenRepository
 {
-    private readonly WildForestDbContext _context;
-
-    public RefreshTokenRepository(WildForestDbContext context)
-    {
-        _context = context;
-    }
+    public RefreshTokenRepository(WildForestDbContext context) : base(context) { }
 
     public async Task<RefreshToken?> GetTokenWithUserByValueAsync(string token)
     {
-        return await _context.RefreshTokens
+        return await Context.RefreshTokens
             .Include(x => x.User)
             .SingleOrDefaultAsync(x => x.Token == token);
     }
@@ -26,13 +22,8 @@ public sealed class RefreshTokenRepository : IRefreshTokenRepository
     {
         await Task.CompletedTask;
 
-        return !_context.RefreshTokens
+        return !Context.RefreshTokens
             .Any(x => x.Token == token);
-    }
-
-    public async Task AddTokenAsync(RefreshToken refreshToken)
-    {
-        await _context.RefreshTokens.AddAsync(refreshToken);
     }
 
     public async Task RemoveOldRefreshTokensByUserIdAsync(UserId userId)
@@ -44,22 +35,17 @@ public sealed class RefreshTokenRepository : IRefreshTokenRepository
     {
         var utcNow = DateTime.UtcNow;
 
-        var oldRefreshTokens = _context.RefreshTokens
+        var oldRefreshTokens = Context.RefreshTokens
             .Where(x => (x.RevokedDate! != null! || utcNow >= x.Expiration) && x.UserId == userId &&
                         x.CreationDate.AddDays(2) <= utcNow);
 
-        _context.RefreshTokens.RemoveRange(oldRefreshTokens);
+        Context.RefreshTokens.RemoveRange(oldRefreshTokens);
     }
 
     public async Task<RefreshToken?> GetRefreshTokenByReplacedTokenAndUserIdAsync(
         string replacedByToken, UserId userId)
     {
-        return await _context.RefreshTokens
+        return await Context.RefreshTokens
             .SingleOrDefaultAsync(x => x.Token == replacedByToken && x.UserId == userId);
-    }
-
-    public async Task UpdateRefreshTokenAsync(RefreshToken refreshToken)
-    {
-        await Task.Run(() => _context.RefreshTokens.Update(refreshToken));
     }
 }

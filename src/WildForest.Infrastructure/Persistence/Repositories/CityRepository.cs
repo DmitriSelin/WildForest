@@ -5,27 +5,23 @@ using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Countries.ValueObjects;
 using WildForest.Domain.Users.ValueObjects;
 using WildForest.Infrastructure.Persistence.Context;
+using WildForest.Infrastructure.Persistence.Repositories.Base;
 
 namespace WildForest.Infrastructure.Persistence.Repositories;
 
-public sealed class CityRepository : ICityRepository
+public sealed class CityRepository : Repository<City>, ICityRepository
 {
-    private readonly WildForestDbContext _context;
-
-    public CityRepository(WildForestDbContext context)
-    {
-        _context = context;
-    }
+    public CityRepository(WildForestDbContext context) : base(context) { }
 
     public async Task<City?> GetCityByIdAsync(CityId cityId)
     {
-        return await _context.Cities
+        return await Context.Cities
             .FirstOrDefaultAsync(x => x.Id == cityId);
     }
 
     public async Task<IEnumerable<City>?> GetCitiesByCountryIdAsync(CountryId countryId)
     {
-        return await _context.Cities
+        return await Context.Cities
             .Where(x => x.CountryId == countryId)
             .OrderBy(x => x.Name.Value)
             .ToListAsync();
@@ -33,7 +29,7 @@ public sealed class CityRepository : ICityRepository
 
     public async Task<IEnumerable<City>> GetDistinctCitiesFromUsersAsync()
     {
-        return await _context.Cities.FromSqlRaw("""
+        return await Context.Cities.FromSqlRaw("""
                 SELECT DISTINCT c."Id", c."Name", c."Latitude",
                 c."Longitude", c."CountryId" FROM public."Cities" c
                 INNER JOIN public."Users" u
@@ -43,7 +39,7 @@ public sealed class CityRepository : ICityRepository
 
     public async Task AddCitiesAsync(List<City> cities)
     {
-        await _context.Cities.AddRangeAsync(cities);
+        await Context.Cities.AddRangeAsync(cities);
     }
 
     public async Task<IEnumerable<City>> GetCitiesByUserIdAsync(UserId userId)
@@ -59,7 +55,7 @@ public sealed class CityRepository : ICityRepository
                         WHERE "Id" = '{userId.Value}'))
                 """;
 
-        return await _context.Cities
+        return await Context.Cities
             .FromSqlRaw(sqlQuery)
             .OrderBy(x => x.Name.Value)
             .ToListAsync();
