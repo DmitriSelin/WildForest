@@ -1,10 +1,10 @@
-using WildForest.Application.Common.Interfaces.Persistence.Base;
+using WildForest.Application.Common.Interfaces.Persistence.Repositories.Base;
 using WildForest.Domain.Common.Models;
 using WildForest.Infrastructure.Persistence.Context;
 
 namespace WildForest.Infrastructure.Persistence.Repositories.Base;
 
-public class Repository<TEntity> : IRepository<TEntity>
+public abstract class Repository<TEntity> : IRepository<TEntity>
     where TEntity : class, IEntity
 {
     protected readonly WildForestDbContext Context;
