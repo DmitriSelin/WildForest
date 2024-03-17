@@ -1,4 +1,4 @@
-﻿using WildForest.Application.Common.Interfaces.Persistence.Base;
+﻿using WildForest.Application.Common.Interfaces.Persistence.Repositories.Base;
 using WildForest.Domain.Cities.ValueObjects;
 using WildForest.Domain.Weather;
 using WildForest.Domain.Weather.ValueObjects;

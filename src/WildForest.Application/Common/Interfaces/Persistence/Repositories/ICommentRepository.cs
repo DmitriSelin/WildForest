@@ -1,4 +1,4 @@
-﻿using WildForest.Application.Common.Interfaces.Persistence.Base;
+﻿using WildForest.Application.Common.Interfaces.Persistence.Repositories.Base;
 using WildForest.Domain.Comments.Entities;
 using WildForest.Domain.Comments.ValueObjects;
 using WildForest.Domain.Users.ValueObjects;

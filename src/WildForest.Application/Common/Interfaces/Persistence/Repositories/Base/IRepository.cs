@@ -1,6 +1,6 @@
 using WildForest.Domain.Common.Models;
 
-namespace WildForest.Application.Common.Interfaces.Persistence.Base;
+namespace WildForest.Application.Common.Interfaces.Persistence.Repositories.Base;
 
 public interface IRepository<TEntity>
     where TEntity: notnull, IEntity

@@ -1,4 +1,4 @@
-using WildForest.Application.Common.Interfaces.Persistence.Base;
+using WildForest.Application.Common.Interfaces.Persistence.Repositories.Base;
 using WildForest.Domain.Ratings;
 using WildForest.Domain.Ratings.Entities;
 using WildForest.Domain.Ratings.ValueObjects;
