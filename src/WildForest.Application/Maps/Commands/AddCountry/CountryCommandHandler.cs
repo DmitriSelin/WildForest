@@ -28,7 +28,7 @@ public sealed class CountryCommandHandler : ICountryCommandHandler
 
         country = Country.Create(countryName);
 
-        await _unitOfWork.CountryRepository.AddCountryAsync(country);
+        await _unitOfWork.CountryRepository.AddAsync(country);
         await _unitOfWork.SaveChangesAsync();
 
         var result = "The country was successfully added";

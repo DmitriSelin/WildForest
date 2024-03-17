@@ -28,7 +28,7 @@ public sealed class RevokeTokenCommandHandler : IRevokeTokenCommandHandler
         }
 
         refreshToken.Revoke(command.IpAddress, "Revoke without replacement");
-        await _unitOfWork.RefreshTokenRepository.UpdateRefreshTokenAsync(refreshToken);
+        _unitOfWork.RefreshTokenRepository.Update(refreshToken);
         await _unitOfWork.SaveChangesAsync();
 
         return "Token revoked";

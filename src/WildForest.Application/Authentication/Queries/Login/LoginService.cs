@@ -34,7 +34,7 @@ public sealed class LoginService : ILoginService
             return Errors.Authentication.InvalidCredentials;
 
         var refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, query.IpAddress);
-        await _unitOfWork.RefreshTokenRepository.AddTokenAsync(refreshToken);
+        await _unitOfWork.RefreshTokenRepository.AddAsync(refreshToken);
 
         await _unitOfWork.RefreshTokenRepository.RemoveOldRefreshTokensByUserIdAsync(user.Id);
         await _unitOfWork.SaveChangesAsync();

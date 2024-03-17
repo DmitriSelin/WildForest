@@ -82,7 +82,7 @@ public sealed class ProfileService : IProfileService
     private async Task<RefreshToken> GetRefreshTokenAsync(UserId userId, string ipAddress)
     {
         RefreshToken refreshToken = await _refreshTokenGenerator.GenerateTokenAsync(userId, ipAddress);
-        await _unitOfWork.RefreshTokenRepository.AddTokenAsync(refreshToken);
+        await _unitOfWork.RefreshTokenRepository.AddAsync(refreshToken);
         await _unitOfWork.RefreshTokenRepository.RemoveOldRefreshTokensByUserIdAsync(userId);
         return refreshToken;
     }

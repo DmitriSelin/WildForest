@@ -47,7 +47,7 @@ public sealed class CommentService : ICommentService
             return Errors.WeatherForecast.NotFoundById;
 
         var comment = Comment.Create(command.Text, userId, weatherForecastId);
-        await _unitOfWork.CommentRepository.AddCommentAsync(comment);
+        await _unitOfWork.CommentRepository.AddAsync(comment);
         await _unitOfWork.SaveChangesAsync();
 
         return new CommentDto(comment.Id.Value, comment.Text, comment.Date, user.FirstName.Value, user.LastName.Value, user.Image);

@@ -50,7 +50,7 @@ public sealed class RegistrationService : IRegistrationService
 
         user = CreateUserByRole(command, email, isUserRole);
 
-        await _unitOfWork.UserRepository.AddUserAsync(user);
+        await _unitOfWork.UserRepository.AddAsync(user);
         RefreshToken refreshToken = await GetRefreshTokenAsync(user, command.IpAddress);
         await _unitOfWork.SaveChangesAsync();
 
@@ -69,7 +69,7 @@ public sealed class RegistrationService : IRegistrationService
     private async Task<RefreshToken> GetRefreshTokenAsync(User user, string ipAddress)
     {
         RefreshToken token = await _refreshTokenGenerator.GenerateTokenAsync(user.Id, ipAddress);
-        await _unitOfWork.RefreshTokenRepository.AddTokenAsync(token);
+        await _unitOfWork.RefreshTokenRepository.AddAsync(token);
         return token;
     }
 
