@@ -10,11 +10,7 @@ public interface IRefreshTokenRepository : IRepository<RefreshToken>
 
     Task<bool> IsTokenUnique(string token);
 
-    Task AddTokenAsync(RefreshToken refreshToken);
-
     Task RemoveOldRefreshTokensByUserIdAsync(UserId userId);
 
     Task<RefreshToken?> GetRefreshTokenByReplacedTokenAndUserIdAsync(string replacedByToken, UserId userId);
-
-    Task UpdateRefreshTokenAsync(RefreshToken refreshToken);
 }
